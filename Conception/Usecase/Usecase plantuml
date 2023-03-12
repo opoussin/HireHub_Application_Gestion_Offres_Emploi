@@ -1,0 +1,69 @@
+@startuml
+left to right direction
+
+actor Candidat as candidat 
+actor Recruteur as recruteur
+actor Admin as admin
+
+
+
+package Gerer_offre{
+    usecase "Ajouter offre" as ajouter
+usecase " Modifier offre" as modifier
+usecase " supprimer offre" as supprimer
+usecase " Afficher liste candidats" as afficher_candidat
+usecase " Telecharger dossier candidats" as telecharger
+
+}
+
+package Rechercher_offre {
+usecase " Afficher des offres" as afficher_offre
+usecase " Filtrer des offres " as filtrer
+}
+
+
+package Plateforme_recrutement { 
+    usecase "Créer profil" as creer_profil
+    usecase "Se connecter" as connecter
+    usecase "Se déconnecter" as deconnecter
+    usecase "Postuler" as postuler
+    usecase "Valider organisation" as valider
+    usecase "Candidater" as candidater
+    usecase "Modifier candidature" as modif_candid
+usecase "Ajouter une organisation" as ajouter_orga
+
+    
+    (connecter) .> (creer_partie) : <include>
+    (connecter) .> (creer_profil) : <extends>
+    (connecter) .> (postuler) : <include>
+    (connecter) .> (modif_candid) : <include>
+    (connecter) .> (valider) : <include>
+(connecter) .> (rechercher) : <include>
+
+}
+
+
+candidat --> connecter
+candidat --> deconnecter 
+candidat --> postuler
+candidat --> modif_candid
+candidat --> creer_profil
+candidat --> afficher_offre
+candidat --> filtrer
+
+recruteur --> connecter
+recruteur --> deconnecter 
+recruteur --> creer_profil
+recruteur --> ajouter
+recruteur --> modifier
+recruteur --> supprimer
+recruteur --> telecharger
+recruteur --> afficher_candidat
+
+admin --> connecter
+admin --> deconnecter 
+admin --> creer_profil
+
+admin --> valider
+
+@enduml
