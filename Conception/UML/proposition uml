@@ -1,0 +1,54 @@
+@startuml
+class Utilisateur{
+  Name
+}
+class Admin {
+  Name
+}
+class Recruteur {
+  Name
+}
+class Candidat {
+  Name
+}
+class Candidature {
+Candidat STRING
+Offre INT 
+Date DATE
+Pieces FILES
+}
+class Organisation {
+Nom STRING
+#Siren INT
+Type STRING
+Sg STRING
+}
+class Offre {
+#Numero INT
+Etat ENUM {"non publiee", "publiee", "expiree"}
+Date_val DATE
+Pieces STRING
+Nb_pieces INT
+}
+class Fiche_de_poste {
+  Intitule STRING
+Statut STRING
+Responsable STRING
+Type STRING
+Lieu STRING
+Rythme INT
+Salaire INT
+Description STRING
+}
+Student "0..*" - "1..*" Course
+Offre "1..1" *-- "1..1" Fiche_de_poste : contient
+Recruteur "1..*" - "0..*" Offre : edite
+Recruteur "1..*" - "1..*" Organisation : appartient
+Recruteur "1..1" - "0..*" Recruteur : designe
+Utilisateur "1..1" - "0..1" Recruteur : est un
+Utilisateur "1..1" - "0..1" Admin : est un
+Utilisateur "1..1" - "1..1" Candidat : est un
+Recruteur "1..1" - "0..*" Candidature : valide
+
+
+@enduml
