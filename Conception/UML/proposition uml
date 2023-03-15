@@ -1,54 +1,75 @@
 @startuml
 class Utilisateur{
-  Name
+Mail: char
+Mot_de_passe: char
+Nom : char
+Prénom : char
+Téléphone : int
+Date_inscription : Date
+Statut : booléen
+Recruteur : booléen 
+Administrateur : booléen 
 }
-class Admin {
-  Name
+
+note right of Utilisateur::counter
+  This member is annotated
+end note
+
+class Administrateur{
 }
-class Recruteur {
-  Name
-}
+
 class Candidat {
-  Name
+
 }
-class Candidature {
-Candidat STRING
-Offre INT 
-Date DATE
-Pieces FILES
+
+class Recruteur{
+
 }
+
 class Organisation {
-Nom STRING
-#Siren INT
-Type STRING
-Sg STRING
+Nom : char
+SIREN : int
+Type : enum
+Siège_social : char
 }
-class Offre {
-#Numero INT
-Etat ENUM {"non publiee", "publiee", "expiree"}
-Date_val DATE
-Pieces STRING
-Nb_pieces INT
+
+Class Offre_Emploi { 
+Numéro_emploi : int
+Etat : enum
+Date_validité : Date
+Pièces_Demandées: char 
+Nb_pièces : int
 }
-class Fiche_de_poste {
-  Intitule STRING
-Statut STRING
-Responsable STRING
-Type STRING
-Lieu STRING
-Rythme INT
-Salaire INT
-Description STRING
+
+class Fiche_Poste {
+Intitulé : char
+Statut_poste : enum
+Responsable : char
+Type_poste : char
+Lieu : char
+Rythme : char
+Salaire : int
+Descriptif : char
 }
-Student "0..*" - "1..*" Course
-Offre "1..1" *-- "1..1" Fiche_de_poste : contient
-Recruteur "1..*" - "0..*" Offre : edite
-Recruteur "1..*" - "1..*" Organisation : appartient
-Recruteur "1..1" - "0..*" Recruteur : designe
-Utilisateur "1..1" - "0..1" Recruteur : est un
-Utilisateur "1..1" - "0..1" Admin : est un
-Utilisateur "1..1" - "1..1" Candidat : est un
-Recruteur "1..1" - "0..*" Candidature : valide
+
+class Candidature {
+Date_cand : Date
+}
 
 
+
+Utilisateur "1" -- "1" Candidat : "est un" >
+Utilisateur "1" -- "0..1" Administrateur: "est un" >
+Utilisateur "1" - "0..1" Recruteur: "est un" >
+Administrateur "1" - "*" Administrateur: "désigne" >
+Recruteur "1" -- "*" Recruteur: "désigne" >
+Administrateur "1" -- "*" Recruteur : "admet" >
+Administrateur "1" -- "*" Organisation : "valide" >
+Candidat "1" -- "*"Candidature : "candidate" >
+Recruteur "1..*" -- "1..*" Organisation : "appartient à" >
+
+Candidature "*" -- "1" Offre_Emploi : "correspond à" >
+Organisation "1" - "*" Offre_Emploi : "édite" >
+Offre_Emploi "1" - "1" Fiche_Poste : "appartient à" >
+Recruteur "1" -- "*" Candidature : "valide" >
 @enduml
