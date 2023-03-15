@@ -1,16 +1,15 @@
 UTILISATEUR (#mail : string, mdp : string, nom : string, prenom : string, 
-telephone : integer, date_creation : Date, statut : boolean, admin : boolean,
- recruteur : boolean)
-ADMIN () // pas besoin 
-RECRUTEUR (#utilisateur=> UTILISATEUR(mail), #entreprise => ORGANISATION(siren))
+telephone : integer, date_creation : Date, statut : boolean, type:{1,2,3})
+
+APPARTENIR_ORGA (#utilisateur=> UTILISATEUR(mail), #entreprise => ORGANISATION(siren))
 
 CANDIDATURE (#candidat=> UTILISATEUR (mail), #offre => OFFRE(Numero), date : DATE,
  pieces : File ?)
 
-ORGANISATION (nom : string, #siren : integer, type : string, SG : string) 
+ORGANISATION (#siren : integer, nom : string, type : string, SG : string) 
 
 OFFRE ( #numero : integer, organisation => ORGANISATION(siren), etat : ["non publiee", "publiee", "expiree"], 
 date_val : Date, Pieces : string, Nb_pieces : integer)
 
-FICHE_POSTE (intitule :string, #offre => OFFRE (numero), statut : string, responsable : string, 
+FICHE_POSTE (#offre => OFFRE (numero), intitule :string, statut : string, responsable : string, 
 type : string, lieu :string, rythme : integer, salaire : integer, description : string)
