@@ -7,8 +7,6 @@ Prénom : char
 Téléphone : int
 Date_inscription : Date
 Statut : booléen
-Recruteur : booléen 
-Administrateur : booléen 
 }
 
 note right of Utilisateur::counter
@@ -58,9 +56,9 @@ Date_cand : Date
 
 
 
-Utilisateur "1" -- "1" Candidat : "est un" >
-Utilisateur "1" -- "0..1" Administrateur: "est un" >
-Utilisateur "1" - "0..1" Recruteur: "est un" >
+Utilisateur <|--  Candidat 
+Utilisateur <|-- Administrateur
+Utilisateur <|-- Recruteur
 Administrateur "1" - "*" Administrateur: "désigne" >
 Recruteur "1" -- "*" Recruteur: "désigne" >
 Administrateur "1" -- "*" Recruteur : "admet" >
