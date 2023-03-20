@@ -1,5 +1,6 @@
 body{
-    background: linear-gradient(#262736, #02030F);
+    /*background: linear-gradient(#262736, #02030F);*/
+    background: linear-gradient(#4D62AE, #2C3248);
     /*height: 100vh; 
     display: flex; 
     justify-content: center; 
@@ -12,3 +13,9 @@ body{
     min-height: 300px; 
     max-height: 700px;
 }
+
+/*.txtcolor{
+    text-decoration-color: #C4ECB2;
+    color: #C4ECB2;
+
+}*/
