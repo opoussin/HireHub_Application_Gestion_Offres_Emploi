@@ -58,5 +58,18 @@ module.exports = {
             }
         });
     },
+    update: function (email, nom, prenom, telephone, callback) {
+        /* if (result(email)||email==NULL){
+            throw err;
+        }else{ */
+        var sql = mysql.format("UPDATE UTILISATEUR SET Mail=?, Nom =?, Prenom=?, Telephone=? WHERE Mail=?", [nom, prenom, telephone, email]);
+
+        db.query(sql, function (err, result) {
+                if (err) throw err;
+                callback(results);
+            });
+        callback(false);
+        //}
+    },
     
 }
