@@ -15,7 +15,7 @@ module.exports = {
         });
     },
 
-    areValid: function (email, password,callback) { // mdp de l'utilisateur d'email donné
+    areValid: function (email, password, callback) { // mdp de l'utilisateur d'email donné
         sql = "SELECT pwd FROM USERS WHERE email = ?";
         rows = db.query(sql, email, function(err, results) {
             if (err) throw err;

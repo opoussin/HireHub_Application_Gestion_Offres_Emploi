@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+
+<body>
+    <h1>
+        <%= title %>
+        </h1>
+        <table border>
+        <thead>
+        <tr>
+        <th>Firstname</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% users.forEach((user)=> { %>
+        <tr>
+        <td>
+        <%= user.prenom %>
+        </td>
+        </tr>
+        <% }) %>
+        </tbody>
+        </table>
+</body>
+</html>
