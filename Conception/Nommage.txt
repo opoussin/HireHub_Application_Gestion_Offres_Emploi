@@ -1,0 +1,42 @@
+DB
+APPARTENIR_ORGA
+    utilisateur
+    organisation 
+CANDIDATURE
+    candidat
+    offre
+    date
+    pieces
+FICHE_POSTE
+    offre
+    intitule
+    statut
+    responsable
+    type
+    lieu
+    rythme
+    salaire
+    description
+OFFRE
+    numero
+    organisation
+    etat
+    datevalidite
+    pieces
+    nombrepieces
+ORGANISATION
+    nom
+    siren
+    type
+    siegesocial
+UTILISATEUR
+	mail
+    mdp
+    nom
+    prenom
+    telephone
+    datecreation
+    statut
+    type
+
+Fonctions 
