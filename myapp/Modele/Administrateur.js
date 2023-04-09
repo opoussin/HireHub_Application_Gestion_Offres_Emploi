@@ -1,19 +1,19 @@
 var db = require('./db.js');
 module.exports = {
     readAll: function (callback) {
-        db.query("select * from Utilisateur", function (err, results) {
+        db.query("select * from UTILISATEUR", function (err, results) {
             if (err) throw err;
             callback(results);
         });
     },
-    acceptOrga: function (nom, siren, type, siege_social, callback) {
-        sql = "SELECT Siren FROM USERS WHERE siren = ?";
+    acceptOrga: function (nom, siren, type, siegesocial, callback) {
+        sql = "SELECT siren FROM UTILISATEURS WHERE siren = ?";
         rows = db.query(sql, siren, function (err, results) {
             if (err) throw err;
             if (rows.length == 1 ) {
                 callback(false)
             } else {
-                var sql2 = mysql.format("INSERT INTO UTILISATEUR VALUES (?,?,?,?)", [nom, siren, type, siege_social]);
+                var sql2 = mysql.format("INSERT INTO UTILISATEUR VALUES (?,?,?,?)", [nom, siren, type, siegesocial]);
                 db.query(sql2, function (err, result) {
                 if (err) throw err;
                 callback(results);
@@ -22,7 +22,7 @@ module.exports = {
         });
     },
     desactiverCompte: function (callback) {
-        var sql = mysql.format("UPDATE UTILISATEUR SET Etat=0 WHERE Mail=?");
+        var sql = mysql.format("UPDATE UTILISATEUR SET etat=0 WHERE mail=?");
 
         db.query(sql, function (err, result) {
                 if (err) throw err;
@@ -30,7 +30,7 @@ module.exports = {
             });
     },
     activerCompte: function (callback) {
-        var sql = mysql.format("UPDATE UTILISATEUR SET Etat=1 WHERE Mail=?");
+        var sql = mysql.format("UPDATE UTILISATEUR SET etat=1 WHERE mail=?");
 
         db.query(sql, function (err, result) {
                 if (err) throw err;
@@ -38,7 +38,7 @@ module.exports = {
             });
     },
     acceptAdmin: function (callback) {
-        var sql = mysql.format("UPDATE UTILISATEUR SET Type=3 WHERE Mail=?");
+        var sql = mysql.format("UPDATE UTILISATEUR SET type=3 WHERE mail=?");
 
         db.query(sql, function (err, result) {
                 if (err) throw err;
