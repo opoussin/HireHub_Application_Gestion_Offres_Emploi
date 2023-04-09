@@ -2,14 +2,14 @@ var db = require('./db.js');
 
 module.exports = {
     read: function (email, callback) { //utilisateur par email
-        db.query("select * from Utilisateur where email= ?",email, function (err, results){
+        db.query("select * from UTILISATEUR where email= ?",email, function (err, results){
             if (err) throw err;
                 callback(results);
         });
     },
 
     readall: function (callback) { // liste de tous les utilisateurs
-        db.query("select * from Utilisateur", function (err, results) {
+        db.query("select * from UTILISATEUR", function (err, results) {
             if (err) throw err;
                 callback(results);
         });
