@@ -1,9 +1,9 @@
 var db = require('./db.js');
 module.exports = {
-    read: function (email, callback) {
+    read: function (mail, callback) {
 
 
-        db.query("select * from Utilisateur where email= ?", email, function
+        db.query("select * from UTILISATEUR where mail= ?", mail, function
             (err, results) {
             if (err) throw err;
             callback(results);
@@ -15,60 +15,58 @@ module.exports = {
             callback(results);
         });
     },
-    areValid: function (email, password, callback) {
-        sql = "SELECT Mdp FROM USERS WHERE email = ?";
-        rows = db.query(sql, email, function (err, results) {
+    areValid: function (mail, mdp, callback) {
+        sql = "SELECT mdp FROM UTILISATEUR WHERE mail = ?";
+        rows = db.query(sql, mail, function (err, results) {
             if (err) throw err;
-            if (rows.length == 1 && rows[0].Mdp === password) {
+            if (rows.length == 1 && rows[0].mdp === mdp) {
                 callback(true)
             } else {
                 callback(false);
             }
         });
     },
-    creat: function (email, nom, prenom, pwd, type, callback) {
+    creat: function (mail, nom, prenom, mdp, telephone, callback) {
+        var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        var sql = mysql.format("INSERT INTO UTILISATEUR VALUES (?,?,?,?,?,?)", [mail, nom, prenom, mdp, telephone, date]);
 
-        var sql = mysql.format("INSERT INTO UTILISATEUR VALUES (?,?,?,?,?,?)", [email, nom, prenom, pwd, telephone,time_stamp]);
-
-        db.query(sql, function (err, result) {
+        db.query(sql, function (err, results) {
                 if (err) throw err;
                 callback(results);
             });
-        callback(false);
     },
-    areRecruteur: function (email) {
-        sql = "SELECT Type FROM USERS WHERE email = ?";
-        rows = db.query(sql, email, function (err, results) {
+    areRecruteur: function (mail, callback) {
+        sql = "SELECT Type FROM UTILISATEUR WHERE mail = ?";
+        rows = db.query(sql, mail, function (err, results) {
             if (err) throw err;
-            if (rows.length == 1 && rows[0].Type === 2) {
+            if (rows.length == 1 && rows[0].type === 2) {
                 callback(true)
             } else {
                 callback(false);
             }
         });
     },
-    areAdmin: function (email) {
-        sql = "SELECT Type FROM USERS WHERE email = ?";
-        rows = db.query(sql, email, function (err, results) {
+    areAdmin: function (mail, callback) {
+        sql = "SELECT Type FROM USERS WHERE mail = ?";
+        rows = db.query(sql, mail, function (err, results) {
             if (err) throw err;
-            if (rows.length == 1 && rows[0].Type === 3) {
+            if (rows.length == 1 && rows[0].type === 3) {
                 callback(true)
             } else {
                 callback(false);
             }
         });
     },
-    update: function (email, nom, prenom, telephone, callback) {
+    update: function (mail, nom, prenom, telephone, callback) {
         /* if (result(email)||email==NULL){
             throw err;
         }else{ */
-        var sql = mysql.format("UPDATE UTILISATEUR SET Mail=?, Nom =?, Prenom=?, Telephone=? WHERE Mail=?", [nom, prenom, telephone, email]);
+        var sql = mysql.format("UPDATE UTILISATEUR SET nom =?, prenom=?, telephone=? WHERE mail=?", [nom, prenom, telephone, mail]);
 
-        db.query(sql, function (err, result) {
+        db.query(sql, function (err, results) {
                 if (err) throw err;
                 callback(results);
             });
-        callback(false);
         //}
     },
     
