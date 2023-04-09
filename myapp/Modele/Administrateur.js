@@ -8,7 +8,7 @@ module.exports = {
     },
     acceptOrga: function (nom, siren, type, siege_social, callback) {
         sql = "SELECT Siren FROM USERS WHERE siren = ?";
-        rows = db.query(sql, email, function (err, results) {
+        rows = db.query(sql, siren, function (err, results) {
             if (err) throw err;
             if (rows.length == 1 ) {
                 callback(false)
@@ -22,31 +22,28 @@ module.exports = {
         });
     },
     desactiverCompte: function (callback) {
-        var sql = mysql.format("UPDATE UTILISATEUR SET Etat=False WHERE Mail=?");
+        var sql = mysql.format("UPDATE UTILISATEUR SET Etat=0 WHERE Mail=?");
 
         db.query(sql, function (err, result) {
                 if (err) throw err;
-                callback(results);
+                callback(result);
             });
-        callback(false);
     },
     activerCompte: function (callback) {
-        var sql = mysql.format("UPDATE UTILISATEUR SET Etat=True WHERE Mail=?");
+        var sql = mysql.format("UPDATE UTILISATEUR SET Etat=1 WHERE Mail=?");
 
         db.query(sql, function (err, result) {
                 if (err) throw err;
-                callback(results);
+                callback(result);
             });
-        callback(false);
     },
     acceptAdmin: function (callback) {
         var sql = mysql.format("UPDATE UTILISATEUR SET Type=3 WHERE Mail=?");
 
         db.query(sql, function (err, result) {
                 if (err) throw err;
-                callback(results);
+                callback(result);
             });
-        callback(false);
     },
 
 }
