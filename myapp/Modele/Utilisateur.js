@@ -1,4 +1,6 @@
 var db = require('./db.js');
+var mysql = require('mysql');
+
 module.exports = {
     read: function (mail, callback) {
 
@@ -27,8 +29,8 @@ module.exports = {
         });
     },
     creat: function (mail, nom, prenom, mdp, telephone, callback) {
-        var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        var sql = mysql.format("INSERT INTO UTILISATEUR VALUES (?,?,?,?,?,?)", [mail, nom, prenom, mdp, telephone, date]);
+        //var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        var sql = mysql.format("INSERT INTO UTILISATEUR (mail, mdp, nom, prenom, telephone) VALUES (?,?,?,?,?)", [mail, mdp, nom, prenom, telephone]);
 
         db.query(sql, function (err, results) {
                 if (err) throw err;

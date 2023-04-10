@@ -1,4 +1,4 @@
-var db = require('./db.js');
+var db = require('db.js');
 module.exports = {
     read: function (email, callback) {
 

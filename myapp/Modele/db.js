@@ -1,4 +1,5 @@
-var mysql = require("mysql");
+var mysql = require('mysql');
+
 
 var pool = mysql.createPool({
 host: "tuxa.sme.utc", //ou localhost
