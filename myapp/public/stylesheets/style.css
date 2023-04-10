@@ -1,8 +1,16 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: linear-gradient(#4D62AE, #2C3248);
+  color: #C4ECB2;
+
 }
 
 a {
   color: #00B7FF;
+}
+
+
+.box{
+  height: 100vh; 
+  min-height: 300px; 
+  max-height: 700px;
 }
