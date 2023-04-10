@@ -21,14 +21,14 @@
             <div class="row gy-4 mt-2">
 
                 <div class="col-6 offset-3">
-                    <form>
+                    <form method="post" action="/connexion">
                         <div class="form-group col-12 col-lg-10 offset-lg-1">
                           <label for="exampleInputEmail1">Adresse mail</label>
-                          <input type="email" class="form-control mt-2 mb-4" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                          <input type="email" class="form-control mt-2 mb-4" id="Email" placeholder="Enter email" name="mail">
                         </div>
                         <div class="form-group col-12 col-lg-10 offset-lg-1">
                           <label for="exampleInputPassword1">Mot de passe</label>
-                          <input type="password" class="form-control mt-2" id="exampleInputPassword1" placeholder="Password">
+                          <input type="password" class="form-control mt-2" id="Password" placeholder="Password" name="mdp">
                         </div>
                         <div class="mt-4 mb-4 offset-lg-1">
                           <a href="/inscription" >S'inscrire</a>

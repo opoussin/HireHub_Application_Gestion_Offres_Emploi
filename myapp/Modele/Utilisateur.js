@@ -17,7 +17,7 @@ module.exports = {
             callback(results);
         });
     },
-    areValid: function (mail, mdp, callback) {
+    /*areValid: function (mail, mdp, callback) {
         sql = "SELECT mdp FROM UTILISATEUR WHERE mail = ?";
         rows = db.query(sql, mail, function (err, results) {
             if (err) throw err;
@@ -27,7 +27,19 @@ module.exports = {
                 callback(false);
             }
         });
+    },*/
+    areValid: function (mail, mdp, callback) {
+        sql = "SELECT mdp FROM UTILISATEUR WHERE mail = ?";
+        db.query(sql, mail, function (err, rows) {
+            if (err) throw err;
+            if (rows.length == 1 && rows[0].mdp === mdp) {
+                callback(true)
+            } else {
+                callback(false);
+            }
+        });
     },
+    
     creat: function (mail, nom, prenom, mdp, telephone, callback) {
         //var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
         var sql = mysql.format("INSERT INTO UTILISATEUR (mail, mdp, nom, prenom, telephone) VALUES (?,?,?,?,?)", [mail, mdp, nom, prenom, telephone]);

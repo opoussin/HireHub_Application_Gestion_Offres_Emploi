@@ -12,6 +12,25 @@ router.get('/connexion', function (req, res, next) {
     res.render('connexion', { users: result });
   });
 });
+
+router.post('/connexion', function (req, res, next) {
+  // Récupération des données du formulaire
+  var mail = req.body.mail;
+  var mdp = req.body.mdp;
+
+  // Appel à la fonction creat du modèle Utilisateur
+  userModel.areValid(mail, mdp, function (result) {
+    // Redirection vers la page d'accueil si l'ajout a réussi
+    if (result) {
+      // Si l'utilisateur n'est pas connecté, on redirige vers la page de connexion
+      res.redirect('/acceuilUtilisateur');
+    } else {
+      // Sinon, on rend la vue "accueil"
+      res.render('accueil');
+    }
+  });
+});
+
 router.get('/inscription', function (req, res, next) {
   res.render('inscription');
 });
