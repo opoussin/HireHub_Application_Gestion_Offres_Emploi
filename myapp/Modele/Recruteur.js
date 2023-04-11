@@ -1,9 +1,9 @@
 /*
 RECRUTEUR
-updateOrga
+updateOrga 
 deleteOrga
-creatOffre
-deleteOffre
+creatOffre O
+deleteOffre O
 updateOffre
 readAllCandidat
 readAllOffreOrga
@@ -14,48 +14,31 @@ updateFiche
 acceptCandidat
 deleteRecruteurOrga
 readAllDmdRecruteur
-*/ 
+*/
 
 var db = require('./db.js');
 
 module.exports = {
-    updateOrga: function (mail, callback) {
-    
+    creatOffre: function (numero, organisation, etat, dateValidite, pieces, nombrePieces, callback) {
+        var sql = mysql.format("INSERT INTO OFFRE (numero, organisation, etat, dateValidite, pieces, nombrePieces) VALUES (?,?,?,?,?,?)", [numero, organisation, etat, dateValidite, pieces, nombrePieces]);
+
+        db.query(sql, function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
     },
-    deleteOrga: function (mail, callback) {
-    
+    deleteOffre: function (numero, callback) {
+        var sql = mysql.format("DELETE FROM OFFRE WHERE numero=?");
+        var sql2 = mysql.format("DELETE FROM FICHE_POSTE WHERE offre=?");
+
+        db.query(sql, function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+        db.query(sql2, function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
     },
-    creatOffre: function (mail, callback) {
     
-    },
-    deleteOffre: function (mail, callback) {
-    
-    },
-    readAllCandidat: function (mail, callback) {
-    
-    },
-    readAllOffreOrga: function (mail, callback) {
-    
-    },
-    updateOffreEtat: function (mail, callback) {
-    
-    },
-    creatFiche: function (mail, callback) {
-    
-    },
-    deleteFiche: function (mail, callback) {
-    
-    },
-    updateFiche: function (mail, callback) {
-    
-    },
-    acceptCandidat: function (mail, callback) {
-    
-    },
-    deleteRecruteurOrga: function (mail, callback) {
-    
-    },
-    readAllDmdRecruteur: function (mail, callback) {
-    
-    },
 }
