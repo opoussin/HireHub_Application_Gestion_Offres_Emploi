@@ -51,10 +51,18 @@ module.exports = {
             }
         });
     },
-    readOrga: function (mail, callback) {
-    
+    readOrga: function (nom, callback) {
+        db.query("select * from ORGANISATION where nom= ?", nom, function
+            (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
     },
     deleteUser: function (mail, callback) {
-    
+        db.query("DELETE * from UTILISATEUR where mail= ?", mail, function
+        (err, results) {
+        if (err) throw err;
+        callback(results);
+    });
     },
 }
