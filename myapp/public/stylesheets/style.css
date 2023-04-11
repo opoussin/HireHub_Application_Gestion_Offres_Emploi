@@ -1,6 +1,9 @@
 body {
-  /*background: linear-gradient(#4D62AE, #2C3248);*/
   background-color: white;
+}
+
+.index{
+  background: linear-gradient(#4D62AE, #2C3248);
 }
 
 .navbar{

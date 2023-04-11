@@ -23,16 +23,16 @@ router.post('/connexion', function (req, res, next) {
     // Redirection vers la page d'accueil si l'ajout a réussi
     if (result) {
       // Si l'utilisateur n'est pas connecté, on redirige vers la page de connexion
-      res.redirect('/acceuilUtilisateur');
+      res.redirect('/users/candidat');
     } else {
       // Sinon, on rend la vue "accueil"
-      res.render('accueil');
+      res.render('/connexion');
     }
   });
 });
 
 router.get('/inscription', function (req, res, next) {
-  res.render('inscription');
+  res.render('/inscription');
 });
 
 router.post('/inscription', function (req, res, next) {
@@ -46,7 +46,7 @@ router.post('/inscription', function (req, res, next) {
   // Appel à la fonction creat du modèle Utilisateur
   userModel.creat(mail, nom, prenom, mdp, telephone, function (result) {
     // Redirection vers la page d'accueil si l'ajout a réussi
-    res.redirect('/accueilUtilisateur');
+    res.redirect('/users');
   });
 });
 
