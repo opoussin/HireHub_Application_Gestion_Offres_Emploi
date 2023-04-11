@@ -1,3 +1,22 @@
+/* 
+ADMIN
+readUser
+readUserAll
+creatOrga
+acceptOrga
+disableUser
+enableUser
+acceptAdmin
+acceptRecruteur
+readAllDmdOrga
+readAllDmdAdmin
+*/
+var db = require('./db.js');
+
+module.exports = {
+}
+
+/* ancienne version
 var db = require('./db.js');
 module.exports = {
     readAll: function (callback) {
@@ -47,3 +66,4 @@ module.exports = {
     },
 
 }
+*/
