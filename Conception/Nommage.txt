@@ -90,6 +90,15 @@ readUserDmdOrga
 readUserDmdRecruteur
 readUserDmdAdmin
 
+creatCandidature
+deleteCandidature
+updateCandidature
+acceptCandidat
+readAllCandidature
+
+deleteRecruteurOrga
+
 optionnel
 readRecruteurOrga
+
 
