@@ -20,3 +20,5 @@ router.post('/devenirRecruteur', function (req, res, next) {
       res.redirect('/recruteur');
     });
   });
+
+  module.exports = router;

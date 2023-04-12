@@ -7,6 +7,10 @@ router.get('/candidat', function (req, res, next) {
   res.render('candidat');
 });
 
+router.get('/profil_candidat', function (req, res, next) {
+  res.render('profil_candidat');
+});
+
 router.get('/administrateur', function (req, res, next) {
   res.render('admin');
 });

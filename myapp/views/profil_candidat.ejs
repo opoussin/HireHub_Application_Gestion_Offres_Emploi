@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/stylesheets/style.css" rel="stylesheet" media="all" type="text/css">
+
+</head>
+
+<body style="height: 100vh;">
+
+    <header class="sticky-top">
+        <div class="navbar container-fluid d-flex flex-row">
+            <button class="btn text-light rounded-circle btn-outline-light" href="/candidat"><i class="bi bi-house"></i></button>
+            <p class="my-auto text-light fw-bold">Nom du site</p>
+            <a class="btn btn-outline-light my-auto btn-sm" href="#">Devenir Recruteur</a>
+            <a class="btn btn-outline-light my-auto btn-sm" href="#">Devenir administrateur</a>
+            <button class="btn rounded text-light" href="/profil_candidat"><i class="bi bi-person-circle me-2"></i> Profil</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="py-4">
+            <div class="row h-100">
+                <div class="col-3 d-flex flex-column border-end">
+                    <ul class="nav flex-column mt-2 ms-4">
+                        <li class="nav-item">
+                            <a class="nav-link active " href="#profil">Mon Profil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#candidatures">Mes candidatures</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-9 h-100 ">
+                    <div class="jumbotron bg-light p-2 mb-4" id="profil">
+                        <h1 class="display-4">Mon Profil <i class="bi bi-person-circle fa-1x me-2"> </i></h1>
+                        <hr class="my-4">
+                        <form action="" method="">
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-auto">
+                                    <label for="Nom" class="col-form-label fw-bold">Nom</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="text" id="Nom" class="form-control w-auto">
+                                </div>
+                                <div class="col-auto">
+
+                                </div>
+                            </div>
+
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-auto">
+                                    <label for="Prenom" class="col-form-label fw-bold">Prenom</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="text" id="Prenom" class="form-control w-auto">
+                                </div>
+                                <div class="col-auto">
+
+                                </div>
+                            </div>
+
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-auto">
+                                    <label for="mail" class="col-form-label fw-bold">Adresse Mail</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="text" id="mail" class="form-control w-auto">
+                                </div>
+                                <div class="col-auto">
+
+                                </div>
+                            </div>
+
+
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-auto">
+                                    <label for="inputPassword6" class="col-form-label fw-bold">Mot de passe</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="password" id="inputPassword6" class="form-control w-auto"
+                                        aria-describedby="passwordHelpInline">
+                                </div>
+                                <div class="col-auto">
+                                    <span id="passwordHelpInline" class="form-text">
+                                        Must be 8-20 characters long.
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-auto">
+                                    <label for="tel" class="col-form-label fw-bold">Téléphone</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="text" id="tel" class="form-control w-auto">
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary" type="submit">Enregistrer modifications</button>
+                        </form>
+                    </div>
+
+                    <div class="jumbotron bg-light p-2" id="candidatures">
+                        <h1 class="display-4">Mes candidatures <i class="bi bi-file-earmark-person fa-1x me-2"></i></h1>
+                        <hr class="my-4">
+
+                        <div class="card mb-4 pt-0 " style="width: autorem;">
+                            <div class="card-body g-4">
+                                <h5 class="card-title text-dark fs-3">Fiche de poste</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Auchan</h6>
+                                <p class="card-text text-dark">Some quick example text to build on the card title and
+                                    make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-secondary">Voir l'offre</a>
+                                <a href="#" class="btn btn-secondary ">Postuler</a>
+                            </div>
+                        </div>
+                        <div class="card mb-4 pt-0 " style="width: autorem;">
+                            <div class="card-body g-4">
+                                <h5 class="card-title text-dark fs-3">Fiche de poste</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Auchan</h6>
+                                <p class="card-text text-dark">Some quick example text to build on the card title and
+                                    make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-secondary">Voir l'offre</a>
+                                <a href="#" class="btn btn-secondary ">Postuler</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            </div>
+
+        </section>
+
+
+    </main>
+
+    <!--<footer class="border-top">
+        <div class="container py-2">
+            <div class="row gy-4 align-items-center">
+                <div class="col-12 col-md-4">
+                    <a class="navbar-brand text-dark text-uppercase fw-bold" href="#">
+                        <span class="btn btn-outline-light  p-1 rounded-3 text-light">Nomdusite</span>
+                    </a>
+                </div>
+                <div class="col-12 col-md-4">
+                    <p class="text-md-center ">Mentions légales </p>
+                </div>
+                <div class="col-12 col-md-4 text-md-end">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <a href="#" class="text-decoration-none text-dark pl-1"><i class="bi bi-linkedin "></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#" class="text-decoration-none text-dark"></a><i class="bi bi-instagram"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#" class="text-decoration-none text-dark"></a><i class="bi bi-twitter"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+-->
+</body>
+
+</html>

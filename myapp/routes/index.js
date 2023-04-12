@@ -24,13 +24,13 @@ router.post('/connexion', function (req, res, next) {
       res.redirect('/users/candidat');
     } else {
       // Sinon, on rend la vue "accueil"
-      res.render('/connexion');
+      res.render('connexion');
     }
   });
 });
 
 router.get('/inscription', function (req, res, next) {
-  res.render('/inscription');
+  res.render('inscription');
 });
 
 router.post('/inscription', function (req, res, next) {
