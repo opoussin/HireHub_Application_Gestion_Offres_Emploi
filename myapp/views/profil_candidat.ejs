@@ -17,11 +17,12 @@
 
     <header class="sticky-top">
         <div class="navbar container-fluid d-flex flex-row">
-            <button class="btn text-light rounded-circle btn-outline-light" href="/candidat"><i class="bi bi-house"></i></button>
+            <a class="btn text-light rounded-circle btn-outline-light" href="/candidat"><i class="bi bi-house"></i></a>
             <p class="my-auto text-light fw-bold">Nom du site</p>
             <a class="btn btn-outline-light my-auto btn-sm" href="#">Devenir Recruteur</a>
             <a class="btn btn-outline-light my-auto btn-sm" href="#">Devenir administrateur</a>
-            <button class="btn rounded text-light" href="/profil_candidat"><i class="bi bi-person-circle me-2"></i> Profil</button>
+            <a class="btn rounded text-light" href="/users/profil_candidat"><i class="bi bi-person-circle me-2"></i>
+                Profil</a>
         </div>
     </header>
 
@@ -29,6 +30,24 @@
         <section class="py-4">
             <div class="row h-100">
                 <div class="col-3 d-flex flex-column border-end">
+
+                    <div class="card w-auto ms-4" >
+                        <div class="card-body">
+                            <h5 class="card-title"><%= nom %><%= prenom %></h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><%= mail %></li>
+                            <li class="list-group-item"><%= telephone %></li>
+                            <li class="list-group-item"><%= statut %></li>
+
+                            <li class="list-group-item">Depuis le: </li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="#" class="card-link text-primary">Card link</a>
+                            <a href="#" class="card-link text-primary">Another link</a>
+                        </div>
+                    </div>
+
                     <ul class="nav flex-column mt-2 ms-4">
                         <li class="nav-item">
                             <a class="nav-link active " href="#profil">Mon Profil</a>
@@ -36,6 +55,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="#candidatures">Mes candidatures</a>
                         </li>
+                        <li><%= nom %></li>
 
                     </ul>
                 </div>
@@ -43,13 +63,13 @@
                     <div class="jumbotron bg-light p-2 mb-4" id="profil">
                         <h1 class="display-4">Mon Profil <i class="bi bi-person-circle fa-1x me-2"> </i></h1>
                         <hr class="my-4">
-                        <form action="" method="">
+                        <form action="/users/profil_candidat" method="POST">
                             <div class="row g-3 align-items-center mb-3">
                                 <div class="col-auto">
                                     <label for="Nom" class="col-form-label fw-bold">Nom</label>
                                 </div>
                                 <div class="col-auto">
-                                    <input type="text" id="Nom" class="form-control w-auto">
+                                    <input type="nom" class="form-control w-auto" id="nom" name="nom">
                                 </div>
                                 <div class="col-auto">
 
@@ -61,7 +81,7 @@
                                     <label for="Prenom" class="col-form-label fw-bold">Prenom</label>
                                 </div>
                                 <div class="col-auto">
-                                    <input type="text" id="Prenom" class="form-control w-auto">
+                                    <input type="prenom" class="form-control w-auto" id="prenom" name="prenom">
                                 </div>
                                 <div class="col-auto">
 
@@ -73,7 +93,7 @@
                                     <label for="mail" class="col-form-label fw-bold">Adresse Mail</label>
                                 </div>
                                 <div class="col-auto">
-                                    <input type="text" id="mail" class="form-control w-auto">
+                                    <input type="mail" class="form-control w-auto" id="mail" name="mail">
                                 </div>
                                 <div class="col-auto">
 
@@ -86,8 +106,7 @@
                                     <label for="inputPassword6" class="col-form-label fw-bold">Mot de passe</label>
                                 </div>
                                 <div class="col-auto">
-                                    <input type="password" id="inputPassword6" class="form-control w-auto"
-                                        aria-describedby="passwordHelpInline">
+                                    <input type="password" class="form-control w-auto" id="mdp" name="mdp">
                                 </div>
                                 <div class="col-auto">
                                     <span id="passwordHelpInline" class="form-text">
@@ -101,7 +120,7 @@
                                     <label for="tel" class="col-form-label fw-bold">Téléphone</label>
                                 </div>
                                 <div class="col-auto">
-                                    <input type="text" id="tel" class="form-control w-auto">
+                                    <input type="Telephone" class="form-control w-auto" id="telephone" name="telephone">
                                 </div>
                             </div>
 

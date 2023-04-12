@@ -17,19 +17,19 @@ readUserDmdRecruteur
 readUserDmdAdmin
 */
 var db = require('./db.js');
+var mysql = require('mysql');
+
 
 module.exports = {
     updateUser: function (mail, nom, prenom, telephone, callback) {
-        /* if (result(email)||email==NULL){
-            throw err;
-        }else{ */
+       
         var sql = mysql.format("UPDATE UTILISATEUR SET nom =?, prenom=?, telephone=? WHERE mail=?", [nom, prenom, telephone, mail]);
 
         db.query(sql, function (err, results) {
                 if (err) throw err;
                 callback(results);
             });
-        //}
+        
     },
     readAllOffreValide: function (callback) {
         db.query("select * from OFFRE INNER JOIN FICHE ON OFFRE.numero = FICHE.numero where OFFRE.etat= publiee", function

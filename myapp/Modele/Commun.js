@@ -5,10 +5,13 @@ areRecruteur
 areAdmin
 readOrga
 deleteUser
+readUser
 */
 
 
 var db = require('./db.js');
+var mysql = require('mysql');
+
 
 module.exports = {
     areUserValid: function (mail, mdp, callback) {
@@ -23,7 +26,6 @@ module.exports = {
         });
     },
     creatUser: function (mail, nom, prenom, mdp, telephone, callback) {
-        //var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
         var sql = mysql.format("INSERT INTO UTILISATEUR (mail, mdp, nom, prenom, telephone) VALUES (?,?,?,?,?)", [mail, mdp, nom, prenom, telephone]);
 
         db.query(sql, function (err, results) {
@@ -63,6 +65,13 @@ module.exports = {
     deleteUser: function (mail, callback) {
         db.query("DELETE * from UTILISATEUR where mail= ?", mail, function
         (err, results) {
+        if (err) throw err;
+        callback(results);
+    });
+    },
+    readUser: function (mail, callback) {
+        db.query("SELECT nom, prenom, mail, telephone, dateCreation, statut FROM UTILISATEUR WHERE mail=?", mail, function(err, results) {
+        console.log(result);
         if (err) throw err;
         callback(results);
     });
