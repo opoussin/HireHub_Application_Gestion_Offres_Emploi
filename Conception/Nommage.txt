@@ -23,21 +23,34 @@ OFFRE
     etat
     datevalidite
     pieces
-    nombrepieces
+    nombrePieces
 ORGANISATION
     nom
     siren
     type
-    siegesocial
+    siegeSocial
 UTILISATEUR
 	mail
     mdp
     nom
     prenom
     telephone
-    datecreation
+    dateCreation
     statut
     type
+
+DMD_ORGA
+nom
+siren
+type
+siegeSocial
+recruteur
+
+DMD_ADMIN
+
+DMD_RECRUTEUR
+organisation
+recruteur
 
 Fonctions 
 UTILISATEUR
