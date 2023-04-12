@@ -12,7 +12,7 @@ creatFiche O
 deleteFiche O
 updateFiche O
 acceptCandidat O
-deleteRecruteurOrga 
+deleteRecruteurOrga O
 readAllDmdRecruteur O
 */
 
@@ -112,8 +112,7 @@ module.exports = {
 
     /*quitter une organisation */
     deleteRecruteurOrga: function (siren, mail, callback) {
-        var sql = mysql.format("UPDATE UTILISATEUR SET type = 1 WHERE mail IN ( SELECT u.mail FROM UTILISATEUR u INNER JOIN APPARTENIR_ORGA a ON u.mail = a.utilisateur WHERE organisation =? AND mail=? GROUP BY utilisateur HAVING COUNT(*) = 1 )
-        ");
+        var sql = mysql.format("UPDATE UTILISATEUR SET type = 1 WHERE mail IN ( SELECT u.mail FROM UTILISATEUR u INNER JOIN APPARTENIR_ORGA a ON u.mail = a.utilisateur WHERE organisation =? AND mail=? GROUP BY utilisateur HAVING COUNT(*) = 1 )");
         var sql2 = mysql.format("DELETE FROM APPARTENIR_ORGA WHERE organisation=? AND utilisateur=mail");
         db.query(sql, function (err, results) {
             if (err) throw err;
@@ -124,10 +123,9 @@ module.exports = {
             callback(results);
         });
     },
+
     deleteOrga: function (siren, callback) {
-        var sql = mysql.format("UPDATE UTILISATEUR SET type = 1 WHERE mail IN ( SELECT mail FROM UTILISATEUR u INNER JOIN APPARTENIR_ORGA a ON u.mail = a.utilisateur WHERE organisation =? GROUP BY utilisateur HAVING COUNT(*) = 1 )
-        ");
-        /*quand on supprime une orga, les recruteurs qui n'appartenaient qu'à cette orga deviennent candidat (type=1)*/
+        var sql = mysql.format("UPDATE UTILISATEUR SET type = 1 WHERE mail IN ( SELECT mail FROM UTILISATEUR u INNER JOIN APPARTENIR_ORGA a ON u.mail = a.utilisateur WHERE organisation =? GROUP BY utilisateur HAVING COUNT(*) = 1 )");
         var sql2 = mysql.format("DELETE FROM ORGANISATION WHERE siren=?");
         deleteOffre(siren);
         var sql3 = mysql.format("DELETE FROM DMD_RECRUTEUR WHERE organisation=?");
@@ -153,7 +151,7 @@ module.exports = {
             if (err) throw err;
             callback(results);
         });
-    },
+    }
 }
 
 

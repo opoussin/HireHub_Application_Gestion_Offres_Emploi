@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var userModel = require('../Modele/Utilisateur.js')
+var communModel = require('../Modele/Commun.js')
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -8,9 +8,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/connexion', function (req, res, next) {
-  result = userModel.read(function (result) {
-    res.render('connexion', { users: result });
-  });
+    res.render('connexion');
 });
 
 router.post('/connexion', function (req, res, next) {
@@ -19,7 +17,7 @@ router.post('/connexion', function (req, res, next) {
   var mdp = req.body.mdp;
 
   // Appel à la fonction creat du modèle Utilisateur
-  userModel.areValid(mail, mdp, function (result) {
+  communModel.areUserValid(mail, mdp, function (result) {
     // Redirection vers la page d'accueil si l'ajout a réussi
     if (result) {
       // Si l'utilisateur n'est pas connecté, on redirige vers la page de connexion
@@ -44,7 +42,7 @@ router.post('/inscription', function (req, res, next) {
   var telephone = req.body.telephone;
 
   // Appel à la fonction creat du modèle Utilisateur
-  userModel.creat(mail, nom, prenom, mdp, telephone, function (result) {
+  communModel.creatUser(mail, nom, prenom, mdp, telephone, function (result) {
     // Redirection vers la page d'accueil si l'ajout a réussi
     res.redirect('/users');
   });

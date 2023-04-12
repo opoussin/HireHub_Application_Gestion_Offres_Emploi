@@ -1,30 +1,42 @@
 var express = require('express');
 var router = express.Router();
-var userModel = require('../Modele/user.js')
+var candidatModel = require('../Modele/Candidat.js')
 
-/* 
-router.get('/', function (req, res, next) {
-res.render('candidat');
-});*/
 
 router.get('/candidat', function (req, res, next) {
   res.render('candidat');
-});
-
-router.get('/recruteur', function (req, res, next) {
-  res.render('recruteur');
 });
 
 router.get('/administrateur', function (req, res, next) {
   res.render('admin');
 });
 
+router.get('/devenirAdministrateur', function (req, res, next) {
+  res.render('formulaire_admin');
+});
 
-/*La deuxième route utilise également la méthode HTTP GET pour l'URL "/userslist"*/
-router.get('/userslist', function (req, res, next) { //route de readAll 
-  result = userModel.readall(function (result) {
-    res.render('usersList', { title: 'List des utilisateurs', users: result });
-    /*vue userList, le deuxième paramètre de render est un objet qui contient toutes les variables qui seront utilisées dans la vue. */
+router.post('/devenirAdministrateur', function (req, res, next) {
+  var mail = req.body.mail;
+
+  candidatModel.creatDmdAdmin (mail, function (result) {
+    res.redirect('/admin');
+  });
+});
+
+router.get('/recruteur', function (req, res, next) {
+  res.render('recruteur');
+});
+
+router.get('/devenirRecruteur', function (req, res, next) {
+  res.render('formulaire_recruteur');
+});
+
+router.post('/devenirRecruteur', function (req, res, next) {
+  var mail = req.body.mail;
+  var siren = req.body.siren;
+
+  candidatModel.creatDmdRecruteur (siren, mail, function (result) {
+    res.redirect('/admin');
   });
 });
 
