@@ -38,17 +38,29 @@ module.exports = {
             callback(results);
         });
     },
-    readOffreFiltre: function (mail, callback) {
+
+    readOffreFiltre: function (organisation, lieu, statut, salaire, type, intitule, callback) {
+        if (intitule != NULL){
+
+        }
         
     },
     creatDmdOrga: function (nom, siren, type, siegeSocial, mail, callback) {
-        var sql = mysql.format("INSERT INTO DMD_ORGA (nom, siren, type, siegeSocial, recruteur) VALUES (?,?,?,?)", [nom, siren, type, siegeSocial, mail]);
-
-        db.query(sql, function (err, results) {
+        sql = "SELECT siren FROM ORGANISATION WHERE siren = ?";
+        rows = db.query(sql, siren, function (err, results) {
             if (err) throw err;
-            callback(results);
+            if (rows.length == 1 ) {
+                callback(false)
+            } else {
+                var sql = mysql.format("INSERT INTO DMD_ORGA (nom, siren, type, siegeSocial, recruteur) VALUES (?,?,?,?,?)", [nom, siren, type, siegeSocial, mail]);
 
+                db.query(sql, function (err, results) {
+                    if (err) throw err;
+                callback(results);
         });
+            }
+        });
+        
     },
     creatDmdRecruteur: function (siren, mail, callback) {
         var sql = mysql.format("INSERT INTO DMD_RECRUTEUR (organisation, recruteur) VALUES (?,?)", [siren, mail]);
@@ -78,6 +90,7 @@ module.exports = {
         
     },
     readAllCandidature: function (mail, callback) {
+        
         db.query("select * from CANDIDATURE where candidat=?", mail, function
             (err, results) {
             if (err) throw err;
@@ -85,21 +98,21 @@ module.exports = {
         });
     },
     deleteDmdOrga: function (siren, callback) {
-        db.query("DELETE * from DMD_ORGA where mail= ?", siren, function
+        db.query("DELETE FROM DMD_ORGA where mail= ?", siren, function
         (err, results) {
         if (err) throw err;
         callback(results);
     });
     },
     deleteDmdRecruteur: function (mail, callback) {
-        db.query("DELETE * from DMD_RECRUTEUR where recruteur= ?", mail, function
+        db.query("DELETE FROM DMD_RECRUTEUR where recruteur= ?", mail, function
         (err, results) {
         if (err) throw err;
         callback(results);
     });
     },
     deleteDmdAdmin: function (mail, callback) {
-        db.query("DELETE * from DMD_ADMIN where mail= ?", mail, function
+        db.query("DELETE FROM DMD_ADMIN where mail= ?", mail, function
         (err, results) {
         if (err) throw err;
         callback(results);
