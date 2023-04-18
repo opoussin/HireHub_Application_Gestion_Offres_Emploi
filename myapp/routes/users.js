@@ -2,7 +2,14 @@ var express = require('express');
 var router = express.Router();
 var candidatModel = require('../Modele/Candidat.js')
 var communModel = require('../Modele/Commun.js')
+var Model = require('../Modele/user.js')
 
+router.get('/userslist', function (req, res, next) {
+  result=Model.readall(function(result){
+  res.render('usersList', { title: 'List des utilisateurs', users:
+  result });
+});
+});
 
 router.get('/candidat', function (req, res, next) {
   res.render('candidat');

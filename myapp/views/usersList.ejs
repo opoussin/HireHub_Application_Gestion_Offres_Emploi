@@ -11,7 +11,7 @@
         <link href="/stylesheets/style.css" rel="stylesheet" media="all" type="text/css">
 
       </head>
-<body style="height: 100vh;background-attachment: fixed;"> 
+<!--<body style="height: 100vh;background-attachment: fixed;"> 
 
     <header class="d-flex justify-content-center flex-column" >
         <div class="container align-items-center mb-5 pt-4">
@@ -122,5 +122,35 @@
         </div>
 
     </footer>
+</body> -->
+
+<body>
+    <h1>
+    <%= title %>
+    </h1>
+    <table border>
+    <thead>
+    <tr>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% users.forEach((user)=> { %>
+    <tr>
+    <td>
+    <%= user.prenom %>
+    </td>
+    <td>
+    <%= user.nom %>
+    </td>
+    <td>
+    <%= user.email %>
+    </td>
+    </tr>
+    <% }) %>
+    </tbody>
+    </table>
 </body>
 </html>
