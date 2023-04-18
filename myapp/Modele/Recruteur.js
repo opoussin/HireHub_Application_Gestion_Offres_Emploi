@@ -29,7 +29,7 @@ module.exports = {
     },
     deleteFiche: function (offre, callback) {
         var sql = mysql.format("DELETE FROM FICHE_POSTE WHERE offre=?");
-        db.query(sql, function (err, results) {
+        db.query(sql, offre, function (err, results) {
             if (err) throw err;
             callback(results);
         });
@@ -37,7 +37,7 @@ module.exports = {
     deleteOffre: function (numero, callback) {
         var sql = mysql.format("DELETE FROM OFFRE WHERE numero=?");
         deleteFiche(numero);
-        db.query(sql, function (err, results) {
+        db.query(sql, numero, function (err, results) {
             if (err) throw err;
             callback(results);
         });
@@ -50,8 +50,8 @@ module.exports = {
         });
 
     },
-    updateOffre: function (etat, dateValidite, pieces, nombrePieces, numero, organisation, callback) {
-        var sql = mysql.format("UPDATE UTILISATEUR SET  etat=?, dateValidite=?, pieces=? , nombrePieces WHERE numero=? AND organisation= ?", [etat, dateValidite, pieces, nombrePieces, numero, organisation]);
+    updateOffre: function (etat, dateValidite, pieces, nombrePieces, numero, callback) {
+        var sql = mysql.format("UPDATE UTILISATEUR SET  etat=?, dateValidite=?, pieces=?, nombrePieces=?, WHERE numero=?", [etat, dateValidite, pieces, nombrePieces, numero]);
         db.query(sql, function (err, results) {
             if (err) throw err;
             callback(results);
@@ -69,8 +69,8 @@ module.exports = {
             callback(results);
         });
     },
-    updateOffreEtat: function (numero, organisation, callback) {
-        var sql = mysql.format("UPDATE OFFRE SET  etat=? WHERE numero=? AND organisation= ?", [numero, organisation]);
+    updateOffreEtat: function (etat, numero, organisation, callback) {
+        var sql = mysql.format("UPDATE OFFRE SET  etat=? WHERE numero=? AND organisation= ?", [etat, numero, organisation]);
         db.query(sql, function (err, results) {
             if (err) throw err;
             callback(results);
@@ -99,9 +99,10 @@ module.exports = {
             callback(results);
         });
     },
-    readAllDmdRecruteur: function (mail, orga, callback) {
-        var sql = mysql.format("SELECT u.nom, u.prenom FROM UTILISATEUR u INNER JOIN DMD_RECRUTEUR r ON u.mail=r.recruteur WHERE f.organisation=?");
-        db.query(sql, function (err, results) {
+    readAllDmdRecruteur: function (siren, callback) {
+        //var sql = mysql.format("SELECT u.nom, u.prenom FROM UTILISATEUR u INNER JOIN DMD_RECRUTEUR r ON u.mail=r.recruteur WHERE f.organisation=?");
+        var sql = mysql.format("SELECT * FROM DMD_RECRUTEUR WHERE organisation=?");
+        db.query(sql, siren, function (err, results) {
             if (err) throw err;
             callback(results);
         });
@@ -113,6 +114,16 @@ module.exports = {
     /*quitter une organisation */
     deleteRecruteurOrga: function (siren, mail, callback) {
         var sql = mysql.format("UPDATE UTILISATEUR SET type = 1 WHERE mail IN ( SELECT u.mail FROM UTILISATEUR u INNER JOIN APPARTENIR_ORGA a ON u.mail = a.utilisateur WHERE organisation =? AND mail=? GROUP BY utilisateur HAVING COUNT(*) = 1 )");
+        /*UPDATE UTILISATEUR
+SET type = 1
+WHERE mail IN (
+  SELECT u.mail
+  FROM UTILISATEUR u
+  INNER JOIN APPARTENIR_ORGA a ON u.mail = a.utilisateur
+  WHERE a.organisation = ? AND u.mail = ?
+  GROUP BY u.mail
+  HAVING COUNT(*) = 1
+)*/
         var sql2 = mysql.format("DELETE FROM APPARTENIR_ORGA WHERE organisation=? AND utilisateur=mail");
         db.query(sql, function (err, results) {
             if (err) throw err;
@@ -153,5 +164,8 @@ module.exports = {
         });
     }
 }
+/*Les appels à la méthode db.query sont asynchrones, c'est-à-dire que les requêtes ne s'exécutent pas dans l'ordre où elles sont appelées. Dans ce cas, cela signifie que callback sera appelé plusieurs fois, avec des résultats différents, car les requêtes ne sont pas exécutées en séquence.
 
+Si une erreur se produit dans l'une des requêtes, la fonction utilise l'instruction throw err, ce qui arrêtera immédiatement l'exécution du programme. Il est préférable d'appeler callback avec l'erreur rencontrée pour pouvoir la gérer dans le code appelant.
+*/
 

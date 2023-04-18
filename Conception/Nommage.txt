@@ -47,6 +47,7 @@ siegeSocial
 recruteur
 
 DMD_ADMIN
+utilisateur
 
 DMD_RECRUTEUR
 organisation
@@ -118,6 +119,13 @@ deleteRecruteurOrga
 
 readTypeOrga
 
+Liste des filtres
+    lieu
+    organisation
+    statut
+    salaire
+    type
+    intitule
 
 
 
