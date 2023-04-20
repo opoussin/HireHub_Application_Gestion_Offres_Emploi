@@ -1,3 +1,10 @@
+/* 
+*{
+  border: solid;
+  border-width: 1px;
+  border-color: red;
+} */
+
 body {
   background-color: white;
 }

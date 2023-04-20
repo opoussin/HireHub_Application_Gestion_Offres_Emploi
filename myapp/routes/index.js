@@ -43,8 +43,12 @@ router.post('/inscription', function (req, res, next) {
 
   // Appel à la fonction creat du modèle Utilisateur
   communModel.creatUser(mail, nom, prenom, mdp, telephone, function (result) {
-    // Redirection vers la page d'accueil si l'ajout a réussi
-    res.redirect('/users');
+    if (result){ //result = vrai donc il y a une erreur
+      res.redirect('/insciption')
+    }
+    else{
+      res.redirect('/users/candidat');
+    }
   });
 });
 

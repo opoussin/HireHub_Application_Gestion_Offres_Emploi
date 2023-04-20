@@ -19,7 +19,7 @@ router.get('/profil_candidat', function (req, res, next) { //ca marche pas mais 
   var email = "oceane@etu";
   console.log(email);
   result=communModel.readUser(email, function(result){
-    console.log(result);
+    console.dir(result);
     res.render('profil_candidat', { nom: result.nom, prenom: result.prenom, mail: result.mail, telephone: result.telephone, statut: result.statut, });  });
   
 });
