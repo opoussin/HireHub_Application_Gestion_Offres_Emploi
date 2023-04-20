@@ -29,114 +29,52 @@
     <main>
         <section class="py-4">
             <div class="row me-0 pe-1">
-                <div class="col-3 d-flex flex-column border-end">
+                <div class="col-3 d-flex flex-column border-end align-items-start">
 
                     <div class="card w-auto ms-4">
                         <div class="card-body">
                             <h5 class="card-title">
-                                <%= prenom %>
-                                    <%= nom %>
+                                <%= user.prenom %>
+                                    <%= user.nom %>
                             </h5>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <%= mail %>
+                        <ul class="list-group list-group-flush list-unstyled p-3">
+                            <li class="">
+                                <%= user.mail %>
                             </li>
-                            <li class="list-group-item">
-                                <%= telephone %>
+                            <li class="">
+                                <%= user.telephone %>
                             </li>
-                            <li class='list-group-item <%= (statut==1) ? "text-dark" : "text-danger" %>'>
-                                <%= (statut==1) ? "Actif" : "Inactif" %>
+                            <li class='<%= (user.statut==1) ? "text-dark" : "text-danger" %>'>
+                                <%= (user.statut==1) ? "Actif" : "Inactif" %>
                             </li>
 
-                            <li class="list-group-item">Depuis le: <%= date %></li>
+                            <li>Depuis le: <%= user.dateCreation.toLocaleDateString("fr") %></li>
                         </ul>
 
                         
                     </div>
-                    <a href="" class="btn btn-link">Modifier mon profil</a>
+                    <a href="/users/modifier_profil" class="btn btn-link m-4 ps-0">Modifier mon profil</a>
 
                     
                 </div>
                 <div class="col-9 h-100 ">
-                    <div class="jumbotron bg-light p-2 mb-4" id="profil">
-                        <h1 class="display-4">Mon Profil <i class="bi bi-person-circle fa-1x me-2"> </i></h1>
-                        <hr class="my-4">
-                        <form action="/users/profil_candidat" method="POST">
-                            <div class="row g-3 align-items-center mb-3">
-                                <div class="col-auto">
-                                    <label for="Nom" class="col-form-label fw-bold">Nom</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="nom" class="form-control w-auto" id="nom" name="nom" value="<%= nom%>">
-                                </div>
-                                <div class="col-auto">
-
-                                </div>
-                            </div>
-
-                            <div class="row g-3 align-items-center mb-3">
-                                <div class="col-auto">
-                                    <label for="Prenom" class="col-form-label fw-bold">Prenom</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="prenom" class="form-control w-auto" id="prenom" name="prenom"
-                                        value="<%= prenom%>">
-                                </div>
-                                <div class="col-auto">
-
-                                </div>
-                            </div>
-
-                            <div class="row g-3 align-items-center mb-3">
-                                <div class="col-auto">
-                                    <label for="mail" class="col-form-label fw-bold">Adresse Mail</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="mail" class="form-control w-auto" id="mail" name="mail" value="<%= mail%>" disabled>
-                                </div>
-                                <div class="col-auto">
-
-                                </div>
-                            </div>
-
-                            <div class="row g-3 align-items-center mb-3">
-                                <div class="col-auto">
-                                    <label for="tel" class="col-form-label fw-bold">Téléphone</label>
-                                </div>
-                                <div class="col-auto"> 
-                                    <input type="Telephone" class="form-control w-auto" id="telephone" name="telephone" value="<%= telephone%>">
-                                </div>
-                            </div>
-
-                            <button class="btn btn-primary" type="submit">Enregistrer modifications</button>
-                        </form>
-                    </div>
 
                     <div class="jumbotron bg-light p-2" id="candidatures">
                         <h1 class="display-4">Mes candidatures <i class="bi bi-file-earmark-person fa-1x me-2"></i></h1>
                         <hr class="my-4">
-
-                        <div class="card mb-4 pt-0 " style="width: autorem;">
-                            <div class="card-body g-4">
-                                <h5 class="card-title text-dark fs-3">Fiche de poste</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Auchan</h6>
-                                <p class="card-text text-dark">Some quick example text to build on the card title and
-                                    make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-secondary">Voir l'offre</a>
-                                <a href="#" class="btn btn-secondary ">Postuler</a>
+                        
+                        <% candidatures.forEach((candidature)=> { %>
+                            <div class="card mb-4 pt-0 " style="width: autorem;">
+                                <div class="card-body g-4">
+                                    <h5 class="card-title text-dark fs-3"><%= candidature.intitule %></h5>
+                                    <h6 class="card-subtitle mb-2 text-muted"><%= candidature.statut %></h6>
+                                    <p class="card-text text-dark"><%= candidature.description %></p>
+                                    <a href="#" class="btn btn-secondary">Voir l'offre</a>
+                                    <a href="#" class="btn btn-secondary ">Modifier candidature</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card mb-4 pt-0 " style="width: autorem;">
-                            <div class="card-body g-4">
-                                <h5 class="card-title text-dark fs-3">Fiche de poste</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Auchan</h6>
-                                <p class="card-text text-dark">Some quick example text to build on the card title and
-                                    make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-secondary">Voir l'offre</a>
-                                <a href="#" class="btn btn-secondary ">Postuler</a>
-                            </div>
-                        </div>
+                            <% }) %>
 
                     </div>
                 </div>

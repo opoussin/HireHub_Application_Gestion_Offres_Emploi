@@ -21,9 +21,9 @@ var mysql = require('mysql');
 
 
 module.exports = {
-    updateUser: function (mail, nom, prenom, telephone, callback) {
+    updateUser: function (mail, nom, prenom, telephone, mdp, callback) {
        
-        var sql = mysql.format("UPDATE UTILISATEUR SET nom =?, prenom=?, telephone=? WHERE mail=?", [nom, prenom, telephone, mail]);
+        var sql = mysql.format("UPDATE UTILISATEUR SET nom =?, prenom=?, telephone=?, mdp=? WHERE mail=?", [nom, prenom, telephone, mdp, mail]);
 
         db.query(sql, function (err, results) {
                 if (err) throw err;
@@ -89,14 +89,23 @@ module.exports = {
     updateCandidature: function (mail, callback) {
         
     },
-    readAllCandidature: function (mail, callback) {
+    /*readAllCandidature: function (mail, callback) {
         
         db.query("select * from CANDIDATURE where candidat=?", mail, function
             (err, results) {
             if (err) throw err;
             callback(results);
         });
+    },*/
+    readAllCandidature: function (mail, callback) {
+        
+        db.query("select * from (CANDIDATURE c INNER JOIN OFFRE o ON c.offre=o.numero) INNER JOIN FICHE_POSTE f ON f.offre=o.numero where candidat=?", mail, function
+            (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
     },
+
     deleteDmdOrga: function (siren, callback) {
         db.query("DELETE FROM DMD_ORGA where mail= ?", siren, function
         (err, results) {
