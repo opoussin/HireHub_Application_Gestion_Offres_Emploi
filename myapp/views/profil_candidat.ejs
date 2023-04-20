@@ -51,24 +51,12 @@
 
                             <li class="list-group-item">Depuis le: <%= date %></li>
                         </ul>
-                        <div class="card-body">
-                            <a href="#" class="card-link text-primary">Card link</a>
-                            <a href="#" class="card-link text-primary">Another link</a>
-                        </div>
+
+                        
                     </div>
+                    <a href="" class="btn btn-link">Modifier mon profil</a>
 
-                    <ul class="nav flex-column mt-2 ms-4">
-                        <li class="nav-item">
-                            <a class="nav-link active " href="#profil">Mon Profil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#candidatures">Mes candidatures</a>
-                        </li>
-                        <li>
-                            <%= nom %>
-                        </li>
-
-                    </ul>
+                    
                 </div>
                 <div class="col-9 h-100 ">
                     <div class="jumbotron bg-light p-2 mb-4" id="profil">
@@ -80,7 +68,7 @@
                                     <label for="Nom" class="col-form-label fw-bold">Nom</label>
                                 </div>
                                 <div class="col-auto">
-                                    <input type="nom" class="form-control w-auto" id="nom" name="nom">
+                                    <input type="nom" class="form-control w-auto" id="nom" name="nom" value="<%= nom%>">
                                 </div>
                                 <div class="col-auto">
 
@@ -105,25 +93,10 @@
                                     <label for="mail" class="col-form-label fw-bold">Adresse Mail</label>
                                 </div>
                                 <div class="col-auto">
-                                    <input type="mail" class="form-control w-auto" id="mail" name="mail">
+                                    <input type="mail" class="form-control w-auto" id="mail" name="mail" value="<%= mail%>" disabled>
                                 </div>
                                 <div class="col-auto">
 
-                                </div>
-                            </div>
-
-
-                            <div class="row g-3 align-items-center mb-3">
-                                <div class="col-auto">
-                                    <label for="inputPassword6" class="col-form-label fw-bold">Mot de passe</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input type="password" class="form-control w-auto" id="mdp" name="mdp">
-                                </div>
-                                <div class="col-auto">
-                                    <span id="passwordHelpInline" class="form-text">
-                                        Must be 8-20 characters long.
-                                    </span>
                                 </div>
                             </div>
 
@@ -131,8 +104,8 @@
                                 <div class="col-auto">
                                     <label for="tel" class="col-form-label fw-bold">Téléphone</label>
                                 </div>
-                                <div class="col-auto">
-                                    <input type="Telephone" class="form-control w-auto" id="telephone" name="telephone">
+                                <div class="col-auto"> 
+                                    <input type="Telephone" class="form-control w-auto" id="telephone" name="telephone" value="<%= telephone%>">
                                 </div>
                             </div>
 
