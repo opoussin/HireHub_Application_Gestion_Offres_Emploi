@@ -100,8 +100,8 @@ module.exports = {
         });
     },
     readAllDmdRecruteur: function (siren, callback) {
-        //var sql = mysql.format("SELECT u.nom, u.prenom FROM UTILISATEUR u INNER JOIN DMD_RECRUTEUR r ON u.mail=r.recruteur WHERE f.organisation=?");
-        var sql = mysql.format("SELECT * FROM DMD_RECRUTEUR WHERE organisation=?");
+        var sql = mysql.format("SELECT * FROM UTILISATEUR u INNER JOIN DMD_RECRUTEUR r ON u.mail=r.recruteur WHERE f.organisation=?");
+        //var sql = mysql.format("SELECT * FROM DMD_RECRUTEUR WHERE organisation=?");
         db.query(sql, siren, function (err, results) {
             if (err) throw err;
             callback(results);
@@ -113,17 +113,10 @@ module.exports = {
 
     /*quitter une organisation */
     deleteRecruteurOrga: function (siren, mail, callback) {
-        var sql = mysql.format("UPDATE UTILISATEUR SET type = 1 WHERE mail IN ( SELECT u.mail FROM UTILISATEUR u INNER JOIN APPARTENIR_ORGA a ON u.mail = a.utilisateur WHERE organisation =? AND mail=? GROUP BY utilisateur HAVING COUNT(*) = 1 )");
-        /*UPDATE UTILISATEUR
-SET type = 1
-WHERE mail IN (
-  SELECT u.mail
-  FROM UTILISATEUR u
-  INNER JOIN APPARTENIR_ORGA a ON u.mail = a.utilisateur
-  WHERE a.organisation = ? AND u.mail = ?
-  GROUP BY u.mail
-  HAVING COUNT(*) = 1
-)*/
+        var sql = mysql.format(
+            
+        "UPDATE UTILISATEUR SET type = 1 WHERE mail IN ( SELECT u.mail FROM UTILISATEUR u INNER JOIN APPARTENIR_ORGA a ON u.mail = a.utilisateur WHERE a.organisation =? AND u.mail=? GROUP BY utilisateur HAVING COUNT(*) = 1 )");
+
         var sql2 = mysql.format("DELETE FROM APPARTENIR_ORGA WHERE organisation=? AND utilisateur=mail");
         db.query(sql, function (err, results) {
             if (err) throw err;
