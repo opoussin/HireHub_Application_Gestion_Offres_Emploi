@@ -20,7 +20,7 @@ router.get('/profil_candidat', function (req, res, next) { //ca marche pas mais 
   console.log(email);
   result=communModel.readUser(email, function(result){
     console.dir(result);
-    res.render('profil_candidat', { nom: result.nom, prenom: result.prenom, mail: result.mail, telephone: result.telephone, statut: result.statut, });  });
+    res.render('profil_candidat', { nom: result.nom, prenom: result.prenom, mail: result.mail, telephone: result.telephone, statut: result.statut, date: result.dateCreation.toLocaleDateString("fr")});  });
   
 });
 

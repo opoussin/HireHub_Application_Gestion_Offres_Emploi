@@ -31,16 +31,25 @@
             <div class="row me-0 pe-1">
                 <div class="col-3 d-flex flex-column border-end">
 
-                    <div class="card w-auto ms-4" >
+                    <div class="card w-auto ms-4">
                         <div class="card-body">
-                            <h5 class="card-title"><%= nom %><%= prenom %></h5>
+                            <h5 class="card-title">
+                                <%= prenom %>
+                                    <%= nom %>
+                            </h5>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><%= mail %></li>
-                            <li class="list-group-item"><%= telephone %></li>
-                            <li class="list-group-item"><%= statut %></li>
+                            <li class="list-group-item">
+                                <%= mail %>
+                            </li>
+                            <li class="list-group-item">
+                                <%= telephone %>
+                            </li>
+                            <li class='list-group-item <%= (statut==1) ? "text-dark" : "text-danger" %>'>
+                                <%= (statut==1) ? "Actif" : "Inactif" %>
+                            </li>
 
-                            <li class="list-group-item">Depuis le: </li>
+                            <li class="list-group-item">Depuis le: <%= date %></li>
                         </ul>
                         <div class="card-body">
                             <a href="#" class="card-link text-primary">Card link</a>
@@ -55,7 +64,9 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="#candidatures">Mes candidatures</a>
                         </li>
-                        <li><%= nom %></li>
+                        <li>
+                            <%= nom %>
+                        </li>
 
                     </ul>
                 </div>
@@ -81,7 +92,8 @@
                                     <label for="Prenom" class="col-form-label fw-bold">Prenom</label>
                                 </div>
                                 <div class="col-auto">
-                                    <input type="prenom" class="form-control w-auto" id="prenom" name="prenom" value="<%= prenom%>">
+                                    <input type="prenom" class="form-control w-auto" id="prenom" name="prenom"
+                                        value="<%= prenom%>">
                                 </div>
                                 <div class="col-auto">
 

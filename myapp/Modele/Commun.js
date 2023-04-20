@@ -69,7 +69,7 @@ module.exports = {
     });
     },
     readUser: function (mail, callback) {
-        db.query("SELECT nom, prenom, mail, telephone, dateCreation, statut FROM UTILISATEUR WHERE mail=?", mail, function(err, results) {
+        db.query("SELECT * FROM UTILISATEUR WHERE mail=?", mail, function(err, results) {
         console.log(result);
         if (err) throw err;
         callback(results[0]);
