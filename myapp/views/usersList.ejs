@@ -1,156 +1,126 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">      
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-        
-        <link href="/stylesheets/style.css" rel="stylesheet" media="all" type="text/css">
+<%- include('./includes/head')%>
 
-      </head>
-<!--<body style="height: 100vh;background-attachment: fixed;"> 
+    <body>
 
-    <header class="d-flex justify-content-center flex-column" >
-        <div class="container align-items-center mb-5 pt-4">
-            <h1 class="text-center fs-1 fw-bold mt-4"><%= title %></h1>
-            <h3 class="text-center fs-4">Recherchez des utilisateurs</h3>
+        <div id="page-container">
+            <%- include('./components/navbar')%>
+
+                <div id="content-wrap">
+                    <section">
+                        <h1>
+                            <%= title %>
+                        </h1>
+                        <table border>
+                            <thead>
+                                <tr>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% users.forEach((user)=> { %>
+                                    <tr>
+                                        <td>
+                                            <%= user.prenom %>
+                                        </td>
+                                        <td>
+                                            <%= user.nom %>
+                                        </td>
+                                        <td>
+                                            <%= user.email %>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section>
+                        <table border>
+                            <thead>
+                                <tr>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% users.forEach((user)=> { %>
+                                    <tr>
+                                        <td>
+                                            <%= user.prenom %>
+                                        </td>
+                                        <td>
+                                            <%= user.nom %>
+                                        </td>
+                                        <td>
+                                            <%= user.email %>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section>
+                        <table border>
+                            <thead>
+                                <tr>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% users.forEach((user)=> { %>
+                                    <tr>
+                                        <td>
+                                            <%= user.prenom %>
+                                        </td>
+                                        <td>
+                                            <%= user.nom %>
+                                        </td>
+                                        <td>
+                                            <%= user.email %>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section>
+
+                        <table border>
+                            <thead>
+                                <tr>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% users.forEach((user)=> { %>
+                                    <tr>
+                                        <td>
+                                            <%= user.prenom %>
+                                        </td>
+                                        <td>
+                                            <%= user.nom %>
+                                        </td>
+                                        <td>
+                                            <%= user.email %>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+                <footer id="footer">
+                    Footer
+                </footer>
         </div>
-        <nav class="navbar navbar-expand-sm d-flex flex-direction flex-column">
-            <div class="container d-flex w-80">
-                <a class="btn btn-outline-light mb-3" href="#">Gérer les demandes d'admissions</a>             
-            </div>
-            <div class="container ">
-                <div class="row">
-                    <div class="col-2">
-                        <input type="Nom" class="form-control w-auto" id="Nom" placeholder="Nom" name="Nom">
-                    </div>
-                    <div class="col-2 offset-6">
-                        <input type="Prenom" class="form-control w-auto" id="Prenom" placeholder="Prenom" name="Prenom">
-                    </div>
-                       
-                </div>
-                  
-            </div>
-        </nav>
+    </body>
 
-    </header>
-
-    <main>
-        <section class="py-5">
-            <div class="container ">
-                <div class="row">
-                    <div class="col-3">
-
-                        <div class="row">
-                            <div class="container mt-4">
-                                <h2>About Me</h2>
-                            <h5>Photo of me:</h5>
-                            <div class="">
-                                <img src="portrait.jpg" alt="..." class="rounded-circle h-50 w-50 p-2 mb-4">
-                            </div>
-                            <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-                            </div>
-                            
-                        </div>
-
-                        <div class="row">
-                            <div class="container pb-4">
-                                <h3 class="mt-4">Some Links</h3>
-                                <p>Lorem ipsum dolor sit ame.</p>
-                            </div>
-                            
-                            
-                            <div class="container d-flex justify-content-center h-80 flex-column" >
-                                <a class="btn btn-outline-light mb-3" href="#">Modifier mon profil</a>
-                            
-                                <a class="btn btn-outline-light mb-3" href="#">Voir mes candidatures</a>
-                            
-                                <a class="btn btn-outline-light mb-3" href="#">Active</a>
-                            </div>
-                            
-                        </div>
-                        
-                    </div>
-
-                    <div class="col-9 gy-4">
-                        <% users.forEach((user)=> { %>
-                        <div class="card mb-4 pt-0 " style="width: autorem;">
-                            <div class="card-body g-4">
-                              <h5 class="card-title text-dark fs-3"><%= user.Prenom %></h5>
-                              <h6 class="card-subtitle mb-2 text-muted"><%= user.Nom %></h6>
-                              <p class="card-text text-dark">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-secondary">Voir l'offre</a>
-                              <a href="#" class="btn btn-secondary ">Postuler</a>
-                            </div>
-                          </div>
-                        <% }) %>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="border-top">
-        <div class="container py-5">
-            <div class="row gy-4 align-items-center">
-                <div class="col-12 col-md-4">
-                    <a class="navbar-brand text-dark text-uppercase fw-bold" href="#">
-                        <span class="btn btn-outline-light  p-1 rounded-3 text-light">Nomdusite</span> 
-                      </a>
-                </div>
-                <div class="col-12 col-md-4">
-                    <p class="text-md-center ">Mentions légales </p>
-                </div>
-                <div class="col-12 col-md-4 text-md-end">
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item">
-                            <a href="#" class="text-decoration-none text-dark pl-1"><i class="bi bi-linkedin "></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="text-decoration-none text-dark"></a><i class="bi bi-instagram"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="text-decoration-none text-dark"></a><i class="bi bi-twitter"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </footer>
-</body> -->
-
-<body>
-    <h1>
-    <%= title %>
-    </h1>
-    <table border>
-    <thead>
-    <tr>
-    <th>Firstname</th>
-    <th>Lastname</th>
-    <th>Email</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% users.forEach((user)=> { %>
-    <tr>
-    <td>
-    <%= user.prenom %>
-    </td>
-    <td>
-    <%= user.nom %>
-    </td>
-    <td>
-    <%= user.email %>
-    </td>
-    </tr>
-    <% }) %>
-    </tbody>
-    </table>
-</body>
 </html>

@@ -1,122 +1,86 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="/stylesheets/style.css" rel="stylesheet" media="all" type="text/css">
+<%- include('./includes/head')%>
 
-</head>
+    <body style="height: 100vh;">
 
-<body style="height: 100vh;">
+        <%- include('./components/navbar')%>
+            <div id="page-container">
+                <div id="content-wrap">
+                    <main>
+                        <section class="py-4">
+                            <div class="row me-0 pe-1">
+                                <div class="col-3 d-flex flex-column border-end align-items-start">
 
-    <header class="sticky-top">
-        <div class="navbar container-fluid d-flex flex-row">
-            <a class="btn text-light rounded-circle btn-outline-light" href="/candidat"><i class="bi bi-house"></i></a>
-            <p class="my-auto text-light fw-bold">Nom du site</p>
-            <a class="btn btn-outline-light my-auto btn-sm" href="#">Devenir Recruteur</a>
-            <a class="btn btn-outline-light my-auto btn-sm" href="#">Devenir administrateur</a>
-            <a class="btn rounded text-light" href="/users/profil_candidat"><i class="bi bi-person-circle me-2"></i>
-                Profil</a>
-        </div>
-    </header>
+                                    <div class="card w-auto ms-4">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <%= user.prenom %>
+                                                    <%= user.nom %>
+                                            </h5>
+                                        </div>
+                                        <ul class="list-group list-group-flush list-unstyled p-3">
+                                            <li class="">
+                                                <%= user.mail %>
+                                            </li>
+                                            <li class="">
+                                                <%= user.telephone %>
+                                            </li>
+                                            <li class='<%= (user.statut==1) ? "text-dark" : "text-danger" %>'>
+                                                <%= (user.statut==1) ? "Actif" : "Inactif" %>
+                                            </li>
 
-    <main>
-        <section class="py-4">
-            <div class="row me-0 pe-1">
-                <div class="col-3 d-flex flex-column border-end align-items-start">
+                                            <li>Depuis le: <%= user.dateCreation.toLocaleDateString("fr") %>
+                                            </li>
+                                        </ul>
 
-                    <div class="card w-auto ms-4">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <%= user.prenom %>
-                                    <%= user.nom %>
-                            </h5>
-                        </div>
-                        <ul class="list-group list-group-flush list-unstyled p-3">
-                            <li class="">
-                                <%= user.mail %>
-                            </li>
-                            <li class="">
-                                <%= user.telephone %>
-                            </li>
-                            <li class='<%= (user.statut==1) ? "text-dark" : "text-danger" %>'>
-                                <%= (user.statut==1) ? "Actif" : "Inactif" %>
-                            </li>
 
-                            <li>Depuis le: <%= user.dateCreation.toLocaleDateString("fr") %></li>
-                        </ul>
+                                    </div>
+                                    <a href="/users/modifier_profil" class="btn btn-link m-4 ps-0">Modifier mon
+                                        profil</a>
 
-                        
-                    </div>
-                    <a href="/users/modifier_profil" class="btn btn-link m-4 ps-0">Modifier mon profil</a>
 
-                    
-                </div>
-                <div class="col-9 h-100 ">
-
-                    <div class="jumbotron bg-light p-2" id="candidatures">
-                        <h1 class="display-4">Mes candidatures <i class="bi bi-file-earmark-person fa-1x me-2"></i></h1>
-                        <hr class="my-4">
-                        
-                        <% candidatures.forEach((candidature)=> { %>
-                            <div class="card mb-4 pt-0 " style="width: autorem;">
-                                <div class="card-body g-4">
-                                    <h5 class="card-title text-dark fs-3"><%= candidature.intitule %></h5>
-                                    <h6 class="card-subtitle mb-2 text-muted"><%= candidature.statut %></h6>
-                                    <p class="card-text text-dark"><%= candidature.description %></p>
-                                    <a href="#" class="btn btn-secondary">Voir l'offre</a>
-                                    <a href="#" class="btn btn-secondary ">Modifier candidature</a>
                                 </div>
+                                <div class="col-9 h-100 ">
+
+                                    <div class="jumbotron bg-light p-2" id="candidatures">
+                                        <h1 class="display-4">Mes candidatures <i
+                                                class="bi bi-file-earmark-person fa-1x me-2"></i></h1>
+                                        <hr class="my-4">
+
+                                        <% candidatures.forEach((candidature)=> { %>
+                                            <div class="card mb-4 pt-0 " style="width: autorem;">
+                                                <div class="card-body g-4">
+                                                    <h5 class="card-title text-dark fs-3">
+                                                        <%= candidature.intitule %>
+                                                    </h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted">
+                                                        <%= candidature.statut %>
+                                                    </h6>
+                                                    <p class="card-text text-dark">
+                                                        <%= candidature.description %>
+                                                    </p>
+                                                    <a href="#" class="btn btn-secondary">Voir l'offre</a>
+                                                    <a href="#" class="btn btn-secondary ">Modifier candidature</a>
+                                                </div>
+                                            </div>
+                                            <% }) %>
+
+                                    </div>
+                                </div>
+
+
                             </div>
-                            <% }) %>
+                        </section>
 
-                    </div>
+
+                    </main>
                 </div>
-
+                <%- include('./components/footer')%>
 
             </div>
-            </div>
 
-        </section>
-
-
-    </main>
-
-    <!--<footer class="border-top">
-        <div class="container py-2">
-            <div class="row gy-4 align-items-center">
-                <div class="col-12 col-md-4">
-                    <a class="navbar-brand text-dark text-uppercase fw-bold" href="#">
-                        <span class="btn btn-outline-light  p-1 rounded-3 text-light">Nomdusite</span>
-                    </a>
-                </div>
-                <div class="col-12 col-md-4">
-                    <p class="text-md-center ">Mentions légales </p>
-                </div>
-                <div class="col-12 col-md-4 text-md-end">
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item">
-                            <a href="#" class="text-decoration-none text-dark pl-1"><i class="bi bi-linkedin "></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="text-decoration-none text-dark"></a><i class="bi bi-instagram"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="text-decoration-none text-dark"></a><i class="bi bi-twitter"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </footer>
--->
-</body>
+    </body>
 
 </html>

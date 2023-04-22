@@ -52,4 +52,8 @@ router.post('/inscription', function (req, res, next) {
   });
 });
 
+router.get('/template', function (req, res, next) {
+  res.render('template');
+});
+
 module.exports = router;

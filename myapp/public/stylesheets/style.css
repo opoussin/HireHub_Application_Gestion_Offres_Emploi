@@ -1,13 +1,10 @@
-/* 
+/*
 *{
   border: solid;
   border-width: 1px;
   border-color: red;
-} */
-
-body {
-  background-color: white;
-}
+} 
+*/
 
 .index{
   background: linear-gradient(#4D62AE, #2C3248);
@@ -33,9 +30,9 @@ a {
   text-align: center;
 }
 
-.sidebar{
+/*.sidebar{
   background-color: #f8f9fa;
-}
+}*/
 
 .box{
   height: 100vh; 
@@ -43,3 +40,18 @@ a {
   max-height: 700px;
 }
 
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 2.5rem;    /* Footer height */
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;            /* Footer height */
+}
