@@ -1,10 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var candidatModel = require('../Modele/Candidat.js')
+var orgaModel = require('../Modele/Organisation.js')
 
 router.get('/devenirRecruteur', function (req, res, next) {
-    res.render('formulaire_recruteur');
+
+  result = orgaModel.readOrga(function (result) {
+    res.render('formulaire_recruteur', {organisation : result});
   });
+});
 
 router.post('/devenirRecruteur', function (req, res, next) {
     var orga = req.body.orga;

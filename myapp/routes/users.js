@@ -38,14 +38,16 @@ router.get('/modifier_profil', function (req, res, next) {
 });
 
 router.post('/modifier_profil', function (req, res, next) {
-  var mail = "oceane@etu";
-  
+ 
+
   if (req.body.form1) {
+    var mail = "oceane@etu";
     var nom = req.body.nom;
     var prenom = req.body.prenom;
     var telephone = req.body.telephone;
     //var mail = req.body.mail;
     candidatModel.updateUser(mail, nom, prenom, telephone, function (result) {
+      console.log(result);
       if (result) {
         res.redirect('/users/profil_candidat');
       } else {

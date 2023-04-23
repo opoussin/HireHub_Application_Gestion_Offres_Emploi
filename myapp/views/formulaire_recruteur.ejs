@@ -27,12 +27,10 @@
 
                                         <div class="form-group">
                                             <select class="form-control" title="Choisir une organisation ...">
-                                                <option>Orga1</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                                <% organisation.forEach((orga)=> { %>
+                                                <option><%= orga.nom %></option>
+                                                <% }) %>
+                                                
                                             </select>
                                         </div>
 
