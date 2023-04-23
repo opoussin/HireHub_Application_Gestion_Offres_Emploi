@@ -74,22 +74,18 @@ module.exports = {
         });
         
     },
-    creatDmdRecruteur: function (siren, mail, callback) {
-        var sql = mysql.format("INSERT INTO DMD_RECRUTEUR (organisation, recruteur) VALUES (?,?)", [siren, mail]);
+    creatDmdRecruteur: function (mail, siren, callback) {
+        var sql = mysql.format("INSERT INTO DMD_RECRUTEUR (recruteur, organisation) VALUES (?,?)", [mail,siren]);
 
         db.query(sql, function (err, results) {
-            if (err) throw err;
-            callback(results);
-
+            callback(err!=undefined);
         });
     },
     creatDmdAdmin: function (mail, callback) {
-        var sql = mysql.format("INSERT INTO DMD_ADMIN (recruteur) VALUES (?)", [mail]);
+        var sql = mysql.format("INSERT INTO DMD_ADMIN (utilisateur) VALUES (?)", [mail]);
 
         db.query(sql, function (err, results) {
-            if (err) throw err;
-            callback(results);
-
+            callback(err!=undefined);
         });
     },
     creatCandidature: function (mail, callback) {
@@ -146,11 +142,29 @@ module.exports = {
             callback(results);
         });
     },
+    readOrga: function ( callback) { 
+        sql = "SELECT * FROM ORGANISATION";
+        rows = db.query(sql, function (err, results) {
+            if (err) throw err;
+            if (rows.length != 0) { // si il y a au moins une ligne (donc une orga du type)
+                callback(results)
+            } else { // il n'y a pas d'orga de ce type
+                callback(false);
+            }
+            //callback(results);
+        });
+    },
     readUserDmdRecruteur: function (mail, callback) {
-        db.query("select * from DMD_RECRUTEUR where recruteur=?", mail, function
+        var mail = "oceane@etu";
+        var sql = "select * from DMD_RECRUTEUR where recruteur=?";
+        rows = db.query(sql, mail, function
             (err, results) {
             if (err) throw err;
-            callback(results);
+            if (rows.length != 0) { 
+                callback(results)
+            } else { 
+                callback(false);
+            }
         });
     },
     readUserDmdAdmin: function (mail, callback) {

@@ -26,16 +26,16 @@
                                             recuteurs de l'organisation.</p>
 
                                         <div class="form-group">
-                                            <select class="form-control" title="Choisir une organisation ...">
+                                            <select class="form-control" title="Choisir une organisation ..." name="choix">
                                                 <% organisation.forEach((orga)=> { %>
-                                                <option><%= orga.nom %></option>
+                                                <option value="<%= orga.siren %>"><%= orga.nom %></option>
                                                 <% }) %>
                                                 
                                             </select>
                                         </div>
 
 
-                                        <button class="btn btn-primary mt-3" type="submit">Envoyer
+                                        <button class="btn btn-primary mt-3" type="submit" name="form1">Envoyer
                                             demande</button>
                                     </form>
                                 </div>
@@ -45,7 +45,7 @@
                                     <p>Les demandes d'administration sont soumises à la validation des
                                         administrateurs.</p>
                                     <form method="POST">
-                                        <button class="btn btn-primary mt-3" type="submit"> Envoyer demande</button>
+                                        <button class="btn btn-primary mt-3" type="submit" name="form2"> Envoyer demande</button>
                                     </form>
                                 </div>
                             </div>
@@ -61,16 +61,13 @@
                         <div class="row">
                             <h3 class="display-6">Recruteur</h3>
                             <ul class="list-group">
+                                <% demandeRecrut.forEach((dmd)=> { %>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Nom
-                                    Date
+                                    <%= dmd.recruteur%>
+                                    <%= dmd.organisation%>
                                     <span class="badge badge-primary badge-pill">Accepté</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Nom
-                                    Date
-                                    <span class="badge badge-primary badge-pill">Accepté</span>
-                                </li>
+                                <% }) %>
                             </ul>
                         </div>
                         <div class="row">

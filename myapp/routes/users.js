@@ -38,7 +38,6 @@ router.get('/modifier_profil', function (req, res, next) {
 });
 
 router.post('/modifier_profil', function (req, res, next) {
- 
 
   if (req.body.form1) {
     var mail = "oceane@etu";
