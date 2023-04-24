@@ -102,7 +102,12 @@ router.post('/devenirRecruteur', function (req, res, next) {
 });
 router.get('/candidat', function (req, res, next) { 
   result = candidatModel.readAllOffreValide (function (result) {
-    res.render('listeOffre', { title: 'List des Offres', users: result });
+    res.render('listeOffre', { title: 'List des Offres', offre: result });
+  });
+});
+router.get('/candidat', function (organisation, lieu, statut, salaire, type, intitule,req, res, next) { 
+  result = candidatModel.readAllOffreFiltre (function (organisation, lieu, statut, salaire, type, intitule, result) {
+    res.render('listeOffreFiltre', { title: 'List des Offres Filtres', users: result });
   });
 });
 
