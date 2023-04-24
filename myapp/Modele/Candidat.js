@@ -180,12 +180,11 @@ module.exports = {
         });
     },
     readUserDmdRecruteur: function (mail, callback) {
-        var mail = "oceane@etu";
         var sql = "select * from DMD_RECRUTEUR where recruteur=?";
-        rows = db.query(sql, mail, function
-            (err, results) {
+        db.query(sql, mail, function (err, results) {
+            
             if (err) throw err;
-            if (rows.length != 0) { 
+            if (results.length != 0) { 
                 callback(results)
             } else { 
                 callback(false);
