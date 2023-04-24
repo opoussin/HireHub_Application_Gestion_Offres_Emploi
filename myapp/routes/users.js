@@ -100,5 +100,11 @@ router.post('/devenirRecruteur', function (req, res, next) {
     res.redirect('/admin');
   });
 });
+router.get('/candidat', function (req, res, next) { 
+  result = candidatModel.readAllOffreValide (function (result) {
+    res.render('listeOffre', { title: 'List des Offres', users: result });
+  });
+});
+
 
 module.exports = router;
