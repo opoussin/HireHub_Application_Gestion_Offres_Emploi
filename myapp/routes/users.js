@@ -13,9 +13,6 @@ router.get('/userslist', function (req, res, next) {
   });
 });
 
-router.get('/candidat', function (req, res, next) {
-  res.render('candidat');
-});
 
 router.get('/profil_candidat', function (req, res, next) {
   var email = "oceane@etu";
