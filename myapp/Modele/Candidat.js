@@ -44,7 +44,7 @@ module.exports = {
     },
 
     readAllOffreValide: function (callback) {
-        db.query("select * from OFFRE INNER JOIN FICHE ON OFFRE.numero = FICHE.numero where OFFRE.etat= publiee", function
+        db.query("select * from OFFRE INNER JOIN FICHE ON OFFRE.numero = FICHE.numero INNER JOIN ON OFFRE.siren = ORGANISATION.siren where OFFRE.etat= publiee", function
             (err, results) {
             if (err) throw err;
             callback(results);

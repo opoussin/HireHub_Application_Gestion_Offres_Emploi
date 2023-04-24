@@ -20,34 +20,43 @@
 
                                 <form class="form-inline" action="" method="post">
                                     <div class="form-group  mb-3 d-flex flex-row">
-                                        <input type="mot_cle" class="form-control" id="mot_cle" placeholder="Recherchez des offres" name="mot_cle">
+                                        <input type="text" class="form-control" id="mot_cle" placeholder="Recherchez des offres" name="mot_cle">
                                         <button type="submit" class="btn btn-outline-primary offset-sm-1">Rechercher</button>
                                     </div>
+                                    <input type="lieux" class="form-control mt-2" id="lieux" placeholder="Lieux" name="lieux">
+                                    <div class="d-flex mt-2">
+                                        <p class="text-center my-auto me-2">Type</p>
+                                        <select class="form-select" name="type">
+                                            <option value="NULL" selected>Selectionnez</option>
+                                            <option value="pomme">Pomme</option>
+                                            <option value="pomme">Pomme</option>
+                                            <option value="pomme">Pomme</option>
+                                            <option value="pomme">Pomme</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex mt-2">
+                                        <p class="text-center my-auto me-2">Salaire</p>
+                                        <select class="form-select" name="salaire">
+                                            <option value="NULL" selected>Selectionnez</option>
+                                            <option value="pomme">Pomme</option>
+                                            <option value="pomme">Pomme</option>
+                                            <option value="pomme">Pomme</option>
+                                            <option value="pomme">Pomme</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex mt-2">
+                                        <p class="text-center my-auto me-2">Statut</p>
+                                        <select class="form-select" name="statut">
+                                            <option value="NULL" selected>Selectionnez</option>
+                                            <option value="pomme">Pomme</option>
+                                            <option value="pomme">Pomme</option>
+                                            <option value="pomme">Pomme</option>
+                                            <option value="pomme">Pomme</option>
+                                        </select>
+                                    </div>
+                                
+                                    <button type="submit" class="btn btn-outline-primary mt-2">Valider</button>
                                 </form>
-
-
-                                <input type="lieux" class="form-control mt-2" id="lieux" placeholder="Lieux" name="lieux">
-                                <div class="d-flex mt-2">
-                                    <p class="text-center my-auto me-2">Type</p>
-                                    <select class="form-select">
-                                        <option>Selectionnez</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                    </select>
-                                </div>
-                                <div class="d-flex mt-2">
-                                    <p class="text-center my-auto me-2">Autre</p>
-                                    <select class="form-select">
-                                        <option>Selectionnez</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-outline-primary mt-2">Valider</button>
                             </div>
 
                         </div>
@@ -71,7 +80,7 @@
                         <div class="card mb-4 pt-0 " style="width: autorem;">
                             <div class="card-body g-4">
                                 <h5 class="card-title text-dark fs-3"><%= listeOffre.intitule %></h5>
-                                <h6 class="card-subtitle mb-2 text-muted"><%= listeOffre.type %></h6>
+                                <h6 class="card-subtitle mb-2 text-muted"><%= listeOffre.nom %></h6>
                                 <p class="card-text text-dark"><%= listeOffre.description %></p>
                                 <a href="#" class="btn btn-secondary">Voir l'offre</a>
                                 <a href="#" class="btn btn-secondary ">Postuler</a>
@@ -80,10 +89,9 @@
 
                         <div class="card mb-4  pt-0" style="width: autorem;">
                             <div class="card-body g-4">
-                                <h5 class="card-title text-dark fs-3">Fiche de poste</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Auchan</h6>
-                                <p class="card-text text-dark">Some quick example text to build on the card title and
-                                    make up the bulk of the card's content.</p>
+                                <h5 class="card-title text-dark fs-3"><%= listeOffre.intitule %></h5>
+                                <h6 class="card-subtitle mb-2 text-muted"><%= listeOffre.nom %></h6>
+                                <p class="card-text text-dark"><%= listeOffre.description %></p>
                                 <a href="#" class="btn btn-secondary">Voir l'offre</a>
                                 <a href="#" class="btn btn-secondary ">Postuler</a>
                             </div>
@@ -91,10 +99,9 @@
 
                         <div class="card mb-4 pt-0" style="width: autorem;">
                             <div class="card-body g-4">
-                                <h5 class="card-title text-dark fs-3">Fiche de poste</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Auchan</h6>
-                                <p class="card-text text-dark">Some quick example text to build on the card title and
-                                    make up the bulk of the card's content.</p>
+                                <h5 class="card-title text-dark fs-3"><%= listeOffre.intitule %></h5>
+                                <h6 class="card-subtitle mb-2 text-muted"><%= listeOffre.nom %></h6>
+                                <p class="card-text text-dark"><%= listeOffre.description %></p>
                                 <a href="#" class="btn btn-secondary">Voir l'offre</a>
                                 <a href="#" class="btn btn-secondary ">Postuler</a>
                             </div>
@@ -102,10 +109,9 @@
 
                         <div class="card mb-4 pt-0" style="width: autorem;">
                             <div class="card-body g-4">
-                                <h5 class="card-title text-dark fs-3">Fiche de poste</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Auchan</h6>
-                                <p class="card-text text-dark">Some quick example text to build on the card title and
-                                    make up the bulk of the card's content.</p>
+                                <h5 class="card-title text-dark fs-3"><%= listeOffre.intitule %></h5>
+                                <h6 class="card-subtitle mb-2 text-muted"><%= listeOffre.nom %></h6>
+                                <p class="card-text text-dark"><%= listeOffre.description %></p>
                                 <a href="#" class="btn btn-secondary">Voir l'offre</a>
                                 <a href="#" class="btn btn-secondary ">Postuler</a>
                             </div>
