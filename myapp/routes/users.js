@@ -101,15 +101,15 @@ router.post('/devenirRecruteur', function (req, res, next) {
   });
 });
 router.get('/candidat', function (req, res, next) { 
-  result = candidatModel.readAllOffreValide (function (result) {
-    res.render('listeOffre', { title: 'List des Offres', offre: result });
+  result = candidatModel.readAllOffreValide (function (results) {
+    res.render('candidat', { title: 'List des Offres', listeOffre: results });
   });
 });
-router.get('/candidat', function (organisation, lieu, statut, salaire, type, intitule,req, res, next) { 
+/*router.get('/candidat', function (organisation, lieu, statut, salaire, type, intitule,req, res, next) { 
   result = candidatModel.readAllOffreFiltre (function (organisation, lieu, statut, salaire, type, intitule, result) {
-    res.render('listeOffreFiltre', { title: 'List des Offres Filtres', users: result });
+    res.render('candidat', { title: 'List des Offres Filtres', users: result });
   });
-});
+});*/
 
 
 module.exports = router;
