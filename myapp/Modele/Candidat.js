@@ -52,9 +52,34 @@ module.exports = {
     },
 
     readOffreFiltre: function (organisation, lieu, statut, salaire, type, intitule, callback) {
-        if (intitule != NULL){
 
+        var sql = mysql.format("select * from OFFRE INNER JOIN FICHE ON OFFRE.numero = FICHE.numero INNER JOIN ON OFFRE.siren = ORGANISATION.siren where OFFRE.etat= publiee");
+
+        
+        if (intitule!='') {
+            sql += ` AND WHERE ${intitule=intitule}`;
         }
+        if (organisation!='') {
+            sql += ` AND WHERE ${organisation=nom}`;
+        }
+
+        if (lieu!='') {
+            sql += ` AND WHERE ${lieu=lieu}`;
+        }
+
+        if (statut!=NULL) {
+            sql += ` AND WHERE ${statut=statut}`;
+        }
+        /*if (salaire!=NULL) {
+            sql += ` AND WHERE ${}`;
+        }*/
+        if (type!=NULL) {
+            sql += ` AND WHERE ${type=type}`;
+        }
+        db.query(sql, function (err, results) {
+            callback(err!=undefined);
+        });
+
         
     },
     creatDmdOrga: function (nom, siren, type, siegeSocial, mail, callback) {
