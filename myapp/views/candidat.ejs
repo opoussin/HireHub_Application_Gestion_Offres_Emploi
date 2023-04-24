@@ -4,126 +4,118 @@
 <%- include('./includes/head')%>
 
 
-<body style="height: 100vh;" class="sidebar">
+    <body style="height: 100vh;" class="sidebar">
 
-    <%- include('./components/navbar')%>
+        <%- include('./components/navbar')%>
 
+            <div id="page-container">
+                <div id="content-wrap">
+                    <main>
+                        <section class="py-2">
+                            <div class="container justify-content-center">
+                                <div class="row">
+                                    <div class="col-3">
 
-    <main>
-        <section class="py-2">
-            <div class="container justify-content-center">
-                <div class="row">
-                    <div class="col-3">
+                                        <div class="row pb-4">
+                                            <div class="container mt-4">
 
-                        <div class="row pb-4">
-                            <div class="container mt-4">
+                                                <form class="form-inline" action="" method="post">
+                                                    <div class="form-group  mb-3 d-flex flex-row">
+                                                        <input type="text" class="form-control" id="mot_cle"
+                                                            placeholder="Recherchez des offres" name="mot_cle">
+                                                        <button type="submit"
+                                                            class="btn btn-outline-primary offset-sm-1">Rechercher</button>
+                                                    </div>
+                                                    <input type="text" class="form-control mt-2" id="lieu"
+                                                        placeholder="Lieu" name="lieu">
+                                                    <input type="text" class="form-control mt-2" id="organisation"
+                                                        placeholder="organisation" name="organisation">
+                                                    <div class="d-flex mt-2">
+                                                        <p class="text-center my-auto me-2">Type</p>
+                                                        <select class="form-select" name="type">
+                                                            <option value="NULL" selected>Selectionnez</option>
+                                                            <option value="pomme">Pomme</option>
+                                                            <option value="pomme">Pomme</option>
+                                                            <option value="pomme">Pomme</option>
+                                                            <option value="pomme">Pomme</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="d-flex mt-2">
+                                                        <p class="text-center my-auto me-2">Salaire</p>
+                                                        <select class="form-select" name="salaire">
+                                                            <option value="NULL" selected>Selectionnez</option>
+                                                            <option value="pomme">Pomme</option>
+                                                            <option value="pomme">Pomme</option>
+                                                            <option value="pomme">Pomme</option>
+                                                            <option value="pomme">Pomme</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="d-flex mt-2">
+                                                        <p class="text-center my-auto me-2">Statut</p>
+                                                        <select class="form-select" name="statut">
+                                                            <option value="NULL" selected>Selectionnez</option>
+                                                            <option value="pomme">Pomme</option>
+                                                            <option value="pomme">Pomme</option>
+                                                            <option value="pomme">Pomme</option>
+                                                            <option value="pomme">Pomme</option>
+                                                        </select>
+                                                    </div>
 
-                                <form class="form-inline" action="" method="post">
-                                    <div class="form-group  mb-3 d-flex flex-row">
-                                        <input type="text" class="form-control" id="mot_cle" placeholder="Recherchez des offres" name="mot_cle">
-                                        <button type="submit" class="btn btn-outline-primary offset-sm-1">Rechercher</button>
+                                                    <button type="submit"
+                                                        class="btn btn-outline-primary mt-2">Valider</button>
+                                                </form>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row my-2">
+
+                                            <div class="container d-flex justify-content-center h-80"
+                                                style="flex-direction: column;">
+                                                <a class="btn btn-outline-secondary mb-2" href="#">Modifier mon
+                                                    profil</a>
+
+                                                <a class="btn btn-outline-secondary mb-2" href="#">Voir mes
+                                                    candidatures</a>
+
+                                                <a class="btn btn-outline-secondary mb-2" href="#">Active</a>
+                                            </div>
+
+                                        </div>
+
                                     </div>
-                                    <input type="text" class="form-control mt-2" id="lieu" placeholder="Lieu" name="lieu">
-                                    <input type="text" class="form-control mt-2" id="organisation" placeholder="organisation" name="organisation">
-                                    <div class="d-flex mt-2">
-                                        <p class="text-center my-auto me-2">Type</p>
-                                        <select class="form-select" name="type">
-                                            <option value="NULL" selected>Selectionnez</option>
-                                            <option value="pomme">Pomme</option>
-                                            <option value="pomme">Pomme</option>
-                                            <option value="pomme">Pomme</option>
-                                            <option value="pomme">Pomme</option>
-                                        </select>
+
+                                    <div class="col-9 gy-4">
+                                        <% listeOffre.forEach((offre)=> { %>
+                                            <div class="card mb-4 pt-0 " style="width: autorem;">
+                                                <div class="card-body g-4">
+                                                    <h5 class="card-title text-dark fs-3">
+                                                        <%= offre.intitule %>
+                                                    </h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted">
+                                                        <%= offre.nom %>
+                                                    </h6>
+                                                    <p class="card-text text-dark">
+                                                        <%= offre.description %>
+                                                    </p>
+                                                    <a href="#" class="btn btn-secondary">Voir l'offre</a>
+                                                    <a href="#" class="btn btn-secondary ">Postuler</a>
+                                                </div>
+                                            </div>
+                                            <% })%>
+
                                     </div>
-                                    <div class="d-flex mt-2">
-                                        <p class="text-center my-auto me-2">Salaire</p>
-                                        <select class="form-select" name="salaire">
-                                            <option value="NULL" selected>Selectionnez</option>
-                                            <option value="pomme">Pomme</option>
-                                            <option value="pomme">Pomme</option>
-                                            <option value="pomme">Pomme</option>
-                                            <option value="pomme">Pomme</option>
-                                        </select>
-                                    </div>
-                                    <div class="d-flex mt-2">
-                                        <p class="text-center my-auto me-2">Statut</p>
-                                        <select class="form-select" name="statut">
-                                            <option value="NULL" selected>Selectionnez</option>
-                                            <option value="pomme">Pomme</option>
-                                            <option value="pomme">Pomme</option>
-                                            <option value="pomme">Pomme</option>
-                                            <option value="pomme">Pomme</option>
-                                        </select>
-                                    </div>
-                                
-                                    <button type="submit" class="btn btn-outline-primary mt-2">Valider</button>
-                                </form>
+                                </div>
                             </div>
+                        </section>
 
-                        </div>
+                    </main>
 
-                        <div class="row my-2">
-
-                            <div class="container d-flex justify-content-center h-80" style="flex-direction: column;">
-                                <a class="btn btn-outline-secondary mb-2" href="#">Modifier mon profil</a>
-
-                                <a class="btn btn-outline-secondary mb-2" href="#">Voir mes candidatures</a>
-
-                                <a class="btn btn-outline-secondary mb-2" href="#">Active</a>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-9 gy-4">
-                        <% listeOffre.forEach((offre)=> { %>
-                        <div class="card mb-4 pt-0 " style="width: autorem;">
-                            <div class="card-body g-4">
-                                <h5 class="card-title text-dark fs-3"><%= offre.intitule %></h5>
-                                <h6 class="card-subtitle mb-2 text-muted"><%= offre.nom %></h6>
-                                <p class="card-text text-dark"><%= offre.description %></p>
-                                <a href="#" class="btn btn-secondary">Voir l'offre</a>
-                                <a href="#" class="btn btn-secondary ">Postuler</a>
-                            </div>
-                        </div>
-                        <% })%>
-
-                    </div>
                 </div>
+
+                <%- include('./components/footer')%>
+
             </div>
-        </section>
-
-    </main>
-
-    <footer class="border-top">
-        <div class="container py-2">
-            <div class="row gy-4 align-items-center">
-                <div class="col-12 col-md-4">
-                    <a class="navbar-brand text-dark text-uppercase fw-bold" href="#">
-                        <span class="btn btn-outline-light  p-1 rounded-3 text-light">Nomdusite</span>
-                    </a>
-                </div>
-                <div class="col-12 col-md-4">
-                    <p class="text-md-center ">Mentions légales </p>
-                </div>
-                <div class="col-12 col-md-4 text-md-end">
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item">
-                            <a href="#" class="text-decoration-none text-dark pl-1"><i class="bi bi-linkedin "></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="text-decoration-none text-dark"></a><i class="bi bi-instagram"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="text-decoration-none text-dark"></a><i class="bi bi-twitter"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </footer>
-</body>
+    </body>
 
 </html>
