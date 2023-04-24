@@ -192,7 +192,7 @@ module.exports = {
         });
     },
     readUserDmdAdmin: function (mail, callback) {
-        db.query("select * from DMD_ADMIN where candidat=?", mail, function
+        db.query("select * from DMD_ADMIN where utilisateur=?", mail, function
             (err, results) {
             if (err) throw err;
             callback(results);

@@ -11,7 +11,11 @@ router.get('/devenirRecruteur', function (req, res, next) {
     orgaModel.readOrga(function (orgaResult) {
       console.log("orgaResult:");
       console.log(orgaResult);
-      res.render('formulaire_recruteur', { demandeRecrut: result, organisation: orgaResult });
+      candidatModel.readUserDmdAdmin(mail, function (adminResult) {
+        console.log("adminResult:");
+        console.log(adminResult);
+        res.render('formulaire_recruteur', { demandeRecrut: result, organisation: orgaResult, demandeAdmin: adminResult });
+      });
     });
   });
 });
