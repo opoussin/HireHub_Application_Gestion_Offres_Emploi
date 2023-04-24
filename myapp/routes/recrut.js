@@ -3,7 +3,7 @@ var router = express.Router();
 var orgaModel = require('../Modele/Organisation.js')
 var candidatModel = require('../Modele/Candidat.js')
 
-router.get('/devenirRecruteur', function (req, res, next) {
+router.get('/demandes', function (req, res, next) {
   var mail = "oceane@etu";
   candidatModel.readUserDmdRecruteur(mail, function (result) {
     console.log("result:");
@@ -22,7 +22,7 @@ router.get('/devenirRecruteur', function (req, res, next) {
 
 
 
-router.post('/devenirRecruteur', function (req, res, next) {
+router.post('/demandes', function (req, res, next) {
   console.log("debut");
   console.log(req.body);
   console.log("k");
@@ -34,10 +34,10 @@ router.post('/devenirRecruteur', function (req, res, next) {
       console.log(result);
       if (result) {
         console.log("ok");
-        res.redirect('/recrut/devenirRecruteur');
+        res.redirect('/recrut/demandes');
       } else {
         console.log("pas ok");
-        res.redirect('/recrut/devenirRecruteur');
+        res.redirect('/recrut/demandes');
       }
     });
   }
@@ -46,7 +46,7 @@ router.post('/devenirRecruteur', function (req, res, next) {
     candidatModel.creatDmdAdmin(mail, function (result) {
       console.log(result);
       if (result) {
-        res.redirect('/recrut/devenirRecruteur');
+        res.redirect('/recrut/demandes');
       } else {
         res.render('formulaire_recruteur');
       }
@@ -54,7 +54,7 @@ router.post('/devenirRecruteur', function (req, res, next) {
   }
   else {
     console.log("erreur");
-    res.redirect('/recrut/devenirRecruteur');
+    res.redirect('/recrut/demandes');
   }
 });
 
