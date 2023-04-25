@@ -98,9 +98,14 @@ router.post('/devenirRecruteur', function (req, res, next) {
   });
 });
 router.get('/candidat', function (req, res, next) { 
-  result = candidatModel.readAllOffreValide (function (results) {
-    res.render('candidat', { title: 'List des Offres', listeOffre: results });
-  });
+ 
+    if(req.session.userid){
+      result = candidatModel.readAllOffreValide (function (results) {
+      res.render('candidat', { title: 'List des Offres', listeOffre: results });
+    });
+    }else
+    res.redirect('/connexion');
+
 });
 /*router.get('/candidat', function (organisation, lieu, statut, salaire, type, intitule,req, res, next) { 
   result = candidatModel.readAllOffreFiltre (function (organisation, lieu, statut, salaire, type, intitule, result) {

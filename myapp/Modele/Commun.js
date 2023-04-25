@@ -15,11 +15,12 @@ var mysql = require('mysql');
 
 module.exports = {
     areUserValid: function (mail, mdp, callback) {
-        sql = "SELECT mdp FROM UTILISATEUR WHERE mail = ?";
+        sql = "SELECT * FROM UTILISATEUR WHERE mail = ?";
         db.query(sql, mail, function (err, rows) {
-            if (err) throw err;
+            //if (err) throw err;
             if (rows.length == 1 && rows[0].mdp === mdp) {
-                callback(true)
+                //var type = rows[0].mdp 
+                callback(true);
             } else {
                 callback(false);
             }

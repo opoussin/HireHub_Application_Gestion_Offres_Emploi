@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var communModel = require('../Modele/Commun.js')
-
+//const session = require('express-session'); 
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index');
@@ -15,15 +15,19 @@ router.post('/connexion', function (req, res, next) {
   // Récupération des données du formulaire
   var mail = req.body.mail;
   var mdp = req.body.mdp;
-
+  var session=req.session;
   // Appel à la fonction creat du modèle Utilisateur
   communModel.areUserValid(mail, mdp, function (result) {
     // Redirection vers la page d'accueil si l'ajout a réussi
     if (result) {
       // Si l'utilisateur n'est pas connecté, on redirige vers la page de connexion
+      session.userid=mail;
+      //req.session.type = result;
+      console.log(req.session);
       res.redirect('/users/candidat');
     } else {
       // Sinon, on rend la vue "accueil"
+      console.log("erreur");
       res.render('connexion');
     }
   });
