@@ -48,13 +48,18 @@ router.post('/inscription', function (req, res, next) {
   // Appel à la fonction creat du modèle Utilisateur
   communModel.creatUser(mail, nom, prenom, mdp, telephone, function (result) {
     if (result){ //result = vrai donc il y a une erreur
-      res.redirect('/insciption')
+      res.redirect('/insciption');
     }
     else{
       res.redirect('/users/candidat');
     }
   });
 });
+router.get('/logout',(req,res) => {
+  req.session.destroy();
+  res.redirect('/');
+});
+  
 
 router.get('/template', function (req, res, next) {
   res.render('template');
