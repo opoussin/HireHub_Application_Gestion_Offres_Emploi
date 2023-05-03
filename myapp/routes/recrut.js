@@ -5,7 +5,7 @@ var candidatModel = require('../Modele/Candidat.js')
 var communModel = require('../Modele/Commun.js')
 
 router.get('/demandes', function (req, res, next) {
-  if(req.session.userid||communModel.areRecruteur(req.session.userid)){
+  if(req.session.userid&&communModel.areRecruteur(req.session.userid)){
     var mail=req.session.userid;
     candidatModel.readUserDmdRecruteur(mail, function (result) {
     console.log("result:");
