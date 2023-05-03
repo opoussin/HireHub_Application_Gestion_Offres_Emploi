@@ -25,9 +25,11 @@ module.exports = {
     updateUser: function (mail, nom, prenom, telephone, callback) {
 
         var sql = mysql.format("UPDATE UTILISATEUR SET nom =?, prenom=?, telephone=? WHERE mail=?", [nom, prenom, telephone, mail]);
-
-        db.query(sql, function (err, result) {
-                callback(err!=undefined);
+        console.log("hors query");
+        db.query(sql, function (err) {
+            console.log("dans la query");
+                if (err) throw err;
+                callback();
             });
         
 
@@ -36,9 +38,9 @@ module.exports = {
 
         var sql = mysql.format("UPDATE UTILISATEUR SET mdp =? WHERE mail=? CHECK ?=?", [mdp1, mail, mdp1, mdp2]);
         // je pense que le check est pas à faire dans le SQL
-        db.query(sql, function (err, results) {
+        db.query(sql, function (err) {
             if (err) throw err;
-            callback(results);
+            callback();
         });
 
     },

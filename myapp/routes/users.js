@@ -42,8 +42,11 @@ router.get('/modifier_profil', function (req, res, next) {
 
 router.post('/modifier_profil', function (req, res, next) {
   var mail=req.session.userid;
-  if (req.body.nom||req.body.prenom||req.body.telephone) {
-    //console.log("rentré dans le if");
+  //if (req.body.nom||req.body.prenom||req.body.telephone) {
+    if (req.body.form1){
+
+    console.log("body:");
+    console.log(req.body);
     var nom = req.body.nom;
     var prenom = req.body.prenom;
     var telephone = req.body.telephone;
@@ -56,6 +59,7 @@ router.post('/modifier_profil', function (req, res, next) {
       } else {
         res.render('connexion');
       }*/
+      console.log("apres query");
       res.redirect('/users/profil_candidat');
     });
   }
