@@ -50,12 +50,13 @@ router.post('/modifier_profil', function (req, res, next) {
     //var mail = req.body.mail;
     candidatModel.updateUser(mail, nom, prenom, telephone, function (result) {
       //console.log(result);
-      if (result) {
-        console.log("update oui");
+      /*if (result) {
+        //console.log("update oui");
         res.redirect('/users/profil_candidat');
       } else {
         res.render('connexion');
-      }
+      }*/
+      res.redirect('/users/profil_candidat');
     });
   }
   if (req.body.form2) {

@@ -26,10 +26,10 @@ module.exports = {
 
         var sql = mysql.format("UPDATE UTILISATEUR SET nom =?, prenom=?, telephone=? WHERE mail=?", [nom, prenom, telephone, mail]);
 
-        db.query(sql, function (err, results) {
-            if (err) throw err;
-            callback(results);
-        });
+        db.query(sql, function (err, result) {
+                callback(err!=undefined);
+            });
+        
 
     },
     updateUserMdp: function (mdp1, mdp2, mail, callback) {
