@@ -48,7 +48,7 @@ router.post('/inscription', function (req, res, next) {
   // Appel à la fonction creat du modèle Utilisateur
   communModel.creatUser(mail, nom, prenom, mdp, telephone, function (result) {
     if (result){ //result = vrai donc il y a une erreur
-      res.redirect('/insciption');
+      res.redirect('/inscription');
     }
     else{
       res.redirect('/users/candidat');

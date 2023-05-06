@@ -56,31 +56,39 @@ module.exports = {
 
     readOffreFiltre: function (organisation, lieu, statut, salaire, type, intitule, callback) {
 
-        var sql = mysql.format("select * from OFFRE INNER JOIN FICHE ON OFFRE.numero = FICHE.numero INNER JOIN ON OFFRE.siren = ORGANISATION.siren where OFFRE.etat= publiee");
+        var sql = mysql.format("SELECT * FROM OFFRE INNER JOIN FICHE_POSTE ON OFFRE.numero = FICHE_POSTE.offre INNER JOIN ORGANISATION ON ORGANISATION.siren=OFFRE.organisation WHERE OFFRE.etat='publiee'");
 
 
-        if (intitule != '') {
+        if (typeof intitule !== "undefined") {
+            console.log("A");
+            console.log(intitule);
             sql += ` AND WHERE ${intitule = intitule}`;
         }
-        if (organisation != '') {
-            sql += ` AND WHERE ${organisation = nom}`;
+        if (typeof organisation !== "undefined") {
+            console.log(organisation);
+            sql += ` AND WHERE ${nom = organisation}`;
         }
 
-        if (lieu != '') {
+        if (typeof lieu !== "undefined") {
+            console.log(lieu);
             sql += ` AND WHERE ${lieu = lieu}`;
         }
 
-        if (statut != NULL) {
+        if (typeof statut !== "undefined") {
+            console.log(statut);
             sql += ` AND WHERE ${statut = statut}`;
         }
         /*if (salaire!=NULL) {
             sql += ` AND WHERE ${}`;
         }*/
-        if (type != NULL) {
+        if (typeof type !== "undefined") {
+            console.log(type);
             sql += ` AND WHERE ${type = type}`;
         }
         db.query(sql, function (err, results) {
-            callback(err != undefined);
+            console.log("C");
+            console.log(results);
+            callback(results);
         });
 
 

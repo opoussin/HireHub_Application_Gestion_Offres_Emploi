@@ -30,7 +30,7 @@ module.exports = {
         var sql = mysql.format("INSERT INTO UTILISATEUR (mail, mdp, nom, prenom, telephone) VALUES (?,?,?,?,?)", [mail, mdp, nom, prenom, telephone]);
 
         db.query(sql, function (err, results) {
-                callback(err!=undefined);
+                callback(err!=undefined);//??
             });
     },
     areRecruteur: function (mail, callback) {

@@ -60,7 +60,7 @@ router.post('/modifier_profil', function (req, res, next) {
         res.render('connexion');
       }*/
       console.log("apres query");
-      res.redirect('/users/profil_candidat');
+      res.render('/users/profil_candidat');
     });
   }
   if (req.body.form2) {
@@ -114,20 +114,75 @@ router.post('/devenirRecruteur', function (req, res, next) {
     res.redirect('/admin');
   });
 });
-router.get('/candidat', function (req, res, next) { 
+router.post('/candidat', function (req, res, next) { 
  
     if(req.session.userid){
-      result = candidatModel.readAllOffreValide (function (results) {
-      res.render('candidat', { title: 'List des Offres', listeOffre: results });
-    });
-    }else
+
+      if(req.body.form1){
+        console.log("A");
+
+        var organisation = req.body.mail;
+        var lieu = req.body.mail;
+        var statut = req.body.mail;
+        var salaire = req.body.mail;
+        var type = req.body.mail;
+        var intitule = req.body.intitule;
+        console.log(req.body);
+        result = candidatModel.readOffreFiltre (organisation, lieu, statut, salaire, type, intitule,function (results) {
+        res.render('candidat', { title: 'List des Offres', listeOffre: results });
+      });
+
+        }/*else{
+          console.log("B");
+
+          result = candidatModel.readAllOffreValide (function (results) {
+          res.render('candidat', { title: 'List des Offres', listeOffre: results });
+        });
+    
+    }*/}
+    else{
     res.redirect('/connexion');
+    }
+});
+/*router.get('/candidat', function (req, res, next) { 
+ 
+  if(req.session.userid){
+
+    if(req.body.form1){
+  
+        console.log("B");
+
+        result = candidatModel.readAllOffreValide (function (results) {
+        res.render('candidat', { title: 'List des Offres', listeOffre: results });
+      });
+  
+    }
+    else{
+    res.redirect('/connexion');
+    }
+});*/
+
+router.get('/candidat', function (req, res, next) { 
+ 
+  if(req.session.userid){
+
+    result = candidatModel.readAllOffreValide (function (results) {
+    res.render('candidat', { title: 'List des Offres', listeOffre: results });
+  });
+  }else
+  res.redirect('/connexion');
 
 });
+
 /*router.get('/candidat', function (organisation, lieu, statut, salaire, type, intitule,req, res, next) { 
-  result = candidatModel.readAllOffreFiltre (function (organisation, lieu, statut, salaire, type, intitule, result) {
-    res.render('candidat', { title: 'List des Offres Filtres', users: result });
-  });
+  if(req.session.userid){
+    var mail=req.session.userid;
+    result = candidatModel.readAllOffreFiltre (function (organisation, lieu, statut, salaire, type, intitule, result) {
+      res.render('candidat', { title: 'List des Offres Filtres', users: result });
+    });
+    }else
+    res.render('connexion');
+  
 });*/
 /*
 if(req.session.userid){

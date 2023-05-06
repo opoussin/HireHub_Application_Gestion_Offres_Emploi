@@ -3,10 +3,10 @@ O - rediriger vue accueil recruteur profil candidat : bouton conditionnel en foc
 O - rediriger vue accueil admin
 C - mettre des valeurs dans les filtres candidat.ejs + terminer les filtres
 C - faire la route dans users.js des filtres
-C - enlever bouton modifier profil dans accueil candidat
+C + enlever bouton modifier profil dans accueil candidat
 O - régler pbm vue dmd recruteur formulaire_recruteur
-C- enlever bouton voir mes candidatures
-C - supprimer bouton active accueil candidat
+C + enlever bouton voir mes candidatures
+C + supprimer bouton active accueil candidat
 O - bouton voir offre accueil candidat
 O - bouton Postuler
 stand by - upload de fichiers + gerer acceptation et refus de candidat, mise a jour d'une offre
@@ -14,3 +14,4 @@ optionnel - afficher message disant qu'il n'y a pas de candidatures pour l'insta
 O - bouton créer dmd organisation
 C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton editer, voir candidat, supprimer,), bouton creer offre, page de formulaire, 
 O - vue accueil admin -> cote a cote les dmd orga et dmd admin, 
+- erreur dans creatUser callback not a fonction

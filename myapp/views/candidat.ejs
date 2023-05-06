@@ -22,14 +22,12 @@
                                                 <form class="form-inline" action="" method="post">
                                                     <div class="form-group  mb-3 d-flex flex-row">
                                                         <input type="text" class="form-control" id="mot_cle"
-                                                            placeholder="Recherchez des offres" name="mot_cle">
-                                                        <button type="submit"
-                                                            class="btn btn-outline-primary offset-sm-1">Rechercher</button>
+                                                            placeholder="Recherchez des offres" name="mot_cle" value="">
                                                     </div>
                                                     <input type="text" class="form-control mt-2" id="lieu"
-                                                        placeholder="Lieu" name="lieu">
+                                                        placeholder="Lieu" name="lieu" value="">
                                                     <input type="text" class="form-control mt-2" id="organisation"
-                                                        placeholder="organisation" name="organisation">
+                                                        placeholder="organisation" name="organisation" >
                                                     <div class="d-flex mt-2">
                                                         <p class="text-center my-auto me-2">Type</p>
                                                         <select class="form-select" name="type">
@@ -61,24 +59,9 @@
                                                         </select>
                                                     </div>
 
-                                                    <button type="submit"
-                                                        class="btn btn-outline-primary mt-2">Valider</button>
+                                                    <button class="btn btn-primary mt-3" type="submit" name="form1" value="1">Valider</button>
+
                                                 </form>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="row my-2">
-
-                                            <div class="container d-flex justify-content-center h-80"
-                                                style="flex-direction: column;">
-                                                <a class="btn btn-outline-secondary mb-2" href="#">Modifier mon
-                                                    profil</a>
-
-                                                <a class="btn btn-outline-secondary mb-2" href="#">Voir mes
-                                                    candidatures</a>
-
-                                                <a class="btn btn-outline-secondary mb-2" href="#">Active</a>
                                             </div>
 
                                         </div>
@@ -86,23 +69,35 @@
                                     </div>
 
                                     <div class="col-9 gy-4">
-                                        <% listeOffre.forEach((offre)=> { %>
+                                        <%if (Array.isArray(listeOffre)){%>
+                                            <% listeOffre.forEach((offre)=> { %>
+                                                <div class="card mb-4 pt-0 " style="width: autorem;">
+                                                    <div class="card-body g-4">
+                                                        <h5 class="card-title text-dark fs-3">
+                                                            <%= offre.intitule %>
+                                                        </h5>
+                                                        <h6 class="card-subtitle mb-2 text-muted">
+                                                            <%= offre.nom %>
+                                                        </h6>
+                                                        <p class="card-text text-dark">
+                                                            <%= offre.description %>
+                                                        </p>
+                                                        <a href="#" class="btn btn-secondary">Voir l'offre</a>
+                                                        <a href="#" class="btn btn-secondary ">Postuler</a>
+                                                    </div>
+                                                </div>
+                                                <% })%> 
+                                        <%}else{%>
                                             <div class="card mb-4 pt-0 " style="width: autorem;">
                                                 <div class="card-body g-4">
                                                     <h5 class="card-title text-dark fs-3">
-                                                        <%= offre.intitule %>
+                                                        Pas d'offre disponible!
                                                     </h5>
-                                                    <h6 class="card-subtitle mb-2 text-muted">
-                                                        <%= offre.nom %>
-                                                    </h6>
-                                                    <p class="card-text text-dark">
-                                                        <%= offre.description %>
-                                                    </p>
-                                                    <a href="#" class="btn btn-secondary">Voir l'offre</a>
-                                                    <a href="#" class="btn btn-secondary ">Postuler</a>
+                                                    
                                                 </div>
-                                            </div>
-                                            <% })%>
+                                            </div> 
+                                        <%}%>
+                                        
 
                                     </div>
                                 </div>
