@@ -77,9 +77,6 @@ router.post('/modifier_profil', function (req, res, next) {
   res.redirect('/users/profil_candidat');
 });
 
-router.get('/administrateur', function (req, res, next) {
-  res.render('admin');
-});
 
 router.get('/devenirAdministrateur', function (req, res, next) {
   if(req.session.userid){

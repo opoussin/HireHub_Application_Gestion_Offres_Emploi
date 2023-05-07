@@ -39,7 +39,9 @@
                                     </div>
                                     <a href="/users/modifier_profil" class="btn btn-link m-4 ps-0">Modifier mon
                                         profil</a>
-
+                                    <%if(user.type==3){%>
+                                        <a href="/users/modifier_profil" class="btn btn-link m-4 ps-0">Profil recruteur</a>
+                                    <%}%>
 
                                 </div>
                                 <div class="col-9 h-100 ">
