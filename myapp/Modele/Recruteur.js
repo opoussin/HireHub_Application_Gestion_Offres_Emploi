@@ -18,10 +18,6 @@ readAllDmdRecruteur O
 
 var db = require('./db.js');
 var mysql = require('mysql');
-<<<<<<< HEAD
-
-=======
->>>>>>> a12d3a5 ( recruteur)
 
 module.exports = {
     creatOffre: function (numero, organisation, etat, dateValidite, pieces, nombrePieces, callback) {
