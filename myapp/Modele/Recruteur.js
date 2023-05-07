@@ -17,6 +17,8 @@ readAllDmdRecruteur O
 */
 
 var db = require('./db.js');
+var mysql = require('mysql');
+
 
 module.exports = {
     creatOffre: function (numero, organisation, etat, dateValidite, pieces, nombrePieces, callback) {
@@ -102,7 +104,7 @@ module.exports = {
         });
     },
     readAllDmdRecruteur: function (siren, callback) {
-        var sql = mysql.format("SELECT * FROM UTILISATEUR u INNER JOIN DMD_RECRUTEUR r ON u.mail=r.recruteur WHERE f.organisation=?");
+        var sql = mysql.format("SELECT * FROM UTILISATEUR u INNER JOIN DMD_RECRUTEUR r ON u.mail=r.recruteur WHERE r.organisation=?");
         //var sql = mysql.format("SELECT * FROM DMD_RECRUTEUR WHERE organisation=?");
         db.query(sql, siren, function (err, results) {
             if (err) throw err;

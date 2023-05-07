@@ -33,6 +33,7 @@ module.exports = {
                 callback(err!=undefined);//??
             });
     },
+
     areRecruteur: function (mail, callback) {
         sql = "SELECT * FROM UTILISATEUR WHERE mail = ?";
         db.query(sql, mail, function (err, rows) {
@@ -42,20 +43,22 @@ module.exports = {
             } else {
                 callback(false);
             }
-        });/*
-        rows = db.query(sql, mail, function (err, results) {
-            console.log(rows);
+        });
+
+    areRecruteur: function (mail, callback) {
+        sql = "SELECT type FROM UTILISATEUR WHERE mail = ?";
+        db.query(sql, mail, function (err, results) {
             if (err) throw err;
-            if (rows.length == 1 && rows[0].type === 2) {
-                callback(true);
+            if (results.length == 1 && results[0].type === 2) {
+                callback(true)
             } else {
                 callback(false);
             }
-        });*/
+        });
     },
-
+    
     areAdmin: function (mail, callback) {
-        sql = "SELECT Type FROM USERS WHERE mail = ?";
+        sql = "SELECT type FROM USERS WHERE mail = ?";
         rows = db.query(sql, mail, function (err, results) {
             if (err) throw err;
             if (rows.length == 1 && rows[0].type === 3) {

@@ -12,6 +12,7 @@ updateCandidature
 readAllCandidature
 deleteDmdOrga
 deleteDmdRecruteur
+deleteDmdRecruteurOrga
 deleteDmdAdmin
 readUserDmdOrga
 readUserDmdRecruteur
@@ -164,8 +165,15 @@ module.exports = {
             callback(results);
         });
     },
-    deleteDmdAdmin: function (mail, callback) {
-        db.query("DELETE FROM DMD_ADMIN where mail= ?", mail, function
+    deleteDmdRecruteurOrga: function (mail,siren, callback) {
+        db.query("DELETE FROM DMD_RECRUTEUR where recruteur= ? AND organisation= ?", [mail, siren], function
+            (err) {
+            if (err) throw err;
+            callback();
+        });
+    },
+    deleteDmdAdmin: function (mail, date, callback) {
+        db.query("DELETE FROM DMD_ADMIN where utilisateur= ? AND date=?", [mail,date], function
             (err, results) {
             if (err) throw err;
             callback(results);
@@ -193,7 +201,7 @@ module.exports = {
     readUserDmdRecruteur: function (mail, callback) {
         var sql = "select * from DMD_RECRUTEUR where recruteur=?";
         db.query(sql, mail, function (err, results) {
-
+            console.log(results);
             if (err) throw err;
             if (results.length != 0) {
                 callback(results)
@@ -209,5 +217,4 @@ module.exports = {
             callback(results);
         });
     },
-
 }
