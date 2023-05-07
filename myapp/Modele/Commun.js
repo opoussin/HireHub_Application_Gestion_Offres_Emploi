@@ -34,16 +34,26 @@ module.exports = {
             });
     },
     areRecruteur: function (mail, callback) {
-        sql = "SELECT Type FROM UTILISATEUR WHERE mail = ?";
-        rows = db.query(sql, mail, function (err, results) {
-            if (err) throw err;
+        sql = "SELECT * FROM UTILISATEUR WHERE mail = ?";
+        db.query(sql, mail, function (err, rows) {
             if (rows.length == 1 && rows[0].type === 2) {
-                callback(true)
+                //var type = rows[0].mdp 
+                callback(true);
             } else {
                 callback(false);
             }
-        });
+        });/*
+        rows = db.query(sql, mail, function (err, results) {
+            console.log(rows);
+            if (err) throw err;
+            if (rows.length == 1 && rows[0].type === 2) {
+                callback(true);
+            } else {
+                callback(false);
+            }
+        });*/
     },
+
     areAdmin: function (mail, callback) {
         sql = "SELECT Type FROM USERS WHERE mail = ?";
         rows = db.query(sql, mail, function (err, results) {
@@ -76,4 +86,12 @@ module.exports = {
         callback(results[0]);
     });
     },
+    readOrga: function (mail, callback) {
+        db.query("SELECT organisation FROM APPARTENIR_ORGA WHERE mail=?", mail, function(err, results) {
+        console.log(result);
+        if (err) throw err;
+        callback(results[0]);
+    });
+    },
+
 }

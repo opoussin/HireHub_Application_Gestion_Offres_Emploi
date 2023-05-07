@@ -22,6 +22,17 @@ router.post('/connexion', function (req, res, next) {
     if (result) {
       // Si l'utilisateur n'est pas connecté, on redirige vers la page de connexion
       session.userid=mail;
+      communModel.areRecruteur(req.session.userid, function(result){
+        if (result){
+          console.log("OUI RECRUT")
+          communModel.readOrga(req.session.userid, function (result){
+             session.orga=result;
+             console.log(result);
+          });
+          
+        }
+      });
+      
       //req.session.type = result;
       console.log(req.session);
       res.redirect('/users/candidat');

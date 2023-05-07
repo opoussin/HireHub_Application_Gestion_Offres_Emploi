@@ -3,6 +3,7 @@ var router = express.Router();
 var orgaModel = require('../Modele/Organisation.js')
 var candidatModel = require('../Modele/Candidat.js')
 var communModel = require('../Modele/Commun.js')
+var recruteurModel = require('../Modele/Recruteur.js')
 
 router.get('/demandes', function (req, res, next) {
   if(req.session.userid&&communModel.areRecruteur(req.session.userid)){
@@ -67,7 +68,19 @@ router.post('/demandes', function (req, res, next) {
   }
 });
 
-
+router.get('/recruteur', function (req, res, next) {
+  if(req.session.userid||communModel.areRecruteur(req.session.userid)){
+    var siren=req.session.orga;
+    result = recruteurModel.readAllOffreOrga (siren, function (results) {
+    res.render('recruteur', { title: 'List des Offres', listeOffre: results });
+  });
+  }
+  else if (!communModel.areRecruteur(req.session.userid)){
+    res.redirect('/users/candidat');
+  }else{
+  res.redirect('/connexion');
+  }
+});
 /*
 if(req.session.userid||communModel.areRecruteur(req.session.userid)){
     var mail=req.session.userid;

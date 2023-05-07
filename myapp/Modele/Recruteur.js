@@ -63,8 +63,10 @@ module.exports = {
             callback(results);
         });
     },
-    readAllOffreOrga: function (callback) {
-        db.query("SELECT f.intitule, f.statut, f.responsable, f.type, f.lieu, f.rythme, f.salaire, f.description  FROM (OFFRE o INNER JOIN ORGANISATION org ON o.organisation=org.siren) INNER JOIN FICHE_POSTE f ON f.offre = o.numero", function (err, results) {
+    readAllOffreOrga: function (siren, callback) {
+        //db.query("SELECT f.intitule, f.statut, f.responsable, f.type, f.lieu, f.rythme, f.salaire, f.description  FROM (OFFRE o INNER JOIN ORGANISATION org ON o.organisation=org.siren) INNER JOIN FICHE_POSTE f ON f.offre = o.numero", function (err, results) {
+
+        db.query("SELECT * FROM (OFFRE o INNER JOIN ORGANISATION org ON o.organisation=org.siren) INNER JOIN FICHE_POSTE f ON f.offre = o.numero WHERE siren=?", siren, function (err, results) {
             if (err) throw err;
             callback(results);
         });
