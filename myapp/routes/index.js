@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
 router.get('/connexion', function (req, res, next) {
     res.render('connexion');
 });
-
+/*
 router.post('/connexion', function (req, res, next) {
   // Récupération des données du formulaire
   var mail = req.body.mail;
@@ -22,19 +22,23 @@ router.post('/connexion', function (req, res, next) {
     if (result) {
       // Si l'utilisateur n'est pas connecté, on redirige vers la page de connexion
       session.userid=mail;
+      session.test="OUI";
       communModel.areRecruteur(req.session.userid, function(result){
         if (result){
-          console.log("OUI RECRUT")
-          communModel.readOrga(req.session.userid, function (result){
-             session.orga=result;
-             console.log(result);
+          console.log("OUI RECRUT");
+          communModel.readOrgaUser(req.session.userid, function (result){
+            var orga = result.organisation;
+
+             session.test=orga;
+             console.log("ici" , orga);
+             console.log("oijzoijùsfze", result);
           });
           
         }
       });
       
       //req.session.type = result;
-      console.log(req.session);
+      //console.log(req.session);
       res.redirect('/users/candidat');
     } else {
       // Sinon, on rend la vue "accueil"
@@ -43,6 +47,35 @@ router.post('/connexion', function (req, res, next) {
     }
   });
 });
+*/
+router.post('/connexion', function (req, res, next) {
+  // Récupération des données du formulaire
+  var mail = req.body.mail;
+  var mdp = req.body.mdp;
+  var session=req.session;
+  // Appel à la fonction creat du modèle Utilisateur
+  communModel.areUserValid(mail, mdp, function (result) {
+    if (result) {
+      session.userid = mail;
+      communModel.areRecruteur(session.userid, function(result) {
+        if (result) {
+          communModel.readOrgaUser(session.userid, function (result) {
+            var orga = result.organisation;
+            session.orga = orga;
+            res.redirect('/users/candidat');
+          });
+        } else {
+          res.redirect('/users/candidat');
+        }
+      });
+    } else {
+      console.log("erreur");
+      res.render('connexion');
+    }
+  });
+});
+
+
 
 router.get('/inscription', function (req, res, next) {
   res.render('inscription');

@@ -13,5 +13,12 @@ stand by - upload de fichiers + gerer acceptation et refus de candidat, mise a j
 optionnel - afficher message disant qu'il n'y a pas de candidatures pour l'instant profil candidat
 O - bouton créer dmd organisation
 C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton editer, voir candidat, supprimer,), bouton creer offre, page de formulaire, 
+    + changer de profil et afficher les offres d'une entreprise
+    - créer un offre
+    - éditer une offre
+    - supprimer une offre
+    - voir les candidat
+    - revenir profil candidat
+    - selectionner un candidat
 O - vue accueil admin -> cote a cote les dmd orga et dmd admin, 
 - erreur dans creatUser callback not a fonction

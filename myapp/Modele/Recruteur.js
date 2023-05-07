@@ -18,7 +18,10 @@ readAllDmdRecruteur O
 
 var db = require('./db.js');
 var mysql = require('mysql');
+<<<<<<< HEAD
 
+=======
+>>>>>>> a12d3a5 ( recruteur)
 
 module.exports = {
     creatOffre: function (numero, organisation, etat, dateValidite, pieces, nombrePieces, callback) {
@@ -66,9 +69,8 @@ module.exports = {
         });
     },
     readAllOffreOrga: function (siren, callback) {
-        //db.query("SELECT f.intitule, f.statut, f.responsable, f.type, f.lieu, f.rythme, f.salaire, f.description  FROM (OFFRE o INNER JOIN ORGANISATION org ON o.organisation=org.siren) INNER JOIN FICHE_POSTE f ON f.offre = o.numero", function (err, results) {
-
-        db.query("SELECT * FROM (OFFRE o INNER JOIN ORGANISATION org ON o.organisation=org.siren) INNER JOIN FICHE_POSTE f ON f.offre = o.numero WHERE siren=?", siren, function (err, results) {
+        sql = "SELECT * FROM OFFRE o INNER JOIN ORGANISATION org ON o.organisation=org.siren INNER JOIN FICHE_POSTE f ON f.offre = o.numero WHERE siren = ?";
+        db.query(sql, siren, function (err, results) {
             if (err) throw err;
             callback(results);
         });

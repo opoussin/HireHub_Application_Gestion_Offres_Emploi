@@ -89,9 +89,9 @@ module.exports = {
         callback(results[0]);
     });
     },
-    readOrga: function (mail, callback) {
+    readOrgaUser: function (mail, callback) {
         db.query("SELECT organisation FROM APPARTENIR_ORGA WHERE mail=?", mail, function(err, results) {
-        console.log(result);
+        //console.log(result);
         if (err) throw err;
         callback(results[0]);
     });

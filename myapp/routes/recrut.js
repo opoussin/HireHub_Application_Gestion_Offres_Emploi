@@ -102,6 +102,7 @@ router.get('/demandes/recruteurSupp/:siren', function (req, res, next) {
 router.get('/recruteur', function (req, res, next) {
   if(req.session.userid||communModel.areRecruteur(req.session.userid)){
     var siren=req.session.orga;
+    var mail=req.session.userid;
     result = recruteurModel.readAllOffreOrga (siren, function (results) {
     res.render('recruteur', { title: 'List des Offres', listeOffre: results });
   });
