@@ -20,21 +20,17 @@ var db = require('./db.js');
 var mysql = require('mysql');
 
 module.exports = {
-    creatOffre: function (numero, organisation, etat, dateValidite, pieces, nombrePieces, callback) {
-        var sql = mysql.format("INSERT INTO OFFRE (numero, organisation, etat, dateValidite, pieces, nombrePieces) VALUES (?,?,?,?,?,?)", [numero, organisation, etat, dateValidite, pieces, nombrePieces]);
-
+    creatOffre: function (organisation, dateValidite, pieces, nombrePieces, callback) {
+        
+        var etat = 'publiee';
+        var sql = mysql.format("INSERT INTO OFFRE (organisation, etat, dateValidite, pieces, nombrePieces) VALUES (?,?,?,?,?,?)", [organisation, etat, dateValidite, pieces, nombrePieces]);
+        //rajouter creatFiche ici
         db.query(sql, function (err, results) {
             if (err) throw err;
             callback(results);
         });
     },
-    deleteFiche: function (offre, callback) {
-        var sql = mysql.format("DELETE FROM FICHE_POSTE WHERE offre=?");
-        db.query(sql, offre, function (err, results) {
-            if (err) throw err;
-            callback(results);
-        });
-    },
+
     deleteOffre: function (numero, callback) {
         var sql = mysql.format("DELETE FROM OFFRE WHERE numero=?");
         deleteFiche(numero);
@@ -43,6 +39,15 @@ module.exports = {
             callback(results);
         });
     },
+
+    deleteFiche: function (offre, callback) {
+        var sql = mysql.format("DELETE FROM FICHE_POSTE WHERE offre=?");
+        db.query(sql, offre, function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+    
     updateOrga: function (nom, type, siegeSocial, siren, callback) {
         var sql = mysql.format("UPDATE UTILISATEUR SET nom =?, type=?, siegeSocial=? WHERE siren=?", [nom, type, siegeSocial, siren]);
         db.query(sql, function (err, results) {
@@ -67,6 +72,13 @@ module.exports = {
     readAllOffreOrga: function (siren, callback) {
         sql = "SELECT * FROM OFFRE o INNER JOIN ORGANISATION org ON o.organisation=org.siren INNER JOIN FICHE_POSTE f ON f.offre = o.numero WHERE siren = ?";
         db.query(sql, siren, function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+    readOffre: function (numero, callback) {
+        sql = "SELECT * FROM OFFRE o INNER JOIN FICHE_POSTE f ON f.offre = o.numero WHERE numero = ?";
+        db.query(sql, numero, function (err, results) {
             if (err) throw err;
             callback(results);
         });
@@ -103,14 +115,11 @@ module.exports = {
     },
     readAllDmdRecruteur: function (siren, callback) {
         var sql = mysql.format("SELECT * FROM UTILISATEUR u INNER JOIN DMD_RECRUTEUR r ON u.mail=r.recruteur WHERE r.organisation=?");
-        //var sql = mysql.format("SELECT * FROM DMD_RECRUTEUR WHERE organisation=?");
         db.query(sql, siren, function (err, results) {
             if (err) throw err;
             callback(results);
         });
     },
-
-
 
 
     /*quitter une organisation */

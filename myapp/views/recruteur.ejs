@@ -19,49 +19,8 @@
                                         <div class="row pb-4">
                                             <div class="container mt-4">
 
-                                                <form class="form-inline" action="" method="post">
-                                                    <div class="form-group  mb-3 d-flex flex-row">
-                                                        <input type="text" class="form-control" id="mot_cle"
-                                                            placeholder="Recherchez des offres" name="mot_cle" value="">
-                                                    </div>
-                                                    <input type="text" class="form-control mt-2" id="lieu"
-                                                        placeholder="Lieu" name="lieu" value="">
-                                                    <input type="text" class="form-control mt-2" id="organisation"
-                                                        placeholder="organisation" name="organisation" >
-                                                    <div class="d-flex mt-2">
-                                                        <p class="text-center my-auto me-2">Type</p>
-                                                        <select class="form-select" name="type">
-                                                            <option value="NULL" selected>Selectionnez</option>
-                                                            <option value="pomme">Pomme</option>
-                                                            <option value="pomme">Pomme</option>
-                                                            <option value="pomme">Pomme</option>
-                                                            <option value="pomme">Pomme</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="d-flex mt-2">
-                                                        <p class="text-center my-auto me-2">Salaire</p>
-                                                        <select class="form-select" name="salaire">
-                                                            <option value="NULL" selected>Selectionnez</option>
-                                                            <option value="pomme">Pomme</option>
-                                                            <option value="pomme">Pomme</option>
-                                                            <option value="pomme">Pomme</option>
-                                                            <option value="pomme">Pomme</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="d-flex mt-2">
-                                                        <p class="text-center my-auto me-2">Statut</p>
-                                                        <select class="form-select" name="statut">
-                                                            <option value="NULL" selected>Selectionnez</option>
-                                                            <option value="pomme">Pomme</option>
-                                                            <option value="pomme">Pomme</option>
-                                                            <option value="pomme">Pomme</option>
-                                                            <option value="pomme">Pomme</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <button class="btn btn-primary mt-3" type="submit" name="form1" value="1">Valider</button>
-
-                                                </form>
+                                                <a href="/recrut/creer_offre" class="btn btn-link m-4 ps-0">Créer une offre</a>
+                                                
                                             </div>
 
                                         </div>
@@ -82,8 +41,9 @@
                                                         <p class="card-text text-dark">
                                                             <%= offre.description %>
                                                         </p>
-                                                        <a href="#" class="btn btn-secondary">Voir l'offre</a>
-                                                        <a href="#" class="btn btn-secondary ">Postuler</a>
+                                                        <a href="#" class="btn btn-secondary">Voir candidats</a>
+                                                        <a href="recrut/editer_offre/<%= offre.numero%>" class="btn btn-secondary">Editer l'offre</a>
+                                                        <a href="recrut/supp_offre/<%= offre.numero%>" class="btn btn-secondary ">Supprimer</a>
                                                     </div>
                                                 </div>
                                                 <% })%> 

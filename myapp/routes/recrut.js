@@ -40,8 +40,6 @@ router.get('/demandes', function (req, res, next) {
   }
 });
 
-
-
 router.post('/demandes/recruteur', function (req, res, next) {
   var mail=req.session.userid;
 
@@ -72,6 +70,7 @@ router.post('/demandes/admin', function (req, res, next) {
     });
  
 });
+
 router.post('/demandes/adminSupp', function (req, res, next) {
   var mail=req.session.userid;
   var date = req.body.dmdA;
@@ -86,6 +85,7 @@ router.post('/demandes/adminSupp', function (req, res, next) {
     });
  
 });
+
 router.get('/demandes/recruteurSupp/:siren', function (req, res, next) {
   var mail= req.session.userid;
   let siren = req.params.siren;
@@ -112,6 +112,111 @@ router.get('/recruteur', function (req, res, next) {
   }else{
   res.redirect('/connexion');
   }
+});
+
+router.get('/creer_offre', function (req, res, next) {
+  if(req.session.userid||communModel.areRecruteur(req.session.userid)){
+    var siren=req.session.orga;
+    var mail=req.session.userid;
+   
+    res.render('creer_offre');
+  
+  }
+  else if (!communModel.areRecruteur(req.session.userid)){
+    res.redirect('/users/candidat');
+  }else{
+  res.redirect('/connexion');
+  }
+});
+
+router.post('/creer_offre', function (req, res, next) {
+  // Récupération des données du formulaire
+  var prenom = req.body.nombrePieces;
+  var mdp = req.body.pieces;
+  var telephone = req.body.dataValidite;
+  var organisation = req.session.orga ;
+
+  // Appel à la fonction creat du modèle Utilisateur
+  recruteurModel.creatOffre(organisation, dateValidite, pieces, nombrePieces, function (result) {
+    if (result){ //result = vrai donc il y a une erreur
+      //rajouter creatFiche
+      res.redirect('/recruteur');
+    }
+    else{
+      res.redirect('/recruteur');
+    }
+  });
+});
+
+router.get('/logout',(req,res) => {
+  req.session.destroy();
+  res.redirect('/');
+});
+
+router.get('recrut/supp_offre/:numero', function (req, res, next) {
+  let numero = req.params.numero;
+    recruteurModel.deleteOffre(numero, function (result) {
+      if (result) {
+        res.redirect('/recrut/recruteur');
+      } else {
+        res.redirect('/recrut/recruteur');
+      }
+    });
+ 
+});
+
+router.get('editer_offre/:numero', function (req, res, next) {
+  let numero = req.params.numero;
+    recruteurModel.readOffre(numero, function (result) {
+      if (result) {
+        res.render('editer_offre', {offre: result });
+      } else {
+        res.redirect('/recrut/recruteur');
+      }
+    });
+ 
+});
+
+router.post('editer_offre/', function (req, res, next) {
+    if (req.body){
+    console.log("body:");
+    console.log(req.body);
+    var etat = req.body.etat;
+    var dateValidite = req.body.date;
+    var pieces = req.body.pieces;
+    var nombrePieces = req.body.nombrePieces;
+    var numero = req.body.numero;
+    var intitule = req.body.intitule;
+    var statut = req.body.statut;
+    var responsable = req.body.responsable;
+    var type = req.body.type;
+    var lieu = req.body.lieu;
+    var rythme = req.body.rythme;
+    var salaire = req.body.salaire;
+    var description = req.body.description;
+    
+    recruteur.Model.updateOffre(etat, dateValidite, pieces, nombrePieces, numero, function (result) {
+      recruteur.Model.updateFiche(intitule, statut, responsable, type, lieu, rythme, salaire, description, numero, function (result){
+        res.redirect('/recrut/recruteur');
+        console.log("update success");
+      }); 
+    });
+  }
+  res.redirect('/recrut/recruteur');
+});
+
+router.get('/profil_recruteur', function (req, res, next) {
+  if(req.session.userid||communModel.areRecruteur(req.session.userid)){
+    var mail=req.session.userid;
+    var siren = req.session.orga;
+    result = communModel.readUser(mail, function (user) {
+      result = candidatModel.readOrga(siren, function (result) {
+        res.render('profil_recruteur', { user: user, orga: result });
+        });
+    });
+    }else
+    res.render('connexion');
+  
 });
 /*
 if(req.session.userid||communModel.areRecruteur(req.session.userid)){

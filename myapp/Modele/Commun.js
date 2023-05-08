@@ -39,13 +39,13 @@ module.exports = {
         sql = "SELECT * FROM UTILISATEUR WHERE mail = ?";
         db.query(sql, mail, function (err, rows) {
             if (rows.length == 1 && rows[0].type === 2) {
-                //var type = rows[0].mdp 
                 callback(true);
             } else {
                 callback(false);
             }
         });
-
+    },
+    /*
     areRecruteur: function (mail, callback) {
         sql = "SELECT type FROM UTILISATEUR WHERE mail = ?";
         db.query(sql, mail, function (err, results) {
@@ -57,6 +57,7 @@ module.exports = {
             }
         });
     },
+    */
     
     areAdmin: function (mail, callback) {
         sql = "SELECT type FROM USERS WHERE mail = ?";

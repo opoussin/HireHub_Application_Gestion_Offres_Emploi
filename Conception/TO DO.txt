@@ -16,9 +16,17 @@ C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
     + changer de profil et afficher les offres d'une entreprise
     - créer un offre
     - éditer une offre
+        - demander comment passer la ref de l'offre pour l'éditer
     - supprimer une offre
     - voir les candidat
     - revenir profil candidat
     - selectionner un candidat
+    - profil recruteur
+        - mettre demande recruteur dedans
 O - vue accueil admin -> cote a cote les dmd orga et dmd admin, 
 - erreur dans creatUser callback not a fonction
+- rajouter bouton déconnexion dans tout les profils
+- dans toutes les fonctions faire de la gestion d'erreurs
+- mettre l'auto increment sur numero de offre
+
+
