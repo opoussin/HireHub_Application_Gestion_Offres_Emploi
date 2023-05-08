@@ -14,6 +14,7 @@ var mysql = require('mysql');
 
 
 module.exports = {
+    
     areUserValid: function (mail, mdp, callback) {
         sql = "SELECT * FROM UTILISATEUR WHERE mail = ?";
         db.query(sql, mail, function (err, rows) {
