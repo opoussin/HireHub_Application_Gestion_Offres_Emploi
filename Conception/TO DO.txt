@@ -14,15 +14,16 @@ optionnel - afficher message disant qu'il n'y a pas de candidatures pour l'insta
 O - bouton créer dmd organisation
 C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton editer, voir candidat, supprimer,), bouton creer offre, page de formulaire, 
     + changer de profil et afficher les offres d'une entreprise
-    - créer un offre
-    - éditer une offre
+    o créer un offre
+    o éditer une offre
         - demander comment passer la ref de l'offre pour l'éditer
-    - supprimer une offre
+    o supprimer une offre
     - voir les candidat
-    - revenir profil candidat
+    o revenir profil candidat
     - selectionner un candidat
     - profil recruteur
         - mettre demande recruteur dedans
+    - refaire un header pour recruteur
 O - vue accueil admin -> cote a cote les dmd orga et dmd admin, 
 - erreur dans creatUser callback not a fonction
 - rajouter bouton déconnexion dans tout les profils

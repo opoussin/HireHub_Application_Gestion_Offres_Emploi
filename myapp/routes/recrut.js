@@ -153,7 +153,7 @@ router.get('/logout',(req,res) => {
   res.redirect('/');
 });
 
-router.get('recrut/supp_offre/:numero', function (req, res, next) {
+router.get('/supp_offre/:numero', function (req, res, next) {
   let numero = req.params.numero;
     recruteurModel.deleteOffre(numero, function (result) {
       if (result) {
@@ -165,7 +165,7 @@ router.get('recrut/supp_offre/:numero', function (req, res, next) {
  
 });
 
-router.get('editer_offre/:numero', function (req, res, next) {
+router.get('/editer_offre/:numero', function (req, res, next) {
   let numero = req.params.numero;
     recruteurModel.readOffre(numero, function (result) {
       if (result) {
@@ -177,7 +177,7 @@ router.get('editer_offre/:numero', function (req, res, next) {
  
 });
 
-router.post('editer_offre/', function (req, res, next) {
+router.post('/editer_offre', function (req, res, next) {
     if (req.body){
     console.log("body:");
     console.log(req.body);
