@@ -69,7 +69,8 @@
                                     </div>
 
                                     <div class="col-9 gy-4">
-                                        <%if (Array.isArray(listeOffre)){%>
+                                        <%if ((listeOffre.length > 0)&&(Array.isArray(listeOffre))){%>
+                                            <%console.log("putain", listeOffre)%>
                                             <% listeOffre.forEach((offre)=> { %>
                                                 <div class="card mb-4 pt-0 " style="width: autorem;">
                                                     <div class="card-body g-4">

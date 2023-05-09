@@ -63,28 +63,28 @@ module.exports = {
         if ( intitule !== "") {
             console.log("A");
             console.log("intitule",intitule);
-            sql += ` AND WHERE ${intitule = intitule}`;
+            sql += `AND FICHE_POSTE.intitule = \'${intitule}\'`;
         }
         if ( organisation !== "") {
             console.log("organisation", organisation);
-            sql +=  `AND WHERE ORGANISATION.nom = \'${organisation}\'`;
+            sql +=  `AND ORGANISATION.nom = \'${organisation}\'`;
         
         }
         if ( lieu !== "") {
             console.log("lieu", lieu);
-            sql += ` AND WHERE ${lieu = lieu}`;
+            sql += `AND FICHE_POSTE.lieu = \'${lieu}\'`;
         }
 
         if ( statut !== "") {
             console.log("statut", statut);
-            sql += " AND WHERE '${statut = statut}'";
+            sql += `AND FICHE_POSTE.statut = \'${statut}\'`;
         }
         /*if (salaire!=NULL) {
             sql += ` AND WHERE ${}`;
         }*/
         if ( type !== "") {
             console.log("type", type);
-            sql += ` AND WHERE ${type = type}`;
+            sql += `AND FICHE_POSTE.type = \'${type}\'`;
         }
         db.query(sql, function (err, results) {
             console.log(sql);
