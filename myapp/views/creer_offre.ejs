@@ -10,7 +10,6 @@
 
         <section  class="box d-flex justify-content-center align-items-center">
             <div class="container py-4">
-              <h1 class="text-center text-uppercase">S'inscrire</h1>
               <div class="row gy-4 ">
                 <div class="col-6 offset-3">
                   <form action="/recrut/creer_offre" method="post">
@@ -47,14 +46,9 @@
                         <input type="comment" class="form-control" id="description" placeholder="Description" name="description">
                     </div>
                     <div class="mb-3 mt-3">
-                        <label for="pieces">Pieces</label>
-                        <select multiple class="form-control" id="pieces">
-                            <option>CV</option>
-                            <option>Lettre de motivation</option>
-                            <option>Portfolio</option>
-                            <option>Lettre de recommendation</option>
-                        </select>
-                    </div>
+                      <label for="pieces">Pièces</label>
+                      <input type="text" class="form-control" id="pieces" placeholder="CV, LM ..." name="pieces">
+                  </div>
                     <div class="mb-3 mt-3">
                         <label for="nombrePieces">Nombre de Pièces</label>
                         <input type="number" class="form-control" id="nombrePieces" placeholder="Nombre" name="nombrePieces">
@@ -75,7 +69,7 @@
                     </div>
 
                         
-                    <button type="submit" class="btn btn-outline-light">Valider</button>
+                    <button type="submit" class="btn btn-dark">Valider</button>
                   </form>            
                 </div>
               </div>
@@ -84,9 +78,9 @@
         
     </div>
         
-    <%- include('./components/footer')%>
+    
 
 </div>
-
+<%- include('./components/footer')%>
 </body>
 </html>
