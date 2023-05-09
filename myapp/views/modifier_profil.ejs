@@ -41,20 +41,21 @@
                                                     name="telephone" value="<%= telephone%>">
                                             
     
-                                            <button class="btn btn-primary mt-3" type="submit" name="form1" value="1">Enregistrer modifications</button>
+                                            <button class="btn btn-primary mt-3" type="submit" >Enregistrer modifications</button>
                                         </form>
                                         </div>
                                         <div class="col-6 ps-2">
-                                            <form action="/users/modifier_profil" method="POST" class="g-3 mb-3">
+                                            <form action="/users/modifier_profil/mdp" method="POST" class="g-3 mb-3">
                                                 <label for="mdp" class="col-form-label fw-bold">Nouveau mot de
                                                     passe</label>
-                                                <input type="password" class="form-control" id="mdp" name="mdp">
+                                                <input type="password" class="form-control" id="mdp" name="mdp1">
     
                                                 <label for="mdp" class="col-form-label fw-bold">Confirmer nouveau mot de
                                                     passe</label>
-                                                <input type="password" class="form-control" id="mdp" name="mdp">
-    
-                                            <button class="btn btn-primary mt-3" type="submit" name="form2" value="1">Enregistrer modifications</button>
+                                                <input type="password" class="form-control" id="mdp" name="mdp2">
+                                            
+                                            <button class="btn btn-primary mt-3" type="submit">Enregistrer modifications</button>
+                                    
                                         </form>
                                         </div>
                                     </div>

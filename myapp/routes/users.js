@@ -6,14 +6,14 @@ var Model = require('../Modele/user.js')
 var orgaModel = require('../Modele/Organisation.js')
 
 
-router.get('/userslist', function (req, res, next) {
+/*router.get('/userslist', function (req, res, next) {
   result = Model.readall(function (result) {
     res.render('usersList', {
       title: 'List des utilisateurs', users:
         result
     });
   });
-});
+});*/
 
 
 router.get('/profil_candidat', function (req, res, next) {
@@ -42,14 +42,11 @@ router.get('/modifier_profil', function (req, res, next) {
 });
 
 router.post('/modifier_profil', function (req, res, next) {
-  var mail = req.session.userid;
-  //if (req.body.nom||req.body.prenom||req.body.telephone) {
-  if (req.body.form1) {
-
+    var mail = req.session.userid;
     var nom = req.body.nom;
     var prenom = req.body.prenom;
     var telephone = req.body.telephone;
-    //var mail = req.body.mail;
+    
     candidatModel.updateUser(mail, nom, prenom, telephone, function (result) {
       //console.log(result);
       /*if (result) {
@@ -61,55 +58,31 @@ router.post('/modifier_profil', function (req, res, next) {
       console.log("apres query");
       res.render('/users/profil_candidat');
     });
-  }
-  if (req.body.form2) {
+  
+});
+router.post('/modifier_profil/mdp', function (req, res, next) {
+  var mail = req.session.userid;
     var mdp1 = req.body.mdp1;
     var mdp2 = req.body.mdp2;
+    //if(mdp1 == mdp2){
+      var ok = true;
     candidatModel.updateUserMdp(mdp1, mdp2, mail, function (result) {
+      req.session.check = ok;
       if (result) {
-        res.redirect('/users/profil_candidat');
+        res.redirect('/users/profil_candidat', {check: ok});
       } else {
         res.render('connexion');
       }
     });
-  }
-  res.redirect('/users/profil_candidat');
+  /*}else{
+    var ok = false;
+    req.session.check = ok;
+    res.redirect('/users/profil_candidat',{check : ok})
+  }*/
+
 });
 
 
-router.get('/devenirAdministrateur', function (req, res, next) {
-  if (req.session.userid) {
-    res.render('formulaire_admin');
-  } else
-    res.render('connexion');
-});
-
-router.post('/devenirAdministrateur', function (req, res, next) {
-  var mail = req.body.mail;
-  candidatModel.creatDmdAdmin(mail, function (result) {
-    res.redirect('/admin');
-  });
-});
-
-router.get('/recruteur', function (req, res, next) {
-  res.render('recruteur');
-});
-
-router.get('/devenirRecruteur', function (req, res, next) {
-  if (req.session.userid) {
-    res.render('formulaire_recruteur');
-  } else
-    res.render('connexion');
-});
-
-router.post('/devenirRecruteur', function (req, res, next) {
-  var mail = req.body.mail;
-  var siren = req.body.siren;
-
-  candidatModel.creatDmdRecruteur(siren, mail, function (result) {
-    res.redirect('/admin');
-  });
-});
 router.post('/candidat', function (req, res, next) {
 
   if (req.session.userid) {

@@ -9,11 +9,11 @@
         <%- include('./components/navbar')%>
 
             <div id="page-container">
-                <div id="content-wrap">
+                <div id="content-wrap" class="bg-light">
 
                     <section>
                         <div class=" d-flex justify-content-center">
-                            <div class="col-8 p-4 flex-column">
+                            <div class="col-8 p-4 flex-column bg-white">
                                 <h1 class="display-4">Faire une demande</h1>
                                 <hr>
                                 <div class="row">
@@ -53,7 +53,7 @@
                                             <button class="btn btn-primary mt-3" type="submit"> Envoyer
                                                 demande</button>
                                             <%} else{ %>
-                                                <small class="text-danger"> Vous avez déjà saisi une demande en cours de traitement ou acceptée.</small>
+                                                <small class="text-danger"> Vous avez déjà saisi une demande en cours de traitement ou acceptée.</small> <br>
                                                 <button class="btn btn-primary mt-3" type="submit" disabled> Envoyer
                                                     demande</button>
                                             <%} %>
@@ -65,7 +65,7 @@
                     </section>
                     <section>
                         <div class=" d-flex justify-content-center">
-                            <div class="col-8 p-4 flex-column">
+                            <div class="col-8 p-4 flex-column bg-white">
                                 <h1 class="display-4">Mes demandes</h1>
                                 <hr>
 

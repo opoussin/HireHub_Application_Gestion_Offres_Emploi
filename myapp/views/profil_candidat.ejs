@@ -37,11 +37,14 @@
 
 
                                     </div>
-                                    <a href="/users/modifier_profil" class="btn btn-link m-4 ps-0">Modifier mon
-                                        profil</a>
-                                    <%if(user.type==2){%>
-                                        <a href="/recrut/recruteur" class="btn btn-link m-4 ps-0">Profil recruteur</a>
-                                    <%}%>
+                                    <div class="ms-4">
+                                        <a href="/users/modifier_profil" class="btn btn-secondary m-2 ">Modifier mon
+                                            profil</a> <br>
+                                        <%if(user.type==2){%>
+                                            <a href="/recrut/recruteur" class="btn btn-secondary m-2 ">Profil recruteur</a>
+                                        <%}%>
+                                    </div>
+                                    
 
                                 </div>
                                 <div class="col-9 ">

@@ -6,11 +6,11 @@
     <body>
         <%- include('./components/navbar')%>
             <div id="page-container">
-                <div id="content-wrap">
+                <div id="content-wrap" class="bg-light">
 
                     <section>
                         <div class=" d-flex justify-content-center">
-                            <div class="col-8 p-4 flex-column">
+                            <div class="col-8 p-4 flex-column bg-white">
                                 <h1 class="display-4">Créer une organisation</h1>
                                 <hr>
                                 <div class="row">
@@ -38,8 +38,8 @@
                                             <p class="my-auto me-2">Type</p>
                                             <select class="form-select" name="type">
                                                 <option value="NULL" selected>Selectionnez</option>
-                                                <option value="entreprise">Entreprise</option>
-                                                <option value="association">Association</option>
+                                                <option value="Entreprise">Entreprise</option>
+                                                <option value="Association">Association</option>
                                                 
                                             </select>
                                         </div>
@@ -62,32 +62,38 @@
                         </div>
                     </section>
                     <section>
-                        <div class=" d-flex justify-content-center">
-                            <div class="col-8 p-4 flex-column">
+                        <div class=" d-flex justify-content-center ">
+                            <div class="col-8 p-4 flex-column bg-white">
                                 <h1 class="display-4">Mes demandes</h1>
                                 <hr>
 
                                 <div class="row">
-                                    <h3 class="display-6">Recruteur</h3>
+                                    
                                     
                                     <table>
                                         <% if (Array.isArray(demandeOrga)) { %>
                                             <% demandeOrga.forEach((dmd)=> { %>
                                                 <tr class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <th class="fw-normal">
+                                                    
                                                         <% for(var i=0; i < organisation.length; i++){
                                                             if(organisation[i].siren==dmd.organisation){ %>
                                                             <%= organisation[i].nom %>
                                                                 <%} } %>
-                                                    </th>
+                                                    
 
-                                                    <th class="fw-normal ">
-                                                        <%= dmd.siren %>
-                                                    </th>
-                                                    <th class="fw-normal ">
-                                                        <%= dmd.siegeSocial %>
+                                                    <th class="fw-normal">
+                                                        <label class="me-2">Siren:</label> <%= dmd.siren %>
                                                     </th>
                                                     <th class="fw-normal">
+                                                        <%= dmd.nom %>
+                                                    </th>
+                                                    <th class="fw-normal ">
+                                                            <%= dmd.type %>
+                                                    </th>
+                                                    <th class="fw-normal ">
+                                                        <label class="me-2">Siege social:</label> <%= dmd.siegeSocial %>
+                                                    </th>
+                                                    <th class="fw-normal ">
                                                         <%= dmd.statut %>
                                                             <% if (dmd.statut==='En attente' ) { %>
                                                                 <button class="btn btn-circle rounded-circle bg-primary"><i class="bi bi-hourglass text-light"></i></button>

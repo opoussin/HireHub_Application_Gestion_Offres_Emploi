@@ -101,6 +101,7 @@ router.get('/demandes/recruteurSupp/:siren', function (req, res, next) {
  
 });
 
+//on teste si l'utilisateur a les droits 
 router.get('/recruteur', function (req, res, next) {
   if(req.session.userid||communModel.areRecruteur(req.session.userid)){
     var siren=req.session.orga;
