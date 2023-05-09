@@ -3,84 +3,91 @@
 
 <%- include('./includes/head')%>
 
-<body>
-<%- include('./components/navbar')%>
-<div id="page-container">
-    <div id="content-wrap">
+  <body>
+    <%- include('./components/navbar')%>
+      <div id="page-container">
+        <div id="content-wrap" class="bg-light">
 
-        <section  class="box d-flex justify-content-center align-items-center">
-            <div class="container py-4">
-              <div class="row gy-4 ">
-                <div class="col-6 offset-3">
-                  <form action="/recrut/creer_offre" method="post">
-                    <div class="mb-3 mt-3">
-                      <label for="intitule">Intitule</label>
-                      <input type="text" class="form-control" id="intitule" placeholder="Intitule" name="intitule">
-                    </div>
-                    <div class="mb-3">
-                      <label for="statut">Statut</label>
-                      <input type="text" class="form-control" id="statut" placeholder="Statut de poste" name="statut">
-                    </div>
-                    <div class="mb-3 mt-3">
-                      <label for="responsable">Responsable</label>
-                      <input type="text" class="form-control" id="responsable" placeholder="Responsable" name="responsable">
-                    </div>
-                    <div class="mb-3 mt-3">
-                      <label for="type">Type</label>
-                      <input type="text" class="form-control" id="type" placeholder="Type" name="type">
-                    </div>
-                    <div class="mb-3 mt-3">
-                      <label for="lieu">Lieu</label>
-                      <input type="text" class="form-control" id="lieu" placeholder="Lieu" name="lieu">
-                    </div>
-                    <div class="mb-3 mt-3">
-                        <label for="rythme">Rythme</label>
-                        <input type="number" class="form-control" id="rythme" placeholder="Entrez le rythme h/semaine" name="rythme">
-                    </div>
-                    <div class="mb-3 mt-3">
-                        <label for="salaire">Salaire</label>
-                        <input type="number" class="form-control" id="salaire" placeholder="Entrez la rémunération en euros/mois" name="salaire">
-                    </div>
-                    <div class="mb-3 mt-3">
-                        <label for="description">Description</label>
-                        <input type="comment" class="form-control" id="description" placeholder="Description" name="description">
-                    </div>
-                    <div class="mb-3 mt-3">
-                      <label for="pieces">Pièces</label>
-                      <input type="text" class="form-control" id="pieces" placeholder="CV, LM ..." name="pieces">
+          
+
+          <section>
+            <div class=" d-flex justify-content-center">
+              <div class="col-7 p-4 flex-column bg-white">
+                <h1 class="display-4">Enregistrer une offre d'emploi</h1>
+                <hr>
+                <form action="/recrut/creer_offre" method="post">
+                  <div class="mb-3 mt-3">
+                    <label for="intitule">Intitule</label>
+                    <input type="text" class="form-control" id="intitule" placeholder="Intitule" name="intitule">
                   </div>
-                    <div class="mb-3 mt-3">
-                        <label for="nombrePieces">Nombre de Pièces</label>
-                        <input type="number" class="form-control" id="nombrePieces" placeholder="Nombre" name="nombrePieces">
-                    </div>
-                                 
-                    <div class="mb-3 mt-3">
-                        <div class='input-group date' id='datetimepicker1'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                        <script type="text/javascript">
-                            $(function () {
-                                $('#datetimepicker1').datetimepicker();
-                            });
-                        </script>
-                    </div>
+                  <div class="mb-3">
+                    <label for="statut">Statut</label>
+                    <input type="text" class="form-control" id="statut" placeholder="Statut de poste" name="statut">
+                  </div>
+                  <div class="mb-3 mt-3">
+                    <label for="responsable">Responsable</label>
+                    <input type="text" class="form-control" id="responsable" placeholder="Responsable"
+                      name="responsable">
+                  </div>
+                  <div class="mb-3 mt-3">
+                    <label for="type">Type</label>
+                    <input type="text" class="form-control" id="type" placeholder="Type" name="type">
+                  </div>
+                  <div class="mb-3 mt-3">
+                    <label for="lieu">Lieu</label>
+                    <input type="text" class="form-control" id="lieu" placeholder="Lieu" name="lieu">
+                  </div>
+                  <div class="mb-3 mt-3">
+                    <label for="rythme">Rythme</label>
+                    <input type="number" class="form-control" id="rythme" placeholder="Entrez le rythme h/semaine"
+                      name="rythme">
+                  </div>
+                  <div class="mb-3 mt-3">
+                    <label for="salaire">Salaire</label>
+                    <input type="number" class="form-control" id="salaire"
+                      placeholder="Entrez la rémunération en euros/mois" name="salaire">
+                  </div>
+                  <div class="mb-3 mt-3">
+                    <label for="description">Description</label>
+                    <input type="comment" class="form-control" id="description" placeholder="Description"
+                      name="description">
+                  </div>
+                  <div class="mb-3 mt-3">
+                    <label for="pieces">Pièces</label>
+                    <input type="text" class="form-control" id="pieces" placeholder="CV, LM ..." name="pieces">
+                  </div>
+                  <div class="mb-3 mt-3">
+                    <label for="nombrePieces">Nombre de Pièces</label>
+                    <input type="number" class="form-control" id="nombrePieces" placeholder="Nombre"
+                      name="nombrePieces">
+                  </div>
 
-                        
-                    <button type="submit" class="btn btn-dark">Valider</button>
-                  </form>            
-                </div>
+                  <div class="mb-3 mt-3">
+                    <div class='input-group date' id='datetimepicker1'>
+                      <input type='text' class="form-control" />
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                    <script type="text/javascript">
+                      $(function () {
+                        $('#datetimepicker1').datetimepicker();
+                      });
+                    </script>
+                  </div>
+
+
+                  <button type="submit" class="btn btn-primary">Valider</button>
+                </form>
               </div>
             </div>
-          </section>
-        
-    </div>
-        
-    
 
-</div>
-<%- include('./components/footer')%>
-</body>
+          </section>
+
+
+
+      </div>
+      <%- include('./components/footer')%>
+  </body>
+
 </html>
