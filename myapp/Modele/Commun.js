@@ -61,7 +61,7 @@ module.exports = {
     
     areAdmin: function (mail, callback) {
         sql = "SELECT type FROM USERS WHERE mail = ?";
-        rows = db.query(sql, mail, function (err, results) {
+        rows = db.query(sql, mail, function (err, rows) {
             if (err) throw err;
             if (rows.length == 1 && rows[0].type === 3) {
                 callback(true)

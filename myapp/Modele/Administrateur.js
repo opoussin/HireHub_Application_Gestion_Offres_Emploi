@@ -10,9 +10,12 @@ acceptAdmin
 acceptRecruteur
 readAllDmdOrga
 readAllDmdAdmin
+readUserFiltre
 
 */
 var db = require('./db.js');
+var mysql = require('mysql');
+
 
 module.exports = {
     readUser: function (mail, callback) {
@@ -23,7 +26,7 @@ module.exports = {
         });
     },
     readAllUser: function (callback) {
-        db.query("select * from UTILISATEUR", function (err, results) {
+        db.query("select * from UTILISATEUR ORDER BY nom ASC", function (err, results) {
             if (err) throw err;
             callback(results);
         });
@@ -120,5 +123,36 @@ module.exports = {
         if (err) throw err;
         callback(results);
         });
+    },
+
+    readUserFiltre: function (mail, nom, prenom, date, type, statut, callback) {
+        console.log("mail" + mail + "nom" + nom + "prenom" + prenom + "date" + date);
+        var sql = mysql.format("SELECT * FROM UTILISATEUR WHERE 1=1");
+        if ( mail !== undefined && mail !== "") {            
+            sql += ` AND  mail = ${mail}`;
+        }
+        if ( nom !== undefined && nom !== "") {            
+            sql += ` AND  nom = ${nom}`;
+        }
+        if ( prenom !== undefined && prenom !== "") {
+            sql +=  ` AND  prenom=${prenom}`;
+        
+        }
+        if ( date !== undefined && date !== "") {
+            sql += ` AND  date=${date}`;
+        }
+
+        if ( type !== undefined && type !== "") {
+            sql += ` AND type=${type}`;
+        }
+        if ( statut !== undefined && statut !== "") {
+            sql += ` AND statut=${statut}`;
+        }
+        db.query(sql, function (err, results) {
+            console.log(sql);
+            callback(results);
+        });
+
+
     },
 }
