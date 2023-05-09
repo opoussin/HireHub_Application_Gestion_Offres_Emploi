@@ -3,6 +3,8 @@ var router = express.Router();
 var candidatModel = require('../Modele/Candidat.js')
 var communModel = require('../Modele/Commun.js')
 var Model = require('../Modele/user.js')
+var orgaModel = require('../Modele/Organisation.js')
+
 
 router.get('/userslist', function (req, res, next) {
   result = Model.readall(function (result) {
@@ -15,38 +17,35 @@ router.get('/userslist', function (req, res, next) {
 
 
 router.get('/profil_candidat', function (req, res, next) {
-  if(req.session.userid){
-    var mail=req.session.userid;
+  if (req.session.userid) {
+    var mail = req.session.userid;
     result = communModel.readUser(mail, function (user) {
-    result = candidatModel.readAllCandidature(mail, function (result) {
-      res.render('profil_candidat', { user: user, candidatures: result });
+      result = candidatModel.readAllCandidature(mail, function (result) {
+        res.render('profil_candidat', { user: user, candidatures: result });
       });
     });
-    }else
+  } else
     res.render('connexion');
-  
+
 });
 
 
 router.get('/modifier_profil', function (req, res, next) {
- 
-  if(req.session.userid){
-    var mail=req.session.userid;
+
+  if (req.session.userid) {
+    var mail = req.session.userid;
     result = communModel.readUser(mail, function (result) {
-      console.dir(result);
       res.render('modifier_profil', { nom: result.nom, prenom: result.prenom, mail: result.mail, mdp: result.mdp, telephone: result.telephone, statut: result.statut, date: result.dateCreation.toLocaleDateString("fr") });
     });
-    }else
+  } else
     res.render('connexion');
 });
 
 router.post('/modifier_profil', function (req, res, next) {
-  var mail=req.session.userid;
+  var mail = req.session.userid;
   //if (req.body.nom||req.body.prenom||req.body.telephone) {
-    if (req.body.form1){
+  if (req.body.form1) {
 
-    console.log("body:");
-    console.log(req.body);
     var nom = req.body.nom;
     var prenom = req.body.prenom;
     var telephone = req.body.telephone;
@@ -79,9 +78,9 @@ router.post('/modifier_profil', function (req, res, next) {
 
 
 router.get('/devenirAdministrateur', function (req, res, next) {
-  if(req.session.userid){
+  if (req.session.userid) {
     res.render('formulaire_admin');
-    }else
+  } else
     res.render('connexion');
 });
 
@@ -97,9 +96,9 @@ router.get('/recruteur', function (req, res, next) {
 });
 
 router.get('/devenirRecruteur', function (req, res, next) {
-  if(req.session.userid){
+  if (req.session.userid) {
     res.render('formulaire_recruteur');
-    }else
+  } else
     res.render('connexion');
 });
 
@@ -111,25 +110,25 @@ router.post('/devenirRecruteur', function (req, res, next) {
     res.redirect('/admin');
   });
 });
-router.post('/candidat', function (req, res, next) { 
- 
-    if(req.session.userid){
+router.post('/candidat', function (req, res, next) {
 
-      if(req.body.form1){
-        console.log("A");
+  if (req.session.userid) {
 
-        var organisation = req.body.mail;
-        var lieu = req.body.mail;
-        var statut = req.body.mail;
-        var salaire = req.body.mail;
-        var type = req.body.mail;
-        var intitule = req.body.intitule;
-        console.log(req.body);
-        result = candidatModel.readOffreFiltre (organisation, lieu, statut, salaire, type, intitule,function (results) {
+    if (req.body.form1) {
+      console.log("A");
+
+      var organisation = req.body.mail;
+      var lieu = req.body.mail;
+      var statut = req.body.mail;
+      var salaire = req.body.mail;
+      var type = req.body.mail;
+      var intitule = req.body.intitule;
+
+      result = candidatModel.readOffreFiltre(organisation, lieu, statut, salaire, type, intitule, function (results) {
         res.render('candidat', { title: 'List des Offres', listeOffre: results });
       });
 
-        }/*else{
+    }/*else{
           console.log("B");
 
           result = candidatModel.readAllOffreValide (function (results) {
@@ -137,9 +136,9 @@ router.post('/candidat', function (req, res, next) {
         });
     
     }*/}
-    else{
+  else {
     res.redirect('/connexion');
-    }
+  }
 });
 /*router.get('/candidat', function (req, res, next) { 
  
@@ -159,15 +158,15 @@ router.post('/candidat', function (req, res, next) {
     }
 });*/
 
-router.get('/candidat', function (req, res, next) { 
- 
-  if(req.session.userid){
+router.get('/candidat', function (req, res, next) {
 
-    result = candidatModel.readAllOffreValide (function (results) {
-    res.render('candidat', { title: 'List des Offres', listeOffre: results });
-  });
-  }else
-  res.redirect('/connexion');
+  if (req.session.userid) {
+
+    result = candidatModel.readAllOffreValide(function (results) {
+      res.render('candidat', { title: 'List des Offres', listeOffre: results });
+    });
+  } else
+    res.redirect('/connexion');
 
 });
 
@@ -188,5 +187,41 @@ if(req.session.userid){
     }else
     res.render('connexion');
 */
+
+router.get('/creer_orga', function (req, res, next) {
+  var mail=req.session.userid;
+  if (req.session.userid) {
+
+    result = candidatModel.readUserDmdOrga(mail, function (results) {
+      resultOrga = orgaModel.readOrga(function (orgaResult) {
+        orgaResult ??= [];
+        results ??= [];
+        console.log("demandeOrga:" + results)
+        res.render('formulaire_orga', { organisation: orgaResult, demandeOrga: results });
+      });
+    });
+  } else
+    res.redirect('/connexion');
+
+});
+
+router.post('/creer_orga', function (req, res, next) {
+  var mail=req.session.userid;
+
+  var siren = req.body.siren;
+  var nom = req.body.nom;
+  var type = req.body.type;
+  var siege = req.body.siege;
+
+  candidatModel.creatDmdOrga(nom, siren, type, siege, mail, function (result) {
+    if (result) {
+      res.redirect('/users/creer_orga');
+    } else {
+      res.redirect('/users/creer_orga');
+    }
+  });
+});
+
+
 
 module.exports = router;

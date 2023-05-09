@@ -99,7 +99,7 @@ module.exports = {
         rows = db.query(sql, siren, function (err, results) {
             if (err) throw err;
             if (rows.length == 1) {
-                callback(false)
+                callback(false) //orga existe déjà
             } else {
                 var sql = mysql.format("INSERT INTO DMD_ORGA (nom, siren, type, siegeSocial, recruteur) VALUES (?,?,?,?,?)", [nom, siren, type, siegeSocial, mail]);
 

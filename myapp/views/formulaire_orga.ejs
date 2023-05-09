@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<%- include('./includes/head')%>
+
+    <body>
+        <%- include('./components/navbar')%>
+            <div id="page-container">
+                <div id="content-wrap">
+
+                    <section>
+                        <div class=" d-flex justify-content-center">
+                            <div class="col-8 p-4 flex-column">
+                                <h1 class="display-4">Créer une organisation</h1>
+                                <hr>
+                                <div class="row">
+
+                                    <h3 class="display-6">Formulaire</h3>
+                                    <form action="/users/creer_orga" method="POST" class="form-inline">
+
+                                        <p>Les demandes de création d'organisation sont traitées par les administrateurs
+                                            <br> <br>
+                                            Une fois la demande acceptée, vous deviendrez le premier recruteur de
+                                            celle-ci.</p>
+
+
+                                        <div class="mb-3 mt-3">
+                                            <label for="siren">Numero de SIREN</label>
+                                            <input type="text" class="form-control" id="intitule"
+                                                placeholder="Exemple: 362 521 879" name="siren">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="nom">Nom</label>
+                                            <input type="text" class="form-control" id="statut"
+                                                placeholder="Nom de l'organisation" name="nom">
+                                        </div>
+                                        <div class="mb-3 mt-3">
+                                            <p class="my-auto me-2">Type</p>
+                                            <select class="form-select" name="type">
+                                                <option value="NULL" selected>Selectionnez</option>
+                                                <option value="entreprise">Entreprise</option>
+                                                <option value="association">Association</option>
+                                                
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 mt-3">
+                                            <label for="siege">Siege social</label>
+                                            <input type="text" class="form-control" id="type"
+                                                placeholder="Siege social de l'organisation" name="siege">
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Valider</button>
+
+
+
+
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class=" d-flex justify-content-center">
+                            <div class="col-8 p-4 flex-column">
+                                <h1 class="display-4">Mes demandes</h1>
+                                <hr>
+
+                                <div class="row">
+                                    <h3 class="display-6">Recruteur</h3>
+                                    
+                                    <table>
+                                        <% if (Array.isArray(demandeOrga)) { %>
+                                            <% demandeOrga.forEach((dmd)=> { %>
+                                                <tr class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <th class="fw-normal">
+                                                        <% for(var i=0; i < organisation.length; i++){
+                                                            if(organisation[i].siren==dmd.organisation){ %>
+                                                            <%= organisation[i].nom %>
+                                                                <%} } %>
+                                                    </th>
+
+                                                    <th class="fw-normal ">
+                                                        <%= dmd.siren %>
+                                                    </th>
+                                                    <th class="fw-normal ">
+                                                        <%= dmd.siegeSocial %>
+                                                    </th>
+                                                    <th class="fw-normal">
+                                                        <%= dmd.statut %>
+                                                            <% if (dmd.statut==='En attente' ) { %>
+                                                                <button class="btn btn-circle rounded-circle bg-primary"><i class="bi bi-hourglass text-light"></i></button>
+                                                                <% } else if (dmd.statut==='Validé' ) { %>
+                                                                    <button class="btn btn-circle rounded-circle bg-success"><i class="bi bi-check-lg text-light"></i></button>
+                                                                    <% } else { %>
+                                                                        <button class="btn btn-circle rounded-circle bg-danger"><i class="bi bi-x-lg text-light"></i></button>
+                                                                        <% } %>
+                                                    </th>
+                                                </tr>
+                                                <% }); %>
+                                                    <% } %>
+                                    </table>
+                                
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <%- include('./components/footer')%>
+
+            </div>
+
+    </body>
+
+</html>

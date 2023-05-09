@@ -69,46 +69,37 @@
                                 <h1 class="display-4">Mes demandes</h1>
                                 <hr>
 
-                                <div class=" ">
+                                <div>
                                     <h3 class="display-6">Recruteur</h3>
                                     <form action="/recrut/demandes/recruteurSupp" method="POST"  class="row">
                                     <table>
                                         <% if (Array.isArray(demandeRecrut)) { %>
                                             <% demandeRecrut.forEach((dmd)=> { %>
-                                                <tr
-                                                    class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <th class="fw-normal w-25">
+                                                <tr class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <th class="fw-normal">
                                                         <% for(var i=0; i < organisation.length; i++){
                                                             if(organisation[i].siren==dmd.organisation){ %>
                                                             <%= organisation[i].nom %>
                                                                 <%} } %>
                                                     </th>
 
-                                                    <th class="fw-normal w-25">
+                                                    <th class="fw-normal ">
                                                         <%= dmd.date.toLocaleDateString("fr") %>
                                                     </th>
-                                                    <th class="fw-normal w-25">
+                                                    <th class="fw-normal">
                                                         <%= dmd.statut %>
                                                             <% if (dmd.statut==='En attente' ) { %>
-                                                                <button
-                                                                    class="btn btn-circle rounded-circle bg-primary"><i
-                                                                        class="bi bi-hourglass text-light"></i></button>
+                                                                <button class="btn btn-circle rounded-circle bg-primary"><i class="bi bi-hourglass text-light"></i></button>
                                                                 <% } else if (dmd.statut==='Validé' ) { %>
-                                                                    <button
-                                                                        class="btn btn-circle rounded-circle bg-success"><i
-                                                                            class="bi bi-check-lg text-light"></i></button>
+                                                                    <button class="btn btn-circle rounded-circle bg-success"><i class="bi bi-check-lg text-light"></i></button>
                                                                     <% } else { %>
-                                                                        <button
-                                                                            class="btn btn-circle rounded-circle bg-danger"><i
-                                                                                class="bi bi-x-lg text-light"></i></button>
+                                                                        <button class="btn btn-circle rounded-circle bg-danger"><i class="bi bi-x-lg text-light"></i></button>
                                                                         <% } %>
                                                     </th>
 
-                                                    <th class="fw-normal w-25">
+                                                    <th class="fw-normal">
                                                         Supprimer demande 
-                                                        <a href="/recrut/demandes/recruteurSupp/<%= dmd.organisation%>"
-                                                            class="btn pe-0" name="supp"><i
-                                                                class="bi bi-x-lg"></i></a>
+                                                        <a href="/recrut/demandes/recruteurSupp/<%= dmd.organisation%>" class="btn pe-0" name="supp"><i class="bi bi-x-lg"></i></a>
 
                                                     </th>
 
@@ -118,31 +109,25 @@
                                     </table>
                                 </form>
                                 </div>
-                                <div class="">
+                                <div>
                                     <h3 class="display-6 mt-2">Administrateur</h3>
                                     <form action="/recrut/demandes/adminSupp" method="POST" class="row">
 
                                     <table>
                                         <% demandeAdmin.forEach((dmdA)=> { %>
-                                            <tr
-                                                class="list-group-item d-flex justify-content-between align-items-center">
-                                                <th class="fw-normal" name="dmdA_date" value="<%= dmdA.date%>">
+                                            <tr class="list-group-item d-flex justify-content-between align-items-center">
+                                                <th class="fw-normal">
                                                     <%= dmdA.date.toLocaleDateString("fr") %>
+                                                    <input type="hidden" name="dmdA_date" value="<%= dmdA.date %>">
                                                 </th>
                                                 <th class="fw-normal">
                                                     <%= dmdA.statut %>
                                                     <% if (dmdA.statut==='En attente' ) { %>
-                                                        <button
-                                                            class="btn btn-circle rounded-circle bg-primary"><i
-                                                                class="bi bi-hourglass text-light"></i></button>
+                                                        <button class="btn btn-circle rounded-circle bg-primary"> <i class="bi bi-hourglass text-light"></i></button>
                                                         <% } else if (dmdA.statut==='Validé' ) { %>
-                                                            <button
-                                                                class="btn btn-circle rounded-circle bg-success"><i
-                                                                    class="bi bi-check-lg text-light"></i></button>
+                                                            <button class="btn btn-circle rounded-circle bg-success"><i class="bi bi-check-lg text-light"></i></button>
                                                             <% } else { %>
-                                                                <button
-                                                                    class="btn btn-circle rounded-circle bg-danger"><i
-                                                                        class="bi bi-x-lg text-light"></i></button>
+                                                                <button class="btn btn-circle rounded-circle bg-danger"><i class="bi bi-x-lg text-light"></i></button>
                                                                 <% } %>
                                                         
 
@@ -150,7 +135,7 @@
                                                 <th class="fw-normal">
                                                     Supprimer demande 
                                                     <button
-                                                        class="btn pe-0" name="supp"><i
+                                                        class="btn pe-0" name="supp" data-date="<%= dmdA.date %>"><i
                                                             class="bi bi-x-lg"></i></button>
 
                                                 </th>

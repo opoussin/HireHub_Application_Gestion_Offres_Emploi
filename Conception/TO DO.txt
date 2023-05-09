@@ -4,7 +4,7 @@ O - rediriger vue accueil admin
 C - mettre des valeurs dans les filtres candidat.ejs + terminer les filtres
 C - faire la route dans users.js des filtres
 C + enlever bouton modifier profil dans accueil candidat
-O - régler pbm vue dmd recruteur formulaire_recruteur
+O + régler pbm vue dmd recruteur formulaire_recruteur
 C + enlever bouton voir mes candidatures
 C + supprimer bouton active accueil candidat
 O - bouton voir offre accueil candidat
@@ -29,5 +29,5 @@ O - vue accueil admin -> cote a cote les dmd orga et dmd admin,
 - rajouter bouton déconnexion dans tout les profils
 - dans toutes les fonctions faire de la gestion d'erreurs
 - mettre l'auto increment sur numero de offre
-
+O - supprimer une demande amdin 
 

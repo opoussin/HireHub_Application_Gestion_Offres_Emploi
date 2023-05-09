@@ -3,7 +3,8 @@ var router = express.Router();
 var orgaModel = require('../Modele/Organisation.js')
 var candidatModel = require('../Modele/Candidat.js')
 var communModel = require('../Modele/Commun.js')
-var recruteurModel = require('../Modele/Recruteur.js')
+var recruteurModel = require('../Modele/Recruteur.js');
+const { urlencoded } = require('express');
 
 router.get('/demandes', function (req, res, next) {
   var mail=req.session.userid;
@@ -44,7 +45,7 @@ router.post('/demandes/recruteur', function (req, res, next) {
   var mail=req.session.userid;
 
     var siren = req.body.choix; //renvoie le siren
-    recrutModel.readAllDmdRecruteur(siren, function (resultDmd) {
+    recruteurModel.readAllDmdRecruteur(siren, function (resultDmd) {
       if(resultDmd )
     candidatModel.creatDmdRecruteur(mail, siren, function (result) {
       console.log(result);
@@ -73,10 +74,11 @@ router.post('/demandes/admin', function (req, res, next) {
 
 router.post('/demandes/adminSupp', function (req, res, next) {
   var mail=req.session.userid;
-  var date = req.body.dmdA;
-  console.log("date: ");
-  console.log(date);
-    candidatModel.deleteDmdAdmin(mail, date, function (result) {
+  var dateSupp = req.body['supp'];
+  /*var date = new Date(dateSupp);
+  var dateFormatted = date.toISOString().slice(0, 19).replace('T', ' ');*/
+  console.log("Date à supprimer : " + dateSupp);
+    candidatModel.deleteDmdAdmin(mail, dateSupp, function (result) {
       if (result) {
         res.redirect('/recrut/demandes');
       } else {
