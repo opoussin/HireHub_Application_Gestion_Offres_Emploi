@@ -117,14 +117,15 @@ router.post('/candidat', function (req, res, next) {
     if (req.body.form1) {
       console.log("A");
 
-      var organisation = req.body.mail;
-      var lieu = req.body.mail;
-      var statut = req.body.mail;
-      var salaire = req.body.mail;
-      var type = req.body.mail;
+      var organisation = req.body.organisation;
+      var lieu = req.body.lieu;
+      var statut = req.body.statut;
+      var salaire = req.body.salaire;
+      var type = req.body.type;
       var intitule = req.body.intitule;
+      console.log ("body user.js" , organisation, lieu, statut, salaire, type, intitule);
 
-      result = candidatModel.readOffreFiltre(organisation, lieu, statut, salaire, type, intitule, function (results) {
+      candidatModel.readOffreFiltre(organisation, lieu, statut, salaire, type, intitule, function (results) {
         res.render('candidat', { title: 'List des Offres', listeOffre: results });
       });
 

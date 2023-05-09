@@ -59,36 +59,37 @@ module.exports = {
 
         var sql = mysql.format("SELECT * FROM OFFRE INNER JOIN FICHE_POSTE ON OFFRE.numero = FICHE_POSTE.offre INNER JOIN ORGANISATION ON ORGANISATION.siren=OFFRE.organisation WHERE OFFRE.etat='publiee'");
 
-
-        if (typeof intitule !== "undefined") {
+        console.log ("req body candidat.js", organisation, lieu, statut, salaire, type, intitule);
+        if ( intitule !== "") {
             console.log("A");
-            console.log(intitule);
+            console.log("intitule",intitule);
             sql += ` AND WHERE ${intitule = intitule}`;
         }
-        if (typeof organisation !== "undefined") {
-            console.log(organisation);
-            sql += ` AND WHERE ${nom = organisation}`;
+        if ( organisation !== "") {
+            console.log("organisation", organisation);
+            sql +=  `AND WHERE ORGANISATION.nom = \'${organisation}\'`;
+        
         }
-
-        if (typeof lieu !== "undefined") {
-            console.log(lieu);
+        if ( lieu !== "") {
+            console.log("lieu", lieu);
             sql += ` AND WHERE ${lieu = lieu}`;
         }
 
-        if (typeof statut !== "undefined") {
-            console.log(statut);
-            sql += ` AND WHERE ${statut = statut}`;
+        if ( statut !== "") {
+            console.log("statut", statut);
+            sql += " AND WHERE '${statut = statut}'";
         }
         /*if (salaire!=NULL) {
             sql += ` AND WHERE ${}`;
         }*/
-        if (typeof type !== "undefined") {
-            console.log(type);
+        if ( type !== "") {
+            console.log("type", type);
             sql += ` AND WHERE ${type = type}`;
         }
         db.query(sql, function (err, results) {
+            console.log(sql);
             console.log("C");
-            console.log(results);
+            console.log("resultt",results);
             callback(results);
         });
 
