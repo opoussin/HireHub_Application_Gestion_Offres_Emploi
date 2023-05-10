@@ -32,7 +32,7 @@
                                     </div>
 
                                     <div class="col-9 bg-white">
-                                        <% if (userResult) { %>
+                                        <% if ((userResult.length > 0)&&(Array.isArray(userResult)) %>
                                         <div class="row">
                                             <% var userCount = userResult.length;
                                                 var usersPerCol = Math.floor(userCount / 3);

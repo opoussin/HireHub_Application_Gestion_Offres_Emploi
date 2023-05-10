@@ -150,6 +150,7 @@ module.exports = {
         }
         db.query(sql, function (err, results) {
             console.log(sql);
+            console.log(results);
             callback(results);
         });
 
