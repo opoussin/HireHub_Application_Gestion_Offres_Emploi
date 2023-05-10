@@ -34,4 +34,5 @@ stand by plusieurs orga par recruteur ( select orga pour poster une offre, affic
 - offres non publiees : gerer affichage et mention brouillon
 - rajouter condition inscription si deja une session cree
 - tester AI offre
+- annuler la casse dans les formulaires
 

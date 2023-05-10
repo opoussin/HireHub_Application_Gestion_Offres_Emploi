@@ -79,9 +79,10 @@ module.exports = {
             console.log("statut", statut);
             sql += `AND FICHE_POSTE.statut = \'${statut}\'`;
         }
-        /*if (salaire!=NULL) {
-            sql += ` AND WHERE ${}`;
-        }*/
+        if ( salaire !== "") {
+            console.log("salaire", salaire);
+            sql += `AND FICHE_POSTE.type > ${salaire}`;
+        }
         if ( type !== "") {
             console.log("type", type);
             sql += `AND FICHE_POSTE.type = \'${type}\'`;

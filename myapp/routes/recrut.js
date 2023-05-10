@@ -134,13 +134,23 @@ router.get('/creer_offre', function (req, res, next) {
 
 router.post('/creer_offre', function (req, res, next) {
   // Récupération des données du formulaire
-  var prenom = req.body.nombrePieces;
-  var mdp = req.body.pieces;
-  var telephone = req.body.dataValidite;
-  var organisation = req.session.orga ;
+    var etat = req.body.etat;
+    var dateValidite = req.body.dateValidite;
+    var pieces = req.body.pieces;
+    var nombrePieces = req.body.nombrePieces;
+    var intitule = req.body.intitule;
+    var statut = req.body.statut;
+    var responsable = req.body.responsable;
+    var type = req.body.type;
+    var lieu = req.body.lieu;
+    var rythme = req.body.rythme;
+    var salaire = req.body.salaire;
+    var description = req.body.description;
+    var etat = 'publiee';
+    var organisation = req.session.orga;
 
   // Appel à la fonction creat du modèle Utilisateur
-  recruteurModel.creatOffre(organisation, dateValidite, pieces, nombrePieces, function (result) {
+  recruteurModel.creatOffre(organisation, etat, dateValidite, pieces, nombrePieces, intitule, statut, responsable, type, lieu, rythme, salaire, description, function (result) {
     if (result){ //result = vrai donc il y a une erreur
       //rajouter creatFiche
       res.redirect('/recruteur');
@@ -185,7 +195,7 @@ router.post('/editer_offre', function (req, res, next) {
     console.log("body:");
     console.log(req.body);
     var etat = req.body.etat;
-    var dateValidite = req.body.date;
+    var dateValidite = req.body.dateValidite;
     var pieces = req.body.pieces;
     var nombrePieces = req.body.nombrePieces;
     var numero = req.body.numero;

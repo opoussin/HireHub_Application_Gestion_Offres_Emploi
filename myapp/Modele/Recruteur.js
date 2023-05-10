@@ -20,17 +20,70 @@ var db = require('./db.js');
 var mysql = require('mysql');
 
 module.exports = {
-    creatOffre: function (organisation, dateValidite, pieces, nombrePieces, callback) {
+    /*creatOffre: function (organisation, etat, dateValidite, pieces, nombrePieces, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback) {
         
-        var etat = 'publiee';
-        var sql = mysql.format("INSERT INTO OFFRE (organisation, etat, dateValidite, pieces, nombrePieces) VALUES (?,?,?,?,?,?)", [organisation, etat, dateValidite, pieces, nombrePieces]);
+        var sql = mysql.format("INSERT INTO OFFRE (organisation, etat, dateValidite, pieces, nombrePieces) VALUES (?,?,?,?,?)", [organisation, etat, dateValidite, pieces, nombrePieces]);
         //rajouter creatFiche ici
+        var sql2 = mysql.format("SELECT OFFRE.numero FROM OFFRE WHERE numero = (SELECT MAX(numero) FROM OFFRE)");
         db.query(sql, function (err, results) {
             if (err) throw err;
             callback(results);
+            console.log("premier", results)
+            db.query(sql2, function (err, results) {
+                if (err) throw err;
+                callback(results);
+                console.log("deuxieme", results);
+                var numero = results;
+                this.creatFiche(numero, intitule, statut, responsable, type, lieu, rythme, salaire, description);
+
+            });
+        });
+
+    },
+    creatFiche: function (offre, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback) {
+            var sql = mysql.format("INSERT INTO FICHE_POSTE (offre, intitule, statut, responsable, type, lieu, rythme, salaire, description) VALUES (?,?,?,?,?,?,?,?,?)", [offre, intitule, statut, responsable, type, lieu, rythme, salaire, description]);
+
+            db.query(sql, function (err, results) {
+                if (err) throw err;
+                callback(results);
+            });
+        },
+*/
+    creatOffre: function (organisation, etat, dateValidite, pieces, nombrePieces, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback) {
+        var sql = mysql.format("INSERT INTO OFFRE (organisation, etat, dateValidite, pieces, nombrePieces) VALUES (?,?,?,?,?)", [organisation, etat, dateValidite, pieces, nombrePieces]);
+        var numero = 0;
+        db.query(sql, function (err, results) {
+            if (err) {
+                throw err;
+            }
+            console.log("première requête exécutée");
+            
+            var sql2 = "SELECT numero FROM OFFRE ORDER BY numero DESC LIMIT 1";
+            db.query(sql2, function (err, results) {
+                if (err) {
+                    throw err;
+                }
+                console.log("deuxième requête exécutée");
+                console.log(numero);
+                var numero = results[0].numero;
+                console.log("Numéro de l'offre insérée :", numero);
+    
+                this.creatFiche(numero, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback);
+            });
         });
     },
-
+    
+    creatFiche: function (numero, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback) {
+        var sql = mysql.format("INSERT INTO FICHE_POSTE (offre, intitule, statut, responsable, type, lieu, rythme, salaire, description) VALUES (?,?,?,?,?,?,?,?,?)", [numero, intitule, statut, responsable, type, lieu, rythme, salaire, description]);
+    
+        db.query(sql, function (err, results) {
+            if (err) {
+                throw err;
+            }
+            console.log("Fiche poste insérée");
+            callback(results);
+        });
+    },
     deleteOffre: function (numero, callback) {
         var sql = mysql.format("DELETE FROM OFFRE WHERE numero=?");
         deleteFiche(numero);
@@ -90,14 +143,7 @@ module.exports = {
             callback(results);
         });
     },
-    creatFiche: function (offre, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback) {
-        var sql = mysql.format("INSERT INTO FICHE_POSTE (offre, intitule, statut, responsable, type, lieu, rythme, salaire, description) VALUES (?,?,?,?,?,?,?,?,?)", [offre, intitule, statut, responsable, type, lieu, rythme, salaire, description]);
-
-        db.query(sql, function (err, results) {
-            if (err) throw err;
-            callback(results);
-        });
-    },
+    
     updateFiche: function (intitule, statut, responsable, type, lieu, rythme, salaire, description, offre, callback) {
         var sql = mysql.format("UPDATE FICHE_POSTE SET intitule=?, statut=?, responsable=?, type=?, lieu=?, rythme=?, salaire=?, description=? WHERE offre=?", [intitule, statut, responsable, type, lieu, rythme, salaire, description, offre]);
         db.query(sql, function (err, results) {
