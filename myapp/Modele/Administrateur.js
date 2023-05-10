@@ -26,7 +26,7 @@ module.exports = {
         });
     },
     readAllUser: function (callback) {
-        db.query("select * from UTILISATEUR ORDER BY nom ASC", function (err, results) {
+        db.query("select * from UTILISATEUR", function (err, results) {
             if (err) throw err;
             callback(results);
         });
@@ -46,39 +46,40 @@ module.exports = {
             }
         });
     },*/
-    disableUser: function (callback) {
-        var sql = mysql.format("UPDATE UTILISATEUR SET etat=0 WHERE mail=?");
 
-        db.query(sql, function (err, result) {
-                if (err) throw err;
-                callback(result);
-            });
+    disableUser: function (mail, callback) {
+        console.log("mail" +mail);
+        db.query("UPDATE UTILISATEUR SET statut=0 WHERE mail=?", mail, function
+            (err, results) {
+            if (err) throw err;
+            callback();
+        });
     },
-    enableUser: function (callback) {
-        var sql = mysql.format("UPDATE UTILISATEUR SET etat=1 WHERE mail=?");
 
-        db.query(sql, function (err, result) {
-                if (err) throw err;
-                callback(result);
-            });
+    enableUser: function (mail, callback) {
+        db.query("UPDATE UTILISATEUR SET statut=1 WHERE mail=?", mail, function
+            (err, results) {
+            if (err) throw err;
+            callback();
+        });
     },
-    acceptAdmin: function (callback) {
-        var sql = mysql.format("UPDATE UTILISATEUR SET type=3 WHERE mail=?");
 
-        db.query(sql, function (err, result) {
-                if (err) throw err;
-                callback(result);
-            });
+    acceptAdmin: function (mail, callback) {
+        db.query("UPDATE UTILISATEUR SET type=3 WHERE mail=?", mail, function
+            (err, results) {
+            if (err) throw err;
+            callback();
+        });
     },
-    creatOrga: function (nom, siren, type, siegesocial, callback) {
-        var sql = mysql.format("INSERT INTO ORGANISATION (nom, siren, type, siegesocial) VALUES (?,?,?,?)", [nom, siren, type, siegesocial]);
-        db.query(sql, function (err, results) {
+
+    creatOrga: function (mail, callback) {
+        db.query("INSERT INTO ORGANISATION (nom, siren, type, siegesocial) VALUES (?,?,?,?)", [nom, siren, type, siegesocial], function
+            (err, results) {
             if (err) throw err;
             callback(results);
-
         });
-
     },
+
     readOrgaSiren : function ( siren, callback){
         db.query("select * from ORGANISATION where siren= ?", siren, function
             (err, results) {
@@ -86,6 +87,7 @@ module.exports = {
             callback(results);
         });
     },
+
     acceptOrga: function (nom, siren, type, siegesocial, mail, callback) {
         if (!this.readOrgaSiren(siren, callback)) {
            this.creatOrga(nom, siren, type, siegesocial, callback);
@@ -127,19 +129,20 @@ module.exports = {
 
     readUserFiltre: function (mail, nom, prenom, date, type, statut, callback) {
         console.log("mail" + mail + "nom" + nom + "prenom" + prenom + "date" + date);
-        var sql = mysql.format("SELECT * FROM UTILISATEUR WHERE 1=1");
+        var sql = mysql.format("SELECT * FROM UTILISATEUR WHERE 1");
+        
         if ( mail !== undefined && mail !== "") {            
-            sql += ` AND  mail = ${mail}`;
+            sql += ` AND  mail like "%${mail}%"`;
         }
         if ( nom !== undefined && nom !== "") {            
-            sql += ` AND  nom = ${nom}`;
+            sql += ` AND  nom like "%${nom}%"`;
         }
         if ( prenom !== undefined && prenom !== "") {
-            sql +=  ` AND  prenom=${prenom}`;
+            sql +=  ` AND  prenom like "%${prenom}%"`;
         
         }
         if ( date !== undefined && date !== "") {
-            sql += ` AND  date=${date}`;
+            sql += ` AND  CAST(dateCreation as DATE)="${date}"`;
         }
 
         if ( type !== undefined && type !== "") {
@@ -148,9 +151,11 @@ module.exports = {
         if ( statut !== undefined && statut !== "") {
             sql += ` AND statut=${statut}`;
         }
+
         db.query(sql, function (err, results) {
+            console.log(err);
             console.log(sql);
-            console.log(results);
+            console.log("results" + results);
             callback(results);
         });
 

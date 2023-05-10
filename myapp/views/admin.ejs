@@ -3,6 +3,7 @@
 
 <%- include('./includes/head')%>
 
+
     <body>
         <%- include('./components/navbar')%>
             <div id="page-container">
@@ -16,15 +17,27 @@
 
                                         <div class="row pb-4">
                                             <div class="container mt-4">
-                                                <h1 class="display-4">Recherchez des utilisateurs</h1>
-                                                <form class="form-inline" action="/admin/administrateur" method="post">
-                                                    <input type="text" class="form-control" id="mail" placeholder="...par mail" name="mail">
-                                                    <input type="text" class="form-control" id="nom" placeholder="...par nom" name="nom" >
-                                                    <input type="text" class="form-control" id="prenom" placeholder="...par prenom" name="prenom" >
-                                                    <input type="date" class="form-control" id="date" placeholder="...par date d'inscription" name="date" >
+                                                <h1 class="display-6">Recherchez des utilisateurs</h1>
+                                                <form class="form-inline" action="/admin/administrateur" method="get">
+                                                    <input type="text" class="form-control" id="mail"
+                                                        placeholder="...par mail" name="mail"
+                                                        value="<%= search.email %>">
+                                                    <input type="text" class="form-control" id="nom"
+                                                        placeholder="...par nom" name="nom" value="<%= search.nom %>">
+                                                    <input type="text" class="form-control" id="prenom"
+                                                        placeholder="...par prenom" name="prenom"
+                                                        value="<%= search.prenom %>">
+                                                    <input type="date" class="form-control" id="date"
+                                                        placeholder="...par date d'inscription" name="date"
+                                                        value="<%= search.date %>">
 
-                                                    <button class="btn btn-primary mt-3" type="submit" name="form1" value="1">Valider</button>
+                                                    <button class="btn btn-primary mt-3" type="submit">Valider</button>
                                                 </form>
+
+                                            </div>
+                                            <div class="container mt-4">
+                                                <a href="/admin/administrateur/demandes" class="btn btn-primary">Voir les demandes</a>
+
                                             </div>
 
                                         </div>
@@ -32,20 +45,10 @@
                                     </div>
 
                                     <div class="col-9 bg-white">
-                                        <% if ((userResult.length > 0)&&(Array.isArray(userResult)) %>
-                                        <div class="row">
-                                            <% var userCount = userResult.length;
-                                                var usersPerCol = Math.floor(userCount / 3);
-                                                var extraUsers = userCount % 3;
-                                                var col1End = usersPerCol + (extraUsers > 0 ? 1 : 0);
-                                                var col2End = col1End + usersPerCol + (extraUsers > 1 ? 1 : 0);
-                                                var col1Users = userResult.slice(0, col1End);
-                                                var col2Users = userResult.slice(col1End, col2End);
-                                                var col3Users = userResult.slice(col2End);
-                                            %>
-                                                <div class="col-md-4 pt-4 ">
-                                                    <% col1Users.forEach(function(user) { %>
-                                                        <!-- Code HTML pour afficher l'objet dans la première colonne -->
+                                        <% if ((userResult.length> 0)&&(Array.isArray(userResult))) {%>
+                                            <div class="row row-cols-3">
+                                                <% userResult.forEach(function(user) { %>
+                                                    <div class="col">
 
                                                         <div class="card m-2" style="width: 18rem;">
                                                             <div class="card-body">
@@ -53,122 +56,55 @@
                                                                     <%= user.nom%>
                                                                     <%= user.prenom%>
                                                                 </h5>
-                                                                <h6 class="card-subtitle mb-2 text-body-secondary">
+                                                                <h6 class="card-subtitle mb-2 text-body-secondary" name="mail">
                                                                     <%= user.mail%>
                                                                 </h6>
                                                                 <p class="card-text">
                                                                     <%= user.tel%>
                                                                 </p>
-                                                                <p class="card-text">Depuis le: <%=user.dateCreation.toLocaleDateString("fr") %>
+                                                                <p class="card-text">Depuis le:
+                                                                    <%=user.dateCreation.toLocaleDateString("fr") %>
                                                                 </p>
-                                                                <p class='<%= (user.statut==1) ? "text-dark" : "text-danger" %>'>
+                                                                <p
+                                                                    class='<%= (user.statut==1) ? "text-dark" : "text-danger" %>'>
                                                                     <%= (user.statut==1) ? "Actif" : "Inactif" %>
                                                                 </p>
                                                                 <p>Recruteur:
                                                                     <%= (user.type==2) ? "Oui" : "Non" %>
                                                                 </p>
-                                                                <p>Administrateur: 
-                                                                    <%= (user.statut==3) ? "Oui" : "Non"%>
+                                                                <p>Administrateur:
+                                                                    <%= (user.type==3) ? "Oui" : "Non" %>
                                                                 </p>
 
-
-                                                                <form action="/admin/desactiver" method="POST">
-                                                                    <button class="btn btn-primary">Desactiver</button>
-                                                                </form>
+                                                                <%if(user.statut == 1){%>
+                                                                    <a class="btn btn-outline-danger"
+                                                                        href="/admin/administrateur/desactiver?user=<%=user.mail%>">Desactiver</a>
+                                                                <%}else{%>
+                                                                    <a class="btn btn-success"
+                                                                        href="/admin/administrateur/activer?user=">Activer</a>
+                                                                <%};%>
 
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                
+                                                <% }); %>
 
-                                                        <% }); %>
-                                                </div>
-                                                <div
-                                                    class="col-md-4 pt-4 ">
-                                                    <% col2Users.forEach(function(user) { %>
-                                                        <!-- Code HTML pour afficher l'objet dans la première colonne -->
-
-                                                        <div class="card m-2" style="width: 18rem;">
-                                                            <div class="card-body">
-                                                                <h5 class="card-title">
-                                                                    <%= user.nom%>
-                                                                    <%= user.prenom%>
-                                                                </h5>
-                                                                <h6 class="card-subtitle mb-2 text-body-secondary">
-                                                                    <%= user.mail%>
-                                                                </h6>
-                                                                <p class="card-text">
-                                                                    <%= user.tel%>
-                                                                </p>
-                                                                <p class="card-text">Depuis le: <%=user.dateCreation.toLocaleDateString("fr") %>
-                                                                </p>
-                                                                <p class='<%= (user.statut==1) ? "text-dark" : "text-danger" %>'>
-                                                                    <%= (user.statut==1) ? "Actif" : "Inactif" %>
-                                                                </p>
-                                                                <p>Recruteur:
-                                                                    <%= (user.type==2) ? "Oui" : "Non" %>
-                                                                </p>
-                                                                <p>Administrateur: <%= (user.statut==3) ? "Oui" : "Non"%>
-                                                                </p>
-
-
-                                                                <form action="/admin/desactiver" method="POST">
-                                                                    <button class="btn btn-primary">Desactiver</button>
-                                                                </form>
-
-                                                            </div>
-                                                        </div>
-
-                                                        <% }); %>
-                                                </div>
-                                                <div class="col-md-4 pt-4 ">
-                                                    <% col3Users.forEach(function(user) {  %>
-                                                        <!-- Code HTML pour afficher l'objet dans la troisième colonne -->
-                                                        <div class="card m-2" style="width: 18rem;">
-                                                            <div class="card-body">
-                                                                <h5 class="card-title">
-                                                                    <%= user.nom%>
-                                                                    <%= user.prenom%>
-                                                                </h5>
-                                                                <h6 class="card-subtitle mb-2 text-body-secondary">
-                                                                    <%= user.mail%>
-                                                                </h6>
-                                                                <p class="card-text">
-                                                                    <%= user.tel%>
-                                                                </p>
-                                                                <p class="card-text">Depuis le: <%=user.dateCreation.toLocaleDateString("fr") %>
-                                                                </p>
-                                                                <p class='<%= (user.statut==1) ? "text-dark" : "text-danger" %>'>
-                                                                    <%= (user.statut==1) ? "Actif" : "Inactif" %>
-                                                                </p>
-                                                                <p>Recruteur:
-                                                                    <%= (user.type==2) ? "Oui" : "Non" %>
-                                                                </p>
-                                                                <p>Administrateur: <%= (user.statut==3) ? "Oui" : "Non"%>
-                                                                </p>
-
-
-                                                                <form action="/admin/desactiver" method="POST">
-                                                                    <button class="btn btn-primary">Desactiver</button>
-                                                                </form>
-
-                                                            </div>
-                                                        </div>
-                                                        <% }); %>
-                                                </div>
-                                        </div>
+                                            </div>
 
 
                                     </div>
                                 </div>
                                 <% } else { %>
                                     <p>Aucun utilisateur à afficher.</p>
-                                  <% } %>
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
+                                    <% }; %>
+
+
+
+
+
+
+
                             </div>
                         </section>
 

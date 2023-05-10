@@ -57,6 +57,7 @@ router.post('/connexion', function (req, res, next) {
   communModel.areUserValid(mail, mdp, function (result) {
     if (result) {
       session.userid = mail;
+      session.type=result.type;
       communModel.areRecruteur(session.userid, function(result) {
         if (result) {
           communModel.readOrgaUser(session.userid, function (result) {

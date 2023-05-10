@@ -21,9 +21,9 @@ module.exports = {
             //if (err) throw err;
             if (rows.length == 1 && rows[0].mdp === mdp) {
                 //var type = rows[0].mdp 
-                callback(true);
+                callback(rows);
             } else {
-                callback(false);
+                callback(undefined);
             }
         });
     },
