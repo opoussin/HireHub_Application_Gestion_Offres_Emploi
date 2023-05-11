@@ -25,7 +25,7 @@ if(req.session.userid||communModel.areAdmin(req.session.userid)){
 router.get('/administrateur', function (req, res, next) {
 
   
-    if (req.session.userid||communModel.areAdmin(req.session.userid)) {
+    if (req.session.userid) {
 
       var mail = req.query.mail;
       var nom = req.query.nom;
@@ -39,49 +39,44 @@ router.get('/administrateur', function (req, res, next) {
           mail:mail, nom:nom, prenom:prenom, date:date, type:type, statut:statut
         } });
       });
-    }
-    else if (!communModel.areRecruteur(req.session.userid)){
-      res.redirect('/users/candidat');
     }else{
     res.redirect('/connexion');
     }
 });
 
-router.post('/administrateur/activer', function (req, res, next) {
+router.get('/administrateur/activer', function (req, res, next) {
   var mail = req.session.userid;
-  if (mail||communModel.areAdmin(mail)) {
-    var mail2 =req.body.mail; 
-    
+  
+    var mail2 =req.query.user; 
+    if(mail==mail2){    
       adminModel.enableUser(mail2, function (results) {
         res.redirect('/admin/administrateur')
       });
-    
-  }
-  else if (!communModel.areRecruteur(mail)){
-    res.redirect('/users/candidat');
-  }else{
-  res.redirect('/connexion');
-  }
+    }else{
+      res.redirect('/admin/administrateur'); //ne peut pas se réactiver lui même
+    }
 });
 
 router.get('/administrateur/desactiver', function (req, res, next) {
   var mail = req.session.userid;
 
-  if (mail||req.session.type>=3) {
-    var mail2 =req.query.mail;
-    console.log("req.query: " + req.query);  
+    var mail2 =req.query.user;
+      
       adminModel.disableUser(mail2, function (results) {
         res.redirect('/admin/administrateur')
       });
     
-  }
-  else if (!communModel.areRecruteur(mail)){
-    res.redirect('/users/candidat');
-  }else{
-  res.redirect('/connexion');
-  }
 });
 
+router.get('/administrateur/supprimer', function (req, res, next) {
+  var mail = req.session.userid;
 
+  
+    var mail2 =req.query.user;
+      
+      communModel.deleteUser(mail2, function (results) {
+        res.redirect('/admin/administrateur')
+      });
+});
 
   module.exports = router;

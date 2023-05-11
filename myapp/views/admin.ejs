@@ -65,8 +65,7 @@
                                                                 <p class="card-text">Depuis le:
                                                                     <%=user.dateCreation.toLocaleDateString("fr") %>
                                                                 </p>
-                                                                <p
-                                                                    class='<%= (user.statut==1) ? "text-dark" : "text-danger" %>'>
+                                                                <p>
                                                                     <%= (user.statut==1) ? "Actif" : "Inactif" %>
                                                                 </p>
                                                                 <p>Recruteur:
@@ -77,12 +76,14 @@
                                                                 </p>
 
                                                                 <%if(user.statut == 1){%>
-                                                                    <a class="btn btn-outline-danger"
+                                                                    <a class="btn btn-outline-primary"
                                                                         href="/admin/administrateur/desactiver?user=<%=user.mail%>">Desactiver</a>
                                                                 <%}else{%>
-                                                                    <a class="btn btn-success"
-                                                                        href="/admin/administrateur/activer?user=">Activer</a>
+                                                                    <a class="btn btn-outline-success"
+                                                                        href="/admin/administrateur/activer?user=<%=user.mail%>">Activer</a>
                                                                 <%};%>
+                                                                    <a class="btn border-none text-danger m-2"
+                                                                        href="/admin/administrateur/supprimer?user=<%=user.mail%>">Supprimer</a>
 
                                                             </div>
                                                         </div>

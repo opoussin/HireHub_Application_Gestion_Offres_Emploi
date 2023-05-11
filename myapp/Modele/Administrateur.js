@@ -48,7 +48,7 @@ module.exports = {
     },*/
 
     disableUser: function (mail, callback) {
-        console.log("mail" +mail);
+        
         db.query("UPDATE UTILISATEUR SET statut=0 WHERE mail=?", mail, function
             (err, results) {
             if (err) throw err;

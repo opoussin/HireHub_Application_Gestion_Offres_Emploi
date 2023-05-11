@@ -8,17 +8,12 @@ const { urlencoded } = require('express');
 
 router.get('/demandes', function (req, res, next) {
   var mail=req.session.userid;
-  if(req.session.userid){
-  
+
     candidatModel.readUserDmdRecruteur(mail, function (result) {
-    //console.log("result:");
-    //console.log(result);
     orgaModel.readOrga(function (orgaResult) {
-      //console.log("orgaResult:");
-      //console.log(orgaResult);
+      
       candidatModel.readUserDmdAdmin(mail, function (adminResult) {
-        //console.log("adminResult:");
-        //console.log(adminResult);
+        
         if (adminResult.length > 0 && (adminResult[0].statut === "En attente" || adminResult[0].statut === "Validé")) {
           autorisation = false;
         } else {
@@ -32,13 +27,6 @@ router.get('/demandes', function (req, res, next) {
         });
       });
     });    
-
-    }else{
-    if(req.session.userid){
-      req.session.destroy();
-    }
-    res.render('connexion');
-  }
 });
 
 router.post('/demandes/recruteur', function (req, res, next) {
@@ -75,8 +63,7 @@ router.post('/demandes/admin', function (req, res, next) {
 router.post('/demandes/adminSupp', function (req, res, next) {
   var mail=req.session.userid;
   var dateSupp = req.body['supp'];
-  /*var date = new Date(dateSupp);
-  var dateFormatted = date.toISOString().slice(0, 19).replace('T', ' ');*/
+  
   console.log("Date à supprimer : " + dateSupp);
     candidatModel.deleteDmdAdmin(mail, dateSupp, function (result) {
       if (result) {
@@ -101,35 +88,20 @@ router.get('/demandes/recruteurSupp/:siren', function (req, res, next) {
  
 });
 
-//on teste si l'utilisateur a les droits 
 router.get('/recruteur', function (req, res, next) {
-  if(req.session.userid||communModel.areRecruteur(req.session.userid)){
     var siren=req.session.orga;
     var mail=req.session.userid;
     result = recruteurModel.readAllOffreOrga (siren, function (results) {
-    res.render('recruteur', { title: 'List des Offres', listeOffre: results });
+    res.render('recruteur', {listeOffre: results });
   });
-  }
-  else if (!communModel.areRecruteur(req.session.userid)){
-    res.redirect('/users/candidat');
-  }else{
-  res.redirect('/connexion');
-  }
+  
 });
 
 router.get('/creer_offre', function (req, res, next) {
-  if(req.session.userid||communModel.areRecruteur(req.session.userid)){
     var siren=req.session.orga;
     var mail=req.session.userid;
    
     res.render('creer_offre');
-  
-  }
-  else if (!communModel.areRecruteur(req.session.userid)){
-    res.redirect('/users/candidat');
-  }else{
-  res.redirect('/connexion');
-  }
 });
 
 router.post('/creer_offre', function (req, res, next) {
@@ -190,9 +162,7 @@ router.get('/editer_offre/:numero', function (req, res, next) {
 });
 
 router.post('/editer_offre', function (req, res, next) {
-    if (req.body){
-    console.log("body:");
-    console.log(req.body);
+  if (req.body){
     var etat = req.body.etat;
     var dateValidite = req.body.dateValidite;
     var pieces = req.body.pieces;
@@ -218,28 +188,14 @@ router.post('/editer_offre', function (req, res, next) {
 });
 
 router.get('/profil_recruteur', function (req, res, next) {
-  if(req.session.userid||communModel.areRecruteur(req.session.userid)){
     var mail=req.session.userid;
     var siren = req.session.orga;
-    result = communModel.readUser(mail, function (user) {
-      result = candidatModel.readOrga(siren, function (result) {
+    communModel.readUser(mail, function (user) {
+      candidatModel.readOrga(siren, function (result) {
         res.render('profil_recruteur', { user: user, orga: result });
         });
     });
-    }else
-    res.render('connexion');
   
 });
-/*
-if(req.session.userid||communModel.areRecruteur(req.session.userid)){
-    var mail=req.session.userid;
-    
 
-    }else{
-    if(req.session.userid){
-      req.session.destroy();
-    }
-    res.render('connexion');
-  }
-*/
 module.exports = router;

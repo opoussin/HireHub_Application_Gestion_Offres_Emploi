@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var middleware = require('./middleware');
 const session = require('express-session'); 
 var crypto = require('crypto'); // rajout antoine
 
@@ -37,10 +38,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static('public'));
 
+usersRouter.use(middleware.isLoggedMiddleware);
+recrutRouter.use(middleware.isLoggedMiddleware);
+adminRouter.use(middleware.isLoggedMiddleware);
+adminRouter.use(middleware.isAdminMiddleware);
+recrutRouter.use(middleware.isRecruteurMiddleware);
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/recrut', recrutRouter);
 app.use('/admin', adminRouter);
+
 
 
 // catch 404 and forward to error handler
