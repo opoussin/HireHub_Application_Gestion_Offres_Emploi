@@ -48,9 +48,21 @@ module.exports = {
                 callback(results);
             });
         },
-*/
+*/ 
+    creatFiche: function (numero, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback) {
+        var sql = mysql.format("INSERT INTO FICHE_POSTE (offre, intitule, statut, responsable, type, lieu, rythme, salaire, description) VALUES (?,?,?,?,?,?,?,?,?)", [numero, intitule, statut, responsable, type, lieu, rythme, salaire, description]);
+    
+        db.query(sql, function (err, results) {
+            if (err) {
+                throw err;
+            }
+            console.log("Fiche poste insérée");
+            callback(results);
+        });
+    },
     creatOffre: function (organisation, etat, dateValidite, pieces, nombrePieces, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback) {
         var sql = mysql.format("INSERT INTO OFFRE (organisation, etat, dateValidite, pieces, nombrePieces) VALUES (?,?,?,?,?)", [organisation, etat, dateValidite, pieces, nombrePieces]);
+        var self = this;
         var numero = 0;
         db.query(sql, function (err, results) {
             if (err) {
@@ -67,23 +79,13 @@ module.exports = {
                 console.log(numero);
                 var numero = results[0].numero;
                 console.log("Numéro de l'offre insérée :", numero);
-    
-                this.creatFiche(numero, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback);
+                console.log(numero, intitule, statut, responsable, type, lieu, rythme, salaire, description);
+                self.creatFiche(numero, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback);
             });
         });
     },
     
-    creatFiche: function (numero, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback) {
-        var sql = mysql.format("INSERT INTO FICHE_POSTE (offre, intitule, statut, responsable, type, lieu, rythme, salaire, description) VALUES (?,?,?,?,?,?,?,?,?)", [numero, intitule, statut, responsable, type, lieu, rythme, salaire, description]);
-    
-        db.query(sql, function (err, results) {
-            if (err) {
-                throw err;
-            }
-            console.log("Fiche poste insérée");
-            callback(results);
-        });
-    },
+
     deleteOffre: function (numero, callback) {
         var sql = mysql.format("DELETE FROM OFFRE WHERE numero=?");
         deleteFiche(numero);

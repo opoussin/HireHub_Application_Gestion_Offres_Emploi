@@ -152,11 +152,10 @@ router.post('/creer_offre', function (req, res, next) {
   // Appel à la fonction creat du modèle Utilisateur
   recruteurModel.creatOffre(organisation, etat, dateValidite, pieces, nombrePieces, intitule, statut, responsable, type, lieu, rythme, salaire, description, function (result) {
     if (result){ //result = vrai donc il y a une erreur
-      //rajouter creatFiche
-      res.redirect('/recruteur');
+      res.redirect('./recruteur');
     }
     else{
-      res.redirect('/recruteur');
+      res.redirect('./recruteur');
     }
   });
 });
