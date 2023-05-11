@@ -56,42 +56,44 @@
                                         </div>
 
                                     </div>
-
-                                    <div class="col-9 gy-4">
-                                        <%if ((listeOffre.length > 0)&&(Array.isArray(listeOffre))){%>
-                                            <%console.log("putain", listeOffre)%>
-                                            <% listeOffre.forEach((offre)=> { %>
-                                                <div class="card mb-4 pt-0 " style="width: autorem;">
-                                                    <div class="card-body g-4">
-                                                        <h5 class="card-title text-dark fs-3">
-                                                            <%= offre.intitule %>
-                                                        </h5>
-                                                        <h6 class="card-subtitle mb-2 text-muted">
-                                                            <%= offre.nom %>
-                                                        </h6>
-                                                        <p class="card-text text-dark">
-                                                            <%= offre.description %>
-                                                        </p>
-                                                        <a href="#" class="btn btn-secondary">Voir l'offre</a>
-                                                        <a href="#" class="btn btn-secondary ">Postuler</a>
-                                                    </div>
-                                                </div>
-                                                <% })%> 
-                                        <%}else{%>
-                                            <div class="card mb-4 pt-0 " style="width: autorem;">
-                                                <div class="card-body g-4">
-                                                    <h5 class="card-title text-dark fs-3">
-                                                        Pas d'offre disponible!
-                                                    </h5>
-                                                    
-                                                </div>
-                                            </div> 
-                                        <%}%>
+                                </div>
+                            <div class="col-9 gy-4">
+                                <%if ((listeOffre.length > 0)&&(Array.isArray(listeOffre))){%>
+                                    <%console.log("putain", listeOffre)%>
+                                    <% listeOffre.forEach((offre)=> { %>
+                                        <div class="card mb-4 pt-0 " style="width: autorem;">
+                                            <div class="card-body g-4">
+                                                <h5 class="card-title text-dark fs-3">
+                                                    <%= offre.intitule %>
+                                                </h5>
+                                                <h6 class="card-subtitle mb-2 text-muted">
+                                                    <%= offre.nom %>
+                                                </h6>
+                                                <p class="card-text text-dark">
+                                                    <%= offre.description %>
+                                                </p>
+                                                <a href="#" class="btn btn-secondary">Voir l'offre</a>
+                                                <a href="#" class="btn btn-secondary ">Postuler</a>
+                                            </div>
+                                        </div>
+                                        <% })%> 
+                                <%}else{%>
+                                    <div class="card mb-4 pt-0 " style="width: autorem;">
+                                        <div class="card-body g-4">
+                                            <h5 class="card-title text-dark fs-3">
+                                                Pas d'offre disponible!
+                                            </h5>
+                                            
+                                        </div>
+                                    </div> 
+                                <%}%>
                                         
 
-                                    </div>
-                                </div>
+                                    
+                           
+                            
                             </div>
+                        
                         </section>
 
                     </main>

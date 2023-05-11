@@ -26,7 +26,7 @@ C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
         - mettre demande recruteur dedans
 O - vue accueil admin -> cote a cote les dmd orga et dmd admin, 
 + erreur dans creatUser callback not a fonction
-- rajouter bouton déconnexion dans tout les profils
++ rajouter bouton déconnexion dans tout les profils
 - dans toutes les fonctions faire de la gestion d'erreurs
 C + mettre l'auto increment sur numero de offre
 O - supprimer une demande amdin 
@@ -36,5 +36,5 @@ stand by plusieurs orga par recruteur ( select orga pour poster une offre, affic
 - rajouter condition inscription si deja une session cree
 C + tester AI offre
 - annuler la casse dans les formulaires 
-- réparer le front d'accueil candidat
++ réparer le front d'accueil candidat
 

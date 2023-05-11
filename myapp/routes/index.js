@@ -104,6 +104,7 @@ router.post('/inscription', function (req, res, next) {
 router.get('/logout',(req,res) => {
   req.session.destroy();
   res.redirect('/');
+  console.log(req.session.userid);
 });
   
 
