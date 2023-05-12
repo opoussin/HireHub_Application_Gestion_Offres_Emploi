@@ -19,7 +19,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <h3 class="display-6">Recruteur</h3>
-                                        <form action="/recrut/demandes/recruteur" method="POST">
+                                        <form action="/users/demandes/recruteur" method="POST">
 
                                             <p>Sélectionnez l'organisation pour laquelle vous souhaitez devenir
                                                 recruteur. <br> <br> Les demandes sont soumises à la validation des
@@ -47,7 +47,7 @@
 
                                         <p>Les demandes d'administration sont soumises à la validation des
                                             administrateurs.</p>
-                                        <form method="POST" action="/recrut/demandes/admin">
+                                        <form method="POST" action="/users/demandes/admin">
                                             <% if (autorisation) { %>
 
                                             <button class="btn btn-primary mt-3" type="submit"> Envoyer
@@ -71,7 +71,7 @@
 
                                 <div>
                                     <h3 class="display-6">Recruteur</h3>
-                                    <form action="/recrut/demandes/recruteurSupp" method="POST"  class="row">
+                                    <form action="/users/demandes/recruteurSupp" method="POST"  class="row">
                                     <table>
                                         <% if (Array.isArray(demandeRecrut)) { %>
                                             <% demandeRecrut.forEach((dmd)=> { %>
@@ -99,7 +99,7 @@
 
                                                     <th class="fw-normal">
                                                         Supprimer demande 
-                                                        <a href="/recrut/demandes/recruteurSupp/<%= dmd.organisation%>" class="btn pe-0" name="supp"><i class="bi bi-x-lg"></i></a>
+                                                        <a href="/users/demandes/recruteurSupp/<%= dmd.organisation%>" class="btn pe-0" name="supp"><i class="bi bi-x-lg"></i></a>
 
                                                     </th>
 
@@ -111,7 +111,7 @@
                                 </div>
                                 <div>
                                     <h3 class="display-6 mt-2">Administrateur</h3>
-                                    <form action="/recrut/demandes/adminSupp" method="POST" class="row">
+                                    <form action="/users/demandes/adminSupp" method="POST" class="row">
 
                                     <table>
                                         <% demandeAdmin.forEach((dmdA)=> { %>

@@ -146,4 +146,89 @@ router.post('/creer_orga', function (req, res, next) {
 
 
 
+
+
+router.get('/demandes', function (req, res, next) {
+  var mail=req.session.userid;
+
+    candidatModel.readUserDmdRecruteur(mail, function (result) {
+    orgaModel.readOrga(function (orgaResult) {
+      
+      candidatModel.readUserDmdAdmin(mail, function (adminResult) {
+        
+        if (adminResult.length > 0 && (adminResult[0].statut === "En attente" || adminResult[0].statut === "Validé")) {
+          autorisation = false;
+        } else {
+          autorisation = true;
+        }
+        
+        result ??= [];
+        orgaResult ??= [];
+        adminResult ??= [];
+        res.render('formulaire_recruteur', {autorisation, demandeRecrut: result, organisation: orgaResult, demandeAdmin: adminResult });
+        });
+      });
+    });    
+});
+
+
+router.post('/demandes/recruteur', function (req, res, next) {
+  var mail=req.session.userid;
+
+    var siren = req.body.choix; //renvoie le siren
+    recruteurModel.readAllDmdRecruteur(siren, function (resultDmd) {
+      if(resultDmd )
+    candidatModel.creatDmdRecruteur(mail, siren, function (result) {
+      console.log(result);
+      if (result) {
+        res.redirect('/users/demandes');
+      } else {
+        res.redirect('/users/demandes');
+      }
+    });
+  });
+
+});
+
+router.post('/demandes/admin', function (req, res, next) {
+  var mail=req.session.userid;
+  
+    candidatModel.creatDmdAdmin(mail, function (result) {
+      if (result) {
+        res.redirect('/users/demandes');
+      } else {
+        res.redirect('/users/demandes');
+      }
+    });
+ 
+});
+
+router.get('/demandes/recruteurSupp/:siren', function (req, res, next) {
+  var mail= req.session.userid;
+  let siren = req.params.siren;
+    candidatModel.deleteDmdRecruteurOrga(mail, siren, function (result) {
+      if (result) {
+        res.redirect('/users/demandes');
+      } else {
+        res.redirect('/users/demandes');
+      }
+    });
+ 
+});
+
+router.post('/demandes/adminSupp', function (req, res, next) {
+  var mail=req.session.userid;
+  var dateSupp = req.body['supp'];
+  
+  console.log("Date à supprimer : " + dateSupp);
+    candidatModel.deleteDmdAdmin(mail, dateSupp, function (result) {
+      if (result) {
+        res.redirect('/users/demandes');
+      } else {
+        res.redirect('/users/demandes');
+      }
+    });
+ 
+});
+
 module.exports = router;
