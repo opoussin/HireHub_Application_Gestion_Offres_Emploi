@@ -85,10 +85,10 @@ module.exports = {
     });
     },
     readUser: function (mail, callback) {
-        db.query("SELECT * FROM UTILISATEUR WHERE mail=?", mail, function(err, results) {
+        db.query("SELECT * FROM UTILISATEUR WHERE mail=?", mail, function(err, result) {
         console.log(result);
         if (err) throw err;
-        callback(results[0]);
+        callback(result[0]);
     });
     },
     readOrgaUser: function (mail, callback) {

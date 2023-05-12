@@ -151,6 +151,7 @@ router.get('/supp_offre/:numero', function (req, res, next) {
 
 router.get('/editer_offre/:numero', function (req, res, next) {
   let numero = req.params.numero;
+  console.log(numero);
     recruteurModel.readOffre(numero, function (result) {
       if (result) {
         res.render('editer_offre', {offre: result });

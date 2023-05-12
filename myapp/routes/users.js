@@ -9,6 +9,7 @@ var orgaModel = require('../Modele/Organisation.js')
 router.get('/profil_candidat', function (req, res, next) {
   
     var mail = req.session.userid;
+    console.log(req.session.userid);
     communModel.readUser(mail, function (user) {
       candidatModel.readAllCandidature(mail, function (result) {
         res.render('profil_candidat', { user: user, candidatures: result });
