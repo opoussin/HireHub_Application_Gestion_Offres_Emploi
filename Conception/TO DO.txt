@@ -9,7 +9,11 @@ C + enlever bouton voir mes candidatures
 C + supprimer bouton active accueil candidat
 O - bouton voir offre accueil candidat
 O - bouton Postuler
-stand by - upload de fichiers + gerer acceptation et refus de candidat, mise a jour d'une offre
+C - upload de fichiers + gerer acceptation et refus de candidat, mise a jour d'une offre
+    + reprendre le code du prof
+    - arranger le front de file_upload
+    - arragner le numero qui est egal à upload
+    - inserer une candidature
 optionnel - afficher message disant qu'il n'y a pas de candidatures pour l'instant profil candidat
 O + bouton créer dmd organisation
 C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton editer, voir candidat, supprimer,), bouton creer offre, page de formulaire, 

@@ -3,6 +3,7 @@ var router = express.Router();
 
 var multer = require('multer');  
 const { creatCandidature } = require('../Modele/Candidat');
+const { readUser } = require('../Modele/Commun');
 
 // définition du répertoire de stockage des fichiers chargés (dans le répertoire du projet pour la démo, mais sur un espace dédié en prod !)
 // et du nom sous lequel entregistrer le fichier
@@ -20,35 +21,62 @@ var upload = multer({ storage: my_storage })
 /* GET */
 router.get('/:numero', function(req, res, next) {
     let numero = req.params.numero;
-  if (req.session.connected_user == undefined) {
-    console.log('Init connected user');
-    req.session.connected_user = {prenom : 'Mohamed', login : 'makheraz'};
+  if (req.session.userid){
+    var mail = req.session.userid;
+    readUser(mail, function (result){
+        if (result) {
+            var user = result;
+            console.log(user);
+            console.log(result);
+            console.log(user.prenom);
+
+            //req.session.connected_user.prenom = user.prenom;
+              //  req.session.connected_user.nom = user.nom;
+            if (req.session.uploaded_files == undefined) {
+                console.log('Init uploaded files array');
+                req.session.uploaded_files = [];
+                res.render('file_upload',{connected_user : user, files_array : req.session.uploaded_files, numero});
+            }
+
+          } else {
+            console.log("nononononon");
+          }
+    });
   }
-  if (req.session.uploaded_files == undefined) {
-    console.log('Init uploaded files array');
-    req.session.uploaded_files = [];
-  }
+  
 //pas compriss
-  res.render('file_upload',{connected_user : req.session.connected_user, files_array : req.session.uploaded_files});
   //rajouter un readOffre pour afficher : votre candidature à telle offre
 });
 
 /* POST : ajoute à l'objet request une propriété 'file', ayant une valeur unoiquement si le formulaire' contient un champ de type 'file' qui a pour nom 'myFileInput' */
 router.post('/:numero', upload.single('myFileInput') ,function(req, res, next) {
   const uploaded_file = req.file
-
+  let numero = req.params.numero;
+    console.log(numero);
   if (!uploaded_file) {
     res.render('file_upload',{connected_user : req.session.connected_user, files_array : req.session.uploaded_files, upload_error : 'Merci de sélectionner le fichier à charger !'});
   } else {
     console.log(uploaded_file.originalname,' => ',uploaded_file.filename);
     req.session.uploaded_files.push(uploaded_file.filename);
-    res.render('file_upload',{connected_user : req.session.connected_user, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
+    var mail = req.session.userid;
+    readUser(mail, function (result){
+        if (result) {
+            var user = result;
+            console.log(user);
+            console.log(result);
+            console.log(user.prenom);
+            res.render('file_upload',{numero : numero, connected_user : user, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
+          } else {
+            console.log("nononononon");
+          }
+    });
   }
   
 
 });
 router.post('/envoi/:numero', function(req, res, next) {
-    fichier = req.session.uploaded_files;
+    var fichier = req.session.uploaded_files.join(", ");
+    console.log(uploadedFilesString);
     mail = req.session.userid;
     numero = req.params.numero;
     creatCandidature(mail, numero, fichier, function(result){
