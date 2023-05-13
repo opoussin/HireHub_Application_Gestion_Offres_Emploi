@@ -7,3 +7,4 @@ myapp/node_modules/
 # Ignore package-lock.json et package.json
 myapp/package-lock.json
 myapp/package.json
+myapp/mesfichiers
