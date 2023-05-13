@@ -13,6 +13,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var recrutRouter = require('./routes/recrut');
 var adminRouter = require('./routes/admin');
+var uploadRouter = require('./routes/upload');
 
 //AUTHENTIFICATION
 app.use(cookieParser());
@@ -43,12 +44,15 @@ recrutRouter.use(middleware.isLoggedMiddleware);
 adminRouter.use(middleware.isLoggedMiddleware);
 adminRouter.use(middleware.isAdminMiddleware);
 recrutRouter.use(middleware.isRecruteurMiddleware);
+uploadRouter.use(middleware.isLoggedMiddleware);
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/recrut', recrutRouter);
 app.use('/admin', adminRouter);
 
+app.use('/candidature', uploadRouter);
 
 
 // catch 404 and forward to error handler

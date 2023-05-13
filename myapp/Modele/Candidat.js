@@ -127,8 +127,12 @@ module.exports = {
             callback(err != undefined);
         });
     },
-    creatCandidature: function (mail, callback) {
+    creatCandidature: function (mail, numero, fichier, callback) {
+        var sql = mysql.format("INSERT INTO CANDIDATURE (candidat, offre, pieces) VALUES (?,?,?)", [mail, numero, fichier]);
 
+        db.query(sql, function (err, results) {
+                callback(err!=undefined);//??
+            });
     },
     deleteCandidature: function (mail, callback) {
 
