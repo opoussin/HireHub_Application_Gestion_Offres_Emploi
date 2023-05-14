@@ -34,6 +34,9 @@
                                                     <div class="card-body g-4">
                                                         <h5 class="card-title text-dark fs-3">
                                                             <%= offre.intitule %>
+                                                            <%if (offre.etat=='non publiee'){%>
+                                                                <%= offre.etat %> 
+                                                            <%}%>
                                                         </h5>
                                                         <h6 class="card-subtitle mb-2 text-muted">
                                                             <%= offre.nom %>

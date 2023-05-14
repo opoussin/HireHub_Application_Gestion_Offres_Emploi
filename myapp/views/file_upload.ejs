@@ -62,7 +62,10 @@
                 <span><strong><%= upload_error %></strong></span>
               </div>
             </div>
-<% } %>                  
+<% } %>                 
+            <input type="hidden" name="numero" value="<%=numero%>" />
+
+            <a class=class="btn btn-primary" href="/candidature/envoi">Envoyer la candidature</a> 
           </form>
 			  </div>
       </div>			
@@ -76,7 +79,7 @@
           </ul>
         </div>
       </div>
-    <a class=class="btn btn-primary" href="/candidature/envoi/:<%=numero%>">Envoyer la candidature</a>
+      
     </section>
     <!-- rajouter un bouton valider la candidature, et appliquer la condition de nb de fichiers requis-->
 //wtf??

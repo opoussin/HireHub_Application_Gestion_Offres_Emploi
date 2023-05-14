@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var multer = require('multer');  
-const { creatCandidature } = require('../Modele/Candidat');
+const candidatModel = require('../Modele/Candidat.js');
 const { readUser } = require('../Modele/Commun');
 
 // définition du répertoire de stockage des fichiers chargés (dans le répertoire du projet pour la démo, mais sur un espace dédié en prod !)
@@ -21,6 +21,7 @@ var upload = multer({ storage: my_storage })
 /* GET */
 router.get('/:numero', function(req, res, next) {
     let numero = req.params.numero;
+    console.log("1:",numero);
   if (req.session.userid){
     var mail = req.session.userid;
     readUser(mail, function (result){
@@ -51,8 +52,10 @@ router.get('/:numero', function(req, res, next) {
 /* POST : ajoute à l'objet request une propriété 'file', ayant une valeur unoiquement si le formulaire' contient un champ de type 'file' qui a pour nom 'myFileInput' */
 router.post('/:numero', upload.single('myFileInput') ,function(req, res, next) {
   const uploaded_file = req.file
-  let numero = req.params.numero;
-    console.log(numero);
+  let numero = req.body.numero;
+  console.log("2:",numero);
+  console.log("3:",req.params.numero);
+  console.log("4:",req.body);
   if (!uploaded_file) {
     res.render('file_upload',{connected_user : req.session.connected_user, files_array : req.session.uploaded_files, upload_error : 'Merci de sélectionner le fichier à charger !'});
   } else {
@@ -65,7 +68,7 @@ router.post('/:numero', upload.single('myFileInput') ,function(req, res, next) {
             console.log(user);
             console.log(result);
             console.log(user.prenom);
-            res.render('file_upload',{numero : numero, connected_user : user, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
+            res.render('file_upload',{numero, connected_user : user, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
           } else {
             console.log("nononononon");
           }
@@ -74,12 +77,12 @@ router.post('/:numero', upload.single('myFileInput') ,function(req, res, next) {
   
 
 });
-router.post('/envoi/:numero', function(req, res, next) {
+router.post('/envoi', function(req, res, next) {
     var fichier = req.session.uploaded_files.join(", ");
     console.log(uploadedFilesString);
     mail = req.session.userid;
-    numero = req.params.numero;
-    creatCandidature(mail, numero, fichier, function(result){
+    numero = req.body.numero;
+    candidatModel.creatCandidature(mail, numero, fichier, function(result){
         res.redirect('/users/candidat');
         console.log("insertion reussie");
     });

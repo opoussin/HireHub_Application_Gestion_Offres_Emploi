@@ -36,7 +36,7 @@ router.post('/creer_offre', function (req, res, next) {
     var rythme = req.body.rythme;
     var salaire = req.body.salaire;
     var description = req.body.description;
-    var etat = 'publiee';
+    var etat = req.body.etat;
     var organisation = req.session.orga;
 
   // Appel à la fonction creat du modèle Utilisateur
