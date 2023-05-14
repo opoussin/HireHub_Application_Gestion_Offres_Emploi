@@ -12,7 +12,7 @@ router.get('/profil_candidat', function (req, res, next) {
     console.log(req.session.userid);
     communModel.readUser(mail, function (user) {
       candidatModel.readAllCandidature(mail, function (result) {
-        res.render('profil_candidat', { user: user, candidatures: result });
+        res.render('profil_candidat', { user: user, candidatures: result , req : req});
       });
     });
 });
@@ -23,7 +23,7 @@ router.get('/modifier_profil', function (req, res, next) {
   
     var mail = req.session.userid;
     communModel.readUser(mail, function (result) {
-      res.render('modifier_profil', { nom: result.nom, prenom: result.prenom, mail: result.mail, mdp: result.mdp, telephone: result.telephone, statut: result.statut, date: result.dateCreation.toLocaleDateString("fr") });
+      res.render('modifier_profil', { nom: result.nom, prenom: result.prenom, mail: result.mail, mdp: result.mdp, telephone: result.telephone, statut: result.statut, date: result.dateCreation.toLocaleDateString("fr") , req : req});
     });
   
 });
@@ -35,7 +35,13 @@ router.post('/modifier_profil', function (req, res, next) {
     var telephone = req.body.telephone;
     
     candidatModel.updateUser(mail, nom, prenom, telephone, function (result) {
-      res.render('/users/profil_candidat');
+      if (result){
+        res.render('/users/profil_candidat');
+      }else{
+        res.redirect('/users/candidat');
+
+      }
+      
     });
   
 });
@@ -73,7 +79,7 @@ router.post('/candidat', function (req, res, next) {
       console.log ("body user.js" , organisation, lieu, statut, salaire, type, intitule);
 
       candidatModel.readOffreFiltre(organisation, lieu, statut, salaire, type, intitule, function (results) {
-        res.render('candidat', { title: 'List des Offres', listeOffre: results });
+        res.render('candidat', { title: 'List des Offres', listeOffre: results, req : req });
       });
 
     }
@@ -90,9 +96,12 @@ router.post('/candidat', function (req, res, next) {
 
 
 router.get('/candidat', function (req, res, next) {
-    candidatModel.readAllOffreValide(function (results) {
-      res.render('candidat', { title: 'List des Offres', listeOffre: results });
-    });
+  req.session.current_profil=1;
+  console.log(req.session.current_profil);
+
+  candidatModel.readAllOffreValide(function (results) {
+    res.render('candidat', { title: 'List des Offres', listeOffre: results, req : req});
+  });
   
 });
 
@@ -122,7 +131,7 @@ router.get('/creer_orga', function (req, res, next) {
         orgaResult ??= [];
         results ??= [];
         console.log("demandeOrga:" + results)
-        res.render('formulaire_orga', { organisation: orgaResult, demandeOrga: results });
+        res.render('formulaire_orga', { organisation: orgaResult, demandeOrga: results, req : req });
       });
     });
 });
@@ -165,7 +174,7 @@ router.get('/demandes', function (req, res, next) {
         result ??= [];
         orgaResult ??= [];
         adminResult ??= [];
-        res.render('formulaire_recruteur', {autorisation, demandeRecrut: result, organisation: orgaResult, demandeAdmin: adminResult });
+        res.render('formulaire_recruteur', {autorisation, demandeRecrut: result, organisation: orgaResult, demandeAdmin: adminResult , req : req});
         });
       });
     });    

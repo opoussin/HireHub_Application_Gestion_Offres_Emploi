@@ -86,12 +86,19 @@ module.exports = {
     },
     
 
-    deleteOffre: function (numero, callback) {
+    /*deleteOffre: function (numero, callback) {
         var sql = mysql.format("DELETE FROM OFFRE WHERE numero=?");
         deleteFiche(numero);
         db.query(sql, numero, function (err, results) {
             if (err) throw err;
             callback(results);
+        });
+    },*/
+    deleteOffre: function (numero, callback) {
+        db.query("DELETE FROM OFFRE WHERE numero=?", [numero], function
+            (err) {
+            if (err) throw err;
+            callback();
         });
     },
 

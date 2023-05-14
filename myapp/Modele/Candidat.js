@@ -30,7 +30,7 @@ module.exports = {
         db.query(sql, function (err) {
             console.log("dans la query");
                 if (err) throw err;
-                callback();
+                callback(result);
             });
         
 
@@ -49,7 +49,7 @@ module.exports = {
     readAllOffreValide: function (callback) {
         db.query("SELECT * FROM OFFRE INNER JOIN FICHE_POSTE ON OFFRE.numero = FICHE_POSTE.offre INNER JOIN ORGANISATION ON ORGANISATION.siren=OFFRE.organisation WHERE OFFRE.etat='publiee'", function
             (err, results) {
-            console.log(results);
+            //console.log(results);
             if (err) throw err;
             callback(results);
         });
@@ -158,8 +158,9 @@ module.exports = {
     },
 
     deleteDmdOrga: function (siren, callback) {
-        db.query("DELETE FROM DMD_ORGA where mail= ?", siren, function
+        db.query("DELETE FROM DMD_ORGA where siren= ?", siren, function
             (err, results) {
+                //pas complete
             if (err) throw err;
             callback(results);
         });

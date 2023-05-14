@@ -9,8 +9,9 @@ const { urlencoded } = require('express');
 router.get('/recruteur', function (req, res, next) {
     var siren=req.session.orga;
     var mail=req.session.userid;
+    req.session.current_profil=2;
     result = recruteurModel.readAllOffreOrga (siren, function (results) {
-    res.render('recruteur', {listeOffre: results });
+    res.render('recruteur', {listeOffre: results , req : req});
   });
   
 });
@@ -19,7 +20,7 @@ router.get('/creer_offre', function (req, res, next) {
     var siren=req.session.orga;
     var mail=req.session.userid;
    
-    res.render('creer_offre');
+    res.render('creer_offre', {req : req});
 });
 
 router.post('/creer_offre', function (req, res, next) {
@@ -57,8 +58,10 @@ router.get('/logout',(req,res) => {
 
 router.get('/supp_offre/:numero', function (req, res, next) {
   let numero = req.params.numero;
+  console.log( " numeor a supp ", numero)
     recruteurModel.deleteOffre(numero, function (result) {
       if (result) {
+        console.log ("suppression réussie");
         res.redirect('/recrut/recruteur');
       } else {
         res.redirect('/recrut/recruteur');
@@ -67,11 +70,12 @@ router.get('/supp_offre/:numero', function (req, res, next) {
  
 });
 
+
 router.get('/editer_offre/:numero', function (req, res, next) {
   let numero = req.params.numero;
     recruteurModel.readOffre(numero, function (result) {
       if (result) {
-        res.render('editer_offre', {offre: result });
+        res.render('editer_offre', {offre: result , req : req});
       } else {
         res.redirect('/recrut/recruteur');
       }
@@ -110,7 +114,7 @@ router.get('/profil_recruteur', function (req, res, next) {
     var siren = req.session.orga;
     communModel.readUser(mail, function (user) {
       candidatModel.readOrga(siren, function (result) {
-        res.render('profil_recruteur', { user: user, orga: result });
+        res.render('profil_recruteur', { user: user, orga: result , req : req});
         });
     });
   
