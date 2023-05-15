@@ -34,7 +34,7 @@ O - vue accueil admin -> cote a cote les dmd orga et dmd admin,
 - dans toutes les fonctions faire de la gestion d'erreurs
 C + mettre l'auto increment sur numero de offre
 O - supprimer une demande amdin 
-- header conditionnels
++ header conditionnels
 stand by plusieurs orga par recruteur ( select orga pour poster une offre, afficher les offres)
 + offres non publiees : gerer affichage et mention brouillon
 - rajouter condition inscription si deja une session cree
