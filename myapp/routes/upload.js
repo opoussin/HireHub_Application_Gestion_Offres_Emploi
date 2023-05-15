@@ -20,8 +20,6 @@ var upload = multer({ storage: my_storage })
 
 /* GET */
 router.get('/:numero', function(req, res, next) {
-    let numero = req.params.numero;
-    console.log("1:",numero);
   if (req.session.userid){
     var mail = req.session.userid;
     readUser(mail, function (result){
@@ -34,6 +32,8 @@ router.get('/:numero', function(req, res, next) {
             //req.session.connected_user.prenom = user.prenom;
               //  req.session.connected_user.nom = user.nom;
             if (req.session.uploaded_files == undefined) {
+                let numero = req.params.numero;
+                console.log("1:",numero);
                 console.log('Init uploaded files array');
                 req.session.uploaded_files = [];
                 res.render('file_upload',{connected_user : user, files_array : req.session.uploaded_files, numero});
@@ -50,7 +50,7 @@ router.get('/:numero', function(req, res, next) {
 });
 
 /* POST : ajoute à l'objet request une propriété 'file', ayant une valeur unoiquement si le formulaire' contient un champ de type 'file' qui a pour nom 'myFileInput' */
-router.post('/:numero', upload.single('myFileInput') ,function(req, res, next) {
+router.post('/upload', upload.single('myFileInput') ,function(req, res, next) {
   const uploaded_file = req.file
   let numero = req.body.numero;
   console.log("2:",numero);
@@ -79,12 +79,19 @@ router.post('/:numero', upload.single('myFileInput') ,function(req, res, next) {
 });
 router.post('/envoi', function(req, res, next) {
     var fichier = req.session.uploaded_files.join(", ");
-    console.log(uploadedFilesString);
+    console.log(fichier);
     mail = req.session.userid;
     numero = req.body.numero;
+    console.log("envoie" , numero);
     candidatModel.creatCandidature(mail, numero, fichier, function(result){
+      if (result){
         res.redirect('/users/candidat');
         console.log("insertion reussie");
+      }else{
+        res.redirect('/users/candidat');
+        console.log("insertion fail");
+      }
+        
     });
     
   });

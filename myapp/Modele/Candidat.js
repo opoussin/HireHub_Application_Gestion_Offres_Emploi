@@ -131,7 +131,8 @@ module.exports = {
         var sql = mysql.format("INSERT INTO CANDIDATURE (candidat, offre, pieces) VALUES (?,?,?)", [mail, numero, fichier]);
 
         db.query(sql, function (err, results) {
-                callback(err!=undefined);//??
+            if (err) throw err;
+            callback(results);
             });
     },
     deleteCandidature: function (mail, callback) {
@@ -193,8 +194,8 @@ module.exports = {
             callback(results);
         });
     },
-    readOrga: function (callback) {
-        sql = "SELECT * FROM ORGANISATION";
+    readOrga: function ( callback) {
+        sql = "SELECT * FROM ORGANISATION ";
         rows = db.query(sql, function (err, results) {
             if (err) throw err;
             if (rows.length != 0) { // si il y a au moins une ligne (donc une orga du type)
@@ -202,6 +203,14 @@ module.exports = {
             } else { // il n'y a pas d'orga de ce type
                 callback(false);
             }
+            //callback(results);
+        });
+    },
+    readOrgaUser: function (siren, callback) {
+        sql = "SELECT * FROM ORGANISATION WHERE siren=?";
+        rows = db.query(sql, siren, function (err, result) {
+            if (err) throw err;
+            callback(result);
             //callback(results);
         });
     },

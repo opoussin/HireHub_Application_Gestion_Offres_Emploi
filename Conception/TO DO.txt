@@ -1,58 +1,17 @@
 + terminer modifier profil qui marche pas ( redirection)
 O + rediriger vue accueil recruteur profil candidat : bouton conditionnel en focntion du type qui redirigent vers les accueil correspondant
 O - rediriger vue accueil admin
-C + mettre des valeurs dans les filtres candidat.ejs + terminer les filtres
-C + faire la route dans users.js des filtres
 C + enlever bouton modifier profil dans accueil candidat
 O + régler pbm vue dmd recruteur formulaire_recruteur
 C + enlever bouton voir mes candidatures
 C + supprimer bouton active accueil candidat
 O - bouton voir offre accueil candidat
-O - bouton Postuler
-C - upload de fichiers + gerer acceptation et refus de candidat, mise a jour d'une offre
-    + reprendre le code du prof
-    - arranger le front de file_upload
-    + arragner le numero qui est egal à upload
-    - inserer une candidature
-optionnel - afficher message disant qu'il n'y a pas de candidatures pour l'instant profil candidat
-O + bouton créer dmd organisation
-C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton editer, voir candidat, supprimer,), bouton creer offre, page de formulaire, 
-    C + changer de profil et afficher les offres d'une entreprise
-    C + créer un offre
-        - améliorer front formulaire ( espaces, champs obligatoires)
-    o éditer une offre
-        o demander comment passer la ref de l'offre pour l'éditer
-    + supprimer une offre
-    - voir les candidat
-    o revenir profil candidat
-    - selectionner un candidat
-    - profil recruteur
-        - mettre demande recruteur dedans
-O - vue accueil admin -> cote a cote les dmd orga et dmd admin, 
-+ erreur dans creatUser callback not a fonction
-+ rajouter bouton déconnexion dans tout les profils
-- dans toutes les fonctions faire de la gestion d'erreurs
-C + mettre l'auto increment sur numero de offre
-O - supprimer une demande amdin 
-+ header conditionnels
-stand by plusieurs orga par recruteur ( select orga pour poster une offre, afficher les offres)
-+ offres non publiees : gerer affichage et mention brouillon
-- rajouter condition inscription si deja une session cree
-C + tester AI offre
-- annuler la casse dans les formulaires 
-+ réparer le front d'accueil candidat
-- Affiner les filtres
+O + bouton Postuler
 
-////////////////////////////////////////////////////////////////////
-O - rediriger vue accueil admin
-O - bouton voir offre accueil candidat
-O - bouton Postuler
-C - upload de fichiers + gerer acceptation et refus de candidat, mise a jour d'une offre
-    + reprendre le code du prof
-    - arranger le front de file_upload
-    + arragner le numero qui est egal à upload
-    - inserer une candidature
-optionnel - afficher message disant qu'il n'y a pas de candidatures pour l'instant profil candidat
+RECRUTEUR
+C + tester AI offre
+C + mettre l'auto increment sur numero de offre
+
 C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton editer, voir candidat, supprimer,), bouton creer offre, page de formulaire, 
     C + changer de profil et afficher les offres d'une entreprise
     C + créer un offre
@@ -60,16 +19,44 @@ C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
     o éditer une offre
         o demander comment passer la ref de l'offre pour l'éditer
     + supprimer une offre
-    - voir les candidat
-    o revenir profil candidat
-    - selectionner un candidat
+    + voir les candidat
+        - telecharger une piece de candidat
+        - selectionner un candidat
+        optionnel refuser un candidat
+    + revenir profil candidat
     - profil recruteur
         - mettre demande recruteur dedans
-O - vue accueil admin -> cote a cote les dmd orga et dmd admin, 
-- dans toutes les fonctions faire de la gestion d'erreurs
+
+CANDIDAT
+C + mettre des valeurs dans les filtres candidat.ejs + terminer les filtres
+C + faire la route dans users.js des filtres
+C + réparer le front d'accueil candidat
+O + bouton créer dmd organisation
+optionnel - afficher message disant qu'il n'y a pas de candidatures pour l'instant profil candidat
+C - upload de fichiers 
+    + reprendre le code du prof
+    - arranger le front de file_upload
+    + arragner le numero qui est egal à upload
+    - inserer une candidature
+    - inserer plusieurs pieces
+    - modifier sa candidature
+
+
 O - supprimer une demande amdin 
-- header conditionnels
-stand by plusieurs orga par recruteur ( select orga pour poster une offre, afficher les offres)
-- rajouter condition inscription si deja une session cree
+
+ADMIN
+O - vue accueil admin -> cote a cote les dmd orga et dmd admin, 
+
+
+VRAC
++ header conditionnels
++ offres non publiees : gerer affichage et mention brouillon
++ rajouter bouton déconnexion dans tout les profils
 - annuler la casse dans les formulaires 
+- Affiner les filtres
+- rajouter condition inscription si deja une session cree
+- dans toutes les fonctions faire de la gestion d'erreurs
+stand by plusieurs orga par recruteur ( select orga pour poster une offre, afficher les offres)
+
+
 

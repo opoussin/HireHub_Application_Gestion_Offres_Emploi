@@ -10,8 +10,9 @@ router.get('/recruteur', function (req, res, next) {
     var siren=req.session.orga;
     var mail=req.session.userid;
     req.session.current_profil=2;
+    var candidat = "";
     result = recruteurModel.readAllOffreOrga (siren, function (results) {
-    res.render('recruteur', {listeOffre: results , req : req});
+    res.render('recruteur', {candidat : candidat, listeOffre: results , req : req});
   });
   
 });
@@ -83,6 +84,25 @@ router.get('/editer_offre/:numero', function (req, res, next) {
  
 });
 
+router.get('/listeCandidat/:numero', function (req, res, next) {
+  let numero = req.params.numero;
+  recruteurModel.readAllCandidat(numero, function (result) {
+    if (result) {
+      console.log("oui");
+      result.forEach((candidat) => {
+        const mots = candidat.pieces.split(","); // Sépare la chaîne en mots en utilisant la virgule comme séparateur
+        candidat.pieces = mots.map((mot) => mot.trim()); // Stocke chaque mot dans le tableau candidat.pieces après avoir supprimé les espaces avant et après
+        console.log(candidat.pieces);
+      });
+
+      res.render('listeCandidat', { candidats: result, req: req });
+    } else {
+      console.log("non");
+      res.redirect('/recrut/recruteur');
+    }
+  });
+});
+
 router.post('/editer_offre', function (req, res, next) {
   if (req.body){
     var etat = req.body.etat;
@@ -113,7 +133,7 @@ router.get('/profil_recruteur', function (req, res, next) {
     var mail=req.session.userid;
     var siren = req.session.orga;
     communModel.readUser(mail, function (user) {
-      candidatModel.readOrga(siren, function (result) {
+      candidatModel.readOrgaUser(siren, function (result) {
         res.render('profil_recruteur', { user: user, orga: result , req : req});
         });
     });

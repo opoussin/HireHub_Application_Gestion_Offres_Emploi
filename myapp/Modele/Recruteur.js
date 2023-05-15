@@ -125,8 +125,9 @@ module.exports = {
             callback(results);
         });
     },
-    readAllCandidat: function (callback) {
-        db.query("SELECT u.mail, u.nom, u.prenom, u.telephone FROM CANDIDATURE c INNER JOIN UTILISATEUR u ON c.candidat=u.mail WHERE c.offre =?", function (err, results) {
+    readAllCandidat: function (numero, callback) {
+        console.log(numero);
+        db.query("SELECT * FROM CANDIDATURE c INNER JOIN UTILISATEUR u ON c.candidat=u.mail WHERE c.offre =?", numero, function (err, results) {
             if (err) throw err;
             callback(results);
         });

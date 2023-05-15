@@ -44,9 +44,11 @@
                                                         <p class="card-text text-dark">
                                                             <%= offre.description %>
                                                         </p>
-                                                        <a href="#" class="btn btn-secondary">Voir candidats</a>
+                                                        <a href="/recrut/listeCandidat/<%= offre.numero%>" class="btn btn-secondary">Voir candidats</a>
+
                                                         <a href="recrut/editer_offre/<%= offre.numero%>" class="btn btn-secondary">Editer l'offre</a>
                                                         <a href="/recrut/supp_offre/<%= offre.numero%>" class="btn btn-secondary ">Supprimer</a>
+                                                        
                                                     </div>
                                                 </div>
                                                 <% })%> 
