@@ -72,7 +72,7 @@
   			<div class="div-cadre col-10 offset-1 col-lg-8 offset-lg-2">
           <ul>
 <% files_array.forEach((oneFile) => { %>
-              <li><a href="upload/getfile?fichier_cible=<%= oneFile %>" target="_blank"><%= oneFile %></a></li>                   
+              <li><a href="/candidature/getfile/<%= oneFile %>" target="_blank"><%= oneFile %></a></li>                   
 <% }) %>          
           </ul>
         </div>

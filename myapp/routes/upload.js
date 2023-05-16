@@ -97,13 +97,25 @@ router.post('/envoi', function(req, res, next) {
   });
 //rajouter une requete post qui insert la candidature avec les noms de fichiers
 
-/* GET download */
-router.get('/getfile', function(req, res, next) {
+
+router.get('/getfile/:file', function(req, res, next) {
+  console.log("le download");
   try {
-    res.download('./mesfichiers/'+req.query.fichier_cible);
+    res.download('./mesfichiers/'+req.params.file);
   } catch (error) {
-    res.send('Une erreur est survenue lors du téléchargement de '+req.query.fichier_cible+' : '+error);
+    res.send('Une erreur est survenue lors du téléchargement de '+req.params.file+' : '+error);
   }
 });
 
+/*
+const path = require('path');
+
+router.get('/getfile', function(req, res, next) {
+  try {
+    const filePath = path.resolve(__dirname, '../mesfichiers', req.query.fichier_cible);
+    res.download(filePath);
+  } catch (error) {
+    res.send('Une erreur est survenue lors du téléchargement de ' + req.query.fichier_cible + ' : ' + error);
+  }
+});*/
 module.exports = router;

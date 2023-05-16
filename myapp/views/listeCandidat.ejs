@@ -18,7 +18,7 @@
                         <h6 class="card-subtitle mb-2 text-muted">Pièces de candidature :</h6>
                         <ul>
                             <% candidat.pieces.forEach((piece) => { %>
-                                <li><%= piece %></li>
+                                <li><a href="/candidature/getfile/<%= piece %>" target="_blank"><%= piece %></a></li>                   
                             <% }) %>
                         </ul>
                     </div>
