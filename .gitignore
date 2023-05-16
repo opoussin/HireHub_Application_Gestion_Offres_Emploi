@@ -2,9 +2,10 @@
 #./package-lock.json
 #/package.json
 # Ignore le dossier node_modules
-myapp/node_modules/
+/myapp/node_modules/
 
 # Ignore package-lock.json et package.json
-myapp/package-lock.json
-myapp/package.json
-myapp/mesfichiers/
+
+/myapp/package.json
+/myapp/package-lock.json
+/myapp/mesfichiers/
