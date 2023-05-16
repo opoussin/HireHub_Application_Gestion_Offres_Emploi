@@ -1,11 +1,9 @@
-#node_modules/ : node_modules*
-#./package-lock.json
-#/package.json
 # Ignore le dossier node_modules
-/myapp/node_modules/
+myapp/node_modules/
 
 # Ignore package-lock.json et package.json
+myapp/package-lock.json
+myapp/package.json
 
-/myapp/package.json
-/myapp/package-lock.json
-/myapp/mesfichiers/
+# Ignore le répertoire mesfichiers et son contenu
+myapp/mesfichiers/
