@@ -113,6 +113,9 @@ module.exports = {
         });
 
     },
+
+
+    //////////////// DELIMITATION \\\\\\\\\\\\\\\\\
     creatDmdRecruteur: function (mail, siren, callback) {
         var sql = mysql.format("INSERT INTO DMD_RECRUTEUR (recruteur, organisation) VALUES (?,?)", [mail, siren]);
 
