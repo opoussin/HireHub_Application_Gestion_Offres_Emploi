@@ -7,3 +7,5 @@ myapp/package.json
 
 # Ignore le répertoire mesfichiers et son contenu
 myapp/mesfichiers/
+
+myapp/coverage/

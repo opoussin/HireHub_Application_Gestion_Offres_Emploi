@@ -19,8 +19,9 @@ C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
     o éditer une offre
         o demander comment passer la ref de l'offre pour l'éditer
     + supprimer une offre
+    - regler le pbm de la date de l'offre
     + voir les candidat
-        - telecharger une piece de candidat
+        + telecharger une piece de candidat
         - selectionner un candidat
         optionnel refuser un candidat
     + revenir profil candidat
