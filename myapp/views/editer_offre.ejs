@@ -18,7 +18,17 @@
                 <form action="/recrut/creer_offre" method="post">
                   <div class="mb-3 mt-3">
                     <label for="intitule">Intitule</label>
-                    <input type="text" class="form-control" id="intitule" placeholder="Intitule" name="intitule" value="<%=intitule%>">
+                    <%console.log(offre)%>
+                    <%console.log("content")%>
+                    <%console.log(offre.statut)%>
+                    <%console.log(offre.salaire)%>
+                    <%console.log(offre.lieu)%>
+                    <%console.log(offre.responsable)%>
+                    <%console.log(offre)%>
+                    <%console.log(offre.intitule)%>
+                    <%console.log(offre.rythme)%>
+                    <%console.log(offre.pieces)%>
+                    <input type="text" class="form-control" id="intitule" placeholder="Intitule" name="intitule" value="<%= offre.intitule %>">
                     <%console.log(offre.intitule)%>
                   </div>
                   <div class="mb-3">

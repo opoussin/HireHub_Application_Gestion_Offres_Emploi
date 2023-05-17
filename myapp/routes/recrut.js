@@ -78,6 +78,7 @@ router.get('/editer_offre/:numero', function (req, res, next) {
     recruteurModel.readOffre(numero, function (result) {
       console.log(result);
       if (result) {
+        console.log("deuxieemfoosi", result);
         res.render('editer_offre', {offre: result, req : req});
       } else {
         res.redirect('/recrut/recruteur');
