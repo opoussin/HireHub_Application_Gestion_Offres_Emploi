@@ -35,7 +35,7 @@ router.get('/administrateur', function (req, res, next) {
       var type = req.query.type;
 
       adminModel.readUserFiltre(mail, nom, prenom, date, type, statut, function (results) {
-        res.render('admin', {userResult: results, search:{
+        res.render('admin', {userResult: results, req: req, search:{
           mail:mail, nom:nom, prenom:prenom, date:date, type:type, statut:statut
         } });
       });
@@ -78,5 +78,13 @@ router.get('/administrateur/supprimer', function (req, res, next) {
         res.redirect('/admin/administrateur')
       });
 });
+
+router.get('/admin/demandes', function (req, res, next) {
+  var mail=req.session.userid;
+  adminModel.readAllDmdAdmin(function (result) {  
+    res.render('admin_demandes', {demandeAdmin: result, req : req});
+  });   
+});
+
 
   module.exports = router;

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<%- include('./includes/head')%>
+
+<body>
+<%- include('./components/navbar')%>
+<div id="page-container">
+    <div id="content-wrap">
+
+        <div class="col-8 p-4 flex-column bg-white">
+            <h1 class="display-4">Mes demandes</h1>
+            <hr>
+            <div>
+                <h3 class="display-6 mt-2">Administrateur</h3>
+                <form action="" method="POST" class="row">
+
+                <table>
+                    <% demandeAdmin.forEach((dmdA)=> { %>
+                        <tr class="list-group-item d-flex justify-content-between align-items-center">
+                            <th class="fw-normal">
+                                <%= dmdA.date.toLocaleDateString("fr") %>
+                                <input type="hidden" name="dmdA_date" value="<%= dmdA.date %>">
+                            </th>
+                            <th class="fw-normal">
+                                <%= dmdA.statut %>
+                                <% if (dmdA.statut==='En attente' ) { %>
+                                    <button class="btn btn-circle rounded-circle bg-primary"> <i class="bi bi-hourglass text-light"></i></button>
+                                    <% } else if (dmdA.statut==='Validé' ) { %>
+                                        <button class="btn btn-circle rounded-circle bg-success"><i class="bi bi-check-lg text-light"></i></button>
+                                        <% } else { %>
+                                            <button class="btn btn-circle rounded-circle bg-danger"><i class="bi bi-x-lg text-light"></i></button>
+                                            <% } %>
+                                    
+
+                            </th>
+                            <th class="fw-normal">
+                                Accepter demande 
+                                <button
+                                    class="btn pe-0" name="supp" data-date="<%= dmdA.date %>"><i
+                                        class="bi bi-check2-circle"></i></button>
+
+                            </th>
+                            <th class="fw-normal">
+                                Refuser demande 
+                                <button
+                                    class="btn pe-0" name="supp" data-date="<%= dmdA.date %>"><i
+                                        class="bi bi-x-lg"></i></button>
+
+                            </th>
+                        </tr>
+                        <% }) %>
+                </table>
+                </form>
+
+            </div>
+
+
+        </div>
+        
+    </div>
+        
+    <%- include('./components/footer')%>
+
+</div>
+
+</body>
+</html>
