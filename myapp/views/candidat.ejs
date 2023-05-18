@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<%- include('./includes/head')%>
+
+
+    <body>
+
+        <%- include('./components/navbar')%>
+
+            <div id="page-container">
+                 <!-- Fenêtre modale -->
+                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                        oui
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div id="content-wrap">
+                    <div class="container-fluid">
+                        <div class="row">
+
+
+                            <div class="col-3">
+                                <div class="py-4 ps-2">
+                                    <form class="form-inline" action="" method="post">
+
+                                        <div class="form-group py-2">
+                                            <input type="text" class="form-control" id="intitule"
+                                                placeholder="Recherchez des offres" name="intitule" value="">
+                                        </div>
+                                        <input type="text" class="form-control py-2" id="lieu" placeholder="Lieu" name="lieu"
+                                            value="">
+
+                                        <input type="text" class="form-control py-2" id="organisation"
+                                            placeholder="organisation" name="organisation" value="">
+
+
+                                        <input type="text" class="form-control py-2" id="type" placeholder="Type de secteur"
+                                            name="type" value="">
+
+                                        <div class="d-flex mt-2 py-2">
+                                            <input type="number" class="form-control mt-2 w-auto" id="salaire"
+                                                placeholder="Salaire minimum" name="salaire" value="">
+                                        </div>
+
+                                        <div class="d-flex mt-2 w-auto">
+                                            <p class="text-center my-auto me-2">Statut</p>
+                                            <select class="form-select" name="statut">
+                                                <option value="" selected>Selectionnez</option>
+                                                <option value="CDI">CDI</option>
+                                                <option value="CDD">CDD</option>
+                                                <option value="alternance">Alternance</option>
+                                                <option value="stage">Stage</option>
+                                            </select>
+                                        </div>
+
+                                        <button class="btn btn-primary mt-3" type="submit" name="form1"
+                                            value="1">Valider</button>
+
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <%if ((listeOffre.length> 0)&&(Array.isArray(listeOffre))){%>
+
+                                    <% listeOffre.forEach((offre)=> { %>
+                                        <div class="card m-2 mt-4">
+                                            <div class="card-body g-4">
+                                                <h5 class="card-title text-dark fs-3">
+                                                    <%= offre.intitule %>
+                                                </h5>
+                                                <h6 class="card-subtitle mb-2 text-muted">
+                                                    <%= offre.nom %>
+                                                </h6>
+                                                <p class="card-text text-dark">
+                                                    <%= offre.description %>
+                                                </p>
+
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                                                    Launch demo modal
+                                                </button>
+                                                <a href="/candidature/<%=offre.numero%>" class="btn btn-secondary ">Postuler</a>
+                                               
+                                            </div>
+                                        </div>
+                                        <% })%>
+                                            <%}else{%>
+                                                <div class="card pt-0 ">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-dark fs-3">
+                                                            Pas d'offre disponible!
+                                                        </h5>
+
+                                                    </div>
+                                                </div>
+                                                <%}%>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <%- include('./components/footer')%>
+
+            </div>
+    </body>
+
+</html>
