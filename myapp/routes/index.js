@@ -58,6 +58,7 @@ router.post('/connexion', function (req, res, next) {
     if (result) {
       session.userid = mail;
       session.type=result.type;
+      console.log("type:", result)
       communModel.areRecruteur(session.userid, function(result) {
         if (result) {
           communModel.readOrgaUser(session.userid, function (result) {

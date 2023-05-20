@@ -11,6 +11,7 @@ acceptRecruteur
 readAllDmdOrga
 readAllDmdAdmin
 readUserFiltre
+updateDmdAdmin
 
 */
 var db = require('./db.js');
@@ -72,7 +73,7 @@ module.exports = {
         });
     },
 
-    creatOrga: function (mail, callback) {
+    creatOrga: function (nom, siren, type, siegesocial, callback) {
         db.query("INSERT INTO ORGANISATION (nom, siren, type, siegesocial) VALUES (?,?,?,?)", [nom, siren, type, siegesocial], function
             (err, results) {
             if (err) throw err;
@@ -90,21 +91,24 @@ module.exports = {
 
     acceptOrga: function (nom, siren, type, siegesocial, mail, callback) {
         if (!this.readOrgaSiren(siren, callback)) {
+            console.log("oui");
+
            this.creatOrga(nom, siren, type, siegesocial, callback);
            this.acceptRecruteur(mail, siren, callback);
         } else {
+            console.log("non");
             callback(false);
         }   
     
     },
     acceptRecruteur: function (mail, siren, callback) {
-        sql = "SELECT * FROM APPARTENIR_ORGA WHERE organisation = ? AND utilisateur = ?";
+        sql = "SELECT * FROM APPARTENIR_ORGA WHERE organisation = ? AND mail = ?";
         rows = db.query(sql, [siren, mail], function (err, results) {
             if (err) throw err;
             if (rows.length == 1 ) {
                 callback(false)
             } else {
-                var sql2 = mysql.format("INSERT INTO APPARTENIR_ORGA VALUES (?,?)", [siren, mail]);
+                var sql2 = mysql.format("INSERT INTO APPARTENIR_ORGA (mail, organisation) VALUES (?,?)", [mail, siren]);
                 db.query(sql2, function (err, result) {
                 if (err) throw err;
                 callback(results);
@@ -161,4 +165,42 @@ module.exports = {
 
 
     },
+
+    updateDmdAdmin: function (mail, value, callback) {
+        if(value){
+            db.query("UPDATE DMD_ADMIN SET statut='Validé' WHERE utilisateur=?", mail , function
+            (err, results) {
+            if (err) throw err;
+            callback();
+        });
+        }
+        else{
+            db.query("UPDATE DMD_ADMIN SET statut='Refusé' WHERE utilisateur=?", mail, function
+            (err, results) {
+            if (err) throw err;
+            callback();
+        });
+        }
+        
+    },
+    updateDmdOrga: function (siren, mail, value, callback) {
+        if(value){
+            db.query("UPDATE DMD_ORGA SET statut='Validé' WHERE siren=? AND recruteur=?", [siren,mail] , function
+            (err, results) {
+            if (err) throw err;
+            callback();
+        });
+        }
+        else{
+            db.query("UPDATE DMD_ORGA SET statut='Refusé' WHERE siren=? AND recruteur=?", [siren,mail] , function
+            (err, results) {
+            if (err) throw err;
+            callback();
+        });
+        }
+        
+    },
+
+    
+
 }

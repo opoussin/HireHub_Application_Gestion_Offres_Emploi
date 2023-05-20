@@ -6,6 +6,7 @@ areAdmin
 readOrga
 deleteUser
 readUser
+readOrgaUser
 */
 
 
@@ -21,7 +22,7 @@ module.exports = {
             //if (err) throw err;
             if (rows.length == 1 && rows[0].mdp === mdp) {
                 //var type = rows[0].mdp 
-                callback(rows);
+                callback(rows[0]);
             } else {
                 callback(undefined);
             }
