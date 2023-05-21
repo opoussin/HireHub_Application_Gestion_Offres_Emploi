@@ -70,6 +70,9 @@
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-8 bg-white">
+                                <hr>
+                                <h3 class="display-6 mt-2">Organisations</h3>
+
                                 <% if ((demandeOrga.length> 0)&&(Array.isArray(demandeOrga))) {%>
                                     <div class="row row-cols-3">
                                         <% demandeOrga.forEach(function(dmdO) { %>
@@ -133,7 +136,7 @@
 
                                             <% }); %>
                                                 <% } else { %>
-                                                    <p>Aucun utilisateur à afficher.</p>
+                                                    <p>Aucune demande de création d'organisation à afficher.</p>
                                                     <% }; %>
 
                                     </div>

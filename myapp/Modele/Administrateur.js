@@ -103,19 +103,20 @@ module.exports = {
     },
     acceptRecruteur: function (mail, siren, callback) {
         sql = "SELECT * FROM APPARTENIR_ORGA WHERE organisation = ? AND mail = ?";
-        rows = db.query(sql, [siren, mail], function (err, results) {
-            if (err) throw err;
-            if (rows.length == 1 ) {
-                callback(false)
-            } else {
-                var sql2 = mysql.format("INSERT INTO APPARTENIR_ORGA (mail, organisation) VALUES (?,?)", [mail, siren]);
-                db.query(sql2, function (err, result) {
-                if (err) throw err;
-                callback(results);
+        db.query(sql, [siren, mail], function (err, rows) {
+          if (err) throw err;
+          if (rows.length === 1) {
+            callback(false);
+          } else {
+            var sql2 = mysql.format("INSERT INTO APPARTENIR_ORGA (mail, organisation) VALUES (?,?)", [mail, siren]);
+            db.query(sql2, function (err, result) {
+              if (err) throw err;
+              callback(result);
             });
-            }
+          }
         });
-    },
+      },
+      
     readAllDmdOrga: function (callback) {
         db.query("select * from DMD_ORGA ", function
         (err, results) {

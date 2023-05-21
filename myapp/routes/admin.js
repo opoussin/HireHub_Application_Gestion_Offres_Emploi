@@ -126,7 +126,7 @@ router.get('/demandes_orga/accept', function (req, res, next) {
   adminModel.acceptOrga(nom, siren, type, siege, mail, function (result) {
     adminModel.updateDmdOrga(siren, user, value, function (result) {
 
-      res.redirect('/admin/demandes');
+      res.render('admin_demandes');
       
     });
   });

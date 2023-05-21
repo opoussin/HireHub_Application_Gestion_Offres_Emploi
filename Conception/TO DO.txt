@@ -1,6 +1,6 @@
 + terminer modifier profil qui marche pas ( redirection)
 O + rediriger vue accueil recruteur profil candidat : bouton conditionnel en focntion du type qui redirigent vers les accueil correspondant
-O - rediriger vue accueil admin
+O + rediriger vue accueil admin
 C + enlever bouton modifier profil dans accueil candidat
 O + régler pbm vue dmd recruteur formulaire_recruteur
 C + enlever bouton voir mes candidatures
@@ -46,7 +46,7 @@ C - upload de fichiers
 O - supprimer une demande amdin 
 
 ADMIN
-O - vue accueil admin -> cote a cote les dmd orga et dmd admin, 
+O + vue accueil admin -> cote a cote les dmd orga et dmd admin, 
 
 
 VRAC

@@ -3,6 +3,7 @@ var router = express.Router();
 var candidatModel = require('../Modele/Candidat.js')
 var communModel = require('../Modele/Commun.js')
 var Model = require('../Modele/user.js')
+var recruteurModel= require('../Modele/Recruteur.js')
 var orgaModel = require('../Modele/Organisation.js')
 
 
@@ -227,10 +228,14 @@ router.get('/demandes/recruteurSupp/:siren', function (req, res, next) {
 
 router.post('/demandes/adminSupp', function (req, res, next) {
   var mail=req.session.userid;
-  var dateSupp = req.body['supp'];
+
+  var dateSupp =req.query.date;
+  var user= req.query.user;
   
-  console.log("Date à supprimer : " + dateSupp);
-    candidatModel.deleteDmdAdmin(mail, dateSupp, function (result) {
+  console.log("Date à supprimer : " + dateSupp + "user:" + user);
+  console.log(user);
+  console.log(dateSupp);
+    candidatModel.deleteDmdAdmin(user, dateSupp, function (result) {
       if (result) {
         res.redirect('/users/demandes');
       } else {
