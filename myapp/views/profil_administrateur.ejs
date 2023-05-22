@@ -9,7 +9,54 @@
     
     <div id="content-wrap">
 
-        <p>Profil admin</p>        
+        <main>
+            <section class="py-4">
+                <div class="row me-0 pe-1">
+                    <div class="col-3 d-flex flex-column border-end align-items-start">
+
+                        <div class="card w-auto ms-4">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= user.prenom %>
+                                        <%= user.nom %>
+                                </h5>
+                            </div>
+                            <ul class="list-group list-group-flush list-unstyled p-3">
+                                <li class="">
+                                    <%= user.mail %>
+                                </li>
+                                <li class="">
+                                    <%= user.telephone %>
+                                </li>
+                                <li class='<%= (user.statut==1) ? "text-dark" : "text-danger" %>'>
+                                    <%= (user.statut==1) ? "Actif" : "Inactif" %>
+                                </li>
+
+                                <li>Depuis le: <%= user.dateCreation.toLocaleDateString("fr") %>
+                                </li>
+                            </ul>
+
+
+                        </div>
+                        <div class="ms-4">
+                            <a href="/users/modifier_profil" class="btn btn-secondary m-2 ">Modifier mon
+                                profil</a> <br>
+                            <%if(user.type==2){%>
+                                <a href="/recrut/recruteur" class="btn btn-secondary m-2 ">Profil recruteur</a>
+                            <%}%>
+                            <%if(user.type==3){%>
+                                <a href="/admin/administrateur" class="btn btn-secondary m-2 ">Profil administrateur</a>
+                            <%}%>
+                        </div>
+                        
+
+                    </div>
+                    <div class="col-9 ">    
+                    rien
+                    </div>
+                </div>
+            </div>
+        </div>          
     </div>
         
     <%- include('./components/footer')%>

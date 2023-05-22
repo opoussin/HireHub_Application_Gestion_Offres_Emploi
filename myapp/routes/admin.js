@@ -163,5 +163,15 @@ router.get('/profil_admin', function (req, res, next) {
   
 });
 
+router.get('/profil_admin', function (req, res, next) {
+  
+  var mail = req.session.userid;
+  communModel.readUser(mail, function (user) {
+    console.log(user[1]);
+    
+      res.render('profil_administrateur', { user: user[0], req : req});
+  });
+});
+
 
   module.exports = router;
