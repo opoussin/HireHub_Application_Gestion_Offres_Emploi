@@ -18,25 +18,17 @@
                                         <div class="row pb-4">
                                             <div class="container mt-4">
                                                 <h1 class="display-6">Recherchez des utilisateurs</h1>
-                                                <form class="form-inline" action="/admin/administrateur" method="get">
-                                                    <input type="text" class="form-control" id="mail"
-                                                        placeholder="...par mail" name="mail"
-                                                        value="<%= search.email %>">
-                                                    <input type="text" class="form-control" id="nom"
-                                                        placeholder="...par nom" name="nom" value="<%= search.nom %>">
-                                                    <input type="text" class="form-control" id="prenom"
-                                                        placeholder="...par prenom" name="prenom"
-                                                        value="<%= search.prenom %>">
-                                                    <input type="date" class="form-control" id="date"
-                                                        placeholder="...par date d'inscription" name="date"
-                                                        value="<%= search.date %>">
+                                                <form class="form-inline d-flex flex-column align-items-start " action="/admin/administrateur" method="get">
+                                                    <input type="text" class="form-control mb-2" id="mail" placeholder="...par mail" name="mail" value="<%= search.email %>">
+
+                                                    <input type="text" class="form-control mb-2" id="nom" placeholder="...par nom" name="nom" value="<%= search.nom %>">
+
+                                                    <input type="text" class="form-control mb-2" id="prenom" placeholder="...par prenom" name="prenom" value="<%= search.prenom %>">
+
+                                                    <input type="date" class="form-control" id="date" placeholder="...par date d'inscription" name="date" value="<%= search.date %>">
 
                                                     <button class="btn btn-primary mt-3" type="submit">Valider</button>
                                                 </form>
-
-                                            </div>
-                                            <div class="container mt-4">
-                                                <a href="/admin/demandes" class="btn btn-primary">Voir les demandes</a>
 
                                             </div>
 
@@ -44,7 +36,7 @@
 
                                     </div>
 
-                                    <div class="col-9 bg-white">
+                                    <div class="col-9 bg-white pt-4">
                                         <% if ((userResult.length> 0)&&(Array.isArray(userResult))) {%>
                                             <div class="row row-cols-3">
                                                 <% userResult.forEach(function(user) { %>

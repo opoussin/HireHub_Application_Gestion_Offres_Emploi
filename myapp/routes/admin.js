@@ -48,7 +48,7 @@ router.get('/administrateur/activer', function (req, res, next) {
   var mail = req.session.userid;
   
     var mail2 =req.query.user; 
-    if(mail==mail2){    
+    if(mail!=mail2){    
       adminModel.enableUser(mail2, function (results) {
         res.redirect('/admin/administrateur')
       });
@@ -81,9 +81,14 @@ router.get('/administrateur/supprimer', function (req, res, next) {
 
 router.get('/demandes', function (req, res, next) {
   var mail=req.session.userid;
-  adminModel.readAllDmdAdmin(function (result) {  
-    adminModel.readAllDmdOrga(function(orgaResult){
-      res.render('admin_demandes', {demandeOrga: orgaResult, demandeAdmin: result,req : req});
+  adminModel.readDmdAdmin("En attente",function (adminResult) {  
+    adminModel.readDmdOrga("En attente",function(orgaResult){
+      adminModel.readAllDmdAdmin(function (adminAllResult) {  
+        adminModel.readAllDmdOrga(function(orgaAllResult){
+          orgaResult ??= [];
+          res.render('admin_demandes', {demandeOrga: orgaResult, demandeAdmin: adminResult, demandeAllOrga: orgaAllResult, demandeAllAdmin: adminAllResult, req : req});
+        });
+      });
     });
   });   
 });
@@ -122,13 +127,11 @@ router.get('/demandes_orga/accept', function (req, res, next) {
   let siege = req.query.siege;
   let user = req.query.user;
 
-  let value=true;
-  adminModel.acceptOrga(nom, siren, type, siege, mail, function (result) {
-    adminModel.updateDmdOrga(siren, user, value, function (result) {
-
-      res.render('admin_demandes');
-      
-    });
+  let value=1;
+  adminModel.acceptOrga(nom, siren, type, siege, mail,value, function (result) {
+    if(result){
+      res.redirect('/admin/demandes');
+  }
   });
 });
 
@@ -137,11 +140,25 @@ router.get('/demandes_orga/deny', function (req, res, next) {
   let siren = req.query.siren;
   let user = req.query.user;
 
-  let value=false;
+  let value=0;
     adminModel.updateDmdOrga(siren, user, value, function (result) {
 
       res.redirect('/admin/demandes');
       
+    });
+  
+});
+
+router.get('/profil_admin', function (req, res, next) {
+  let mail= req.session.userid;
+  
+    communModel.readUser(mail, function (result) {
+      if(result){
+
+        res.render('profil_administrateur', {userResult: result,  req : req});
+      }else{
+        res.redirect('/users/profil_candidat')
+      }
     });
   
 });

@@ -12,11 +12,13 @@
 
                         <div class="row justify-content-center">
                             <div class="col-8 p-4 flex-column bg-white">
-                                <h1 class="display-4">Demandes</h1>
+                                <h1 class="display-4 row">Demandes</h1>
                                 <hr>
                                 <div class="row">
                                     <h3 class="display-6 mt-2">Administrateur</h3>
-
+                                    <% if (demandeOrga.length== 0) {%>
+                                        <p>Aucune demande d'administrateur à valider.</p>
+                                    <%}%>
                                     <table>
                                         <% demandeAdmin.forEach((dmdA)=> { %>
                                             <tr
@@ -29,34 +31,32 @@
                                                     <%= dmdA.date.toLocaleDateString("fr") %>
                                                 </th>
                                                 <th class="fw-normal">
-                                                    <%= dmdA.statut %>
+                                                    
                                                         <% if (dmdA.statut==='En attente' ) { %>
-                                                            <button class="btn btn-circle rounded-circle bg-primary"> <i
-                                                                    class="bi bi-hourglass text-light"></i></button>
+                                                            <i class="bi bi-hourglass text-primary m-2"></i>
                                                             <% } else if (dmdA.statut==='Validé' ) { %>
-                                                                <button
-                                                                    class="btn btn-circle rounded-circle bg-success"><i
-                                                                        class="bi bi-check-lg text-light"></i></button>
+                                                                <i
+                                                                        class="bi bi-check-lg text-success m-2"></i>
                                                                 <% } else { %>
-                                                                    <button
-                                                                        class="btn btn-circle rounded-circle bg-danger"><i
-                                                                            class="bi bi-x-lg text-light"></i></button>
+                                                                    <i
+                                                                            class="bi bi-x-lg text-danger m-2"></i>
                                                                     <% } %>
+                                                    <%= dmdA.statut %>
 
 
                                                 </th>
                                                 <th class="fw-normal">
-                                                    Accepter demande
+                                                    
                                                     <a
-                                                        href="/admin/demandes/accept?user=<%=dmdA.utilisateur%>&date=<%=dmdA.date.toLocaleDateString().replaceAll('/','-')%>"><i
-                                                            class="bi bi-check2-circle"></i></a>
+                                                        href="/admin/demandes_admin/accept?user=<%=dmdA.utilisateur%>%>" class="text-success"><i
+                                                            class="bi bi-check2-circle m-2"></i>Accepter demande</a>
 
                                                 </th>
                                                 <th class="fw-normal">
-                                                    Refuser demande
+                                                    
                                                     <a
-                                                        href="/admin/demandes/deny?user=<%=dmdA.utilisateur%>&date=<%=dmdA.date.toLocaleDateString().replaceAll('/','-')%>"><i
-                                                            class="bi bi-x-lg"></i></a>
+                                                        href="/admin/demandes_admin/deny?user=<%=dmdA.utilisateur%>%>" class="text-danger"><i
+                                                            class="bi bi-x-lg m-2"></i>Refuser demande</a>
 
                                                 </th>
                                             </tr>
@@ -98,35 +98,29 @@
                                                         <p>
                                                         </p>
                                                         <p>
-                                                            <%= dmdO.statut %>
                                                                 <% if (dmdO.statut==='En attente' ) { %>
-                                                                    <button
-                                                                        class="btn btn-circle rounded-circle bg-primary">
-                                                                        <i
-                                                                            class="bi bi-hourglass text-light"></i></button>
+                                                                    <i
+                                                                            class="bi bi-hourglass text-primary m-2"></i>
                                                                     <% } else if (dmdO.statut==='Validé' ) { %>
-                                                                        <button
-                                                                            class="btn btn-circle rounded-circle bg-success"><i
-                                                                                class="bi bi-check-lg text-light"></i></button>
+                                                                        <i class="bi bi-check-lg text-success m-2"></i>
                                                                         <% } else { %>
-                                                                            <button
-                                                                                class="btn btn-circle rounded-circle bg-danger"><i
-                                                                                    class="bi bi-x-lg text-light"></i></button>
+                                                                            <i class="bi bi-x-lg text-danger m-2"></i>
                                                                             <% } %>
+                                                            <%= dmdO.statut %>
                                                         </p>
 
                                                         <p>
-                                                            Accepter demande
+                                                        
                                                             <a
-                                                                href="/admin/demandes_orga/accept?user=<%=dmdO.recruteur%>&nom=<%=dmdO.nom%>&siren=<%=dmdO.siren%>&siege=<%=dmdO.siegeSocial%>&type=<%=dmdO.type%>"><i
-                                                                    class="bi bi-check2-circle"></i></a>
+                                                                href="/admin/demandes_orga/accept?user=<%=dmdO.recruteur%>&nom=<%=dmdO.nom%>&siren=<%=dmdO.siren%>&siege=<%=dmdO.siegeSocial%>&type=<%=dmdO.type%>" class="text-success"><i
+                                                                    class="bi bi-check2-circle m-2"></i>Accepter demande</a>
 
                                                         </p>
                                                         <p class="fw-normal">
-                                                            Refuser demande
+                                                            
                                                             <a
-                                                                href="/admin/demandes_orga/deny?user=<%=dmdO.recruteur%>&siren=<%=dmdO.siren%>"><i
-                                                                    class="bi bi-x-lg"></i></a>
+                                                                href="/admin/demandes_orga/deny?user=<%=dmdO.recruteur%>&siren=<%=dmdO.siren%>" class="text-danger"><i
+                                                                    class="bi bi-x-lg m-2"></i>Refuser demande</a>
 
                                                         </p>
 
@@ -136,7 +130,140 @@
 
                                             <% }); %>
                                                 <% } else { %>
-                                                    <p>Aucune demande de création d'organisation à afficher.</p>
+                                                    <p>Aucune demande de création d'organisation à valider.</p>
+                                                    <% }; %>
+
+                                    </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="container-fluid">
+
+
+                        <div class="row justify-content-center">
+                            <div class="col-8 p-4 flex-column bg-white">
+                                <h1 class="display-4 row">Historique</h1>
+                                <hr>
+                                <div class="row">
+                                    <h3 class="display-6 mt-2">Administrateur</h3>
+                                    <% if (demandeAllOrga.length== 0) {%>
+                                        <p>Aucune demande d'administrateur existante.</p>
+                                    <%}%>
+                                    <table>
+                                        <% demandeAllAdmin.forEach((dmdAA)=> { %>
+                                            <tr
+                                                class="list-group-item d-flex justify-content-between align-items-center">
+                                                <th class="fw-normal">
+                                                    <%= dmdAA.utilisateur%>
+
+                                                </th>
+                                                <th class="fw-normal">
+                                                    <%= dmdAA.date.toLocaleDateString("fr") %>
+                                                </th>
+                                                <th class="fw-normal">
+                                                    
+                                                        <% if (dmdAA.statut==='En attente' ) { %>
+                                                            <i class="bi bi-hourglass text-primary m-2"></i>
+                                                            <% } else if (dmdAA.statut==='Validé' ) { %>
+                                                                <i
+                                                                        class="bi bi-check-lg text-success m-2"></i>
+                                                                <% } else { %>
+                                                                    <i
+                                                                            class="bi bi-x-lg text-danger m-2"></i>
+                                                                    <% } %>
+                                                    <%= dmdAA.statut %>
+
+
+                                                </th>
+                                                <th class="fw-normal">
+                                                    
+                                                    <a
+                                                        href="/admin/demandes_admin/accept?user=<%=dmdAA.utilisateur%>%>" class="text-success"><i
+                                                            class="bi bi-check2-circle m-2"></i>Accepter demande</a>
+
+                                                </th>
+                                                <th class="fw-normal">
+                                                    
+                                                    <a
+                                                        href="/admin/demandes_admin/deny?user=<%=dmdAA.utilisateur%>" class="text-danger"><i
+                                                            class="bi bi-x-lg m-2"></i>Refuser demande</a>
+
+                                                </th>
+                                            </tr>
+                                            <% }) %>
+                                    </table>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-8 bg-white">
+                                <hr>
+                                <h3 class="display-6 mt-2">Organisations</h3>
+
+                                <% if ((demandeAllOrga.length> 0)&&(Array.isArray(demandeAllOrga))) {%>
+                                    <div class="row row-cols-3">
+                                        <% demandeAllOrga.forEach(function(dmdAO) { %>
+                                            <div class="col-4">
+
+                                                <div class="card w-auto">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">
+                                                            <%= dmdAO.nom%>
+                                                        </h5>
+                                                        <h6 class="card-subtitle mb-2 text-body-secondary" name="mail">
+                                                            <%= dmdAO.recruteur%>
+                                                        </h6>
+                                                        <p class="card-text">
+                                                            <%= dmdAO.type%>
+                                                        </p>
+                                                        <p>
+                                                            Siren: <%= dmdAO.siren %>
+                                                        </p>
+                                                        <p class="card-text">Depuis le:
+                                                            <%=dmdAO.date.toLocaleDateString("fr") %>
+                                                        </p>
+                                                        <p>
+                                                        </p>
+                                                        <p>
+                                                                <% if (dmdAO.statut==='En attente' ) { %>
+                                                                    <i
+                                                                            class="bi bi-hourglass text-primary m-2"></i>
+                                                                    <% } else if (dmdAO.statut==='Validé' ) { %>
+                                                                        <i class="bi bi-check-lg text-success m-2"></i>
+                                                                        <% } else { %>
+                                                                            <i class="bi bi-x-lg text-danger m-2"></i>
+                                                                            <% } %>
+                                                            <%= dmdAO.statut %>
+                                                        </p>
+
+                                                        <p>
+                                                        
+                                                            <a
+                                                                href="/admin/demandes_orga/accept?user=<%=dmdAO.recruteur%>&nom=<%=dmdAO.nom%>&siren=<%=dmdAO.siren%>&siege=<%=dmdAO.siegeSocial%>&type=<%=dmdAO.type%>" class="text-success"><i
+                                                                    class="bi bi-check2-circle m-2"></i>Accepter demande</a>
+
+                                                        </p>
+                                                        <p class="fw-normal">
+                                                            
+                                                            <a
+                                                                href="/admin/demandes_orga/deny?user=<%=dmdAO.recruteur%>&siren=<%=dmdAO.siren%>" class="text-danger"><i
+                                                                    class="bi bi-x-lg m-2"></i>Refuser demande</a>
+
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <% }); %>
+                                                <% } else { %>
+                                                    <p>Aucune demande de création d'organisation existante.</p>
                                                     <% }; %>
 
                                     </div>
@@ -150,7 +277,7 @@
 
             </div>
 
-            <%- include('./components/footer')%>
+            <!--<%- include('./components/footer')%>-->
 
                 </div>
 

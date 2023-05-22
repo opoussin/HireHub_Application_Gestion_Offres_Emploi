@@ -89,23 +89,30 @@ module.exports = {
         });
     },
 
-    acceptOrga: function (nom, siren, type, siegesocial, mail, callback) {
-        if (!this.readOrgaSiren(siren, callback)) {
-            console.log("oui");
-
-           this.creatOrga(nom, siren, type, siegesocial, callback);
-           this.acceptRecruteur(mail, siren, callback);
-        } else {
-            console.log("non");
-            callback(false);
-        }   
-    
+    acceptOrga: function (nom, siren, type, siegesocial, mail, value, callback) {
+        let self = this;
+        this.readOrgaSiren(siren, function(result){
+            if(result){
+                self.creatOrga(nom,siren,type,siegesocial, function(result){
+                    self.acceptRecruteur(mail,siren, function(result){
+                        self.updateDmdOrga(siren, mail, value, function(result){
+                                callback(true);
+                        });
+                    });
+                    
+                });
+            }
+            else{
+                callback(false);
+            }
+        });
     },
+
     acceptRecruteur: function (mail, siren, callback) {
         sql = "SELECT * FROM APPARTENIR_ORGA WHERE organisation = ? AND mail = ?";
         db.query(sql, [siren, mail], function (err, rows) {
           if (err) throw err;
-          if (rows.length === 1) {
+          if (rows.length !== 0) {
             callback(false);
           } else {
             var sql2 = mysql.format("INSERT INTO APPARTENIR_ORGA (mail, organisation) VALUES (?,?)", [mail, siren]);
@@ -117,6 +124,21 @@ module.exports = {
         });
       },
       
+      
+    readDmdOrga: function (status,callback) {
+        db.query("select * from DMD_ORGA WHERE statut=?",status, function
+        (err, results) {
+        if (err) throw err;
+        callback(results);
+        });
+    },
+    readDmdAdmin: function (status, callback) {
+        db.query("select * from DMD_ADMIN WHERE statut=?", status, function
+        (err, results) {
+        if (err) throw err;
+        callback(results);
+        });
+    },
     readAllDmdOrga: function (callback) {
         db.query("select * from DMD_ORGA ", function
         (err, results) {
@@ -125,7 +147,7 @@ module.exports = {
         });
     },
     readAllDmdAdmin: function (callback) {
-        db.query("select * from DMD_ADMIN ", function
+        db.query("select * from DMD_ADMIN ",  function
         (err, results) {
         if (err) throw err;
         callback(results);
@@ -185,7 +207,7 @@ module.exports = {
         
     },
     updateDmdOrga: function (siren, mail, value, callback) {
-        if(value){
+        if(value==1){
             db.query("UPDATE DMD_ORGA SET statut='Validé' WHERE siren=? AND recruteur=?", [siren,mail] , function
             (err, results) {
             if (err) throw err;

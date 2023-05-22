@@ -1,6 +1,6 @@
 <header class="sticky-top">
-    <div class="navbar container-fluid d-flex flex-row">
-        <!--<% console.log(req.session.current_profil); %>-->
+    <!--<div class="navbar container-fluid d-flex flex-row">
+        <% console.log(req.session.current_profil); %>
     
         <% if (req.session.current_profil == 1) { %>
             <a class="btn text-light rounded-circle btn-outline-light" href="/users/candidat"><i class="bi bi-house"></i></a>
@@ -9,14 +9,14 @@
         <% } %>
     
         <a class="btn text-light" href="/logout"><i class="bi bi-box-arrow-right fa-lg"></i></a>
-        <p class="my-auto text-light fw-bold">Nom du site</p>
+        <p class="my-auto text-light fw-bold">LE SITE DE TOM</p>
     
         <% if (req.session.current_profil == 1) { %>
             <a class="btn btn-outline-light my-auto btn-sm" href="/users/demandes">Saisir demande</a>
             <a class="btn btn-outline-light my-auto btn-sm" href="/users/creer_orga">Créer Organisation</a>
         <% } else if (req.session.current_profil == 2) { %>
-            <!-- Aucune action définie pour le profil 2 -->
-        <% } else if (req.session.current_profil == 3) { %>
+
+            <% } else if (req.session.current_profil == 3) { %>
             <a class="btn btn-outline-light my-auto btn-sm" href="/admin/demandes">Gérer demandes</a>
         <% } %>
     
@@ -24,6 +24,39 @@
             <a class="btn rounded text-light" href="/users/profil_candidat"><i class="box-arrow-left"></i>Profil</a>
         <% } else if (req.session.current_profil == 2) { %>
             <a class="btn rounded text-light" href="/recrut/profil_recruteur"><i class="box-arrow-left"></i>Profil</a>
+        <% } %>
+    </div>-->
+
+
+    <!--Je sais pas si il manque quelque chose mais j'ai l'impression que ça marche mieux si on adapte l'affichage du header
+         en fonction de la route plutôt que du type d'utilisateur vu qu'on gère déjà les droits d'accès quand on charge la 
+         route avec le middleware-->
+
+    <% console.log(req.originalUrl.split('/')[1]); %>
+
+    <div class="navbar container-fluid d-flex flex-row">
+        <% if (req.originalUrl.split('/')[1] === 'admin') { %>
+            <a class="btn text-light rounded-circle btn-outline-light" href="/admin/administrateur"><i class="bi bi-house"></i></a>
+            <a class="btn text-light" href="/logout"><i class="bi bi-box-arrow-right fa-lg"></i></a>
+            <p class="my-auto text-light fw-bold">LE SITE DE TOM</p>       
+            <a class="btn btn-outline-light my-auto btn-sm" href="/admin/demandes">Gérer les demandes</a>   
+            <a class="btn rounded text-light" href="/admin/profil_admin"><i class="box-arrow-left"></i>Profil</a>
+        
+        <% } else if (req.originalUrl.split('/')[1] === 'recrut') { %>
+            <a class="btn text-light rounded-circle btn-outline-light" href="/recrut/recruteur"><i class="bi bi-house"></i></a>
+            <a class="btn text-light" href="/logout"><i class="bi bi-box-arrow-right fa-lg"></i></a>
+            <p class="my-auto text-light fw-bold">LE SITE DE TOM</p>
+            <a class="btn rounded text-light" href="/recrut/profil_recruteur"><i class="box-arrow-left"></i>Profil</a>
+
+
+        <% } else { %>
+            <a class="btn text-light rounded-circle btn-outline-light" href="/users/candidat"><i class="bi bi-house"></i></a>
+            <a class="btn text-light" href="/logout"><i class="bi bi-box-arrow-right fa-lg"></i></a>
+            <p class="my-auto text-light fw-bold">LE SITE DE TOM</p>
+            <a class="btn btn-outline-light my-auto btn-sm" href="/users/demandes">Saisir demande</a>
+            <a class="btn btn-outline-light my-auto btn-sm" href="/users/creer_orga">Créer Organisation</a>
+            <a class="btn rounded text-light" href="/users/profil_candidat"><i class="box-arrow-left"></i>Profil</a>
+
         <% } %>
     </div>
     
