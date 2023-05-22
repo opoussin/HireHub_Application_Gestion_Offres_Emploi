@@ -36,7 +36,7 @@ router.get('/:numero', function(req, res, next) {
                 console.log("1:",numero);
                 console.log('Init uploaded files array');
                 req.session.uploaded_files = [];
-                res.render('file_upload',{connected_user : user, files_array : req.session.uploaded_files, numero});
+                res.render('file_upload',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero});
             }
 
           } else {
@@ -57,7 +57,7 @@ router.post('/upload', upload.single('myFileInput') ,function(req, res, next) {
   console.log("3:",req.params.numero);
   console.log("4:",req.body);
   if (!uploaded_file) {
-    res.render('file_upload',{connected_user : req.session.connected_user, files_array : req.session.uploaded_files, upload_error : 'Merci de sélectionner le fichier à charger !'});
+    res.render('file_upload',{req:req,connected_user : req.session.connected_user, files_array : req.session.uploaded_files, upload_error : 'Merci de sélectionner le fichier à charger !'});
   } else {
     console.log(uploaded_file.originalname,' => ',uploaded_file.filename);
     req.session.uploaded_files.push(uploaded_file.filename);
@@ -68,7 +68,7 @@ router.post('/upload', upload.single('myFileInput') ,function(req, res, next) {
             console.log(user);
             console.log(result);
             console.log(user.prenom);
-            res.render('file_upload',{numero, connected_user : user, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
+            res.render('file_upload',{req:req, numero, connected_user : user, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
           } else {
             console.log("nononononon");
           }

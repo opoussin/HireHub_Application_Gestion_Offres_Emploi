@@ -183,8 +183,8 @@ module.exports = {
             callback();
         });
     },
-    deleteDmdAdmin: function (mail, date, callback) {
-        db.query("DELETE FROM DMD_ADMIN where utilisateur= ? AND date=?", [mail,date], function
+    deleteDmdAdmin: function (mail, callback) {
+        db.query("DELETE FROM DMD_ADMIN where utilisateur= ?", mail, function
             (err, results) {
             if (err) throw err;
             callback(results);

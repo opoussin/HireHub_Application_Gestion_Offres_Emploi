@@ -226,16 +226,10 @@ router.get('/demandes/recruteurSupp/:siren', function (req, res, next) {
  
 });
 
-router.post('/demandes/adminSupp', function (req, res, next) {
+router.get('/demandes/adminSupp', function (req, res, next) {
   var mail=req.session.userid;
 
-  var dateSupp =req.query.date;
-  var user= req.query.user;
-  
-  console.log("Date à supprimer : " + dateSupp + "user:" + user);
-  console.log(user);
-  console.log(dateSupp);
-    candidatModel.deleteDmdAdmin(user, dateSupp, function (result) {
+    candidatModel.deleteDmdAdmin(mail, function (result) {
       if (result) {
         res.redirect('/users/demandes');
       } else {

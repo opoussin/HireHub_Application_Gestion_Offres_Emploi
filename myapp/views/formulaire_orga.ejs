@@ -3,10 +3,10 @@
 
 <%- include('./includes/head')%>
 
-    <body>
+    <body class="bg-light">
         <%- include('./components/navbar')%>
             <div id="page-container">
-                <div id="content-wrap" class="bg-light">
+                <div id="content-wrap">
 
                     <section>
                         <div class=" d-flex justify-content-center">
@@ -16,25 +16,21 @@
                                 <div class="row">
 
                                     <h3 class="display-6">Formulaire</h3>
-                                    <form action="/users/creer_orga" method="POST" class="form-inline">
+                                    <p>Les demandes de création d'organisation sont traitées par les administrateurs
+                                        <br> <br>
+                                        Une fois la demande acceptée, vous deviendrez le premier recruteur de
+                                        celle-ci.</p>
+                                    <form action="/users/creer_orga" method="POST" class="form-inline d-flex flex-row justify-content-between">
 
-                                        <p>Les demandes de création d'organisation sont traitées par les administrateurs
-                                            <br> <br>
-                                            Une fois la demande acceptée, vous deviendrez le premier recruteur de
-                                            celle-ci.</p>
-
-
-                                        <div class="mb-3 mt-3">
-                                            <label for="siren">Numero de SIREN</label>
-                                            <input type="text" class="form-control" id="intitule"
-                                                placeholder="Exemple: 362 521 879" name="siren">
+                                        <div class="d-flex flex-row align-items-center me-3 mb-2">
+                                            <label for="siren" class="me-2">Numero de SIREN</label>
+                                            <input type="text" class="form-control" id="intitule" placeholder="Exemple: 362 521 879" name="siren">
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="nom">Nom</label>
-                                            <input type="text" class="form-control" id="statut"
-                                                placeholder="Nom de l'organisation" name="nom">
+                                        <div class="d-flex flex-row align-items-center me-3 mb-2">
+                                            <label for="nom" class="me-2">Nom</label>
+                                            <input type="text" class="form-control" id="statut" placeholder="Nom de l'organisation" name="nom">
                                         </div>
-                                        <div class="mb-3 mt-3">
+                                        <div class="d-flex flex-row align-items-center me-3 mb-2">
                                             <p class="my-auto me-2">Type</p>
                                             <select class="form-select" name="type">
                                                 <option value="NULL" selected>Selectionnez</option>
@@ -43,13 +39,13 @@
                                                 
                                             </select>
                                         </div>
-                                        <div class="mb-3 mt-3">
-                                            <label for="siege">Siege social</label>
+                                        <div class="d-flex flex-row align-items-center me-3 mb-2">
+                                            <label for="siege" class="me-2">Siege social</label>
                                             <input type="text" class="form-control" id="type"
                                                 placeholder="Siege social de l'organisation" name="siege">
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary">Valider</button>
+                                        <button type="submit" class="btn btn-primary mb-2">Valider</button>
 
 
 
@@ -94,14 +90,15 @@
                                                         <label class="me-2">Siege social:</label> <%= dmd.siegeSocial %>
                                                     </th>
                                                     <th class="fw-normal ">
-                                                        <%= dmd.statut %>
+                                                        
                                                             <% if (dmd.statut==='En attente' ) { %>
-                                                                <button class="btn btn-circle rounded-circle bg-primary"><i class="bi bi-hourglass text-light"></i></button>
+                                                                <i class="bi bi-hourglass text-primary me-2"></i>
                                                                 <% } else if (dmd.statut==='Validé' ) { %>
-                                                                    <button class="btn btn-circle rounded-circle bg-success"><i class="bi bi-check-lg text-light"></i></button>
+                                                                    <i class="bi bi-check-lg text-success me-2"></i>
                                                                     <% } else { %>
-                                                                        <button class="btn btn-circle rounded-circle bg-danger"><i class="bi bi-x-lg text-light"></i></button>
+                                                                        <i class="bi bi-x-lg text-danger me-2"></i>
                                                                         <% } %>
+                                                        <%= dmd.statut %>
                                                     </th>
                                                 </tr>
                                                 <% }); %>
