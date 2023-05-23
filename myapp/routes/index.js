@@ -57,6 +57,8 @@ router.post('/connexion', function (req, res, next) {
   communModel.areUserValid(mail, mdp, function (result) {
     if (result) {
       session.userid = mail;
+      session.nom = result.nom;
+      session.prenom= result.prenom;
       session.type=result.type;
       console.log("type:", result)
       communModel.areRecruteur(session.userid, function(result) {
@@ -64,6 +66,7 @@ router.post('/connexion', function (req, res, next) {
           communModel.readOrgaUser(session.userid, function (result) {
             var orga = result.organisation;
             session.orga = orga;
+
             res.redirect('/users/candidat');
           });
         } else {

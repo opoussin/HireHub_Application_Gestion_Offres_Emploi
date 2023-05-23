@@ -19,7 +19,7 @@
                                         <div class="row pb-4">
                                             <div class="container mt-4">
 
-                                                <a href="/recrut/creer_offre" class="btn btn-link m-4 ps-0">Créer une offre</a>
+                                                <a href="/recrut/creer_offre" class="btn btn-primary mt-3 ">Créer une offre</a>
                                                 
                                             </div>
 
@@ -27,10 +27,10 @@
 
                                     </div>
 
-                                    <div class="col-9 gy-4">
+                                    <div class="col-9 d-flex flex-column gap-2">
                                         <%if (Array.isArray(listeOffre)){%>
                                             <% listeOffre.forEach((offre)=> { %>
-                                                <div class="card mb-4 pt-0 " style="width: autorem;">
+                                                <div class="card">
                                                     <div class="card-body g-4">
                                                         <h5 class="card-title text-dark fs-3">
                                                             <%= offre.intitule %>

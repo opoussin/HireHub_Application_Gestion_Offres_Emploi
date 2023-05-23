@@ -5,6 +5,7 @@
   border-color: red;
 } 
 */
+
 body{
   background-color: #fafafa !important;
 }
@@ -13,8 +14,52 @@ body{
   background: linear-gradient(#4D62AE, #2C3248);
 }
 
-.navbar{
-  background-color: #3C4462;
+nav#navbar {
+  position: sticky;
+  top: 0;
+  background-color: #272D46;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  height: 48px;
+  padding: 16px;
+  width: 100%;
+  color: #FFFFFF;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.14);
+  z-index: 50;
+}
+.icon-md {
+  height: 36px;
+  aspect-ratio: 1;
+}
+
+.icon-sm {
+  height: 16px;
+  aspect-ratio: 1;
+}
+
+.account {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.10);
+  padding: 8px;
+  border-radius: 16px;
+}
+
+
+.icon {
+  display: inline-flex;
+  align-self: center;
+}
+
+.icon svg {
+  width: 20px;
+  aspect-ratio: 1;
+}
+
+.icon.svg-baseline svg {
+  top: .125em;
+  position: relative;
 }
 
 .text{

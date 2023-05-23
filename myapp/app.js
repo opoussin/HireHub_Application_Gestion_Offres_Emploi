@@ -54,6 +54,9 @@ app.use('/admin', adminRouter);
 
 app.use('/candidature', uploadRouter);
 
+app.get('/dump-session',(req, res, next)=>{
+  res.json(req.session);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
