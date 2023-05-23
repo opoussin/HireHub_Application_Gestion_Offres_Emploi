@@ -71,22 +71,32 @@
 
                                 <div>
                                     <h3 class="display-6">Recruteur</h3>
-                                    <form action="/users/demandes/recruteurSupp" method="POST"  class="row">
-                                    <table>
+                                    <form action="/users/demandes/recruteurSupp" method="POST" >
+                                    <table class="table ">
                                         <% if (Array.isArray(demandeRecrut)) { %>
+                                            <thead>
+                                                <tr >
+                                                    <th scope="col">Nom</th>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">Statut</th>
+                                                    <th scope="col"></th>
+                                                  
+                                                </tr>
+                                              </thead>
                                             <% demandeRecrut.forEach((dmd)=> { %>
-                                                <tr class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <th class="fw-normal">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="fw-normal">
                                                         <% for(var i=0; i < organisation.length; i++){
                                                             if(organisation[i].siren==dmd.organisation){ %>
                                                             <%= organisation[i].nom %>
                                                                 <%} } %>
-                                                    </th>
+                                                    </td>
 
-                                                    <th class="fw-normal ">
+                                                    <td class="fw-normal ">
                                                         <%= dmd.date.toLocaleDateString("fr") %>
-                                                    </th>
-                                                    <th class="fw-normal">
+                                                    </td>
+                                                    <td class="fw-normal">
                                                             <% if (dmd.statut==='En attente' ) { %>
                                                                 <i class="bi bi-hourglass text-primary me-2"></i>
                                                                 <% } else if (dmd.statut==='Validé' ) { %>
@@ -96,32 +106,47 @@
                                                                         <% } %>
                                                             <%= dmd.statut %>
 
-                                                    </th>
+                                                    </td>
 
-                                                    <th class="fw-normal">
+                                                    <td class="fw-normal">
                                                         
-                                                        <a href="/users/demandes/recruteurSupp/<%= dmd.organisation%>" class="btn pe-0" name="supp"><i class="bi bi-x-lg me-2"></i>Supprimer demande </a>
+                                                        <a href="/users/demandes/recruteurSupp/<%= dmd.organisation%>" class="btn pe-0 text-primary" name="supp"><i class="bi bi-x-lg me-2"></i>Supprimer demande </a>
 
-                                                    </th>
+                                                    </td>
 
                                                 </tr>
-                                                <% }); %>
-                                                    <% } %>
+                                            <% }); %>
+                                                </tbody>
+                                        <% }else{ %>
+                                            <p>Vous n'avez pas enregistré de demande.</p>
+                                        <%}%>
+                                        
                                     </table>
                                 </form>
                                 </div>
                                 <div>
                                     <h3 class="display-6 mt-2">Administrateur</h3>
-                                    <form action="/users/demandes/adminSupp" method="POST" class="row">
+                                    <form action="/users/demandes/adminSupp" method="POST" >
 
-                                    <table>
+                                    <table class="table">
+                                    <%if (demandeAdmin.length>0){%>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Statut</th>
+                                                <th scope="col"></th>
+                                              
+                                            </tr>
+                                          </thead>
                                         <% demandeAdmin.forEach((dmdA)=> { %>
-                                            <tr class="list-group-item d-flex justify-content-between align-items-center">
-                                                <th class="fw-normal">
+                                        <tbody>
+                                            <tr>
+
+                                                <td class="fw-normal">
                                                     <%= dmdA.date.toLocaleDateString("fr") %>
                                                     <input type="hidden" name="dmdA_date" value="<%= dmdA.date %>">
-                                                </th>
-                                                <th class="fw-normal">
+                                                </td>
+                                                <td class="fw-normal">
                                                     <% if (dmdA.statut==='En attente' ) { %>
                                                         <i class="bi bi-hourglass text-primary me-2"></i>
                                                         <% } else if (dmdA.statut==='Validé' ) { %>
@@ -132,15 +157,19 @@
                                                     <%= dmdA.statut %>
                                                         
 
-                                                </th>
-                                                <th class="fw-normal">
+                                                </td>
+                                                <td class="fw-normal">
                                                     <a href="/users/demandes/adminSupp"><i
                                                             class="bi bi-x-lg me-2"></i>Supprimer demande 
                                                         </a>
 
-                                                </th>
+                                                </td>
                                             </tr>
                                             <% }) %>
+                                        </tbody>
+                                    <% }else{ %>
+                                        <p>Vous n'avez pas enregistré de demande.</p>
+                                    <%}%>
                                     </table>
                                     </form>
 

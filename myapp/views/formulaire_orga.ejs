@@ -13,43 +13,47 @@
                             <div class="col-8 p-4 flex-column bg-white">
                                 <h1 class="display-4">Créer une organisation</h1>
                                 <hr>
-                                <div class="row">
+                                <div class="container">
 
                                     <h3 class="display-6">Formulaire</h3>
-                                    <p>Les demandes de création d'organisation sont traitées par les administrateurs
-                                        <br> <br>
-                                        Une fois la demande acceptée, vous deviendrez le premier recruteur de
-                                        celle-ci.</p>
-                                    <form action="/users/creer_orga" method="POST" class="form-inline d-flex flex-row justify-content-between">
-
-                                        <div class="d-flex flex-row align-items-center me-3 mb-2">
-                                            <label for="siren" class="me-2">Numero de SIREN</label>
-                                            <input type="text" class="form-control" id="intitule" placeholder="Exemple: 362 521 879" name="siren">
+                                    
+                                        
+                                    <form action="/users/creer_orga" method="POST" class="row">
+                                        <div class="col-6">
+                                            <div class="py-1">
+                                                <label for="nom" class="me-2">Nom</label>
+                                                <input type="text" class="form-control" id="statut" placeholder="Nom de l'organisation" name="nom">
+                                            </div>
+                                            <div class="py-1">
+                                                <label for="siren">Numero de SIREN</label>
+                                                <input type="text" class="form-control" id="intitule" placeholder="Exemple: 362 521 879" name="siren">
+                                            </div>
                                         </div>
-                                        <div class="d-flex flex-row align-items-center me-3 mb-2">
-                                            <label for="nom" class="me-2">Nom</label>
-                                            <input type="text" class="form-control" id="statut" placeholder="Nom de l'organisation" name="nom">
+                                        <div class="col-6">
+                                            <div class="py-1">
+                                                <label for="type">Type</label>
+                                                <select class="form-select" name="type" >
+                                                    <option value="" disabled selected >Selectionnez</option>
+                                                    <option value="Entreprise">Entreprise</option>
+                                                    <option value="Association">Association</option>
+                                                    
+                                                </select>
+                                            </div>
+                                            <div class="py-1">
+                                                <label for="siege" >Siege social</label>
+                                                <input type="text" class="form-control" id="type"
+                                                    placeholder="Siege social de l'organisation" name="siege">
+                                            </div>
                                         </div>
-                                        <div class="d-flex flex-row align-items-center me-3 mb-2">
-                                            <p class="my-auto me-2">Type</p>
-                                            <select class="form-select" name="type">
-                                                <option value="NULL" selected>Selectionnez</option>
-                                                <option value="Entreprise">Entreprise</option>
-                                                <option value="Association">Association</option>
+                                        <div class="px-3 py-2 d-flex flex-column align-items-start gap-2">
+                                            <small>Les demandes de création d'organisation sont traitées par les administrateurs.
                                                 
-                                            </select>
+                                                Une fois la demande acceptée, vous deviendrez le premier recruteur de
+                                                celle-ci.</small>
+
+                                            <button type="submit" class="btn btn-primary w-">Valider</button>
+
                                         </div>
-                                        <div class="d-flex flex-row align-items-center me-3 mb-2">
-                                            <label for="siege" class="me-2">Siege social</label>
-                                            <input type="text" class="form-control" id="type"
-                                                placeholder="Siege social de l'organisation" name="siege">
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary mb-2">Valider</button>
-
-
-
-
 
                                     </form>
 
@@ -62,51 +66,65 @@
                             <div class="col-8 p-4 flex-column bg-white">
                                 <h1 class="display-4">Mes demandes</h1>
                                 <hr>
-
-                                <div class="row">
-                                    
-                                    
-                                    <table>
-                                        <% if (Array.isArray(demandeOrga)) { %>
-                                            <% demandeOrga.forEach((dmd)=> { %>
-                                                <tr class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="container">
+                                    <div class="row">
+                                        
+                                        
+                                        <table class="table">
+                                            <% if (Array.isArray(demandeOrga)) { %>
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Siren</th>
+                                                        <th scope="col">Nom</th>
+                                                        <th scope="col">Type</th>
+                                                        <th scope="col">Siege Social</th>
+                                                        <th scope="col"></th>
                                                     
-                                                        <% for(var i=0; i < organisation.length; i++){
-                                                            if(organisation[i].siren==dmd.organisation){ %>
-                                                            <%= organisation[i].nom %>
-                                                                <%} } %>
-                                                    
-
-                                                    <th class="fw-normal">
-                                                        <label class="me-2">Siren:</label> <%= dmd.siren %>
-                                                    </th>
-                                                    <th class="fw-normal">
-                                                        <%= dmd.nom %>
-                                                    </th>
-                                                    <th class="fw-normal ">
-                                                            <%= dmd.type %>
-                                                    </th>
-                                                    <th class="fw-normal ">
-                                                        <label class="me-2">Siege social:</label> <%= dmd.siegeSocial %>
-                                                    </th>
-                                                    <th class="fw-normal ">
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <% demandeOrga.forEach((dmd)=> { %>
+                                                    <tr>
                                                         
-                                                            <% if (dmd.statut==='En attente' ) { %>
-                                                                <i class="bi bi-hourglass text-primary me-2"></i>
-                                                                <% } else if (dmd.statut==='Validé' ) { %>
-                                                                    <i class="bi bi-check-lg text-success me-2"></i>
-                                                                    <% } else { %>
-                                                                        <i class="bi bi-x-lg text-danger me-2"></i>
-                                                                        <% } %>
-                                                        <%= dmd.statut %>
-                                                    </th>
-                                                </tr>
-                                                <% }); %>
-                                                    <% } %>
-                                    </table>
-                                
+                                                            <% for(var i=0; i < organisation.length; i++){
+                                                                if(organisation[i].siren==dmd.organisation){ %>
+                                                                <%= organisation[i].nom %>
+                                                                    <%} } %>
+                                                        
+
+                                                        <td class="fw-normal">
+                                                            <%= dmd.siren %>
+                                                        </td>
+                                                        <td class="fw-normal">
+                                                            <%= dmd.nom %>
+                                                        </td>
+                                                        <td class="fw-normal ">
+                                                                <%= dmd.type %>
+                                                        </td>
+                                                        <td class="fw-normal ">
+                                                            <%= dmd.siegeSocial %>
+                                                        </td>
+                                                        <td class="fw-normal ">
+                                                            
+                                                                <% if (dmd.statut==='En attente' ) { %>
+                                                                    <i class="bi bi-hourglass text-primary me-2"></i>
+                                                                    <% } else if (dmd.statut==='Validé' ) { %>
+                                                                        <i class="bi bi-check-lg text-success me-2"></i>
+                                                                        <% } else { %>
+                                                                            <i class="bi bi-x-lg text-danger me-2"></i>
+                                                                            <% } %>
+                                                            <%= dmd.statut %>
+                                                        </td>
+                                                    </tr>
+                                                    <% }); %>
+                                                </tbody>
+                                            <% }else{ %>
+                                                <p>Vous n'avez pas réalisé de demande.</p>
+                                            <%}%>
+                                        </table>
+                                    
+                                    </div>
                                 </div>
-                                
                             </div>
                         </div>
                     </section>

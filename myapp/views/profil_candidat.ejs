@@ -9,25 +9,25 @@
             <div id="page-container">
                 <div id="content-wrap">
                     <main>
-                        <section class="py-4">
-                            <div class="row me-0 pe-1">
-                                <div class="col-3 d-flex flex-column border-end align-items-start">
+                        <div class="container-fluid py-2">
+                            <div class="row">
+                                <div class="col-3 d-flex flex-column border-end  p-3">
 
-                                    <div class="card w-auto ms-4">
+                                    <div class="card w-100">
                                         <div class="card-body">
                                             <h5 class="card-title">
                                                 <%= user.prenom %>
                                                     <%= user.nom %>
                                             </h5>
                                         </div>
-                                        <ul class="list-group list-group-flush list-unstyled p-3">
+                                        <ul class="list-group list-group-flush list-unstyled p-2">
                                             <li class="">
                                                 <%= user.mail %>
                                             </li>
                                             <li class="">
                                                 <%= user.telephone %>
                                             </li>
-                                            <li class='<%= (user.statut==1) ? "text-dark" : "text-danger" %>'>
+                                            <li class='<%= (user.statut==1) ? "text-success" : "text-danger" %>'>
                                                 <%= (user.statut==1) ? "Actif" : "Inactif" %>
                                             </li>
 
@@ -37,25 +37,25 @@
 
 
                                     </div>
-                                    <div class="ms-4">
-                                        <a href="/users/modifier_profil" class="btn btn-secondary m-2 ">Modifier mon
+                                    <div class="py-2">
+                                        <a href="/users/modifier_profil" class="btn btn-secondary mb-2">Modifier mon
                                             profil</a> <br>
                                         <%if(user.type==2){%>
-                                            <a href="/recrut/recruteur" class="btn btn-secondary m-2 ">Profil recruteur</a>
+                                            <a href="/recrut/recruteur" class="btn btn-secondary mb-2">Profil recruteur</a>
                                         <%}%>
                                         <%if(user.type==3){%>
-                                            <a href="/admin/administrateur" class="btn btn-secondary m-2 ">Profil administrateur</a>
+                                            <a href="/admin/administrateur" class="btn btn-secondary mb-2">Profil administrateur</a>
                                         <%}%>
                                     </div>
                                     
 
                                 </div>
-                                <div class="col-9 ">
+                                <div class="col-9 p-3">
 
-                                    <div class="jumbotron bg-light p-2" id="candidatures">
+                                    <div class="rounded p-2 bg-light" id="candidatures">
                                         <h1 class="display-4">Mes candidatures <i class="bi bi-file-earmark-person fa-1x me-2"></i></h1>
                                         <hr class="my-4">
-
+                                        <% if(candidatures.length>0){%>
                                         <% candidatures.forEach((candidature)=> { %>
                                             <div class="card mb-4 pt-0 " style="width: autorem;">
                                                 <div class="card-body g-4">
@@ -73,13 +73,16 @@
                                                 </div>
                                             </div>
                                             <% }) %>
+                                            <%}else{%>
+                                                <p>Vous n'avez pas enregistré de candiatures.</p>
+                                            <%}%>
 
                                     </div>
                                 </div>
 
 
                             </div>
-                        </section>
+                        </div>
                         
                     </main>
                 </div>

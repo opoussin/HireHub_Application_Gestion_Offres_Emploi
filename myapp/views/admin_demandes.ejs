@@ -19,18 +19,28 @@
                                     <% if (demandeOrga.length== 0) {%>
                                         <p>Aucune demande d'administrateur à valider.</p>
                                     <%}%>
-                                    <table>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>                                                
+                                                <th scope="col">Utilisateur</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Statut</th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
                                         <% demandeAdmin.forEach((dmdA)=> { %>
-                                            <tr
-                                                class="list-group-item d-flex justify-content-between align-items-center">
-                                                <th class="fw-normal">
+
+                                            <tr>
+                                                <td class="fw-normal">
                                                     <%= dmdA.utilisateur%>
 
-                                                </th>
-                                                <th class="fw-normal">
+                                                </td>
+                                                <td class="fw-normal">
                                                     <%= dmdA.date.toLocaleDateString("fr") %>
-                                                </th>
-                                                <th class="fw-normal">
+                                                </td>
+                                                <td class="fw-normal">
                                                     
                                                         <% if (dmdA.statut==='En attente' ) { %>
                                                             <i class="bi bi-hourglass text-primary m-2"></i>
@@ -44,26 +54,25 @@
                                                     <%= dmdA.statut %>
 
 
-                                                </th>
-                                                <th class="fw-normal">
+                                                </td>
+                                                <td class="fw-normal">
                                                     
                                                     <a
                                                         href="/admin/demandes_admin/accept?user=<%=dmdA.utilisateur%>%>" class="text-success"><i
                                                             class="bi bi-check2-circle m-2"></i>Accepter demande</a>
 
-                                                </th>
-                                                <th class="fw-normal">
+                                                </td>
+                                                <td class="fw-normal">
                                                     
                                                     <a
                                                         href="/admin/demandes_admin/deny?user=<%=dmdA.utilisateur%>%>" class="text-danger"><i
                                                             class="bi bi-x-lg m-2"></i>Refuser demande</a>
 
-                                                </th>
+                                                </td>
                                             </tr>
                                             <% }) %>
+                                          </tbody>
                                     </table>
-
-
                                 </div>
 
                             </div>
@@ -72,7 +81,7 @@
                             <div class="col-8 bg-white">
                                 <hr>
                                 <h3 class="display-6 mt-2">Organisations</h3>
-
+                                
                                 <% if ((demandeOrga.length> 0)&&(Array.isArray(demandeOrga))) {%>
                                     <div class="row row-cols-3">
                                         <% demandeOrga.forEach(function(dmdO) { %>
@@ -134,8 +143,7 @@
                                                     <% }; %>
 
                                     </div>
-
-
+                                
                             </div>
                         </div>
 
@@ -152,18 +160,27 @@
                                     <% if (demandeAllOrga.length== 0) {%>
                                         <p>Aucune demande d'administrateur existante.</p>
                                     <%}%>
-                                    <table>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>                                                
+                                                <th scope="col">Utilisateur</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Statut</th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
                                         <% demandeAllAdmin.forEach((dmdAA)=> { %>
-                                            <tr
-                                                class="list-group-item d-flex justify-content-between align-items-center">
-                                                <th class="fw-normal">
+                                            <tr>
+                                                <td class="fw-normal">
                                                     <%= dmdAA.utilisateur%>
 
-                                                </th>
-                                                <th class="fw-normal">
+                                                </td>
+                                                <td class="fw-normal">
                                                     <%= dmdAA.date.toLocaleDateString("fr") %>
-                                                </th>
-                                                <th class="fw-normal">
+                                                </td>
+                                                <td class="fw-normal">
                                                     
                                                         <% if (dmdAA.statut==='En attente' ) { %>
                                                             <i class="bi bi-hourglass text-primary m-2"></i>
@@ -177,23 +194,24 @@
                                                     <%= dmdAA.statut %>
 
 
-                                                </th>
-                                                <th class="fw-normal">
+                                                </td>
+                                                <td class="fw-normal">
                                                     
                                                     <a
                                                         href="/admin/demandes_admin/accept?user=<%=dmdAA.utilisateur%>%>" class="text-success"><i
                                                             class="bi bi-check2-circle m-2"></i>Accepter demande</a>
 
-                                                </th>
-                                                <th class="fw-normal">
+                                                </td>
+                                                <td class="fw-normal">
                                                     
                                                     <a
                                                         href="/admin/demandes_admin/deny?user=<%=dmdAA.utilisateur%>" class="text-danger"><i
                                                             class="bi bi-x-lg m-2"></i>Refuser demande</a>
 
-                                                </th>
+                                                </td>
                                             </tr>
                                             <% }) %>
+                                          </tbody>
                                     </table>
 
 
@@ -205,7 +223,7 @@
                             <div class="col-8 bg-white">
                                 <hr>
                                 <h3 class="display-6 mt-2">Organisations</h3>
-
+                                
                                 <% if ((demandeAllOrga.length> 0)&&(Array.isArray(demandeAllOrga))) {%>
                                     <div class="row row-cols-3">
                                         <% demandeAllOrga.forEach(function(dmdAO) { %>
@@ -264,11 +282,11 @@
                                             <% }); %>
                                                 <% } else { %>
                                                     <p>Aucune demande de création d'organisation existante.</p>
-                                                    <% }; %>
+                                                <% }; %>
 
                                     </div>
 
-
+                                
                             </div>
                         </div>
 

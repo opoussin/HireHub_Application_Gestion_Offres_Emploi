@@ -11,19 +11,19 @@
 
                     <main>
                         <section>
-                            <div class="container justify-content-center ">
-                                <div class="row">
+                            <div class="container-fluid justify-content-center ">
+                                <div class="row px-4">
                                     <div class="col-3 border-end">
 
                                         <div class="row pb-4">
                                             <div class="container mt-4">
                                                 <h1 class="display-6">Recherchez des utilisateurs</h1>
-                                                <form class="form-inline d-flex flex-column align-items-start " action="/admin/administrateur" method="get">
-                                                    <input type="text" class="form-control mb-2" id="mail" placeholder="...par mail" name="mail" value="<%= search.email %>">
+                                                <form class="form-inline d-flex flex-column align-items-start gap-2" action="/admin/administrateur" method="get">
+                                                    <input type="text" class="form-control" id="mail" placeholder="...par mail" name="mail" value="<%= search.email %>">
 
-                                                    <input type="text" class="form-control mb-2" id="nom" placeholder="...par nom" name="nom" value="<%= search.nom %>">
+                                                    <input type="text" class="form-control" id="nom" placeholder="...par nom" name="nom" value="<%= search.nom %>">
 
-                                                    <input type="text" class="form-control mb-2" id="prenom" placeholder="...par prenom" name="prenom" value="<%= search.prenom %>">
+                                                    <input type="text" class="form-control" id="prenom" placeholder="...par prenom" name="prenom" value="<%= search.prenom %>">
 
                                                     <input type="date" class="form-control" id="date" placeholder="...par date d'inscription" name="date" value="<%= search.date %>">
 
