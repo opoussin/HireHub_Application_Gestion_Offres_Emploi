@@ -32,104 +32,74 @@
          en fonction de la route plutôt que du type d'utilisateur vu qu'on gère déjà les droits d'accès quand on charge la 
          route avec le middleware-->
 
-
-    <!--<div class="navbar container-fluid d-flex flex-row">
-        <% if (req.originalUrl.split('/')[1] === 'admin') { %>
-            <a class="btn text-light rounded-circle btn-outline-light" href="/admin/administrateur"><i class="bi bi-house"></i></a>
-            <a class="btn text-light" href="/logout"><i class="bi bi-box-arrow-right fa-lg"></i></a>
-            <p class="my-auto text-light fw-bold">LE SITE DE TOM</p>       
-            <a class="btn btn-outline-light my-auto btn-sm" href="/admin/demandes">Gérer les demandes</a>   
-            <a class="btn btn-outline-light my-auto btn-sm" href="/users/candidat">Profil candidat</a>   
-            <a class="btn rounded text-light" href="/admin/profil_admin"><i class="box-arrow-left"></i>Profil</a>
-        
-        <% } else if (req.originalUrl.split('/')[1] === 'recrut') { %>
-            <a class="btn text-light rounded-circle btn-outline-light" href="/recrut/recruteur"><i class="bi bi-house"></i></a>
-            <a class="btn text-light" href="/logout"><i class="bi bi-box-arrow-right fa-lg"></i></a>
-            <p class="my-auto text-light fw-bold">LE SITE DE TOM</p>
-            <a class="btn btn-outline-light my-auto btn-sm" href="/users/candidat">Profil candidat</a>   
-
-            <a class="btn rounded text-light" href="/recrut/profil_recruteur"><i class="box-arrow-left"></i>Profil</a>
-
-
-        <% } else { %>
-            <a class="btn text-light rounded-circle btn-outline-light" href="/users/candidat"><i class="bi bi-house"></i></a>
-            <a class="btn text-light" href="/logout"><i class="bi bi-box-arrow-right fa-lg"></i></a>
-            <p class="my-auto text-light fw-bold">LE SITE DE TOM</p>
-            <a class="btn btn-outline-light my-auto btn-sm" href="/users/demandes">Saisir demande</a>
-            <a class="btn btn-outline-light my-auto btn-sm" href="/users/creer_orga">Créer Organisation</a>
-            <a class="btn rounded text-light" href="/users/profil_candidat"><i class="box-arrow-left"></i>Profil</a>
-
-        <% } %>
-    </div>-->
-
-    <nav id="navbar" >
-        <a class="h3 text-decoration-none text-light" href="<%=req.originalUrl.split('/')[1] === 'admin' ? '/admin/administrateur' : (req.originalUrl.split('/')[1] === 'recrut'? '/recrut/recruteur' : '/users/candidat') %>">Le site de Tom</a>
+    <nav id="navbar">
+        <a class="h3 text-decoration-none text-light" href="<%=req.originalUrl.split('/')[1] === 'admin' ? '/admin/administrateur' : (req.originalUrl.split('/')[1] === 'recrut'? '/recrut/recruteur' : '/users/candidat') %>">
+            Le site de Tom</a>
         <div class="d-flex gap-3 align-items-center">
-        <% if ((req.originalUrl.split('/')[1] === 'users' &&  req.session.orga!= null ) || (req.originalUrl.split('/')[1] === 'admin' &&  req.session.orga!= null )){ %>
-          <a class="link-light" href="/recrut/recruteur">Mode recruteur</a>
-        <%}%>
-          <div class="dropdown">
-            <div class="d-flex align-items-center gap-2 account" type="button" id="Menu"
-                 data-bs-toggle="dropdown"
-                 aria-expanded="false">
-              <span><%=req.session.prenom%> <span class="text-uppercase"><%=req.session.nom%></span></span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"
-                   class="icon-md">
-                <path strokeLinecap="round" strokeLinejoin="round"
-                      d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
-            </div>
-            <ul class="dropdown-menu" aria-labelledby="menu">
-              <li class="d-flex align-items-baseline align-items-center">
-                <a class="dropdown-item icon baseline gap-2" href="/users/creer_orga">
-                  <svg class="w-64 h-64" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <polygon
-                      points="13 11 13 9 11 9 11.025 11 3.5 11 3.5 15 5.5 15 5.5 13 11 13 11 15 13 15 13 13 18.505 13 18.5 15 20.5 15 20.5 11 13 11"></polygon>
-                    <path d="M12,2a2.5,2.5,0,1,0,2.5,2.5A2.5,2.5,0,0,0,12,2Zm0,3.5a1,1,0,1,1,1-1A1,1,0,0,1,12,5.5Z"></path>
-                    <path
-                      d="M4.5,17A2.5,2.5,0,1,0,7,19.5,2.5,2.5,0,0,0,4.5,17Zm0,3.5a1,1,0,1,1,1-1A1,1,0,0,1,4.5,20.5Z"></path>
-                    <path d="M12,17a2.5,2.5,0,1,0,2.5,2.5A2.5,2.5,0,0,0,12,17Zm0,3.5a1,1,0,1,1,1-1A1,1,0,0,1,12,20.5Z"></path>
-                    <path
-                      d="M19.5,17A2.5,2.5,0,1,0,22,19.5,2.5,2.5,0,0,0,19.5,17Zm0,3.5a1,1,0,1,1,1-1A1,1,0,0,1,19.5,20.5Z"></path>
-                  </svg>
-                  <span>Créer organisation</span>
-                </a>
-              </li>
-              <li class="d-flex align-items-baseline align-items-center">
-                <a class="dropdown-item icon baseline gap-2" href="/users/demandes">
-                  <svg class="w-64 h-64" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" fill="currentColor">
-                    <path
-                      d="m5.72 14.456 1.761-.508 10.603-10.73a.456.456 0 0 0-.003-.64l-.635-.642a.443.443 0 0 0-.632-.003L6.239 12.635l-.52 1.82zM18.703.664l.635.643c.876.887.884 2.318.016 3.196L8.428 15.561l-3.764 1.084a.901.901 0 0 1-1.11-.623.915.915 0 0 1-.002-.506l1.095-3.84L15.544.647a2.215 2.215 0 0 1 3.159.016zM7.184 1.817c.496 0 .898.407.898.909a.903.903 0 0 1-.898.909H3.592c-.992 0-1.796.814-1.796 1.817v10.906c0 1.004.804 1.818 1.796 1.818h10.776c.992 0 1.797-.814 1.797-1.818v-3.635c0-.502.402-.909.898-.909s.898.407.898.91v3.634c0 2.008-1.609 3.636-3.593 3.636H3.592C1.608 19.994 0 18.366 0 16.358V5.452c0-2.007 1.608-3.635 3.592-3.635h3.592z"></path>
-                  </svg>
-                  <span>Saisir demande</span>
-                </a>
-              </li>
-              <li class="d-flex align-items-baseline align-items-center">
+            <% if (req.originalUrl.split('/')[1] !=='users' ){ %>
+                <a class="link-light text-decoration-none" href="/users/candidat">Mode candidat</a>
+                <%}%>
+                <% if (req.originalUrl.split('/')[1] !=='recrut' && req.session.orga!=null ){ %>
+                    <a class="link-light text-decoration-none" href="/recrut/recruteur">Mode recruteur</a>
+                <%}%>
+                <% if (req.originalUrl.split('/')[1] !=='admin' && req.session.type>= 3 ){ %>
+                    <a class="link-light text-decoration-none" href="/admin/administrateur">Mode administrateur</a>
+                <%}%>
+                                    <div class="dropdown">
+                                        <div class="d-flex align-items-center gap-2 account" type="button" id="Menu"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span> <%=req.session.prenom%> 
+                                                <span class="text-uppercase"> <%=req.session.nom%> </span>
+                                            </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1" stroke="currentColor" class="icon-md">
+                                                <path strokeLinecap="round" strokeLinejoin="round"
+                                                    d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                        </div>
 
-                <a class="dropdown-item icon baseline gap-2" href="<%=req.originalUrl.split('/')[1] === 'admin' ? '/admin/profil_admin' : (req.originalUrl.split('/')[1] === 'recrut'? '/recrut/profil_recruteur' : '/users/profil_candidat') %>">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                       stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                  </svg>
-                  <span>Mon profil</span>
-                </a>
+                                        <ul class="dropdown-menu" aria-labelledby="menu">
+                                            <li class="d-flex align-items-baseline align-items-center">
+                                                <a class="dropdown-item icon baseline gap-2" href="/users/creer_orga">
+                                                    <i class="bi bi-diagram-3"></i>
+                                                    <span>Créer organisation</span>
+                                                </a>
+                                            </li>
+                                            
+                                                <li class="d-flex align-items-baseline align-items-center">
+                                                    <a class="dropdown-item icon baseline gap-2" href="/users/demandes">
+                                                        <i class="bi bi-pencil-square"></i>
 
-              </li>
-              <li class="d-flex align-items-baseline align-items-center">
-                <a class="dropdown-item icon baseline text-danger gap-2" href="/logout">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                       stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/>
-                  </svg>
-                  Se déconnecter
-                </a>
-              </li>
-            </ul>
-          </div>
+                                                        <span>Saisir demande</span>
+                                                    </a>
+                                                </li>
+                                                <% if (req.originalUrl.split('/')[1]==='admin' ){%>
+                                                    <li class="d-flex align-items-baseline align-items-center">
+                                                        <a class="dropdown-item icon baseline gap-2" href="/admin/demandes">
+                                                            <i class="bi bi-card-checklist"></i>
+                                                            <span>Gérer les demandes</span>
+                                                        </a>
+                                                    </li>
+                                                    <%}%>
+                                                        <li class="d-flex align-items-baseline align-items-center">
+
+                                                            <a class="dropdown-item icon baseline gap-2"
+                                                                href="<%=req.originalUrl.split('/')[1] === 'admin' ? '/admin/profil_admin' : (req.originalUrl.split('/')[1] === 'recrut'? '/recrut/profil_recruteur' : '/users/profil_candidat') %>">
+                                                                <i class="bi bi-gear"></i>
+                                                                <span>Mon profil</span>
+                                                            </a>
+
+                                                        </li>
+                                                        <li class="d-flex align-items-baseline align-items-center">
+                                                            <a class="dropdown-item icon baseline text-danger gap-2"
+                                                                href="/logout">
+                                                                <i class="bi bi-box-arrow-right"></i>
+                                                                Se déconnecter
+                                                            </a>
+                                                        </li>
+                                        </ul>
+                                    </div>
         </div>
-      </nav>
-    
+    </nav>
+
 </header>

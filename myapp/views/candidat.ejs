@@ -58,46 +58,87 @@
 
                                     <% listeOffre.forEach((offre)=> { %>
                                         <div class="card ">
-                                            <div class="card-body g-4">
+                                            <div class="card-body ">
                                                 <h5 class="card-title text-dark fs-3">
                                                     <%= offre.intitule %>
                                                 </h5>
                                                 <h6 class="card-subtitle mb-2 text-muted">
                                                     <%= offre.nom %>
                                                 </h6>
-                                                <p class="card-text text-dark">
+                                                <!--<p class="card-text text-dark">
                                                     <%= offre.description %>
-                                                </p>
+                                                </p>-->
+                                                <div class="d-flex flex-row gap-3 py-2 text-muted">
+                                                    <div>
+                                                        <i class="bi bi-building"></i>
+                                                        <%=offre.type%>
+                                                    </div>
+                                                    <div>
+                                                        <i class="bi bi-geo-alt-fill"></i>
+                                                        <%=offre.siegeSocial%>
+                                                    </div>
+                                                    <div>
+                                                        <i class="bi bi-clock-history"></i>
+                                                        <%=offre.rythme%> h/semaine
+                                                    </div>
+                                                    <div>
+                                                        <i class="bi bi-currency-euro"></i>
+                                                        <%=offre.salaire%>/mois
+                                                    </div>
+                                                </div>
 
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<%=offre.numero%>">
                                                     Voir l'offre
                                                   </button>
-                                                <a href="/candidature/<%=offre.numero%>" class="btn btn-secondary ">Postuler</a>
+                                                <a href="/candidature/<%=offre.numero%>" class="btn btn-primary ">Postuler</a>
 
                                             </div>
                                         </div>
 
                                         <!-- Modal à la fin mais toujours avant le footer-->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="exampleModal<%=offre.numero%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel"> <%= offre.intitule %> </h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-                                                    <div class="modal-body">
+                                                    <div class="d-flex flex-row justify-content-between p-3">
                                                         <h6 class="modal-title" id="exampleModalLabel"> <%= offre.nom %> </h6>
-                                                        <p>SIREN: <%=offre.organisation%></p>
+                                                        <div>
+                                                            <i class="bi bi-geo-alt-fill"></i>
+                                                            <%=offre.siegeSocial%>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-body border-bottom">
                                                         
-                                                        <p class="card-text text-dark">
+                                                        <p class="card-text text-dark text-justify">
                                                             <%= offre.description %>
                                                         </p>
 
 
                                                     </div>
+                                                    <div class="modal-body d-flex flex-column gap-2">
+                                                        <div>
+                                                            <label> Responsable: 
+                                                                <%=offre.responsable%>
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <i class="bi bi-building"></i>
+                                                            <%=offre.type%>
+                                                        </div>
+                                                        <div>
+                                                            <i class="bi bi-clock-history"></i>
+                                                            <%=offre.rythme%> h/semaine
+                                                        </div>
+                                                        <div>
+                                                            <i class="bi bi-currency-euro"></i>
+                                                            <%=offre.salaire%>/mois
+                                                        </div>
+                                                    </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                        <a href="/candidature/<%=offre.numero%>" type="button" class="btn btn-primary">Postuler</a>
                                                     </div>
                                                 </div>
                                             </div>

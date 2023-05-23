@@ -61,18 +61,18 @@ router.post('/connexion', function (req, res, next) {
       session.prenom= result.prenom;
       session.type=result.type;
       console.log("type:", result)
-      communModel.areRecruteur(session.userid, function(result) {
-        if (result) {
+      //communModel.areRecruteur(session.userid, function(result) { //pas besoin de checker s'il est recruteur, on le sait en cherchant avec readOrgaUser
+        //if (result) {
           communModel.readOrgaUser(session.userid, function (result) {
             var orga = result.organisation;
             session.orga = orga;
 
             res.redirect('/users/candidat');
           });
-        } else {
+        /*} else {
           res.redirect('/users/candidat');
         }
-      });
+      });*/
     } else {
       console.log("erreur");
       res.render('connexion');

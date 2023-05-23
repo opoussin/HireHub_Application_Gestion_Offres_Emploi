@@ -43,7 +43,11 @@ C - upload de fichiers
     - modifier sa candidature
 
 
-O - supprimer une demande amdin 
+O + supprimer une demande amdin 
+O - modifier les filtres pour prévoir la casse (comme dans amdin)
+O + Faire un dropdown pour la navbar
+O - Gérer quand tu appartient à plusieurs organisation (créer offre, afficher offres, candidatures...)
+O - vérifier partout que pour checker si on est recruteur on check si l'utilisateur est bien dans APPARTENIR_ORGA
 
 ADMIN
 O + vue accueil admin -> cote a cote les dmd orga et dmd admin, 
