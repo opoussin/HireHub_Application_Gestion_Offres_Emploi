@@ -155,7 +155,7 @@ module.exports = {
     },
 
     readUserFiltre: function (mail, nom, prenom, date, type, statut, callback) {
-        console.log("mail" + mail + "nom" + nom + "prenom" + prenom + "date" + date);
+        //console.log("mail" + mail + "nom" + nom + "prenom" + prenom + "date" + date);
         var sql = mysql.format("SELECT * FROM UTILISATEUR WHERE 1");
         
         if ( mail !== undefined && mail !== "") {            
@@ -182,7 +182,7 @@ module.exports = {
         db.query(sql, function (err, results) {
             console.log(err);
             console.log(sql);
-            console.log("results" + results);
+            console.log("results", results);
             callback(results);
         });
 

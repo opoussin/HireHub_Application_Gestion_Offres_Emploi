@@ -18,7 +18,23 @@
 
                                         <div class="row pb-4">
                                             <div class="container mt-4">
+                                                <h1 class="display-6">Recherchez des offres</h1>
+                                                <form class="form-inline d-flex flex-column align-items-start gap-2" action="/recrut/recruteur" method="get">
+                                                    <% if (orgaResult && orgaResult.length > 0) { %>
+                                                        
+                                                        <select class="form-select" aria-label="Default select example" name="orga">
+                                                            <% orgaResult.forEach((orga) => { %>    
+                                                                <option value="<%=orga.siren%>"> <%=orga.nom%></option>
+                                                            <% }); %>
+                                                        </select>
+                                                    <% } %>
+                                                    <input type="text" class="form-control" id="intitule" placeholder="...par intitule" name="intitule" value="<%= search.intitule%>">
 
+                                                    <label for="date">Par date de validité:</label>
+                                                    <input type="date" class="form-control" id="date" placeholder="...par date d'inscription" name="date" value="<%= search.date %>">
+
+                                                    <button class="btn btn-primary mt-3" type="submit">Valider</button>
+                                                </form>
                                                 <a href="/recrut/creer_offre" class="btn btn-primary mt-3 ">Créer une offre</a>
                                                 
                                             </div>
@@ -32,23 +48,94 @@
                                             <% listeOffre.forEach((offre)=> { %>
                                                 <div class="card">
                                                     <div class="card-body g-4">
-                                                        <h5 class="card-title text-dark fs-3">
-                                                            <%= offre.intitule %>
-                                                            <%if (offre.etat=='non publiee'){%>
-                                                                <%= offre.etat %> 
-                                                            <%}%>
-                                                        </h5>
+                                                        <div class="d-flex flex-row justify-content-between card-title">
+                                                            <h5 class="text-dark fs-3">
+                                                                <%= offre.intitule %>
+                                                            </h5>
+                                                            <a href="/recrut/supp_offre/<%= offre.numero%>" class=" text_decoration-none text-dark"> <i class="bi bi-trash px-2"></i> Supprimer</a>
+
+                                                        </div>
+                                                        
+                                                        <p class="fs-6 text-muted">Disponible jusqu'au: <%=offre.dateValidite.toLocaleDateString("fr")%></p>
+        
                                                         <h6 class="card-subtitle mb-2 text-muted">
                                                             <%= offre.nom %>
                                                         </h6>
-                                                        <p class="card-text text-dark">
+                                                        <!--<p class="card-text text-dark">
                                                             <%= offre.description %>
-                                                        </p>
-                                                        <a href="/recrut/listeCandidat/<%= offre.numero%>" class="btn btn-secondary">Voir candidats</a>
-
-                                                        <a href="/recrut/editer_offre/<%= offre.numero%>" class="btn btn-secondary">Editer l'offre</a>
-                                                        <a href="/recrut/supp_offre/<%= offre.numero%>" class="btn btn-secondary ">Supprimer</a>
+                                                        </p>-->
+                                                        <div class="d-flex flex-row gap-3 py-2 text-muted">
+                                                            <div>
+                                                                <i class="bi bi-building"></i>
+                                                                <%=offre.type%>
+                                                            </div>
+                                                            <div>
+                                                                <i class="bi bi-geo-alt-fill"></i>
+                                                                <%=offre.siegeSocial%>
+                                                            </div>
+                                                            <div>
+                                                                <i class="bi bi-clock-history"></i>
+                                                                <%=offre.rythme%> h/semaine
+                                                            </div>
+                                                            <div>
+                                                                <i class="bi bi-currency-euro"></i>
+                                                                <%=offre.salaire%>/mois
+                                                            </div>
+                                                        </div>
                                                         
+                                                        <div class="d-flex flex-row gap-2">
+                                                            <a href="/recrut/listeCandidat/<%= offre.numero%>" class="btn btn-primary">Voir candidats</a>
+                                                            <a type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal<%=offre.numero%>">
+                                                                Voir l'offre
+                                                            </a>
+                                                            <a href="/recrut/editer_offre/<%= offre.numero%>" class="btn btn-outline-secondary">Editer l'offre</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Modal à la fin mais toujours avant le footer-->
+                                                <div class="modal fade" id="exampleModal<%=offre.numero%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel"> <%= offre.intitule %> </h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="d-flex flex-row justify-content-between p-3">
+                                                                <h6 class="modal-title" id="exampleModalLabel"> <%= offre.nom %> </h6>
+                                                                <div>
+                                                                    <i class="bi bi-geo-alt-fill"></i>
+                                                                    <%=offre.siegeSocial%>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body border-bottom">
+                                                                
+                                                                <p class="card-text text-dark text-justify">
+                                                                    <%= offre.description %>
+                                                                </p>
+                                                            </div>
+                                                            <div class="modal-body d-flex flex-column gap-2">
+                                                                <div>
+                                                                    <label> Responsable: 
+                                                                        <%=offre.responsable%>
+                                                                    </label>
+                                                                </div>
+                                                                <div>
+                                                                    <i class="bi bi-building"></i>
+                                                                    <%=offre.type%>
+                                                                </div>
+                                                                <div>
+                                                                    <i class="bi bi-clock-history"></i>
+                                                                    <%=offre.rythme%> h/semaine
+                                                                </div>
+                                                                <div>
+                                                                    <i class="bi bi-currency-euro"></i>
+                                                                    <%=offre.salaire%>/mois
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a href="/candidature/<%=offre.numero%>" type="button" class="btn btn-primary">Postuler</a>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <% })%> 

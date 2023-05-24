@@ -7,6 +7,7 @@ deleteOffre O
 updateOffre O
 readAllCandidat O
 readAllOffreOrga O
+readAllOffreOrgaRecrut
 updateOffreEtat O
 creatFiche O
 deleteFiche O
@@ -14,6 +15,7 @@ updateFiche O
 acceptCandidat O
 deleteRecruteurOrga O
 readAllDmdRecruteur O
+readAllOrgaRecruteur
 */
 
 var db = require('./db.js');
@@ -135,10 +137,33 @@ module.exports = {
     readAllOffreOrga: function (siren, callback) {
         sql = "SELECT * FROM OFFRE o INNER JOIN ORGANISATION org ON o.organisation=org.siren INNER JOIN FICHE_POSTE f ON f.offre = o.numero WHERE siren = ?";
         db.query(sql, siren, function (err, results) {
-            if (err) throw err;
+            if (err) return callback([]);
             callback(results);
         });
     },
+
+    readAllOffreOrgaRecrut: function (mail, orga, intitule, date, callback) {
+        var sql = "SELECT * FROM OFFRE o INNER JOIN ORGANISATION org ON o.organisation=org.siren INNER JOIN FICHE_POSTE f ON f.offre = o.numero INNER JOIN APPARTENIR_ORGA a ON a.organisation=o.organisation WHERE mail = ?";
+        console.log("siren:", orga);
+        if ( orga !== undefined && orga !== "") {
+            sql += ` AND org.siren=${orga}`;
+        }
+        if ( intitule !== undefined && intitule !== "") {
+            sql += ` AND f.intitule like "%${intitule}%"`;
+        }
+        if ( date !== undefined && date !== "") {
+            sql += ` AND  CAST(o.dateValidite as DATE)="${date}"`;
+        }
+
+        sql +=' ORDER BY o.numero DESC';
+        db.query(sql, mail, function (err, results) {
+            console.log(sql);
+            //console.log("results", results);
+            if (err) return callback([]);
+            callback(results);
+        });
+    },
+
     readOffre: function (numero, callback) {
         sql = "SELECT * FROM OFFRE o INNER JOIN FICHE_POSTE f ON f.offre = o.numero WHERE numero = ?";
         db.query(sql, numero, function (err, results) {
@@ -221,6 +246,15 @@ module.exports = {
         db.query(sql5, function (err, results) {
             if (err) throw err;
             callback(results);
+        });
+    },
+
+    readAllOrgaRecruteur: function (mail, callback) {
+        db.query("SELECT * FROM APPARTENIR_ORGA a INNER JOIN ORGANISATION o ON a.organisation=o.siren WHERE a.mail=?", mail, function
+            (err, results) {
+                console.log("resultat orga:", results);
+                if (err) throw err;
+                callback(results);
         });
     }
 }

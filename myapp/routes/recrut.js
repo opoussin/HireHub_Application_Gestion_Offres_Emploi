@@ -7,12 +7,22 @@ var recruteurModel = require('../Modele/Recruteur.js');
 const { urlencoded } = require('express');
 
 router.get('/recruteur', function (req, res, next) {
-    var siren=req.session.orga;
+    //var siren=req.session.orga;
+
     var mail=req.session.userid;
-    req.session.current_profil=2;
+    req.session.current_profil=2; //à quoi ça sert? On peut l'enlever si on utilise le nouveau header??
     var candidat = "";
-    result = recruteurModel.readAllOffreOrga (siren, function (results) {
-    res.render('recruteur', {candidat : candidat, listeOffre: results , req : req});
+
+    var orga = req.query.orga;
+    var intitule = req.query.intitule;
+    var date = req.query.date;
+    
+    recruteurModel.readAllOffreOrgaRecrut (mail, orga, intitule, date, function (results) {
+      recruteurModel.readAllOrgaRecruteur(mail, function(orgaResult){
+        res.render('recruteur', {candidat : candidat, listeOffre: results ,orgaResult: orgaResult, req : req, search:{
+          orga:orga, intitule:intitule, date:date}
+        });
+      });
   });
   
 });
@@ -20,8 +30,11 @@ router.get('/recruteur', function (req, res, next) {
 router.get('/creer_offre', function (req, res, next) {
     var siren=req.session.orga;
     var mail=req.session.userid;
-   
-    res.render('creer_offre', {req : req});
+    console.log("user" + mail);
+    recruteurModel.readAllOrgaRecruteur(mail, function(orgaResult){
+      console.log("orga result", orgaResult);
+      res.render('creer_offre', {req : req, orgaResult: orgaResult});
+    })
 });
 
 router.post('/creer_offre', function (req, res, next) {
@@ -39,7 +52,10 @@ router.post('/creer_offre', function (req, res, next) {
     var salaire = req.body.salaire;
     var description = req.body.description;
     var etat = req.body.etat;
-    var organisation = req.session.orga;
+
+
+    var organisation = req.body.siren;
+    console.log("orga", organisation);
 
   // Appel à la fonction creat du modèle Utilisateur
   recruteurModel.creatOffre(organisation, etat, dateValidite, pieces, nombrePieces, intitule, statut, responsable, type, lieu, rythme, salaire, description, function (result) {

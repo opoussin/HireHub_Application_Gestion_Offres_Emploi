@@ -19,7 +19,7 @@
                                     <form class="form-inline d-flex flex-column align-items-start gap-2" action="" method="post">
 
                                         
-                                            <input type="text" class="form-control" id="intitule"
+                                        <input type="text" class="form-control" id="intitule"
                                                 placeholder="Recherchez des offres" name="intitule" value="">
                                         
                                         <input type="text" class="form-control mb-2" id="lieu" placeholder="Lieu"
@@ -58,10 +58,12 @@
 
                                     <% listeOffre.forEach((offre)=> { %>
                                         <div class="card ">
-                                            <div class="card-body ">
+                                            <div class="card-body">
                                                 <h5 class="card-title text-dark fs-3">
                                                     <%= offre.intitule %>
                                                 </h5>
+                                                <p class="fs-6 text-muted">Disponible jusqu'au: <%=offre.dateValidite.toLocaleDateString("fr")%></p>
+
                                                 <h6 class="card-subtitle mb-2 text-muted">
                                                     <%= offre.nom %>
                                                 </h6>
