@@ -71,8 +71,8 @@ module.exports = {
             }
         });
     },
-    readOrga: function (nom, callback) {
-        db.query("select * from ORGANISATION where nom= ?", nom, function
+    readOrga: function (siren, callback) {
+        db.query("select * from ORGANISATION where siren= ?", siren, function
             (err, results) {
             if (err) throw err;
             callback(results);

@@ -90,12 +90,18 @@ router.get('/supp_offre/:numero', function (req, res, next) {
 
 router.get('/editer_offre/:numero', function (req, res, next) {
   let numero = req.params.numero;
-  console.log(numero);
-    recruteurModel.readOffre(numero, function (result) {
+  console.log("numero", numero);
+    recruteurModel.readOffre(numero, function (results) {
       console.log(result);
+      var result = results[0];
       if (result) {
-        console.log("deuxieemfoosi", result);
-        res.render('editer_offre', {offre: result, req : req});
+        //console.log("deuxieemfoosi", result);
+        communModel.readOrga(result.organisation, function(orgaResult){
+          if(orgaResult){
+            var orga = orgaResult[0];
+            res.render('editer_offre', {offre: result, orga: orga, req : req});
+          }
+        });
       } else {
         res.redirect('/recrut/recruteur');
       }
@@ -138,6 +144,7 @@ router.post('/editer_offre', function (req, res, next) {
     var salaire = req.body.salaire;
     var description = req.body.description;
     
+    console.log("req.body:",req.body);
     recruteur.Model.updateOffre(etat, dateValidite, pieces, nombrePieces, numero, function (result) {
       recruteur.Model.updateFiche(intitule, statut, responsable, type, lieu, rythme, salaire, description, numero, function (result){
         res.redirect('/recrut/recruteur');
