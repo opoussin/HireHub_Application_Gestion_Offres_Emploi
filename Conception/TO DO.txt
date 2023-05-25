@@ -16,17 +16,24 @@ C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
     C + changer de profil et afficher les offres d'une entreprise
     C + créer un offre
         - améliorer front formulaire ( espaces, champs obligatoires)
+        - bouton radio qui s'affichent pas trop bien
+        - enlever le lieu automatique en fonction de la localisation de l'orga
     o éditer une offre
         o demander comment passer la ref de l'offre pour l'éditer
+        - afficher les données pour éditer l'offre
     + supprimer une offre
     - regler le pbm de la date de l'offre
     + voir les candidat
         + telecharger une piece de candidat
         - selectionner un candidat
-        optionnel refuser un candidat
+        - rajouter un bouton pour revenir à la page accueil recrut
+        - afficher quand il n'y a pas de candidat
+        - optionnel refuser un candidat
     + revenir profil candidat
     - profil recruteur
         - mettre demande recruteur dedans
+        - ameliorer le front
+    
 
 CANDIDAT
 C + mettre des valeurs dans les filtres candidat.ejs + terminer les filtres
@@ -41,6 +48,7 @@ C - upload de fichiers
     - inserer une candidature
     - inserer plusieurs pieces
     - modifier sa candidature
+    - ça plante des fois
 
 
 O + supprimer une demande amdin 
@@ -62,6 +70,8 @@ VRAC
 - rajouter condition inscription si deja une session cree
 - dans toutes les fonctions faire de la gestion d'erreurs
 stand by plusieurs orga par recruteur ( select orga pour poster une offre, afficher les offres)
+- pas possible de se co avec celeste@mail mdp:123
+- filtrage des offres qui marche pas vraiment
 
 TEST UNITAIRES fonction
 O - administrateur
