@@ -1,16 +1,92 @@
-stand by - terminer modifier profil qui marche pas ( redirection)
-O - rediriger vue accueil recruteur profil candidat : bouton conditionnel en focntion du type qui redirigent vers les accueil correspondant
-O - rediriger vue accueil admin
-C - mettre des valeurs dans les filtres candidat.ejs + terminer les filtres
-C - faire la route dans users.js des filtres
-C - enlever bouton modifier profil dans accueil candidat
-O DONE - régler pbm vue dmd recruteur formulaire_recruteur
-C- enlever bouton voir mes candidatures
-C - supprimer bouton active accueil candidat
-O - bouton voir offre accueil candidat
-O - bouton Postuler
-stand by - upload de fichiers + gerer acceptation et refus de candidat, mise a jour d'une offre
-optionnel - afficher message disant qu'il n'y a pas de candidatures pour l'instant profil candidat
-O - bouton créer dmd organisation
++ terminer modifier profil qui marche pas ( redirection)
+O + rediriger vue accueil recruteur profil candidat : bouton conditionnel en focntion du type qui redirigent vers les accueil correspondant
+O + rediriger vue accueil admin
+C + enlever bouton modifier profil dans accueil candidat
+O + régler pbm vue dmd recruteur formulaire_recruteur
+C + enlever bouton voir mes candidatures
+C + supprimer bouton active accueil candidat
+O + bouton voir offre accueil candidat
+O + bouton Postuler
+
+RECRUTEUR
+C + tester AI offre
+C + mettre l'auto increment sur numero de offre
+
 C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton editer, voir candidat, supprimer,), bouton creer offre, page de formulaire, 
-O - vue accueil admin -> cote a cote les dmd orga et dmd admin, 
+    C + changer de profil et afficher les offres d'une entreprise
+    C + créer un offre
+        - améliorer front formulaire ( espaces, champs obligatoires)
+        - bouton radio qui s'affichent pas trop bien
+        - enlever le lieu automatique en fonction de la localisation de l'orga
+    o éditer une offre
+        + demander comment passer la ref de l'offre pour l'éditer
+        + afficher les données pour éditer l'offre
+        - updater les données
+    + supprimer une offre
+    + regler le pbm de la date de l'offre
+    + voir les candidat
+        + telecharger une piece de candidat
+        - selectionner un candidat
+        - rajouter un bouton pour revenir à la page accueil recrut
+        - afficher quand il n'y a pas de candidat
+        - optionnel refuser un candidat
+    + revenir profil candidat
+    - profil recruteur
+        - mettre demande recruteur dedans
+        + ameliorer le front -> afficher les organisation auxquelles il appartient
+    	- changer les longues cartes en petites
+
+CANDIDAT
+C + mettre des valeurs dans les filtres candidat.ejs + terminer les filtres
+C + faire la route dans users.js des filtres
+C + réparer le front d'accueil candidat
+O + bouton créer dmd organisation
+optionnel + afficher message disant qu'il n'y a pas de candidatures pour l'instant profil candidat
+C - upload de fichiers 
+    + reprendre le code du prof
+    - arranger le front de file_upload
+    + arragner le numero qui est egal à upload
+    + inserer une candidature
+    + inserer plusieurs pieces
+    - modifier sa candidature
+    - voir offre profil candidat
+    - ça plante des fois
+
+
+O + supprimer une demande amdin 
+O - modifier les filtres pour prévoir la casse (comme dans amdin)
+O + Faire un dropdown pour la navbar
+O + Gérer quand tu appartient à plusieurs organisation (créer offre, afficher offres, candidatures...)
+O - vérifier partout que pour checker si on est recruteur on check si l'utilisateur est bien dans APPARTENIR_ORGA
+
+ADMIN
+O + vue accueil admin -> cote a cote les dmd orga et dmd admin, 
+O - OPTION si j'ai le temps -> mettre des boutons de recherche dans les demandes
+
+VRAC
++ header conditionnels
++ offres non publiees : gerer affichage et mention brouillon
++ rajouter bouton déconnexion dans tout les profils
+- annuler la casse dans les formulaires 
+- Affiner les filtres
+- rajouter condition inscription si deja une session cree
+- dans toutes les fonctions faire de la gestion d'erreurs
+stand by plusieurs orga par recruteur ( select orga pour poster une offre, afficher les offres)
+- pas possible de se co avec celeste@mail mdp:123
+- filtrage des offres qui marche pas vraiment
+
+TEST UNITAIRES fonction
+O - administrateur
+O 1/2, C 2/2- candidat
+C - commun
+C - recruteur
+
+TEST UNITAIRES ROUTE
+O - admin 82
+O - index 100
+O - recrut 143
+C - upload 109
+C - users 243
+
+
+

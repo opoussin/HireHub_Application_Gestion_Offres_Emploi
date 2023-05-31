@@ -8,23 +8,27 @@
 <div id="page-container">
     <div id="content-wrap">
 
-        <div class="container">
-            <h2>Liste des candidats</h2>
+            <div class="row d-flex flex-row justify-content-center">
+                <div class="col-8 p-4 flex-column bg-white">
+                    <h2 class="display-4" >Liste des candidats</h2>
+                    <hr>
 
-            <% candidats.forEach((candidat) => { %>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= candidat.nom %> <%= candidat.prenom %></h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Pièces de candidature :</h6>
-                        <ul>
-                            <% candidat.pieces.forEach((piece) => { %>
-                                <li><a href="/candidature/getfile/<%= piece %>" target="_blank"><%= piece %></a></li>                   
-                            <% }) %>
-                        </ul>
-                    </div>
+                    <% candidats.forEach((candidat) => { %>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= candidat.nom %> <%= candidat.prenom %></h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Pièces de candidature :</h6>
+                                <ul>
+                                    <% candidat.pieces.forEach((piece) => { %>
+                                        <li><a href="/candidature/getfile/<%= piece %>" target="_blank"><%= piece %></a></li>                   
+                                    <% }) %>
+                                </ul>
+                            </div>
+                        </div>
+                    <% }) %>
                 </div>
-            <% }) %>
-        </div>
+            </div>
+        
         
     </div>
     </div>

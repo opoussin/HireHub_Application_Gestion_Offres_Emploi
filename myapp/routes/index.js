@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var communModel = require('../Modele/Commun.js')
+var recruteurModel = require('../Modele/Recruteur.js')
+
 //const session = require('express-session'); 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -63,9 +65,13 @@ router.post('/connexion', function (req, res, next) {
       console.log("type:", result)
       //communModel.areRecruteur(session.userid, function(result) { //pas besoin de checker s'il est recruteur, on le sait en cherchant avec readOrgaUser
         //if (result) {
-          communModel.readOrgaUser(session.userid, function (result) {
-            var orga = result.organisation;
-            session.orga = orga;
+          recruteurModel.readAllOrgaRecruteur(session.userid, function (result) {
+            if(result){
+              session.orga = result;
+              console.log("user orga:", result); 
+            }else{
+              session.orga=[];
+            }
 
             res.redirect('/users/candidat');
           });

@@ -3,7 +3,7 @@ var router = express.Router();
 var orgaModel = require('../Modele/Organisation.js')
 var candidatModel = require('../Modele/Candidat.js')
 var communModel = require('../Modele/Commun.js')
-var recruteurModel = require('../Modele/Recruteur.js');
+var recruteurModel = require('../Modele/Recruteur.js')
 const { urlencoded } = require('express');
 
 router.get('/recruteur', function (req, res, next) {
@@ -159,11 +159,9 @@ router.get('/profil_recruteur', function (req, res, next) {
     var mail=req.session.userid;
     var siren = req.session.orga;
     communModel.readUser(mail, function (user) {
-      candidatModel.readOrgaUser(siren, function (result) {
-        res.render('profil_recruteur', { user: user, orga: result , req : req});
-        });
+      
+      res.render('profil_recruteur', { user: user, organisations: req.session.orga , req : req});
     });
-  
 });
 
 module.exports = router;

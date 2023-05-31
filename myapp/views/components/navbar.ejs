@@ -39,7 +39,7 @@
             <% if (req.originalUrl.split('/')[1] !=='users' ){ %>
                 <a class="link-light text-decoration-none" href="/users/candidat">Mode candidat</a>
                 <%}%>
-                <% if (req.originalUrl.split('/')[1] !=='recrut' && req.session.orga!=null ){ %>
+                <% if (req.originalUrl.split('/')[1] !=='recrut' && req.session.orga.length!=0 ){ %>
                     <a class="link-light text-decoration-none" href="/recrut/recruteur">Mode recruteur</a>
                 <%}%>
                 <% if (req.originalUrl.split('/')[1] !=='admin' && req.session.type>= 3 ){ %>
@@ -73,9 +73,9 @@
                                                         <span>Saisir demande</span>
                                                     </a>
                                                 </li>
-                                                <% if (req.originalUrl.split('/')[1]==='admin' ){%>
+                                                <% if (req.originalUrl.split('/')[1]==='admin' || req.originalUrl.split('/')[1]==='recrut'){%>
                                                     <li class="d-flex align-items-baseline align-items-center">
-                                                        <a class="dropdown-item icon baseline gap-2" href="/admin/demandes">
+                                                        <a class="dropdown-item icon baseline gap-2" href="<%=req.originalUrl.split('/')[1] === 'admin' ? '/admin/demandes' : '/recrut/demandes'%>">
                                                             <i class="bi bi-card-checklist"></i>
                                                             <span>Gérer les demandes</span>
                                                         </a>
