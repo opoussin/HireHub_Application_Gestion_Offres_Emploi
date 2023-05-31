@@ -19,10 +19,11 @@ C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
         - bouton radio qui s'affichent pas trop bien
         - enlever le lieu automatique en fonction de la localisation de l'orga
     o éditer une offre
-        o demander comment passer la ref de l'offre pour l'éditer
-        - afficher les données pour éditer l'offre
+        + demander comment passer la ref de l'offre pour l'éditer
+        + afficher les données pour éditer l'offre
+        - updater les données
     + supprimer une offre
-    - regler le pbm de la date de l'offre
+    + regler le pbm de la date de l'offre
     + voir les candidat
         + telecharger une piece de candidat
         - selectionner un candidat
@@ -32,7 +33,7 @@ C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
     + revenir profil candidat
     - profil recruteur
         - mettre demande recruteur dedans
-        - ameliorer le front
+        - ameliorer le front -> afficher les organisation auxquelles il appartient
     
 
 CANDIDAT
@@ -40,21 +41,22 @@ C + mettre des valeurs dans les filtres candidat.ejs + terminer les filtres
 C + faire la route dans users.js des filtres
 C + réparer le front d'accueil candidat
 O + bouton créer dmd organisation
-optionnel - afficher message disant qu'il n'y a pas de candidatures pour l'instant profil candidat
+optionnel + afficher message disant qu'il n'y a pas de candidatures pour l'instant profil candidat
 C - upload de fichiers 
     + reprendre le code du prof
     - arranger le front de file_upload
     + arragner le numero qui est egal à upload
-    - inserer une candidature
-    - inserer plusieurs pieces
+    + inserer une candidature
+    + inserer plusieurs pieces
     - modifier sa candidature
+    - voir offre profil candidat
     - ça plante des fois
 
 
 O + supprimer une demande amdin 
 O - modifier les filtres pour prévoir la casse (comme dans amdin)
 O + Faire un dropdown pour la navbar
-O - Gérer quand tu appartient à plusieurs organisation (créer offre, afficher offres, candidatures...)
+O + Gérer quand tu appartient à plusieurs organisation (créer offre, afficher offres, candidatures...)
 O - vérifier partout que pour checker si on est recruteur on check si l'utilisateur est bien dans APPARTENIR_ORGA
 
 ADMIN
