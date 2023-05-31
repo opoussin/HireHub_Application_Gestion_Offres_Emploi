@@ -81,4 +81,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+var cors=require('cors');
+app.use(cors());
+
 module.exports = app;
