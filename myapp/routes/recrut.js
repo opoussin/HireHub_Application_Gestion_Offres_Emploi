@@ -164,4 +164,14 @@ router.get('/profil_recruteur', function (req, res, next) {
     });
 });
 
+router.get('/demandes', async function(req, res, next) {
+    var mail = req.session.userid;
+    var orgas = req.session.orga;
+    recruteurModel.readAllDmdRecruteur(orgas, function(result){
+      res.render('recrut_demandes', { demandesRecruteur: result, organisation: orgas, req : req});
+    });
+    
+});
+
+
 module.exports = router;

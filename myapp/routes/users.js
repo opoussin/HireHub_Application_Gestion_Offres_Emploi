@@ -185,7 +185,7 @@ router.get('/demandes', function (req, res, next) {
 router.post('/demandes/recruteur', function (req, res, next) {
   var mail=req.session.userid;
 
-    var siren = req.body.choix; //renvoie le siren
+    var siren = [{siren : req.body.choix}]; //renvoie le siren
     recruteurModel.readAllDmdRecruteur(siren, function (resultDmd) {
       if(resultDmd )
     candidatModel.creatDmdRecruteur(mail, siren, function (result) {

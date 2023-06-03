@@ -52,22 +52,25 @@
                                 <h1 class="display-4">Mes organisations <i class="bi bi-file-earmark-person fa-1x me-2"></i></h1>
                                 <hr class="my-4">
                                 <% if(organisations.length>0){%>
+                                    
                                 <% organisations.forEach((orga)=> { %>
+                                    
                                     <div class="card mb-4 pt-0 " style="width: autorem;">
                                         <div class="card-body g-4">
                                             <h5 class="card-title text-dark fs-3">
-                                                <%= orga.siren %>
+                                                <%= orga.nom %>
                                             </h5>
                                             <h6 class="card-subtitle mb-2 text-muted">
-                                                <%= orga.nom %>
+                                                <%= orga.siren %>
                                             </h6>
                                             <p class="card-text text-dark">
-                                                <%= orga.type %>
+                                                <i class="bi bi-building"></i> <%= orga.type %>
                                             </p>
-                                            <a href="#" class="btn btn-secondary">Voir l'offre</a>
-                                            <a href="#" class="btn btn-secondary ">Modifier candidature</a>
+                                            <a href="http://localhost:3000/recrut/recruteur?orga=<%=orga.siren%>&intitule=&date=" class="btn btn-primary">Voir les offres</a>
                                         </div>
                                     </div>
+
+                                        
                                     <% }) %>
                                     <%}else{%>
                                         <p>Vous n'avez pas enregistré de candiatures.</p>

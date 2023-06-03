@@ -7,6 +7,7 @@ C + enlever bouton voir mes candidatures
 C + supprimer bouton active accueil candidat
 O + bouton voir offre accueil candidat
 O + bouton Postuler
+O - pb avec les demandes (ça n'insere pas quand je teste avec celeste par ex)
 
 RECRUTEUR
 C + tester AI offre

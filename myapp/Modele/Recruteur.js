@@ -195,8 +195,19 @@ module.exports = {
         });
     },
     readAllDmdRecruteur: function (siren, callback) {
-        var sql = mysql.format("SELECT * FROM UTILISATEUR u INNER JOIN DMD_RECRUTEUR r ON u.mail=r.recruteur WHERE r.organisation=?");
-        db.query(sql, siren, function (err, results) {
+        console.log("oargass", siren);
+        var sql = mysql.format("SELECT * FROM UTILISATEUR u INNER JOIN DMD_RECRUTEUR r ON u.mail=r.recruteur");
+        if(siren!= undefined && siren.length > 0){
+            sql += ` WHERE`
+            for(i = 0; i<siren.length; i++){
+                sql += ` r.organisation = ${siren[i].siren}`
+                if (i < siren.length - 1){
+                    sql += ` OR`
+                };
+            };
+        };
+        
+        db.query(sql, function (err, results) {
             if (err) throw err;
             callback(results);
         });
