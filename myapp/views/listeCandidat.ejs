@@ -16,7 +16,13 @@
                     <% candidats.forEach((candidat) => { %>
                         <div class="card">
                             <div class="card-body">
+                                <%console.log(candidat);%>
                                 <h5 class="card-title"><%= candidat.nom %> <%= candidat.prenom %></h5>
+                                <% if(candidat.etat==1){%>
+                                    Candidat accepté
+                                <%}else{%>
+                                   <a href="/recrut/listeCandidat/<%=numero%>/<%=candidat.mail%>" class="btn btn-secondary ">Accepter</a>
+                                <%}%>
                                 <h6 class="card-subtitle mb-2 text-muted">Pièces de candidature :</h6>
                                 <ul>
                                     <% candidat.pieces.forEach((piece) => { %>

@@ -186,13 +186,15 @@ module.exports = {
             callback(results);
         });
     },
-    acceptCandidat: function (offre, callback) {
-        deleteOffre(offre);
-        var sql = mysql.format("DELETE FROM CANDIDATURE WHERE offre=?");
-        db.query(sql, function (err, results) {
-            if (err) throw err;
-            callback(results);
-        });
+    acceptCandidat: function (numero, mail, callback) {
+        console.log("oui lala");
+        var sql = mysql.format("UPDATE CANDIDATURE SET etat=1 WHERE offre =? AND candidat=?", [numero, mail]);
+        console.log(sql);
+        db.query(sql, function (err) {
+            console.log("dans la query");
+                if (err) throw err;
+                callback(result);
+            });
     },
     readAllDmdRecruteur: function (siren, callback) {
         console.log("oargass", siren);

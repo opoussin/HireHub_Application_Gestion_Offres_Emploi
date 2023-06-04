@@ -120,7 +120,7 @@ router.get('/listeCandidat/:numero', function (req, res, next) {
         console.log(candidat.pieces);
       });
 
-      res.render('listeCandidat', { candidats: result, req: req });
+      res.render('listeCandidat', { numero, candidats: result, req: req });
     } else {
       console.log("non");
       res.redirect('/recrut/recruteur');
@@ -172,6 +172,20 @@ router.get('/demandes', async function(req, res, next) {
     });
     
 });
+router.post('/listeCandidat/:numero/:candidat', function (req, res, next) {
+  var numero = req.params.numero;
+  var mail = req.params.candidat;  
+  console.log("oui cici");
+  recruteurModel.acceptCandidat(numero, mail, function (result) {
+    if (result){
+      res.render('/listeCandidat/' +numero);
+    }else{
+      res.redirect('/recrut/recruteur');
 
+    }
+    
+  });
+
+});
 
 module.exports = router;

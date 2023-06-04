@@ -65,7 +65,13 @@
                                                         <%= candidature.description %>
                                                     </p>
                                                     <a href="#" class="btn btn-secondary">Voir l'offre</a>
-                                                    <a href="#" class="btn btn-secondary ">Modifier candidature</a>
+                                                    <% if(candidatures.etat==1){%>
+                                                    <a href="#" class="btn btn-secondary ">Acceptée</a>
+                                                    <%}else if(candidatures.etat==2){%>
+                                                        <a href="#" class="btn btn-secondary red">Refusée</a>
+                                                    <%}else{%>
+                                                        <a href="#" class="btn btn-secondary ">Modifier candidature</a>
+                                                    <%}%>
                                                 </div>
                                             </div>
                                             <% }) %>
