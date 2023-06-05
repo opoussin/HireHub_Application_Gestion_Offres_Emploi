@@ -211,7 +211,7 @@ module.exports = {
         if(siren!= undefined && siren.length > 0){
             sql += ` WHERE`
             for(i = 0; i<siren.length; i++){
-                sql += ` r.organisation = ${siren[i].siren}`
+                sql += ` r.organisation = ${siren}`
                 if (i < siren.length - 1){
                     sql += ` OR`
                 };

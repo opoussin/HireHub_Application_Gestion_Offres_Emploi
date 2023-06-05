@@ -186,9 +186,9 @@ router.post('/demandes/recruteur', function (req, res, next) {
   var mail=req.session.userid;
 
     var siren = [{siren : req.body.choix}]; //renvoie le siren
-    recruteurModel.readAllDmdRecruteur(siren, function (resultDmd) {
+    recruteurModel.readAllDmdRecruteur(siren[siren.length-1].siren, function (resultDmd) {
       if(resultDmd )
-    candidatModel.creatDmdRecruteur(mail, siren, function (result) {
+    candidatModel.creatDmdRecruteur(mail, siren[siren.length-1].siren, function (result) {
       console.log(result);
       if (result) {
         res.redirect('/users/demandes');

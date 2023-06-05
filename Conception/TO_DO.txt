@@ -29,11 +29,11 @@ C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
         + telecharger une piece de candidat
         + selectionner un candidat
         - rajouter un bouton pour revenir à la page accueil recrut
-        - afficher quand il n'y a pas de candidat
+        + afficher quand il n'y a pas de candidat
         + optionnel refuser un candidat
     + revenir profil candidat
-    - profil recruteur
-        - mettre demande recruteur dedans
+    + profil recruteur
+        + mettre demande recruteur dedans
         + ameliorer le front -> afficher les organisation auxquelles il appartient
     + gérer les demandes de recruteur
 CANDIDAT
@@ -73,7 +73,7 @@ VRAC
 - rajouter condition inscription si deja une session cree
 - dans toutes les fonctions faire de la gestion d'erreurs
 stand by plusieurs orga par recruteur ( select orga pour poster une offre, afficher les offres)
-- pas possible de se co avec celeste@mail mdp:123
++ pas possible de se co avec celeste@mail mdp:123
 + filtrage des offres qui marche pas vraiment
 
 TEST UNITAIRES fonction

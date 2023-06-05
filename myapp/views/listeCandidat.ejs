@@ -9,10 +9,10 @@
     <div id="content-wrap">
 
             <div class="row d-flex flex-row justify-content-center">
-                <div class="col-8 p-4 flex-column bg-white">
+                <div class="col-8 d-flex flex-column gap-2 p-4 bg-white ">
                     <h2 class="display-4" >Liste des candidats</h2>
                     <hr>
-
+                    <%if (candidats.length != 0){%>
                     <% candidats.forEach((candidat) => { %>
                         <div class="card">
                             <div class="card-body">
@@ -36,18 +36,33 @@
                                     <% }) %>
                                 </ul>
                                 </div>
+                                
                                 <div class="col-6 d-flex flex-column justify-content-center align-items-end gap-2">
+                                    <%if (candidat.etatC == 0){%>
                                     <a href="/recrut/listeCandidat/accept/<%=numero%>/<%=candidat.mail%>" class="btn btn-primary w-auto">Accepter</a>
                                    <a href="/recrut/listeCandidat/refuse/<%=numero%>/<%=candidat.mail%>" class="btn btn-secondary w-auto">Refuser</a>
                                    
-                                </div>
-                                </div>
                                 
+                                <%}else if (candidat.etatC == 1){%>
+                                    <p class="text-success">Accepté</p>
+                                <%}else{%>
+                                    <p class="text-danger">Refusé</p>
+                                <%}%>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     
                     <% }) %>
+                    <%}else{%>
+                        <p>Aucun candidat n'a postulé. </p>
+                    <%}%>
+                    <div>
+                        <a class="btn btn-primary w-auto" href="/recrut/recruteur">Acceuil</a>
+
+                    </div>
                 </div>
+                
             </div>
         
         
