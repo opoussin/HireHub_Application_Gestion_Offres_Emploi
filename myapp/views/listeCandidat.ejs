@@ -16,22 +16,33 @@
                     <% candidats.forEach((candidat) => { %>
                         <div class="card">
                             <div class="card-body">
-                                <%console.log(candidat);%>
+                                <div class="row">
+                                <div class="col">
+                                    <%console.log(candidat);%>
                                 <h5 class="card-title"><%= candidat.nom %> <%= candidat.prenom %></h5>
-                                <% if(candidat.etatC==1){%>
-                                    Candidat accepté
-                                <% }else if(candidat.etatC==2){%>
-                                    Candidat refusé
-                                <%}else{%>
-                                   <a href="/recrut/listeCandidat/accept/<%=numero%>/<%=candidat.mail%>" class="btn btn-secondary ">Accepter</a>
-                                   <a href="/recrut/listeCandidat/refuse/<%=numero%>/<%=candidat.mail%>" class="btn btn-secondary ">Refuser</a>
-                                   <%}%>
+                                <h6 class="card-subtitle mb-2 text-body-secondary" name="mail">
+                                    <% if(candidat.etatC==1){%>
+                                        Candidat accepté
+                                    <% }else if (candidat.etatC==2){%>
+                                        Candidat refusé
+                                    
+                                </h6>
+                                <%}%>
+                                   
                                 <h6 class="card-subtitle mb-2 text-muted">Pièces de candidature :</h6>
                                 <ul>
                                     <% candidat.pieces.forEach((piece) => { %>
                                         <li><a href="/candidature/getfile/<%= piece %>" target="_blank"><%= piece %></a></li>                   
                                     <% }) %>
                                 </ul>
+                                </div>
+                                <div class="col-6 d-flex flex-column justify-content-center align-items-end gap-2">
+                                    <a href="/recrut/listeCandidat/accept/<%=numero%>/<%=candidat.mail%>" class="btn btn-primary w-auto">Accepter</a>
+                                   <a href="/recrut/listeCandidat/refuse/<%=numero%>/<%=candidat.mail%>" class="btn btn-secondary w-auto">Refuser</a>
+                                   
+                                </div>
+                                </div>
+                                
                             </div>
                         </div>
                     

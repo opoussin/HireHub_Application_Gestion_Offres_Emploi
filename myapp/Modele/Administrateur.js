@@ -115,8 +115,6 @@ module.exports = {
           if (rows.length !== 0) {
             callback(false);
           } else {
-            console.log("ici");
-            console.log("row", rows);
             var sql2 = mysql.format("INSERT INTO APPARTENIR_ORGA (mail, organisation) VALUES (?,?)", [mail, siren]);
             db.query(sql2, function (err, result) {
               if (err) throw err;
