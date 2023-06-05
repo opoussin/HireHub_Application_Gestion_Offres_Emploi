@@ -12,7 +12,7 @@ readAllDmdOrga
 readAllDmdAdmin
 readUserFiltre
 updateDmdAdmin
-
+updateDmdRecruteur
 */
 var db = require('./db.js');
 var mysql = require('mysql');
@@ -115,6 +115,8 @@ module.exports = {
           if (rows.length !== 0) {
             callback(false);
           } else {
+            console.log("ici");
+            console.log("row", rows);
             var sql2 = mysql.format("INSERT INTO APPARTENIR_ORGA (mail, organisation) VALUES (?,?)", [mail, siren]);
             db.query(sql2, function (err, result) {
               if (err) throw err;
@@ -216,6 +218,23 @@ module.exports = {
         }
         else{
             db.query("UPDATE DMD_ORGA SET statut='Refusé' WHERE siren=? AND recruteur=?", [siren,mail] , function
+            (err, results) {
+            if (err) throw err;
+            callback();
+        });
+        }
+        
+    },
+    updateDmdRecruteur: function (siren, mail, value, callback) {
+        if(value==1){
+            db.query("UPDATE DMD_RECRUTEUR SET statut='Validé' WHERE organisation=? AND recruteur=?", [siren,mail] , function
+            (err, results) {
+            if (err) throw err;
+            callback();
+        });
+        }
+        else{
+            db.query("UPDATE DMD_RECRUTEUR SET statut='Refusé' WHERE organisation=? AND recruteur=?", [siren,mail] , function
             (err, results) {
             if (err) throw err;
             callback();

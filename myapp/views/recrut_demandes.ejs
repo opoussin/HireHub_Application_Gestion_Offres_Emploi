@@ -11,12 +11,14 @@
 
                         <div class="row justify-content-center">
                             <div class="col-8 bg-white">
+                                <h3 class="display-6 mt-2">Demandes recruteur</h3>
                                 <hr>
-                                <h3 class="display-6 mt-2">Organisations</h3>
                                 
                                 <% if ((demandesRecruteur.length> 0)&&(Array.isArray(demandesRecruteur))) {%>
                                     <div class="row row-cols-3">
+                                        <% console.log("dmdR", demandesRecruteur);%>
                                         <% demandesRecruteur.forEach(function(dmdR) { %>
+                                           <%if(dmdR.statut == 'En attente'){%>
                                             <div class="col-4">
 
                                                 <div class="card w-auto">
@@ -25,7 +27,7 @@
                                                             <%= dmdR.recruteur%>
                                                         </h5>
                                                         <h6 class="card-subtitle mb-2 text-body-secondary" name="mail">
-                                                            <%= dmdR.organisation%>
+                                                            <%= dmdR.nom%>
                                                         </h6>
                                                         
                                                         <p class="card-text">Depuis le:
@@ -46,16 +48,15 @@
                                                         </p>
 
                                                         <p>
-                                                        
                                                             <a
-                                                                href="/recrut/demandes/accept?user=<%=dmdR.recruteur%>&siren=<%=dmdR.siren%>%>" class="text-success"><i
+                                                                href="/recrut/demandes/accept?user=<%=dmdR.mail%>&siren=<%=dmdR.organisation%>%>" class="text-success"><i
                                                                     class="bi bi-check2-circle m-2"></i>Accepter demande</a>
 
                                                         </p>
                                                         <p class="fw-normal">
                                                             
                                                             <a
-                                                                href="/recrut/demandes/deny?user=<%=dmdR.recruteur%>&siren=<%=dmdR.siren%>" class="text-danger"><i
+                                                                href="/recrut/demandes/deny?user=<%=dmdR.mail%>&siren=<%=dmdR.organisation%>" class="text-danger"><i
                                                                     class="bi bi-x-lg m-2"></i>Refuser demande</a>
 
                                                         </p>
@@ -63,7 +64,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <%};%>
                                             <% }); %>
                                                 <% } else { %>
                                                     <p>Aucune demande de création d'organisation à valider.</p>
@@ -77,7 +78,53 @@
                     </div>
                     <div class="container-fluid">
 
+                        <div class="row justify-content-center">
+                            <div class="col-8 p-4 flex-column bg-white">
+                                <h1 class="display-6 mt-2">Historique</h1>
+                                <hr>
+                                <div class="row">
+                                    <% if (demandesRecruteur.length== 0) {%>
+                                        <p>Aucune demande d'administrateur existante.</p>
+                                    <%}%>
+                                    
+                                        <% demandesRecruteur.forEach((dmdR)=> { %>
+                                            <%if(dmdR.statut != 'En attente'){%>
+                                            <div class="card w-auto">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        <%= dmdR.recruteur%>
+                                                    </h5>
+                                                    <h6 class="card-subtitle mb-2 text-body-secondary" name="mail">
+                                                        <%= dmdR.nom%>
+                                                    </h6>
+                                                    
+                                                    <p class="card-text">Depuis le:
+                                                        <%=dmdR.date.toLocaleDateString("fr") %>
+                                                    </p>
+                                                    <p>
+                                                    </p>
+                                                    <p>
+                                                            <% if (dmdR.statut==='En attente' ) { %>
+                                                                <i
+                                                                        class="bi bi-hourglass text-primary m-2"></i>
+                                                                <% } else if (dmdR.statut==='Validé' ) { %>
+                                                                    <i class="bi bi-check-lg text-success m-2"></i>
+                                                                    <% } else { %>
+                                                                        <i class="bi bi-x-lg text-danger m-2"></i>
+                                                                        <% } %>
+                                                        <%= dmdR.statut %>
+                                                    </p>
 
+                                                </div>
+                                            </div>
+                                            <%};%>
+
+                                        <%});%>
+
+                                </div>
+
+                            </div>
+                        </div>
                         
                        
                     </div>

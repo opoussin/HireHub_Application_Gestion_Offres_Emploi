@@ -207,8 +207,7 @@ module.exports = {
             });
     },
     readAllDmdRecruteur: function (siren, callback) {
-        console.log("oargass", siren);
-        var sql = mysql.format("SELECT * FROM UTILISATEUR u INNER JOIN DMD_RECRUTEUR r ON u.mail=r.recruteur");
+        var sql = mysql.format("SELECT * FROM UTILISATEUR u INNER JOIN DMD_RECRUTEUR r ON u.mail=r.recruteur INNER JOIN ORGANISATION o ON o.siren=r.organisation");
         if(siren!= undefined && siren.length > 0){
             sql += ` WHERE`
             for(i = 0; i<siren.length; i++){

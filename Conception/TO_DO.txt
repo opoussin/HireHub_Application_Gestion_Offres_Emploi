@@ -35,8 +35,7 @@ C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
     - profil recruteur
         - mettre demande recruteur dedans
         + ameliorer le front -> afficher les organisation auxquelles il appartient
-    	- changer les longues cartes en petites
-
+    + gérer les demandes de recruteur
 CANDIDAT
 C + mettre des valeurs dans les filtres candidat.ejs + terminer les filtres
 C + faire la route dans users.js des filtres

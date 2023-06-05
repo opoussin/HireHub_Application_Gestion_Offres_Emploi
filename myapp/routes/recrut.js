@@ -4,6 +4,7 @@ var orgaModel = require('../Modele/Organisation.js')
 var candidatModel = require('../Modele/Candidat.js')
 var communModel = require('../Modele/Commun.js')
 var recruteurModel = require('../Modele/Recruteur.js')
+var adminModel = require('../Modele/Administrateur.js')
 const { urlencoded } = require('express');
 
 router.get('/recruteur', function (req, res, next) {
@@ -172,6 +173,34 @@ router.get('/demandes', async function(req, res, next) {
     });
     
 });
+
+router.get('/demandes/accept', function (req, res, next) {
+  var mail= req.session.userid;
+  let user = req.query.user;
+  let siren=req.query.siren;
+  let value = true;
+  adminModel.acceptRecruteur(user,siren, function (result) {
+    adminModel.updateDmdRecruteur(siren, user, value, function (result) {
+
+      res.redirect('/recrut/demandes');
+      
+    });
+  });
+});
+
+router.get('/demandes/deny', function (req, res, next) {
+  var mail= req.session.userid;
+  let user = req.query.user;
+  let siren=req.query.siren;
+  let value=false;
+  
+    adminModel.updateDmdRecruteur(siren,user, value, function (result) {
+
+      res.redirect('/recrut/demandes');
+      
+    });
+});
+
 router.get('/listeCandidat/accept/:numero/:candidat', function (req, res, next) {
   var numero = req.params.numero;
   var mail = req.params.candidat;  
