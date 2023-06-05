@@ -218,7 +218,6 @@ module.exports = {
                 };
             };
         };
-        
         db.query(sql, function (err, results) {
             if (err) throw err;
             callback(results);
