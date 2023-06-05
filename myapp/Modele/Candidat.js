@@ -75,7 +75,7 @@ module.exports = {
             sql += `AND FICHE_POSTE.lieu = \'${lieu}\'`;
         }
 
-        if ( statut !== "") {
+        if ( statut !== "" && statut !== "undefined" ) {
             console.log("statut", statut);
             sql += `AND FICHE_POSTE.statut = \'${statut}\'`;
         }
@@ -154,7 +154,7 @@ module.exports = {
     },*/
     readAllCandidature: function (mail, callback) {
 
-        db.query("select * from (CANDIDATURE c INNER JOIN OFFRE o ON c.offre=o.numero) INNER JOIN FICHE_POSTE f ON f.offre=o.numero where candidat=?", mail, function
+        db.query("select * from (CANDIDATURE c INNER JOIN OFFRE o ON c.offre=o.numero) INNER JOIN FICHE_POSTE f ON f.offre=o.numero INNER JOIN ORGANISATION ON ORGANISATION.siren=o.organisation where candidat=?", mail, function
             (err, results) {
             if (err) throw err;
             callback(results);

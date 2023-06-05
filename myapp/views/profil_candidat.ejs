@@ -53,7 +53,7 @@
                                         <hr class="my-4">
                                         <% if(candidatures.length>0){%>
                                         <% candidatures.forEach((candidature)=> { %>
-                                            <div class="card mb-4 pt-0 " style="width: autorem;">
+                                            <%console.log(candidature)%>                                            <div class="card mb-4 pt-0 " style="width: autorem;">
                                                 <div class="card-body g-4">
                                                     <h5 class="card-title text-dark fs-3">
                                                         <%= candidature.intitule %>
@@ -64,14 +64,62 @@
                                                     <p class="card-text text-dark">
                                                         <%= candidature.description %>
                                                     </p>
-                                                    <a href="#" class="btn btn-secondary">Voir l'offre</a>
-                                                    <% if(candidatures.etat==1){%>
+                                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<%=candidature.numero%>">
+                                                        Voir l'offre
+                                                    </button>
+                                                    <% if(candidature.etatC==1){%>
                                                     <a href="#" class="btn btn-secondary ">Acceptée</a>
-                                                    <%}else if(candidatures.etat==2){%>
+                                                    <%}else if(candidature.etatC==2){%>
                                                         <a href="#" class="btn btn-secondary red">Refusée</a>
                                                     <%}else{%>
                                                         <a href="#" class="btn btn-secondary ">Modifier candidature</a>
                                                     <%}%>
+                                                </div>
+                                            </div>
+                                            <!-- Modal à la fin mais toujours avant le footer-->
+                                            <div class="modal fade" id="exampleModal<%=candidature.numero%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel"> <%= candidature.intitule %> </h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="d-flex flex-row justify-content-between p-3">
+                                                            <h6 class="modal-title" id="exampleModalLabel"> <%= candidature.nom %> </h6>
+                                                            <div>
+                                                                <i class="bi bi-geo-alt-fill"></i>
+                                                                <%=candidature.siegeSocial%>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-body border-bottom">
+                                                            
+                                                            <p class="card-text text-dark text-justify">
+                                                                <%= candidature.description %>
+                                                            </p>
+
+
+                                                        </div>
+                                                        <div class="modal-body d-flex flex-column gap-2">
+                                                            <div>
+                                                                <label> Responsable: 
+                                                                    <%=candidature.responsable%>
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <i class="bi bi-building"></i>
+                                                                <%=candidature.type%>
+                                                            </div>
+                                                            <div>
+                                                                <i class="bi bi-clock-history"></i>
+                                                                <%=candidature.rythme%> h/semaine
+                                                            </div>
+                                                            <div>
+                                                                <i class="bi bi-currency-euro"></i>
+                                                                <%=candidature.salaire%>/mois
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
                                                 </div>
                                             </div>
                                             <% }) %>

@@ -172,13 +172,30 @@ router.get('/demandes', async function(req, res, next) {
     });
     
 });
-router.post('/listeCandidat/:numero/:candidat', function (req, res, next) {
+router.get('/listeCandidat/accept/:numero/:candidat', function (req, res, next) {
   var numero = req.params.numero;
   var mail = req.params.candidat;  
   console.log("oui cici");
   recruteurModel.acceptCandidat(numero, mail, function (result) {
     if (result){
-      res.render('/listeCandidat/' +numero);
+      console.log ('/listeCandidat/' +numero);
+      res.redirect('/recrut/listeCandidat/' +numero);
+    }else{
+      res.redirect('/recrut/recruteur');
+
+    }
+    
+  });
+
+});
+router.get('/listeCandidat/refuse/:numero/:candidat', function (req, res, next) {
+  var numero = req.params.numero;
+  var mail = req.params.candidat;  
+  console.log("oui cici");
+  recruteurModel.refuseCandidat(numero, mail, function (result) {
+    if (result){
+      console.log ('/listeCandidat/' +numero);
+      res.redirect('/recrut/listeCandidat/' +numero);
     }else{
       res.redirect('/recrut/recruteur');
 

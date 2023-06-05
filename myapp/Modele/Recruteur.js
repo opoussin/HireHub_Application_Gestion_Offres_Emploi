@@ -188,9 +188,19 @@ module.exports = {
     },
     acceptCandidat: function (numero, mail, callback) {
         console.log("oui lala");
-        var sql = mysql.format("UPDATE CANDIDATURE SET etat=1 WHERE offre =? AND candidat=?", [numero, mail]);
+        var sql = mysql.format("UPDATE CANDIDATURE SET etatC=1 WHERE offre =? AND candidat=?", [numero, mail]);
         console.log(sql);
-        db.query(sql, function (err) {
+        db.query(sql, function (err, result) {
+            console.log("dans la query");
+                if (err) throw err;
+                callback(result);
+            });
+    },
+    refuseCandidat: function (numero, mail, callback) {
+        console.log("oui lala");
+        var sql = mysql.format("UPDATE CANDIDATURE SET etatC=2 WHERE offre =? AND candidat=?", [numero, mail]);
+        console.log(sql);
+        db.query(sql, function (err, result) {
             console.log("dans la query");
                 if (err) throw err;
                 callback(result);

@@ -155,7 +155,7 @@ router.get('/profil_admin', function (req, res, next) {
     communModel.readUser(mail, function (result) {
       if(result){
 
-        res.render('profil_administrateur', {userResult: result,  req : req});
+        res.render('profil_administrateur', {user: result,  req : req});
       }else{
         res.redirect('/users/profil_candidat')
       }
