@@ -16,31 +16,31 @@
 
                             <div class="col-3">
                                 <div class="">
-                                    <form class="form-inline d-flex flex-column align-items-start gap-2" action="" method="post">
+                                    <form class="form-inline d-flex flex-column align-items-start gap-2 px-2" action="" method="post">
 
                                         
-                                        <input type="text" class="form-control" id="intitule"
+                                        <input type="text" class="form-control w-100" id="intitule"
                                                 placeholder="Recherchez des offres" name="intitule" value="">
                                         
-                                        <input type="text" class="form-control mb-2" id="lieu" placeholder="Lieu"
+                                        <input type="text" class="form-control mb-2 w-100" id="lieu" placeholder="Lieu"
                                             name="lieu" value="">
 
-                                        <input type="text" class="form-control mb-2" id="organisation"
+                                        <input type="text" class="form-control mb-2 w-100" id="organisation"
                                             placeholder="organisation" name="organisation" value="">
 
 
-                                        <input type="text" class="form-control " id="type"
+                                        <input type="text" class="form-control w-100" id="type"
                                             placeholder="Type de secteur" name="type" value="">
 
                                         
-                                            <input type="number" class="form-control w-auto" id="salaire"
+                                            <input type="number" class="form-control w-100" id="salaire"
                                                 placeholder="Salaire minimum" name="salaire" value="">
                                         
 
                                         
                                             <label for="statut" class="text-center">Statut</label>
                                             <select class="form-select w-auto" name="statut">
-                                                <option value="" selected disabled>Selectionnez</option>
+                                                
                                                 <option value="" selected></option>
 
                                                 <option value="CDI">CDI</option>
@@ -69,6 +69,7 @@
                                                 <h6 class="card-subtitle mb-2 text-muted">
                                                     <%= offre.nom %>
                                                 </h6>
+                                                <p><%=offre.statut%></p>
                                                 <!--<p class="card-text text-dark">
                                                     <%= offre.description %>
                                                 </p>-->
@@ -79,7 +80,7 @@
                                                     </div>
                                                     <div>
                                                         <i class="bi bi-geo-alt-fill"></i>
-                                                        <%=offre.siegeSocial%>
+                                                        <%=offre.lieu%>
                                                     </div>
                                                     <div>
                                                         <i class="bi bi-clock-history"></i>
@@ -111,11 +112,11 @@
                                                         <h6 class="modal-title" id="exampleModalLabel"> <%= offre.nom %> </h6>
                                                         <div>
                                                             <i class="bi bi-geo-alt-fill"></i>
-                                                            <%=offre.siegeSocial%>
+                                                            <%=offre.lieu%>
                                                         </div>
                                                     </div>
                                                     <div class="modal-body border-bottom">
-                                                        
+                                                        <p><%=offre.statut%></p>
                                                         <p class="card-text text-dark text-justify">
                                                             <%= offre.description %>
                                                         </p>

@@ -5,8 +5,8 @@
          route avec le middleware-->
 
     <nav id="navbar">
-        <a class="h3 text-decoration-none text-light" href="<%=req.originalUrl.split('/')[1] === 'admin' ? '/admin/administrateur' : (req.originalUrl.split('/')[1] === 'recrut'? '/recrut/recruteur' : '/users/candidat') %>">
-            Le site de Tom</a>
+        <a class="h3 text-decoration-none text-light text-uppercase" href="<%=req.originalUrl.split('/')[1] === 'admin' ? '/admin/administrateur' : (req.originalUrl.split('/')[1] === 'recrut'? '/recrut/recruteur' : '/users/candidat') %>">
+            HireHub</a>
         <div class="d-flex gap-3 align-items-center">
             <% if (req.originalUrl.split('/')[1] !=='users' ){ %>
                 <a class="link-light text-decoration-none" href="/users/candidat">Mode candidat</a>

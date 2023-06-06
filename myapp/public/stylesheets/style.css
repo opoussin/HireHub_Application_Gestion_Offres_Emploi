@@ -11,8 +11,11 @@ body{
 }
 
 .index{
-  background: linear-gradient(#4D62AE, #2C3248);
+  background: linear-gradient(#323a59, #2C3248);
+  /*background: #323a59;*/
 }
+
+
 
 nav#navbar {
   position: sticky;
@@ -62,8 +65,12 @@ nav#navbar {
   position: relative;
 }
 
+.background{
+  background-color: #272D46;
+}
+
 .text{
-  color: #C4ECB2;
+  color: #ededed;
 
 }
 

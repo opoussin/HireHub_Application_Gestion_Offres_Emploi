@@ -7,11 +7,12 @@
 
   <section  class="box d-flex justify-content-center align-items-center">
 
-    <div class="container py-4">
-      <h1 class="text-center text-uppercase">S'inscrire</h1>
-      <div class="row gy-4 ">
-        <div class="col-6 offset-3">
-          <form action="/inscription" method="post">
+    <div class="container-fluid py-4">
+      
+      <div class="row d-flex justify-content-around align-items-center p-4">
+        <div class="col-6 rounded p-4 background">
+          <h1 class="text-center text-uppercase">S'inscrire</h1>
+          <form action="/inscription" method="post" class="px-4">
             <div class="mb-3 mt-3">
               <label for="Mail">Email:</label>
               <input type="email" class="form-control" id="mail" placeholder="Entrer votre email" name="mail">
@@ -33,10 +34,10 @@
               <input type="Telephone" class="form-control" id="telephone" placeholder="Entrer votre numéro de téléphone" name="telephone">
             </div>
             <div class="mb-3 mt-3">
-              <a href="/connexion" class="text-light" >J'ai déjà un compte</a>
+              <a href="/connexion" class="btn-link" >J'ai déjà un compte</a>
             </div>
                 
-            <button type="submit" class="btn btn-outline-light">S'inscrire</button>
+            <button type="submit" class="btn btn-primary">S'inscrire</button>
           </form>            
         </div>
       </div>

@@ -77,7 +77,7 @@ router.post('/candidat', function (req, res, next) {
       var salaire = req.body.salaire;
       var type = req.body.type;
       var intitule = req.body.intitule;
-      console.log ("body user.js" , organisation, lieu, statut, salaire, type, intitule);
+      //console.log ("body user.js" , organisation, lieu, statut, salaire, type, intitule);
 
       candidatModel.readOffreFiltre(organisation, lieu, statut, salaire, type, intitule, function (results) {
         res.render('candidat', { title: 'List des Offres', listeOffre: results, req : req });

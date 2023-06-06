@@ -63,21 +63,21 @@ module.exports = {
         if ( intitule !== "") {
             console.log("A");
             console.log("intitule",intitule);
-            sql += `AND FICHE_POSTE.intitule = \'${intitule}\'`;
+            sql += `AND FICHE_POSTE.intitule like "%${intitule}%"`;
         }
         if ( organisation !== "") {
             console.log("organisation", organisation);
-            sql +=  `AND ORGANISATION.nom = \'${organisation}\'`;
+            sql +=  `AND ORGANISATION.nom like "%${organisation}%"`;
         
         }
         if ( lieu !== "") {
             console.log("lieu", lieu);
-            sql += `AND FICHE_POSTE.lieu = \'${lieu}\'`;
+            sql += `AND FICHE_POSTE.lieu like "%${lieu}%"`;
         }
 
         if ( statut !== "" && statut !== "undefined" ) {
             console.log("statut", statut);
-            sql += `AND FICHE_POSTE.statut = \'${statut}\'`;
+            sql += `AND FICHE_POSTE.statut like "%${statut}%"`;
         }
         if ( salaire !== "") {
             console.log("salaire", salaire);
@@ -85,7 +85,7 @@ module.exports = {
         }
         if ( type !== "") {
             console.log("type", type);
-            sql += `AND FICHE_POSTE.type = \'${type}\'`;
+            sql += `AND FICHE_POSTE.type like "%${type}%"`;
         }
         db.query(sql, function (err, results) {
             console.log(sql);
