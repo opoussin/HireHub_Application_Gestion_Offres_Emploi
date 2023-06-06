@@ -8,8 +8,9 @@
         <a class="h3 text-decoration-none text-light text-uppercase" href="<%=req.originalUrl.split('/')[1] === 'admin' ? '/admin/administrateur' : (req.originalUrl.split('/')[1] === 'recrut'? '/recrut/recruteur' : '/users/candidat') %>">
             HireHub</a>
         <div class="d-flex gap-3 align-items-center">
-            <% if (req.originalUrl.split('/')[1] !=='users' ){ %>
-                <a class="link-light text-decoration-none" href="/users/candidat">Mode candidat</a>
+            <%if (req.originalUrl.split('/')[1] !=='candidature'){%>
+                <% if (req.originalUrl.split('/')[1] !=='users'){ %>
+                    <a class="link-light text-decoration-none" href="/users/candidat">Mode candidat</a>
                 <%}%>
                 <% if (req.originalUrl.split('/')[1] !=='recrut' && req.session.orga.length!=0 ){ %>
                     <a class="link-light text-decoration-none" href="/recrut/recruteur">Mode recruteur</a>
@@ -17,6 +18,7 @@
                 <% if (req.originalUrl.split('/')[1] !=='admin' && req.session.type>= 3 ){ %>
                     <a class="link-light text-decoration-none" href="/admin/administrateur">Mode administrateur</a>
                 <%}%>
+            <%}%>
                                     <div class="dropdown">
                                         <div class="d-flex align-items-center gap-2 account" type="button" id="Menu"
                                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,6 +55,7 @@
                                                         </a>
                                                     </li>
                                                     <%}%>
+                                             
                                                         <li class="d-flex align-items-baseline align-items-center">
 
                                                             <a class="dropdown-item icon baseline gap-2"

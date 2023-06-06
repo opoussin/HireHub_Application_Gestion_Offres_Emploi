@@ -13,7 +13,7 @@ RECRUTEUR
 C + tester AI offre
 C + mettre l'auto increment sur numero de offre
 
-C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton editer, voir candidat, supprimer,), bouton creer offre, page de formulaire, 
+C + vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton editer, voir candidat, supprimer,), bouton creer offre, page de formulaire, 
     C + changer de profil et afficher les offres d'une entreprise
     C + créer un offre
         - améliorer front formulaire ( espaces, champs obligatoires)
@@ -28,7 +28,7 @@ C - vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
     + voir les candidat
         + telecharger une piece de candidat
         + selectionner un candidat
-        - rajouter un bouton pour revenir à la page accueil recrut
+        + rajouter un bouton pour revenir à la page accueil recrut
         + afficher quand il n'y a pas de candidat
         + optionnel refuser un candidat
     + revenir profil candidat
@@ -54,14 +54,14 @@ C - upload de fichiers
 
 
 O + supprimer une demande amdin 
-O - modifier les filtres pour prévoir la casse (comme dans amdin)
+O + modifier les filtres pour prévoir la casse (comme dans amdin)
 O + Faire un dropdown pour la navbar
 O + Gérer quand tu appartient à plusieurs organisation (créer offre, afficher offres, candidatures...)
 O - vérifier partout que pour checker si on est recruteur on check si l'utilisateur est bien dans APPARTENIR_ORGA
 
 ADMIN
 O + vue accueil admin -> cote a cote les dmd orga et dmd admin, 
-O - OPTION si j'ai le temps -> mettre des boutons de recherche dans les demandes
+O + OPTION si j'ai le temps -> mettre des boutons de recherche dans les demandes
 - profil admin ya rien 
 
 VRAC

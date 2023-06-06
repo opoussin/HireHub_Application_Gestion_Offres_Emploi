@@ -24,7 +24,8 @@ router.get('/modifier_profil', function (req, res, next) {
   
     var mail = req.session.userid;
     communModel.readUser(mail, function (result) {
-      res.render('modifier_profil', { nom: result.nom, prenom: result.prenom, mail: result.mail, mdp: result.mdp, telephone: result.telephone, statut: result.statut, date: result.dateCreation.toLocaleDateString("fr") , req : req});
+      var message = false;
+      res.render('modifier_profil', { nom: result.nom, prenom: result.prenom, mail: result.mail, mdp: result.mdp, telephone: result.telephone, statut: result.statut, date: result.dateCreation.toLocaleDateString("fr") , req : req, message : message});
     });
   
 });
@@ -37,7 +38,8 @@ router.post('/modifier_profil', function (req, res, next) {
     
     candidatModel.updateUser(mail, nom, prenom, telephone, function (result) {
       if (result){
-        res.render('/users/profil_candidat');
+        console.log("truee");
+        res.redirect('/users/profil_candidat');
       }else{
         res.redirect('/users/candidat');
 
@@ -48,19 +50,24 @@ router.post('/modifier_profil', function (req, res, next) {
 });
 router.post('/modifier_profil/mdp', function (req, res, next) {
   var mail = req.session.userid;
-    var mdp1 = req.body.mdp1;
-    var mdp2 = req.body.mdp2;
-    var ok = true;
-    candidatModel.updateUserMdp(mdp1, mdp2, mail, function (result) {
-      
+  var mdp1 = req.body.mdp1;
+  var mdp2 = req.body.mdp2;
+  var ok = true;
+  var message = false;
+  
+  if (mdp1 === mdp2) {
+    candidatModel.updateUserMdp(mdp1, mail, function (result) {
       if (result) {
-        res.redirect('/users/profil_candidat', {check: ok});
+        message = "Mot de passe modifié avec succès!";
+        res.render('modifier_profil', {message : message});
       } else {
-        res.render('connexion');
+        res.redirect('/connexion');
       }
     });
-  
-
+  } else {
+    message = "Erreur, veuillez entre le même message";
+    res.render('modifier_profil', {message : message});
+  }
 });
 
 

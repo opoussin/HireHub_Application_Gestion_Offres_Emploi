@@ -88,11 +88,13 @@
                                                             <h6 class="modal-title" id="exampleModalLabel"> <%= candidature.nom %> </h6>
                                                             <div>
                                                                 <i class="bi bi-geo-alt-fill"></i>
-                                                                <%=candidature.siegeSocial%>
+                                                                <%=candidature.lieu%>
                                                             </div>
                                                         </div>
                                                         <div class="modal-body border-bottom">
-                                                            
+                                                            <p class="card-text text-dark text-justify">
+                                                                <%= candidature.statut%>
+                                                            </p>
                                                             <p class="card-text text-dark text-justify">
                                                                 <%= candidature.description %>
                                                             </p>

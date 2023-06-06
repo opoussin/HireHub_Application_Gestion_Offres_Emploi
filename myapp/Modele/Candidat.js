@@ -30,7 +30,7 @@ module.exports = {
         db.query(sql, function (err) {
             console.log("dans la query");
                 if (err) throw err;
-                callback(result);
+                callback(true);
             });
         
 
@@ -41,7 +41,7 @@ module.exports = {
         // je pense que le check est pas à faire dans le SQL
         db.query(sql, function (err) {
             if (err) throw err;
-            callback();
+            callback(true);
         });
 
     },
