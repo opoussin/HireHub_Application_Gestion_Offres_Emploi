@@ -10,7 +10,9 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/connexion', function (req, res, next) {
-    res.render('connexion');
+  var erreur = req.session.erreur;
+  delete req.session.erreur;
+    res.render('connexion', {message : erreur});
 });
 /*
 router.post('/connexion', function (req, res, next) {
@@ -51,37 +53,28 @@ router.post('/connexion', function (req, res, next) {
 });
 */
 router.post('/connexion', function (req, res, next) {
-  // Récupération des données du formulaire
   var mail = req.body.mail;
   var mdp = req.body.mdp;
   var session=req.session;
-  // Appel à la fonction creat du modèle Utilisateur
+
   communModel.areUserValid(mail, mdp, function (result) {
     if (result) {
       session.userid = mail;
       session.nom = result.nom;
       session.prenom= result.prenom;
       session.type=result.type;
-      console.log("type:", result)
-      //communModel.areRecruteur(session.userid, function(result) { //pas besoin de checker s'il est recruteur, on le sait en cherchant avec readOrgaUser
-        //if (result) {
           recruteurModel.readAllOrgaRecruteur(session.userid, function (result) {
             if(result){
               session.orga = result;
-              console.log("user orga:", result); 
             }else{
               session.orga=[];
             }
 
             res.redirect('/users/candidat');
           });
-        /*} else {
-          res.redirect('/users/candidat');
-        }
-      });*/
     } else {
-      console.log("erreur");
-      res.render('connexion');
+      session.erreur = true;
+      res.redirect('/connexion');
     }
   });
 });

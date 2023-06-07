@@ -24,7 +24,7 @@ module.exports = {
                 //var type = rows[0].mdp 
                 callback(rows[0]);
             } else {
-                callback(undefined);
+                callback(false);
             }
         });
     },

@@ -30,7 +30,8 @@ router.get('/modifier_profil', function (req, res, next) {
   
     var mail = req.session.userid;
     communModel.readUser(mail, function (result) {
-      var message = false;
+      var message = req.session.message;
+      delete req.session.message;
       res.render('modifier_profil', { nom: result.nom, prenom: result.prenom, mail: result.mail, mdp: result.mdp, telephone: result.telephone, statut: result.statut, date: result.dateCreation.toLocaleDateString("fr") , req : req, message : message});
     });
   
@@ -59,20 +60,20 @@ router.post('/modifier_profil/mdp', function (req, res, next) {
   var mdp1 = req.body.mdp1;
   var mdp2 = req.body.mdp2;
   var ok = true;
-  var message = false;
+  var message;
   
   if (mdp1 === mdp2) {
     candidatModel.updateUserMdp(mdp1, mail, function (result) {
       if (result) {
-        message = "Mot de passe modifié avec succès!";
-        res.render('modifier_profil', {message : message});
+        req.session.message = true;
+        res.redirect('/users/modifier_profil');
       } else {
         res.redirect('/connexion');
       }
     });
   } else {
-    message = "Erreur, veuillez entre le même message";
-    res.render('modifier_profil', {message : message});
+    req.session.message = false;
+    res.redirect('/users/modifier_profil');
   }
 });
 

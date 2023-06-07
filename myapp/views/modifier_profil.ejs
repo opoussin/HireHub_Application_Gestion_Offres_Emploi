@@ -53,10 +53,14 @@
                                                 <label for="mdp" class="col-form-label fw-bold">Confirmer nouveau mot de
                                                     passe</label>
                                                 <input type="password" class="form-control" id="mdp" name="mdp2">
-                                                
-                                                <%if (message){%>
-                                                    <p small class="text-danger"><%=message%></p>
+                                                <%if (message!=undefined){%>
+                                                    <%if (message){%>
+                                                        <p small class="text-success">Mot de passe modifié avec succès!</p>
+                                                    <%}else{%>
+                                                        <p small class="text-danger">Veuillez entrer deux fois le même mot de passe</p>
+                                                    <%}%>
                                                 <%}%>
+
                                                 <button class="btn btn-primary mt-3" type="submit">Enregistrer modifications</button>
 
                                             </form>

@@ -22,6 +22,9 @@
                           <label for="exampleInputPassword1">Mot de passe</label>
                           <input type="password" class="form-control mt-2" id="Password" placeholder="Password" name="mdp">
                         </div>
+                        <%if (message){%>
+                          <p small class="form-group col-12 col-lg-10 offset-lg-1 p-1 text-danger">Identifiant ou mot de passe incorect.</p>
+                        <%}%>
                         <div class="mt-4 mb-4 offset-lg-1">
                           <a href="/inscription" >S'inscrire</a>
                         </div>
