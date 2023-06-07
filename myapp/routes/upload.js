@@ -4,6 +4,9 @@ var router = express.Router();
 var multer = require('multer');  
 const candidatModel = require('../Modele/Candidat.js');
 const { readUser } = require('../Modele/Commun');
+var middleware = require('../middleware')
+
+router.use(middleware.isLoggedMiddleware);
 
 // définition du répertoire de stockage des fichiers chargés (dans le répertoire du projet pour la démo, mais sur un espace dédié en prod !)
 // et du nom sous lequel entregistrer le fichier

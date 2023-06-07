@@ -1,5 +1,6 @@
 module.exports = {
     isAdminMiddleware : (req,res, next) =>{
+      console.log("admin middleware");
         if(req.session.type>=3){
           return next();
         }else{
@@ -8,7 +9,7 @@ module.exports = {
       },
 
       isRecruteurMiddleware : (req,res, next) =>{
-        if(req.session.type==2){
+        if(req.session.orga.length != 0){
           return next();
         }else{
           res.redirect('/users/candidat');

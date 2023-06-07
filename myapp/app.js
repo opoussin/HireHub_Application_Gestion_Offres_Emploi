@@ -39,12 +39,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static('public'));
 
-usersRouter.use(middleware.isLoggedMiddleware);
-recrutRouter.use(middleware.isLoggedMiddleware);
-adminRouter.use(middleware.isLoggedMiddleware);
-adminRouter.use(middleware.isAdminMiddleware);
-recrutRouter.use(middleware.isRecruteurMiddleware);
-uploadRouter.use(middleware.isLoggedMiddleware);
+
 
 
 app.use('/', indexRouter);

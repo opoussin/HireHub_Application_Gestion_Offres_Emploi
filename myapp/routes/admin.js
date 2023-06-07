@@ -5,6 +5,10 @@ var communModel = require('../Modele/Commun.js')
 var recrutModel = require('../Modele/Recruteur.js')
 var userModel = require('../Modele/Utilisateur.js');
 const { search } = require('./users.js');
+var middleware = require('../middleware')
+
+router.use(middleware.isLoggedMiddleware);
+router.use(middleware.isAdminMiddleware);
 
 
   /*

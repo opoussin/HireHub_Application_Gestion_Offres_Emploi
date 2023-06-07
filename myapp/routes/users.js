@@ -5,7 +5,9 @@ var communModel = require('../Modele/Commun.js')
 var Model = require('../Modele/user.js')
 var recruteurModel= require('../Modele/Recruteur.js')
 var orgaModel = require('../Modele/Organisation.js')
+var middleware = require('../middleware')
 
+router.use(middleware.isLoggedMiddleware);
 
 router.get('/profil_candidat', function (req, res, next) {
   

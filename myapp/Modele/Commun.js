@@ -46,6 +46,16 @@ module.exports = {
             }
         });
     },
+    areRecruteurValid: function (mail, callback) {
+        sql = "SELECT * FROM APPARTENIR_ORGA WHERE mail = ?";
+        db.query(sql, mail, function (err, rows) {
+            if (rows.length >=1) {
+                callback(true);
+            } else {
+                callback(false);
+            }
+        });
+    },
     /*
     areRecruteur: function (mail, callback) {
         sql = "SELECT type FROM UTILISATEUR WHERE mail = ?";

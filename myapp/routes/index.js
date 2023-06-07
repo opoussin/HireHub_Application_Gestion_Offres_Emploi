@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var communModel = require('../Modele/Commun.js')
-var recruteurModel = require('../Modele/Recruteur.js')
+var communModel = require('../Modele/Commun.js');
+var recruteurModel = require('../Modele/Recruteur.js');
 
 //const session = require('express-session'); 
 /* GET home page. */

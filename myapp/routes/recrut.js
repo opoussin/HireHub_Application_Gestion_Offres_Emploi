@@ -6,6 +6,11 @@ var communModel = require('../Modele/Commun.js')
 var recruteurModel = require('../Modele/Recruteur.js')
 var adminModel = require('../Modele/Administrateur.js')
 const { urlencoded } = require('express');
+var middleware = require('../middleware')
+
+router.use(middleware.isLoggedMiddleware);
+router.use(middleware.isRecruteurMiddleware);
+
 
 router.get('/recruteur', function (req, res, next) {
     //var siren=req.session.orga;
