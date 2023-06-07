@@ -25,18 +25,15 @@ router.get('/:numero', function(req, res, next) {
     readUser(mail, function (result){
         if (result) {
             var user = result;
-            console.log(user);
-            console.log(result);
-            console.log(user.prenom);
-
-            //req.session.connected_user.prenom = user.prenom;
-              //  req.session.connected_user.nom = user.nom;
-            if (req.session.uploaded_files == undefined) {
+            console.log(req.session.uploaded_files);
+            if (req.session.uploaded_files == undefined || req.session.uploaded_files.length ===0 ) {
                 let numero = req.params.numero;
                 console.log("1:",numero);
                 console.log('Init uploaded files array');
                 req.session.uploaded_files = [];
                 res.render('file_upload',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero});
+            }else{
+              res.redirect('/users/candidat');
             }
 
           } else {
@@ -45,8 +42,6 @@ router.get('/:numero', function(req, res, next) {
     });
   }
   
-//pas compriss
-  //rajouter un readOffre pour afficher : votre candidature à telle offre
 });
 
 /* POST : ajoute à l'objet request une propriété 'file', ayant une valeur unoiquement si le formulaire' contient un champ de type 'file' qui a pour nom 'myFileInput' */

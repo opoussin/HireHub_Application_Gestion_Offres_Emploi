@@ -13,7 +13,11 @@ router.get('/profil_candidat', function (req, res, next) {
     console.log(req.session.userid);
     communModel.readUser(mail, function (user) {
       candidatModel.readAllCandidature(mail, function (result) {
-        res.render('profil_candidat', { user: user, candidatures: result , req : req});
+        if (user){
+          if (result){
+            res.render('profil_candidat', { user: user, candidatures: result , req : req});
+          }
+        }
       });
     });
 });
