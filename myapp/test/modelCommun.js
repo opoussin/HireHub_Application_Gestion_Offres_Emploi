@@ -26,19 +26,20 @@ describe("Model Tests", () => {
     );
 })
 */
+
 const model = require("../Modele/Commun.js");
 const DB = require("../Modele/db.js");
 
 // Import des dépendances pour les tests
 const assert = require('assert');
-const sinon = require('sinon');
+//const sinon = require('sinon');
 
 // Initialisation des variables de test
 const mail = 'test@example.com';
 const nom = 'John';
 const prenom = 'Doe';
 const telephone = '1234567890';
-const callback = sinon.stub();
+//const callback = sinon.stub();
 const mdp = 123;
 const orga = "exemple";
 /*

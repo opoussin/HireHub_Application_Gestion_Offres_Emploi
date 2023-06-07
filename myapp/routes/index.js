@@ -10,9 +10,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/connexion', function (req, res, next) {
-  var erreur = req.session.erreur;
-  delete req.session.erreur;
-    res.render('connexion', {message : erreur});
+    res.render('connexion');
 });
 /*
 router.post('/connexion', function (req, res, next) {
@@ -73,8 +71,8 @@ router.post('/connexion', function (req, res, next) {
             res.redirect('/users/candidat');
           });
     } else {
-      session.erreur = true;
-      res.redirect('/connexion');
+      res.status(403);
+      res.render('connexion', {message : "Identifiant ou mot de passe incorect."});
     }
   });
 });

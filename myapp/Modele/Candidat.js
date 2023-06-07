@@ -191,9 +191,11 @@ module.exports = {
         });
     },
     readUserDmdOrga: function (mail, callback) {
+        console.log("candidat:", mail);
         db.query("select * from DMD_ORGA where recruteur=?", mail, function
             (err, results) {
             if (err) throw err;
+            console.log("resultats", results);
             callback(results);
         });
     },

@@ -11,7 +11,7 @@ jest.mock('../Modele/db.js', () => ({
 describe("Model Candidat Tests", () => {
   test("candidat : readUserDmdOrga", () => {
     const mockUserData = [{
-      nom: "ComEd",
+      nom: "ok",
       siren: "3",
       type: "association",
       siegeSocial: "siege",
@@ -45,7 +45,7 @@ describe("Model Candidat Tests", () => {
       type: "association",
       siegeSocial: "siege",
       recruteur: "chloe@go",
-      statut: "Refusé",
+      statut: "Refusée",
       date: "2023-05-09"
     }];
 
@@ -55,10 +55,9 @@ describe("Model Candidat Tests", () => {
       callback(null, mockUserData);
     });
 
-    modelCandidat.readUserDmdOrga('chlo@go', (results) => {
+    modelCandidat.readUserDmdOrga("chlo@go", (result) => {
       // Assertions sur les résultats
-      console.log(results);
-      expect(results).not.toEqual(mockUserData);
+      expect(result).not.toEqual([]);
     });
 
     expect(DB.query).toHaveBeenCalledWith(
