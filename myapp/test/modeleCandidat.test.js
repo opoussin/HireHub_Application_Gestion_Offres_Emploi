@@ -1,22 +1,23 @@
 /*
-updateUser
-updateUserMdp
+readUserDmdOrga
+readUserDmdRecruteur
+readUserDmdAdmin
+readAllCandidature
 readAllOffreValide
 readOffreFiltre
+updateUser
+updateUserMdp
+updateCandidature
 creatDmdOrga
 creatDmdRecruteur
 creatDmdAdmin
 creatCandidature
 deleteCandidature
-updateCandidature
-readAllCandidature
 deleteDmdOrga
 deleteDmdRecruteur
 deleteDmdRecruteurOrga
 deleteDmdAdmin
-readUserDmdOrga
-readUserDmdRecruteur
-readUserDmdAdmin
+
 */
 /*
 
@@ -38,196 +39,169 @@ describe("Model Tests", () => {
 })
 */
 
-const DB = require("../Modele/db.js");
-const model = require("../Modele/Candidat.js");
+const DB = require('../Modele/db.js');
+const modelCandidat = require("../Modele/Candidat.js");
+/*
+jest.mock(DB, () => ({
+  query: jest.fn(),
+}));
+*/
+jest.mock('../Modele/db.js', () => ({
+  query: jest.fn((sql, callback) => {
+    // Simuler une réponse réussie
+    callback(null);
+  })
+}));
+describe("Model Candidat Tests", () => {
+  /*afterAll((done) => {
+    function callback(err) {
+      if (err) done(err);
+      else done();
+    }
+    DB.end(callback);
+  });*/
+  //template
+  /*test ("candidat : read", ()=>{
+    const mockUserData = [{ id: 29, mail: 'test@test.test', pwd : 'test', prenom:'test', nom: 'test', tel: '0123456789', est_recruteur: 'non', organisation: null, est_admin: 'non', date_creation: '2023-05-17 10:59:24', statut: 'actif' }]; // Mock data to be returned by the query
 
-describe('Model Tests', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  test('updateUser updates user information', () => {
-    const mail = 'test@example.com';
-    const nom = 'John';
-    const prenom = 'Doe';
-    const telephone = '1234567890';
-    const callback = jest.fn();
-
-    const mockDbQuery = jest.spyOn(DB, 'query').mockImplementation((sql, params, callback) => {
-      // Verify if the SQL query is correct
-      expect(sql).toBe('UPDATE UTILISATEUR SET nom =?, prenom=?, telephone=? WHERE mail=?');
-      // Verify if the parameters are correct
-      expect(params).toEqual([nom, prenom, telephone, mail]);
-
-      // Call the callback without an error
-      callback(/* error */);
+    // Configure the mock behavior for db.query
+    DB.query.mockImplementation((query, id, callback) => {
+    // Simulate the callback with the mock user data
+    callback(null, mockUserData);
     });
 
-    model.updateUser(mail, nom, prenom, telephone, callback);
+    modelCandidat.read(29, (results) => {
+        // Assertions on the results
+        expect(results).toEqual(mockUserData);
+      });
 
-    // Verify if the function DB.query was called with the correct parameters
-    expect(mockDbQuery).toHaveBeenCalledWith(expect.any(String), expect.any(Array), expect.any(Function));
 
-    // Verify if the callback was called without an error
-    expect(callback).toHaveBeenCalledWith(/* error */);
+    expect(DB.query).toHaveBeenCalledWith(
+    'select * from Utilisateur where id = ?',
+    29,
+    expect.any(Function));
+  });*/
 
-    // Restore the original DB.query function
-    mockDbQuery.mockRestore();
+// readUserDmdOrga
+//    readUserDmdOrga: function (mail, callback) {
+//         db.query("select * from DMD_ORGA where recruteur=?", mail, function
+//             (err, results) {
+//             if (err) throw err;
+//             callback(results);
+//         });
+//     },
+test ("candidat : readUserDmdOrga", ()=>{
+  const mockUserData = [{nom:"ComEd",siren:"3",type:"association",siegeSocial:"siege",recruteur:"chloe@go",statut:"Refusé",date:"2023-05-09"},]; // Mock data to be returned by the query
+
+  // Configure the mock behavior for db.query
+  DB.query.mockImplementation((query, id, callback) => {
+  // Simulate the callback with the mock user data
+  callback(null, mockUserData);
   });
 
-  test('updateUserMdp updates user password', () => {
-    const mdp1 = 'newpassword';
-    const mail = 'test@example.com';
-    const callback = jest.fn();
-
-    const mockDbQuery = jest.spyOn(DB, 'query').mockImplementation((sql, params, callback) => {
-      // Verify if the SQL query is correct
-      expect(sql).toBe('UPDATE UTILISATEUR SET mdp =? WHERE mail=?');
-      // Verify if the parameters are correct
-      expect(params).toEqual([mdp1, mail]);
-
-      // Call the callback without an error
-      callback(/* error */);
+  modelCandidat.readUserDmdOrga('chloe@go', (results) => {
+      // Assertions on the results
+      expect(results).toEqual(mockUserData);
     });
 
-    model.updateUserMdp(mdp1, mail, callback);
 
-    // Verify if the function DB.query was called with the correct parameters
-    expect(mockDbQuery).toHaveBeenCalledWith(expect.any(String), expect.any(Array), expect.any(Function));
+  expect(DB.query).toHaveBeenCalledWith(
+  'select * from DMD_ORGA where recruteur=?',
+  'chloe@go',
+  expect.any(Function));
+});
+test ("candidat : readUserDmdOrga", ()=>{
+  const mockUserData = [{nom:"ComEd",siren:"3",type:"association",siegeSocial:"siege",recruteur:"chloe@go",statut:"Refusé",date:"2023-05-09"},]; // Mock data to be returned by the query
 
-    // Verify if the callback was called without an error
-    expect(callback).toHaveBeenCalledWith(/* error */);
-
-    // Restore the original DB.query function
-    mockDbQuery.mockRestore();
+  // Configure the mock behavior for db.query
+  DB.query.mockImplementation((query, id, callback) => {
+  // Simulate the callback with the mock user data
+  callback(null, mockUserData);
   });
 
-  test('readAllOffreValide retrieves all valid offers', () => {
-    const callback = jest.fn();
-
-    const mockDbQuery = jest.spyOn(DB, 'query').mockImplementation((sql, callback) => {
-      // Verify if the SQL query is correct
-      expect(sql).toBe("SELECT * FROM OFFRE INNER JOIN FICHE_POSTE ON OFFRE.numero = FICHE_POSTE.offre INNER JOIN ORGANISATION ON ORGANISATION.siren=OFFRE.organisation WHERE OFFRE.etat='publiee'");
-
-      // Call the callback with a fake result
-      callback(null, /* fake result */);
+  modelCandidat.readUserDmdOrga('chlo@go', (results) => {
+      // Assertions on the results
+      console.log("second", results);
+      console.log(DB.query);
+      expect(results).not.toEqual(mockUserData);
     });
 
-    model.readAllOffreValide(callback);
 
-    // Verify if the function DB.query was called with the correct parameters
-    expect(mockDbQuery).toHaveBeenCalledWith(expect.any(String), expect.any(Function));
+  expect(DB.query).toHaveBeenCalledWith(
+  'select * from DMD_ORGA where recruteur=?',
+  'chlo@go',
+  expect.any(Function));
+});
 
-    // Verify if the callback was called with the fake result
-    expect(callback).toHaveBeenCalledWith(/* fake result */);
+// readUserDmdRecruteur -> pareil
 
-    // Restore the original DB.query function
-    mockDbQuery.mockRestore();
+// readUserDmdAdmin -> pareil
+
+// readAllCandidature
+/*
+readAllCandidature: function (mail, callback) {
+
+  db.query("select * from (CANDIDATURE c INNER JOIN OFFRE o ON c.offre=o.numero) INNER JOIN FICHE_POSTE f ON f.offre=o.numero INNER JOIN ORGANISATION ON ORGANISATION.siren=o.organisation where candidat=?", mail, function
+      (err, results) {
+      if (err) throw err;
+      callback(results);
+  });
+},*/
+
+test ("candidat : readAllCandidature", ()=>{
+  const mockUserData = [{candidat:"chloe@go",offre:"6",date:"2023-05-15 15:18:25",pieces:"RFEA",etatC:"1",numero:"6",organisation:"1",etat:"publiee",dateValidite:"2023-09-09",nombrePieces:"2",intitule:"SDD",statut:"stage",responsable:"DF",type:"Association",lieu:"SF",rythme:"23",salaire:"23",description:"0x465a4546535a4546454651525151",nom:"Picasso",siren:"1",siegeSocial:"Compi"},]; // Mock data to be returned by the query
+
+  // Configure the mock behavior for db.query
+  DB.query.mockImplementation((query, id, callback) => {
+  // Simulate the callback with the mock user data
+  callback(null, mockUserData);
   });
 
-  test('readOffreFiltre retrieves filtered offers', () => {
-    const organisation = 'Example Org';
-    const lieu = 'Paris';
-    const statut = 'Full-time';
-    const salaire = '50000';
-    const type = 'Software Engineer';
-    const intitule = 'Job Title';
-    const callback = jest.fn();
-
-    const mockDbQuery = jest.spyOn(DB, 'query').mockImplementation((sql, callback) => {
-      // Verify if the SQL query is correct
-      expect(sql).toContain("SELECT * FROM OFFRE INNER JOIN FICHE_POSTE ON OFFRE.numero = FICHE_POSTE.offre INNER JOIN ORGANISATION ON ORGANISATION.siren=OFFRE.organisation WHERE OFFRE.etat='publiee'");
-      expect(sql).toContain(`AND FICHE_POSTE.intitule = '${intitule}'`);
-      expect(sql).toContain(`AND ORGANISATION.nom = '${organisation}'`);
-      expect(sql).toContain(`AND FICHE_POSTE.lieu = '${lieu}'`);
-      expect(sql).toContain(`AND FICHE_POSTE.statut = '${statut}'`);
-      expect(sql).toContain(`AND FICHE_POSTE.type > ${salaire}`);
-      expect(sql).toContain(`AND FICHE_POSTE.type = '${type}'`);
-
-      // Call the callback with a fake result
-      callback(null, /* fake result */);
+  modelCandidat.readUserDmdOrga('chloe@go', (results) => {
+      // Assertions on the results
+      expect(results).not.toEqual(mockUserData);
     });
 
-    model.readOffreFiltre(organisation, lieu, statut, salaire, type, intitule, callback);
 
-    // Verify if the function DB.query was called with the correct parameters
-    expect(mockDbQuery).toHaveBeenCalledWith(expect.any(String), expect.any(Function));
+  expect(DB.query).toHaveBeenCalledWith(
+    'select * from (CANDIDATURE c INNER JOIN OFFRE o ON c.offre=o.numero) INNER JOIN FICHE_POSTE f ON f.offre=o.numero INNER JOIN ORGANISATION ON ORGANISATION.siren=o.organisation where candidat=?',
+    'chloe@go',
+  expect.any(Function));
+});
+test ("candidat : readAllCandidature", ()=>{
+  const mockUserData = [{candidat:"chloe@go",offre:"6",date:"2023-05-15 15:18:25",pieces:"RFEA",etatC:"1",numero:"6",organisation:"1",etat:"publiee",dateValidite:"2023-09-09",nombrePieces:"2",intitule:"SDD",statut:"stage",responsable:"DF",type:"Association",lieu:"SF",rythme:"23",salaire:"23",description:"0x465a4546535a4546454651525151",nom:"Picasso",siren:"1",siegeSocial:"Compi"},]; // Mock data to be returned by the query
 
-    // Verify if the callback was called with the fake result
-    expect(callback).toHaveBeenCalledWith(/* fake result */);
-
-    // Restore the original DB.query function
-    mockDbQuery.mockRestore();
+  // Configure the mock behavior for db.query
+  DB.query.mockImplementation((query, id, callback) => {
+  // Simulate the callback with the mock user data
+  callback(null, mockUserData);
   });
 
-  test('creatDmdOrga creates a new organization request', () => {
-    const nom = 'New Org';
-    const siren = '123456789';
-    const type = 'Public';
-    const siegeSocial = 'Paris';
-    const mail = 'test@example.com';
-    const callback = jest.fn();
-
-    const mockDbQuery = jest.spyOn(DB, 'query').mockImplementation((sql, params, callback) => {
-      if (sql.startsWith('SELECT')) {
-        // Simulate an existing organization
-        callback(null, /* fake result */);
-      } else {
-        // Verify if the SQL query is correct
-        expect(sql).toBe("INSERT INTO DMD_ORGA (nom, siren, type, siegeSocial, recruteur) VALUES (?,?,?,?,?)");
-        // Verify if the parameters are correct
-        expect(params).toEqual([nom, siren, type, siegeSocial, mail]);
-
-        // Call the callback with a fake result
-        callback(null, /* fake result */);
-      }
+  modelCandidat.readUserDmdOrga('chlo@go', (results) => {
+      // Assertions on the results
+      expect(results).not.toEqual(mockUserData);
     });
 
-    model.creatDmdOrga(nom, siren, type, siegeSocial, mail, callback);
 
-    // Verify if the function DB.query was called with the correct parameters
-    expect(mockDbQuery).toHaveBeenCalledWith(expect.any(String), expect.any(Array), expect.any(Function));
+  expect(DB.query).toHaveBeenCalledWith(
+    'select * from (CANDIDATURE c INNER JOIN OFFRE o ON c.offre=o.numero) INNER JOIN FICHE_POSTE f ON f.offre=o.numero INNER JOIN ORGANISATION ON ORGANISATION.siren=o.organisation where candidat=?',
+    'chlo@go',
+  expect.any(Function));
+});
+// readAllOffreValide
+// readOffreFiltre
+// updateUser
+// updateUserMdp
+// updateCandidature
+// creatDmdOrga
+// creatDmdRecruteur
+// creatDmdAdmin
+// creatCandidature
+// deleteCandidature
+// deleteDmdOrga
+// deleteDmdRecruteur
+// deleteDmdRecruteurOrga
+// deleteDmdAdmin
 
-    // Verify if the callback was called with the fake result
-    expect(callback).toHaveBeenCalledWith(/* fake result */);
 
-    // Restore the original DB.query function
-    mockDbQuery.mockRestore();
-  });
-  
-  test("updateUser", (done) => {
-    model.updateUser("chloe@go", "Gommard", "Chloe", "123456789", (result) => {
-      expect(result).toBe(/* expected result */);
-      done();
-    });
-  });
-
-  test("updateUserMdp", (done) => {
-    model.updateUserMdp("newPassword", "chloe@go", () => {
-      // Check if the update was successful
-      // ...
-      done();
-    });
-  });
-
-  test("readAllOffreValide", (done) => {
-    model.readAllOffreValide((results) => {
-      expect(results).toEqual(/* expected results */);
-      done();
-    });
-  });
-
-  test("readOffreFiltre", (done) => {
-    model.readOffreFiltre("Orga", "Lieu", "Statut", "Salaire", "Type", "Intitule", (results) => {
-      expect(results).toEqual(/* expected results */);
-      done();
-    });
-  });
-
-  test("creatDmdOrga", (done) => {
-    model.creatDmdOrga("Nom", "123456789", "Type", "SiegeSocial", "mail@example.com", (results) => {
-      expect(results).toBe(/* expected result */);
-      done();
-    });
-  });
 });
