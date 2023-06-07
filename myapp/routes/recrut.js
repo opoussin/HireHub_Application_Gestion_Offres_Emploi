@@ -105,7 +105,7 @@ router.get('/editer_offre/:numero', function (req, res, next) {
         communModel.readOrga(result.organisation, function(orgaResult){
           if(orgaResult){
             var orga = orgaResult[0];
-            res.render('editer_offre', {offre: result, orga: orga, req : req});
+            res.render('editer_offre', {offre: result, orga: orga, req : req, numero});
           }
         });
       } else {
@@ -134,7 +134,7 @@ router.get('/listeCandidat/:numero', function (req, res, next) {
   });
 });
 
-router.post('/editer_offre', function (req, res, next) {
+router.post('/editer_offre/:numero', function (req, res, next) {
   if (req.body){
     var etat = req.body.etat;
     var dateValidite = req.body.dateValidite;
@@ -151,8 +151,8 @@ router.post('/editer_offre', function (req, res, next) {
     var description = req.body.description;
     
     console.log("req.body:",req.body);
-    recruteur.Model.updateOffre(etat, dateValidite, pieces, nombrePieces, numero, function (result) {
-      recruteur.Model.updateFiche(intitule, statut, responsable, type, lieu, rythme, salaire, description, numero, function (result){
+    recruteurModel.updateOffre(etat, dateValidite, pieces, nombrePieces, numero, function (result) {
+      recruteurModel.updateFiche(intitule, statut, responsable, type, lieu, rythme, salaire, description, numero, function (result){
         res.redirect('/recrut/recruteur');
         console.log("update success");
       }); 

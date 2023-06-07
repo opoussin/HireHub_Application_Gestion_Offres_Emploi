@@ -14,50 +14,51 @@
             <div class=" d-flex justify-content-center">
               <div class="col-7 p-4 flex-column bg-white">
                 <h1 class="display-4">Modifier une offre d'emploi</h1>
+                <%console.log(offre)%>
                 <hr>
-                <form action="/recrut/creer_offre" method="post">
+                <form action="/recrut/editer_offre/<%=numero%>" method="post">
                   <div class="mb-3 mt-3">
                     <h5><%=orga.nom%></h5>                    
                   </div>
                   <div class="mb-3 mt-3">
                     <label for="intitule">Intitule</label>
-                    <input type="text" class="form-control" id="intitule" placeholder="Intitule" name="intitule" value="<%= offre.intitule %>">
+                    <input type="text" class="form-control" id="intitule" name="intitule" value="<%= offre.intitule %>">
                   </div>
                   <div class="mb-3">
                     <label for="statut">Statut</label>
-                    <input type="text" class="form-control" id="statut" placeholder="Statut de poste" name="statut" value="<%= offre.statut%>">
+                    <input type="text" class="form-control" id="statut" name="statut" value="<%= offre.statut%>">
                   </div>
                   <div class="mb-3 mt-3">
                     <label for="responsable">Responsable</label>
-                    <input type="text" class="form-control" id="responsable" placeholder="Responsable"
+                    <input type="text" class="form-control" id="responsable" 
                       name="responsable" value="<%=offre.responsable%>">
                   </div>
                   <div class="mb-3 mt-3">
                     <label for="type">Type</label>
-                    <input type="text" class="form-control" id="type" placeholder="Type" name="type" value="<%=offre.type%>">
+                    <input type="text" class="form-control" id="type" name="type" value="<%=offre.type%>">
                   </div>
                   <div class="mb-3 mt-3">
                     <label for="lieu">Lieu</label>
-                    <input type="text" class="form-control" id="lieu" placeholder="Lieu" name="lieu" value="<%=offre.lieu%>">
+                    <input type="text" class="form-control" id="lieu" name="lieu" value="<%=offre.lieu%>">
                   </div>
                   <div class="mb-3 mt-3">
                     <label for="rythme">Rythme</label>
-                    <input type="number" class="form-control" id="rythme" placeholder="Entrez le rythme h/semaine"
+                    <input type="number" class="form-control" id="rythme" 
                       name="rythme" value="<%=offre.rythme%>">
                   </div>
                   <div class="mb-3 mt-3">
                     <label for="salaire">Salaire</label>
                     <input type="number" class="form-control" id="salaire"
-                      placeholder="Entrez la rémunération en euros/mois" name="salaire" value="<%=offre.salaire%>">
+                      name="salaire" value="<%=offre.salaire%>">
                   </div>
                   <div class="mb-3 mt-3">
                     <label for="description">Description</label>
-                    <input type="comment" class="form-control" id="description" placeholder="Description"
+                    <input type="comment" class="form-control" id="description" 
                       name="description" value="<%=offre.description%>">
                   </div>
                   <div class="mb-3 mt-3">
                     <label for="pieces">Pièces</label>
-                    <input type="text" class="form-control" id="pieces" placeholder="CV, LM ..." name="pieces" value="<%=offre.pieces%>">
+                    <input type="text" class="form-control" id="pieces" name="pieces" value="<%=offre.pieces%>">
                   </div>
                   <div class="mb-3 mt-3">
                     <label for="nombrePieces">Nombre de Pièces</label>
@@ -65,9 +66,10 @@
                       name="nombrePieces" value="<%=offre.nombrePieces%>">
                   </div>
                   <label for="dateValidite">Date de validité de l'offre:</label>
-                    <input type="dateValidite" id="dateValidite" name="dateValidite" placeholder="JJ-MM-AAAA" value="<%=offre.dateValidite.toLocaleDateString("fr")%>" required>
+                    <input type="dateValidite" id="dateValidite" name="dateValidite" value="<%=offre.dateValidite.toLocaleDateString("fr")%>" required>
                    
                   <div class="mb-3 mt-3">
+                    <h5>Etat = <%=offre.etat%> </h5>
                     <label>
                       <input type="radio" name="etat" value="publiee">
                       Publier l'offre maintenant
@@ -75,7 +77,11 @@
                     <br>
                     <label>
                       <input type="radio" name="etat" value="non publiee">
-                      Ne pas publier
+                      Remettre en brouillon
+                    </label>
+                    <label>
+                      <input type="radio" name="etat" value="archivee">
+                      Archiver
                     </label>
 
                   </div>
