@@ -36,6 +36,9 @@ C + vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
         + mettre demande recruteur dedans
         + ameliorer le front -> afficher les organisation auxquelles il appartient
     + gérer les demandes de recruteur
+    - modifier CDI etc en cadre ETAM jsp quoi 
+    - vérifier la validité d'une offre ( soit afficher quand la durée est dépassée, soit afficher la durée, dans tout les cas
+    laisser le faire manuellement)
 CANDIDAT
 C + mettre des valeurs dans les filtres candidat.ejs + terminer les filtres
 C + faire la route dans users.js des filtres
@@ -49,8 +52,8 @@ C - upload de fichiers
     + inserer une candidature
     + inserer plusieurs pieces
     - modifier sa candidature
-    - voir offre profil candidat
-    - ça plante des fois
+    + voir offre profil candidat
+    + ça plante des fois
 
 
 O + supprimer une demande amdin 
@@ -75,6 +78,13 @@ VRAC
 stand by plusieurs orga par recruteur ( select orga pour poster une offre, afficher les offres)
 + pas possible de se co avec celeste@mail mdp:123
 + filtrage des offres qui marche pas vraiment
+- rajouter des console.log a l'emplacement des envoie de mail
+- les mdp au format de la CNIL
+
+SECURITE
+- identifier 3 vulnerabilités
+- montrer faisabilité de l'attaque avant patch
+- patcher ou proposer une solution et pas l'implémenter
 
 TEST UNITAIRES fonction
 O - administrateur
