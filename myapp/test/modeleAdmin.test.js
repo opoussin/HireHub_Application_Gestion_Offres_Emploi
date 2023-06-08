@@ -1,45 +1,52 @@
-const DB= require ("../Modele/db.js");
-const adminModele= require ("../Modele/Administrateur.js");
+const DB = require("../Modele/db.js");
+const adminModele = require("../Modele/Administrateur.js");
 
 describe("Model Tests", () => {
     beforeAll(() => {
         console.log("avant");
-    // des instructions à exécuter avant le lancement des tests
+        // des instructions à exécuter avant le lancement des tests
     });
 
-    afterAll((done) => {
-        function callback (err){
-        if (err) done (err);
-        else done();
-    }
-    DB.end(callback);
-    });
-
-    test ("read user",()=>{
-    nom=null;
-    function cbRead(resultat){
-        nom = resultat[0].nom;
-        expect(resultat).toBe(
-        [
-            {"mail":"oceane@etu",
-            "mdp":"123",
-            "nom":"Poussin",
-            "prenom":"Océane",
-            "telephone":"1234",
-            "dateCreation":"2023-04-10 22:09:41",
-            "statut":"1",
-            "type":"3"}
-        ]
-        );
-    }
-    adminModele.readUser("oceane@etu", cbRead);
-    });
-
-    test ("read mauvais user",()=>{
-        nom=null;
-        function cbRead(resultat){
-            expect(resultat).toBe([]);
+    test("read user", (done) => {
+        function cbRead(resultat) {
+            const cle = Object.keys(resultat[0]);
+            try {
+                //l'objet user est valide (niveau champs)
+                expect(cle.sort()).toEqual(
+                    ["mail", "mdp", "nom", "prenom", "telephone", "dateCreation", "statut", "type"].sort()
+                );
+                //les valeurs ok ?
+                expect(resultat[0].nom).toSrictEqual("Poussin");
+                //si tout ok on renvoie rien dans le done()
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done(err);
+            }
         }
-        adminModele.readUser("e@z", cbRead);
-        });
+        adminModele.readUser("oceane@etu", cbRead);
+    });
+
+    test("disable user", (done) => {
+        function cbRead(resultat) {
+            const cle = Object.keys(resultat[0]);
+            try {
+                //l'objet user est valide (niveau champs)
+                expect(cle.sort()).toEqual(
+                    ["mail", "mdp", "nom", "prenom", "telephone", "dateCreation", "statut", "type"].sort()
+                );
+                //les valeurs ok ?
+                expect(resultat[0].statut).toSrictEqual(0);
+                //si tout ok on renvoie rien dans le done()
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done(err);
+            }
+        }
+        adminModele.disableUser("oceane@etu", 
+            adminModele.readUser("oceane@etu",cbRead) 
+        );
+    });
+
 })

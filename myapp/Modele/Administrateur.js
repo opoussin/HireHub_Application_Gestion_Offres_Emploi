@@ -19,10 +19,11 @@ var mysql = require('mysql');
 
 
 module.exports = {
+    //jamais utilisée
     readUser: function (mail, callback) {
         db.query("select * from UTILISATEUR where mail= ?", mail, function
             (err, results) {
-            if (err) throw err;
+            if (err) return callback(null);
             callback(results);
         });
     },
