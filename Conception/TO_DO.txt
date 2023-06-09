@@ -23,6 +23,7 @@ C + vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
         + demander comment passer la ref de l'offre pour l'éditer
         + afficher les données pour éditer l'offre
         - updater les données
+            - reformater la date
     + supprimer une offre
     + regler le pbm de la date de l'offre
     + voir les candidat

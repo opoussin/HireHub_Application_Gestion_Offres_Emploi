@@ -105,6 +105,7 @@ router.get('/editer_offre/:numero', function (req, res, next) {
         communModel.readOrga(result.organisation, function(orgaResult){
           if(orgaResult){
             var orga = orgaResult[0];
+            console.log("numerooooooooooooooooooo", numero);
             res.render('editer_offre', {offre: result, orga: orga, req : req, numero});
           }
         });
@@ -140,7 +141,7 @@ router.post('/editer_offre/:numero', function (req, res, next) {
     var dateValidite = req.body.dateValidite;
     var pieces = req.body.pieces;
     var nombrePieces = req.body.nombrePieces;
-    var numero = req.body.numero;
+    let numero = req.params.numero;
     var intitule = req.body.intitule;
     var statut = req.body.statut;
     var responsable = req.body.responsable;

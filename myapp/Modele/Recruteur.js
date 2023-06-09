@@ -121,7 +121,9 @@ module.exports = {
 
     },
     updateOffre: function (etat, dateValidite, pieces, nombrePieces, numero, callback) {
-        var sql = mysql.format("UPDATE OFFRE SET etat=?, dateValidite=?, pieces=?, nombrePieces=?, WHERE numero=?", [etat, dateValidite, pieces, nombrePieces, numero]);
+        console.log("dfiuhdsifho", numero);
+        console.log(etat);
+        var sql = mysql.format("UPDATE OFFRE SET etat=?, dateValidite=?, pieces=?, nombrePieces=? WHERE numero=?", [etat, dateValidite, pieces, nombrePieces, numero]);
         db.query(sql, function (err, results) {
             if (err) throw err;
             callback(results);
