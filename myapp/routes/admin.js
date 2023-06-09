@@ -54,7 +54,14 @@ router.get('/administrateur/activer', function (req, res, next) {
     var mail2 =req.query.user; 
     if(mail!=mail2){    
       adminModel.enableUser(mail2, function (results) {
-        res.redirect('/admin/administrateur')
+        if(results){
+          res.redirect('/admin/administrateur')
+        }else{
+          console.log("erreur catch");
+          //GERER L'ERREUR + 
+          //res.status();
+          res.redirect('/admin/administrateur')
+        };
       });
     }else{
       res.redirect('/admin/administrateur'); //ne peut pas se réactiver lui même
@@ -67,8 +74,15 @@ router.get('/administrateur/desactiver', function (req, res, next) {
     var mail2 =req.query.user;
       
       adminModel.disableUser(mail2, function (results) {
-        res.redirect('/admin/administrateur')
-      });
+        if(results){
+          res.redirect('/admin/administrateur')
+        }else{
+          console.log("erreur catch");
+          //GERER L'ERREUR + 
+          //res.status();
+          res.redirect('/admin/administrateur')
+        }
+     });
     
 });
 
@@ -102,11 +116,19 @@ router.get('/demandes_admin/accept', function (req, res, next) {
   let user = req.query.user;
   let value=true;
   adminModel.acceptAdmin(user, function (result) {
-    adminModel.updateDmdAdmin(user, value, function (result) {
-
+    if(result){
+      adminModel.updateDmdAdmin(user, value, function (result) {
+        if(result){
+          res.redirect('/admin/demandes');
+        }else{
+          res.redirect('/admin/demandes?error=1');
+        }
+      });
+    }else{
+      //GERER ERREUR
+      //res.status
       res.redirect('/admin/demandes');
-      
-    });
+    }
   });
 });
 
@@ -116,8 +138,12 @@ router.get('/demandes_admin/deny', function (req, res, next) {
   let value=false;
   
     adminModel.updateDmdAdmin(user, value, function (result) {
+      if(result){
+        res.redirect('/admin/demandes');
+      }else{
 
-      res.redirect('/admin/demandes');
+        res.redirect('/admin/demandes');
+      }
       
     });
 });

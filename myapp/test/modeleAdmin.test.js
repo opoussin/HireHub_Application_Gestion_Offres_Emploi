@@ -1,5 +1,7 @@
 const DB = require("../Modele/db.js");
 const adminModele = require("../Modele/Administrateur.js");
+const communModele = require("../Modele/Commun.js");
+const recrutModele = require("../Modele/Recruteur.js");
 
 describe("Model Tests", () => {
     beforeAll(() => {
@@ -16,7 +18,7 @@ describe("Model Tests", () => {
                     ["mail", "mdp", "nom", "prenom", "telephone", "dateCreation", "statut", "type"].sort()
                 );
                 //les valeurs ok ?
-                expect(resultat[0].nom).toSrictEqual("Poussin");
+                expect(resultat[0].nom).toEqual("Test");
                 //si tout ok on renvoie rien dans le done()
                 done();
             } catch (err) {
@@ -24,19 +26,22 @@ describe("Model Tests", () => {
                 done(err);
             }
         }
-        adminModele.readUser("oceane@etu", cbRead);
+        adminModele.readUser("test@test", cbRead);
     });
 
-    test("disable user", (done) => {
+   
+    
+    test("enable user", (done) => {
         function cbRead(resultat) {
             const cle = Object.keys(resultat[0]);
             try {
+                console.log("resultats", resultat);
                 //l'objet user est valide (niveau champs)
                 expect(cle.sort()).toEqual(
                     ["mail", "mdp", "nom", "prenom", "telephone", "dateCreation", "statut", "type"].sort()
                 );
                 //les valeurs ok ?
-                expect(resultat[0].statut).toSrictEqual(0);
+                expect(resultat[0].statut).toEqual(1);
                 //si tout ok on renvoie rien dans le done()
                 done();
             } catch (err) {
@@ -44,9 +49,71 @@ describe("Model Tests", () => {
                 done(err);
             }
         }
-        adminModele.disableUser("oceane@etu", 
-            adminModele.readUser("oceane@etu",cbRead) 
+        adminModele.enableUser("tet@test", cbRead);
+    });
+    
+
+   /* test("accept admin", (done) => {
+        function cbRead(resultat) {
+            const cle = Object.keys(resultat[0]);
+            try {
+                console.log("resultats", resultat);
+                //l'objet user est valide (niveau champs)
+                expect(cle.sort()).toEqual(
+                    ["mail", "mdp", "nom", "prenom", "telephone", "dateCreation", "statut", "type"].sort()
+                );
+                //les valeurs ok ?
+                expect(resultat[0].statut).toEqual(0);
+                //si tout ok on renvoie rien dans le done()
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done(err);
+            }
+        }
+        adminModele.acceptAdmin("test@test", 
+            adminModele.readUser("test@test",cbRead) 
         );
     });
 
+    test("creat orga", (done) => {
+        function cbRead(resultat) {
+            const cle = Object.keys(resultat[0]);
+            try {
+                console.log("resultats", resultat);
+                //l'objet user est valide (niveau champs)
+                expect(cle.sort()).toEqual(
+                    ["nom", "siren", "type", "siegeSocial"].sort()
+                );
+                //les valeurs ok ?
+                expect(resultat[0].siren).toEqual(100);
+                //si tout ok on renvoie rien dans le done()
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done(err);
+            }
+        }
+        adminModele.creatOrga("Test","100","Association","Test", 
+            communModele.readOrga("100",cbRead) 
+        );
+    });
+
+    test("delete orga", (done) => {
+        function cbRead(resultat) {
+            try {
+                //les valeurs ok ?
+                expect(resultat).toEqual([]);
+                //si tout ok on renvoie rien dans le done()
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done(err);
+            }
+        }
+        recrutModele.deleteOrga("100", 
+            communModele.readOrga("100",cbRead) 
+        );
+    });
+*/
 })

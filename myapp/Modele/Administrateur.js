@@ -50,28 +50,35 @@ module.exports = {
     },*/
 
     disableUser: function (mail, callback) {
-        
-        db.query("UPDATE UTILISATEUR SET statut=0 WHERE mail=?", mail, function
-            (err, results) {
-            if (err) throw err;
-            callback();
+        db.query("UPDATE UTILISATEUR SET statut=0 WHERE mail=?", mail, function (err, results) {
+          if (results.affectedRows == 0) {
+            //console.log("erreur", err);
+            return callback(false); // Passer l'erreur au callback
+          }
+          callback(true); // Appeler le callback sans résultats
         });
-    },
+      },
+      
 
     enableUser: function (mail, callback) {
         db.query("UPDATE UTILISATEUR SET statut=1 WHERE mail=?", mail, function
             (err, results) {
-            if (err) throw err;
-            callback();
-        });
+                if (results.affectedRows == 0) {
+                    //console.log("erreur", err);
+                    return callback(false); // Passer l'erreur au callback
+                  }
+                  callback(true); // Appeler le callback sans résultats
+                });
     },
 
     acceptAdmin: function (mail, callback) {
         db.query("UPDATE UTILISATEUR SET type=3 WHERE mail=?", mail, function
             (err, results) {
-            if (err) throw err;
-            callback();
-        });
+                if (results.affectedRows == 0) {
+                    return callback(false); 
+                  }
+                  callback(true); 
+                });
     },
 
     creatOrga: function (nom, siren, type, siegesocial, callback) {
@@ -182,8 +189,8 @@ module.exports = {
 
         db.query(sql, function (err, results) {
             console.log(err);
-            console.log(sql);
-            console.log("results", results);
+            //console.log(sql);
+            //console.log("results", results);
             callback(results);
         });
 
@@ -194,15 +201,19 @@ module.exports = {
         if(value){
             db.query("UPDATE DMD_ADMIN SET statut='Validé' WHERE utilisateur=?", mail , function
             (err, results) {
-            if (err) throw err;
-            callback();
+                if (results.affectedRows == 0) {
+                    return callback(false); 
+                  }
+                  callback(true); 
         });
         }
         else{
             db.query("UPDATE DMD_ADMIN SET statut='Refusé' WHERE utilisateur=?", mail, function
             (err, results) {
-            if (err) throw err;
-            callback();
+                if (results.affectedRows == 0) {
+                    return callback(false); 
+                  }
+                  callback(true); 
         });
         }
         
@@ -211,16 +222,21 @@ module.exports = {
         if(value==1){
             db.query("UPDATE DMD_ORGA SET statut='Validé' WHERE siren=? AND recruteur=?", [siren,mail] , function
             (err, results) {
-            if (err) throw err;
-            callback();
-        });
+                if (results.affectedRows == 0) {
+                    return callback(false); 
+                  }
+                  callback(true); 
+            });
         }
         else{
             db.query("UPDATE DMD_ORGA SET statut='Refusé' WHERE siren=? AND recruteur=?", [siren,mail] , function
             (err, results) {
-            if (err) throw err;
-            callback();
-        });
+                if (results.affectedRows == 0) {
+                    return callback(false); 
+                  }
+                  callback(true); 
+            });
+        
         }
         
     },
@@ -228,20 +244,21 @@ module.exports = {
         if(value==1){
             db.query("UPDATE DMD_RECRUTEUR SET statut='Validé' WHERE organisation=? AND recruteur=?", [siren,mail] , function
             (err, results) {
-            if (err) throw err;
-            callback();
+                if (results.affectedRows == 0) {
+                    return callback(false); 
+                  }
+                  callback(true); 
         });
         }
         else{
             db.query("UPDATE DMD_RECRUTEUR SET statut='Refusé' WHERE organisation=? AND recruteur=?", [siren,mail] , function
             (err, results) {
-            if (err) throw err;
-            callback();
+                if (results.affectedRows == 0) {
+                    return callback(false); 
+                  }
+                  callback(true); 
         });
         }
         
     },
-
-    
-
 }
