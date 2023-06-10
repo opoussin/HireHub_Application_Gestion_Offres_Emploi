@@ -81,6 +81,7 @@ stand by plusieurs orga par recruteur ( select orga pour poster une offre, affic
 + filtrage des offres qui marche pas vraiment
 - rajouter des console.log a l'emplacement des envoie de mail
 - les mdp au format de la CNIL
+- check si le compte est actif
 
 IMPORTANT
 changer toutes la gestion des erreurs des update + checker le comportement des INSERT

@@ -141,8 +141,17 @@ module.exports = {
     deleteCandidature: function (mail, callback) {
 
     },
-    updateCandidature: function (mail, callback) {
-
+    updateCandidature: function (files, numero, mail, callback) {
+        var sql = mysql.format("UPDATE CANDIDATURE SET pieces =? where offre=? AND canidat=?", [files, numero, mail]);
+        console.log("hors query");
+        db.query(sql, function (err, result) {
+            if (result.affectedRows == 0){
+                callback(false);
+            }else{
+                callback(true);
+            }
+        });
+        
     },
     /*readAllCandidature: function (mail, callback) {
         
@@ -155,6 +164,14 @@ module.exports = {
     readAllCandidature: function (mail, callback) {
 
         db.query("select * from (CANDIDATURE c INNER JOIN OFFRE o ON c.offre=o.numero) INNER JOIN FICHE_POSTE f ON f.offre=o.numero INNER JOIN ORGANISATION ON ORGANISATION.siren=o.organisation where candidat=?", mail, function
+            (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+    readCandidature: function (mail, numero, callback) {
+
+        db.query("select * from (CANDIDATURE c INNER JOIN OFFRE o ON c.offre=o.numero) INNER JOIN FICHE_POSTE f ON f.offre=o.numero INNER JOIN ORGANISATION ON ORGANISATION.siren=o.organisation where candidat=? AND offre = ?", [mail, numero], function
             (err, results) {
             if (err) throw err;
             callback(results);

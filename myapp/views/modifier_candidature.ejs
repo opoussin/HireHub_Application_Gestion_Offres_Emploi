@@ -50,7 +50,7 @@
                         required="true" />
                     </div>
                   </div>
-                  <input type="hidden" name="myAdd" value="<%= numero%>" >
+                  <input type="hidden" name="myAdd" value="<%=numero%>" >
 
 
                   <div class="row" style="margin-bottom:5px;">
@@ -93,12 +93,13 @@
                 <% files_array.forEach((oneFile)=> { %>
                   <li><a href="/candidature/getfile/<%= oneFile %>" target="_blank">
                       <%= oneFile %>
-                    </a></li>
+                    </a>
+                    <a href="/candidature/modifier_candidature/<%=numero%>/supp/<%= oneFile %>" class ="btn btn-primary" target="_blank">Supprimer</a></li>
                   <% }) %>
               </ul>
             </div>
           </div>
-          <form method="post" action="envoi">
+          <form method="post" action="modifier_candidature/:numero/envoi">
             <input type="hidden" name="numero" value="<%=numero%>" />
             <button type="submit" class="btn btn-primary">ENVOI</button>
           </form>
