@@ -110,17 +110,28 @@ router.get('/modifier_candidature/:numero', function (req, res, next) {
   var mail = req.session.userid;  
   candidatModel.readCandidature(mail, numero, function (result) {
     if (result) {
-      var user = result;
+      var candidat = result;
+      console.log(candidat, "le result de candidat");
       if (req.session.uploaded_files == undefined || req.session.uploaded_files.length ===0 ) {
+        console.log(candidat[0].piecesC, "le result de candidat");
+        console.log(candidat, "le result de candidat");
           req.session.uploaded_files = [];
-          const mots = candidat.pieces.split(","); // Sépare la chaîne en mots en utilisant la virgule comme séparateur
-          candidat.pieces = mots.map((mot) => mot.trim()); // Stocke chaque mot dans le tableau candidat.pieces après avoir supprimé les espaces avant et après
-          candidat.pieces.forEach(piece => {
+          const mots = candidat[0].piecesC.split(","); // Sépare la chaîne en mots en utilisant la virgule comme séparateur
+          candidat[0].piecesC = mots.map((mot) => mot.trim()); // Stocke chaque mot dans le tableau candidat.pieces après avoir supprimé les espaces avant et après
+          candidat[0].piecesC.forEach(piece => {
             req.session.uploaded_files.push(piece);
-          });          
-          res.render('file_upload',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero});
+          });
+          readUser(mail, function (user) {
+            if(user){
+              res.render('modifier_candidature',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero});
+            }else{
+              res.redirect('/users/candidat');
+              console.log("read user pas fonctionné");
+            }
+          });
         }else{
           res.redirect('/users/candidat');
+          console.log("pbm avec le tablea req.session.files");
         }
     } else {
       console.log("non");

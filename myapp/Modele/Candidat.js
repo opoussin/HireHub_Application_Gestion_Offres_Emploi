@@ -131,7 +131,7 @@ module.exports = {
         });
     },
     creatCandidature: function (mail, numero, fichier, callback) {
-        var sql = mysql.format("INSERT INTO CANDIDATURE (candidat, offre, pieces) VALUES (?,?,?)", [mail, numero, fichier]);
+        var sql = mysql.format("INSERT INTO CANDIDATURE (candidat, offre, piecesC) VALUES (?,?,?)", [mail, numero, fichier]);
 
         db.query(sql, function (err, results) {
             if (err) throw err;
@@ -142,7 +142,7 @@ module.exports = {
 
     },
     updateCandidature: function (files, numero, mail, callback) {
-        var sql = mysql.format("UPDATE CANDIDATURE SET pieces =? where offre=? AND canidat=?", [files, numero, mail]);
+        var sql = mysql.format("UPDATE CANDIDATURE SET pieces =? where offre=? AND candidat=?", [files, numero, mail]);
         console.log("hors query");
         db.query(sql, function (err, result) {
             if (result.affectedRows == 0){
@@ -171,7 +171,7 @@ module.exports = {
     },
     readCandidature: function (mail, numero, callback) {
 
-        db.query("select * from (CANDIDATURE c INNER JOIN OFFRE o ON c.offre=o.numero) INNER JOIN FICHE_POSTE f ON f.offre=o.numero INNER JOIN ORGANISATION ON ORGANISATION.siren=o.organisation where candidat=? AND offre = ?", [mail, numero], function
+        db.query("select * from (CANDIDATURE c INNER JOIN OFFRE o ON c.offre=o.numero) INNER JOIN FICHE_POSTE f ON f.offre=o.numero INNER JOIN ORGANISATION ON ORGANISATION.siren=o.organisation where candidat=? AND c.offre = ?", [mail, numero], function
             (err, results) {
             if (err) throw err;
             callback(results);
