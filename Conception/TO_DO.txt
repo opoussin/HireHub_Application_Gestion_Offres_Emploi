@@ -37,8 +37,8 @@ C + vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
         + mettre demande recruteur dedans
         + ameliorer le front -> afficher les organisation auxquelles il appartient
     + gérer les demandes de recruteur
-    - modifier CDI etc en cadre ETAM jsp quoi 
-    - vérifier la validité d'une offre ( soit afficher quand la durée est dépassée, soit afficher la durée, dans tout les cas
+    + modifier CDI etc en cadre ETAM jsp quoi 
+    o vérifier la validité d'une offre ( soit afficher quand la durée est dépassée, soit afficher la durée, dans tout les cas
     laisser le faire manuellement)
 CANDIDAT
 C + mettre des valeurs dans les filtres candidat.ejs + terminer les filtres
