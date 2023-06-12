@@ -140,12 +140,13 @@ router.get('/modifier_candidature/:numero', function (req, res, next) {
   });
 });
 
-  router.post('/modifier_candidature/:numero/supp/:file', function (req, res, next) {
+  router.get('/modifier_candidature/supp/:numero/:file', function (req, res, next) {
     let numero = req.params.numero;
     let filePath = `/mesfichiers/${file}`;
     const uploaded_file = req.file;
     let mail = req.session.userid;
-    
+    console.log("CICI");
+
     fs.unlink(filePath, function (err) {
       if (err) {
         console.error(err);
@@ -155,7 +156,7 @@ router.get('/modifier_candidature/:numero', function (req, res, next) {
         readUser(mail, function (result){
           if (result) {
               var user = result;
-              res.render('modifier_candidature',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero});
+              res.render('modifier_candidature',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero : numero});
             } else {
               console.log("nononononon");
             }
@@ -166,6 +167,7 @@ router.get('/modifier_candidature/:numero', function (req, res, next) {
       }
     });
   });
+  
   router.post('/modifier_candidature/:numero/ajout', upload.single('myFileInput') ,function(req, res, next) {
     const uploaded_file = req.file
     let numero = req.body.numero;
