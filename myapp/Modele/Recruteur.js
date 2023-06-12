@@ -55,11 +55,11 @@ module.exports = {
         var sql = mysql.format("INSERT INTO FICHE_POSTE (offre, intitule, statut, responsable, type, lieu, rythme, salaire, description) VALUES (?,?,?,?,?,?,?,?,?)", [numero, intitule, statut, responsable, type, lieu, rythme, salaire, description]);
     
         db.query(sql, function (err, results) {
-            if (err) {
-                throw err;
+            if (results.affectedRows == 0) {
+                callback(false);
+            }else{
+                callback(true);
             }
-            console.log("Fiche poste insérée");
-            callback(results);
         });
     },
     creatOffre: function (organisation, etat, dateValidite, pieces, nombrePieces, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback) {
@@ -70,18 +70,18 @@ module.exports = {
             if (err) {
                 throw err;
             }
-            console.log("première requête exécutée");
+            //console.log("première requête exécutée");
             
             var sql2 = "SELECT numero FROM OFFRE ORDER BY numero DESC LIMIT 1";
             db.query(sql2, function (err, results) {
                 if (err) {
                     throw err;
                 }
-                console.log("deuxième requête exécutée");
-                console.log(numero);
+                //console.log("deuxième requête exécutée");
+                //console.log(numero);
                 var numero = results[0].numero;
-                console.log("Numéro de l'offre insérée :", numero);
-                console.log(numero, intitule, statut, responsable, type, lieu, rythme, salaire, description);
+                //console.log("Numéro de l'offre insérée :", numero);
+                //console.log(numero, intitule, statut, responsable, type, lieu, rythme, salaire, description);
                 self.creatFiche(numero, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback);
             });
         });
@@ -244,33 +244,23 @@ module.exports = {
     },
 
     deleteOrga: function (siren, callback) {
-        var sql = mysql.format("UPDATE UTILISATEUR SET type = 1 WHERE mail IN ( SELECT mail FROM UTILISATEUR u INNER JOIN APPARTENIR_ORGA a ON u.mail = a.utilisateur WHERE organisation =? GROUP BY utilisateur HAVING COUNT(*) = 1 )");
+        var sql = mysql.format("UPDATE UTILISATEUR SET type = 1 WHERE mail IN ( SELECT a.mail FROM UTILISATEUR u INNER JOIN APPARTENIR_ORGA a ON u.mail = a.mail WHERE organisation =? AND u.type=2 GROUP BY a.mail HAVING COUNT(*) = 1 )");
         var sql2 = mysql.format("DELETE FROM ORGANISATION WHERE siren=?");
-        deleteOffre(siren);
-        var sql3 = mysql.format("DELETE FROM DMD_RECRUTEUR WHERE organisation=?");
-        var sql4 = mysql.format("DELETE FROM DMD_ORGA WHERE siren=?");
-        var sql5 = mysql.format("DELETE FROM APPARTENIR_ORGA WHERE siren=?");
-        db.query(sql, function (err, results) {
+        this.deleteOffre(siren);
+        db.query(sql, siren, function (err, results) {
             if (err) throw err;
-            callback(results);
+            //callback(results);
         });
-        db.query(sql2, function (err, results) {
-            if (err) throw err;
-            callback(results);
-        });
-        db.query(sql3, function (err, results) {
-            if (err) throw err;
-            callback(results);
-        });
-        db.query(sql4, function (err, results) {
-            if (err) throw err;
-            callback(results);
-        });
-        db.query(sql5, function (err, results) {
-            if (err) throw err;
-            callback(results);
+
+        db.query(sql2, siren, function (err, results) {
+            if (results.affectedRows > 0){
+                callback(true);
+            }else{
+                callback(false);
+            }
         });
     },
+            
 
     readAllOrgaRecruteur: function (mail, callback) {
         db.query("SELECT * FROM APPARTENIR_ORGA a INNER JOIN ORGANISATION o ON a.organisation=o.siren WHERE a.mail=?", mail, function

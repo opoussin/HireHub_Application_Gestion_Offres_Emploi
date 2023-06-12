@@ -155,14 +155,14 @@ describe("Model Tests", () => {
                 done.fail(err);
             }
         }
-        adminModele.readOrga(100, cbRead);
+        communModele.readOrga(100, cbRead);
     });
 
     test("delete orga", (done) => {
         function cbRead(resultat) {
             try {
                 //les valeurs ok ?
-                expect(resultat).toEqual([]);
+                expect(resultat).toBeTruthy();
                 //si tout ok on renvoie rien dans le done()
                 done();
             } catch (err) {
@@ -170,7 +170,7 @@ describe("Model Tests", () => {
                 done.fail(err);
             }
         }
-        recrutModele.deleteOrga("100",cbRead);
+        recrutModele.deleteOrga(100,cbRead);
     });
 
     test("read delete orga", (done) => {
@@ -182,7 +182,7 @@ describe("Model Tests", () => {
                     ["nom", "siren", "type", "siegeSocial"].sort()
                 );
                 //les valeurs ok ?
-                expect(resultat[0].siren).toEqual(100);
+                expect(resultat[0].siren).toEqual([]);
                 //si tout ok on renvoie rien dans le done()
                 done();
             } catch (err) {
@@ -190,7 +190,7 @@ describe("Model Tests", () => {
                 done.fail(err);
             }
         }
-        adminModele.readOrga(100, cbRead);
+        communModele.readOrga(100, cbRead);
     });
 
 })
