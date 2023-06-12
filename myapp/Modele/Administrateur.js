@@ -50,14 +50,15 @@ module.exports = {
     },*/
 
     disableUser: function (mail, callback) {
-        db.query("UPDATE UTILISATEUR SET statut=0 WHERE mail=?", mail, function (err, results) {
-          if (results.affectedRows == 0) {
-            //console.log("erreur", err);
-            return callback(false); // Passer l'erreur au callback
-          }
-          callback(true); // Appeler le callback sans résultats
-        });
-      },
+        db.query("UPDATE UTILISATEUR SET statut=0 WHERE mail=?", mail, function
+            (err, results) {
+                if (results.affectedRows == 0) {
+                    //console.log("erreur", err);
+                    return callback(false); // Passer l'erreur au callback
+                  }
+                  callback(true); // Appeler le callback sans résultats
+                });
+    },
       
 
     enableUser: function (mail, callback) {
@@ -84,9 +85,11 @@ module.exports = {
     creatOrga: function (nom, siren, type, siegesocial, callback) {
         db.query("INSERT INTO ORGANISATION (nom, siren, type, siegesocial) VALUES (?,?,?,?)", [nom, siren, type, siegesocial], function
             (err, results) {
-            if (err) throw err;
-            callback(results);
-        });
+                if (results.affectedRows == 0) {
+                    return callback(false); 
+                  }
+                  callback(true); 
+                });
     },
 
     readOrgaSiren : function ( siren, callback){

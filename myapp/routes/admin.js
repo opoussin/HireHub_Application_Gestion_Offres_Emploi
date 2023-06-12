@@ -57,7 +57,7 @@ router.get('/administrateur/activer', function (req, res, next) {
         if(results){
           res.redirect('/admin/administrateur')
         }else{
-          console.log("erreur catch");
+          console.log("erreur catch enable");
           //GERER L'ERREUR + 
           //res.status();
           res.redirect('/admin/administrateur')
@@ -70,19 +70,22 @@ router.get('/administrateur/activer', function (req, res, next) {
 
 router.get('/administrateur/desactiver', function (req, res, next) {
   var mail = req.session.userid;
-
-    var mail2 =req.query.user;
-      
+  
+    var mail2 =req.query.user; 
+    if(mail!=mail2){    
       adminModel.disableUser(mail2, function (results) {
         if(results){
           res.redirect('/admin/administrateur')
         }else{
-          console.log("erreur catch");
+          console.log("erreur catch disable");
           //GERER L'ERREUR + 
           //res.status();
           res.redirect('/admin/administrateur')
-        }
-     });
+        };
+      });
+    }else{
+      res.redirect('/admin/administrateur'); //ne peut pas se réactiver lui même
+    }
     
 });
 
