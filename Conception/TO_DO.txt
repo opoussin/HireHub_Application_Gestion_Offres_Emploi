@@ -38,14 +38,14 @@ C + vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
         + ameliorer le front -> afficher les organisation auxquelles il appartient
     + gérer les demandes de recruteur
     + modifier CDI etc en cadre ETAM jsp quoi 
-    o vérifier la validité d'une offre ( soit afficher quand la durée est dépassée, soit afficher la durée, dans tout les cas
+    + vérifier la validité d'une offre ( soit afficher quand la durée est dépassée, soit afficher la durée, dans tout les cas
     laisser le faire manuellement)
 CANDIDAT
-C + mettre des valeurs dans les filtres candidat.ejs + terminer les filtres
-C + faire la route dans users.js des filtres
-C + réparer le front d'accueil candidat
-O + bouton créer dmd organisation
-optionnel + afficher message disant qu'il n'y a pas de candidatures pour l'instant profil candidat
+    C + mettre des valeurs dans les filtres candidat.ejs + terminer les filtres
+    C + faire la route dans users.js des filtres
+    C + réparer le front d'accueil candidat
+    O + bouton créer dmd organisation
+    optionnel + afficher message disant qu'il n'y a pas de candidatures pour l'instant profil candidat
 C - upload de fichiers 
     + reprendre le code du prof
     - arranger le front de file_upload
@@ -79,7 +79,7 @@ VRAC
 stand by plusieurs orga par recruteur ( select orga pour poster une offre, afficher les offres)
 + pas possible de se co avec celeste@mail mdp:123
 + filtrage des offres qui marche pas vraiment
-- rajouter des console.log a l'emplacement des envoie de mail
++ rajouter des console.log a l'emplacement des envoie de mail
 - les mdp au format de la CNIL
 - check si le compte est actif
 
@@ -90,6 +90,24 @@ Maintenant on peut checker les erreurs en passant un paramètre dans la query (v
 
 SECURITE
 - identifier 3 vulnerabilités
+    Violation de gestion d’authentification
+        Le contournement de l’authentification se fait le plus souvent par :
+        ➢ vol des identifiants d’un utilisateur étourdi ou négligeant
+        ➢ tromperie d’un utilisateur (mail, fausse hotline,…)
+        ➢ utilisation de comptes par défaut de certaines applications
+        ➢ détournement appli de changement de mot de passe
+        ➢ génération aléatoire et massive de couple d’identifiant
+        -> jsute voler un mdp
+        -> authentification en 3 étape avec une adresse mail ou telephone
+    Cross-Site Scripting (XSS)
+            Les failles XSS se produisent chaque fois qu'une application 
+        accepte des données non fiables et les envoie à un browser web 
+        sans validation appropriée. XSS permet à des attaquants 
+        d'exécuter du script dans le navigateur de la victime afin de 
+        détourner des sessions utilisateur, défigurer des sites web, ou 
+        rediriger l'utilisateur vers des sites malveillants.
+        -> se renseigner
+
 - montrer faisabilité de l'attaque avant patch
 - patcher ou proposer une solution et pas l'implémenter
 

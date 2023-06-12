@@ -181,14 +181,21 @@ router.get('/demandes', async function(req, res, next) {
 });
 
 router.get('/demandes/accept', function (req, res, next) {
-  var mail= req.session.userid;
   let user = req.query.user;
   let siren=req.query.siren;
   let value = true;
-  adminModel.acceptRecruteur(user,siren, function (result) {
-    adminModel.updateDmdRecruteur(siren, user, value, function (result) {
+  adminModel.acceptRecruteur(user,siren, function (accept) {
+    adminModel.updateDmdRecruteur(siren, user, value, function (update) {
+      if (accept){
+        if(update){
+          res.redirect('/recrut/demandes');
+        }else{
+          res.status(500).send('Une erreur s\'est produite lors de l\'update');
+        }
+      }else{
+        res.status(500).send('Une erreur s\'est produite lors de l\'acceptation');
 
-      res.redirect('/recrut/demandes');
+      }
       
     });
   });
@@ -210,29 +217,28 @@ router.get('/demandes/deny', function (req, res, next) {
 router.get('/listeCandidat/accept/:numero/:candidat', function (req, res, next) {
   var numero = req.params.numero;
   var mail = req.params.candidat;  
-  console.log("oui cici");
   recruteurModel.acceptCandidat(numero, mail, function (result) {
     if (result){
-      console.log ('/listeCandidat/' +numero);
+      console.log("Votre candidature a été acceptée");
       res.redirect('/recrut/listeCandidat/' +numero);
     }else{
-      res.redirect('/recrut/recruteur');
+      res.status(500).send('Une erreur s\'est produite lors de l\'acceptation');
 
     }
     
   });
 
 });
+
 router.get('/listeCandidat/refuse/:numero/:candidat', function (req, res, next) {
   var numero = req.params.numero;
   var mail = req.params.candidat;  
-  console.log("oui cici");
   recruteurModel.refuseCandidat(numero, mail, function (result) {
     if (result){
-      console.log ('/listeCandidat/' +numero);
+      console.log("Votre candidature a été refusée");
       res.redirect('/recrut/listeCandidat/' +numero);
     }else{
-      res.redirect('/recrut/recruteur');
+      res.status(500).send('Une erreur s\'est produite lors du refus');
 
     }
     
