@@ -29,13 +29,25 @@ describe("Model Tests", () => {
         adminModele.readUser("test@test", cbRead);
     });
 
-   
-    
     test("enable user", (done) => {
+        function cbRead(resultat) {
+            try {
+                //les valeurs ok ?
+                expect(resultat).toBeTruthy();
+                //si tout ok on renvoie rien dans le done()
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done(err);
+            }
+        }
+        adminModele.enableUser("test@test", cbRead);
+    });
+
+    test("read enable user", (done) => {
         function cbRead(resultat) {
             const cle = Object.keys(resultat[0]);
             try {
-                console.log("resultats", resultat);
                 //l'objet user est valide (niveau champs)
                 expect(cle.sort()).toEqual(
                     ["mail", "mdp", "nom", "prenom", "telephone", "dateCreation", "statut", "type"].sort()
@@ -49,7 +61,42 @@ describe("Model Tests", () => {
                 done(err);
             }
         }
-        adminModele.enableUser("tet@test", cbRead);
+        adminModele.readUser("test@test", cbRead);
+    });
+
+    test("disable user", (done) => {
+        function cbRead(resultat) {
+            try {
+                //les valeurs ok ?
+                expect(resultat).toBe(true);
+                //si tout ok on renvoie rien dans le done()
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done(err);
+            }
+        }
+        adminModele.disableUser("tet@test", cbRead);
+    });
+
+    test("read disable user", (done) => {
+        function cbRead(resultat) {
+            const cle = Object.keys(resultat[0]);
+            try {
+                //l'objet user est valide (niveau champs)
+                expect(cle.sort()).toEqual(
+                    ["mail", "mdp", "nom", "prenom", "telephone", "dateCreation", "statut", "type"].sort()
+                );
+                //les valeurs ok ?
+                expect(resultat[0].statut).toEqual(0);
+                //si tout ok on renvoie rien dans le done()
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done(err);
+            }
+        }
+        adminModele.readUser("test@test", cbRead);
     });
     
 
