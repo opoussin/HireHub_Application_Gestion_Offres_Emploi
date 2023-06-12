@@ -84,9 +84,11 @@ router.post('/envoi', function(req, res, next) {
     console.log("envoie" , numero);
     candidatModel.creatCandidature(mail, numero, fichier, function(result){
       if (result){
+        req.session.uploaded_files =[];
         res.redirect('/users/candidat');
         console.log("insertion reussie");
       }else{
+        req.session.uploaded_files =[];
         res.redirect('/users/candidat');
         console.log("insertion fail");
       }
@@ -112,7 +114,7 @@ router.get('/modifier_candidature/:numero', function (req, res, next) {
     if (result) {
       var candidat = result;
       console.log(candidat, "le result de candidat");
-      if (req.session.uploaded_files == undefined || req.session.uploaded_files.length ===0 ) {
+      if (req.session.uploaded_files == undefined || req.session.uploaded_files.length ===0 || req.session.uploaded_files==[]) {
         console.log(candidat[0].piecesC, "le result de candidat");
         console.log(candidat, "le result de candidat");
           req.session.uploaded_files = [];
@@ -131,6 +133,7 @@ router.get('/modifier_candidature/:numero', function (req, res, next) {
           });
         }else{
           res.redirect('/users/candidat');
+          console.log (req.session.uploaded_files);
           console.log("pbm avec le tablea req.session.files");
         }
     } else {
@@ -142,7 +145,8 @@ router.get('/modifier_candidature/:numero', function (req, res, next) {
 
   router.get('/modifier_candidature/supp/:numero/:file', function (req, res, next) {
     let numero = req.params.numero;
-    let filePath = `/mesfichiers/${file}`;
+    let file = req.params.file;
+    let filePath = './mesfichiers/'+file;
     const uploaded_file = req.file;
     let mail = req.session.userid;
     console.log("CICI");
@@ -152,18 +156,30 @@ router.get('/modifier_candidature/:numero', function (req, res, next) {
         console.error(err);
         res.status(500).send('Une erreur s\'est produite lors de la suppression du fichier.');
       } else {
-        req.session.uploaded_files.splice(req.session.uploaded_files.indexOf(file), 1);        
+        console.log("reqghiZEOIHFVFHOIFDOIHFHIOFEIOHVFHGOIHF");
+        //req.session.uploaded_files.splice(req.session.uploaded_files.indexOf(file), 1);
+        const index = req.session.uploaded_files.indexOf(file);
+
+        // Vérification si l'élément existe dans le tableau
+        if (index > -1) {
+          console.log(index, "oui il est dans le tableau");
+          // Suppression de l'élément à l'index spécifié
+          req.session.uploaded_files.splice(index, 1);
+        }
+        
         readUser(mail, function (result){
           if (result) {
               var user = result;
-              res.render('modifier_candidature',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero : numero});
+              res.redirect('/candidature/modifier_candidature/'+ numero);
+              //res.render('modifier_candidature',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero : numero});
             } else {
               console.log("nononononon");
+              res.redirect('/users/candidat');
             }
         });
         // Suppression réussie
         // Effectuez d'autres actions ou renvoyez une réponse appropriée ici
-        res.send('Le fichier a été supprimé avec succès.');
+        console.log('Le fichier a été supprimé avec succès.');
       }
     });
   });

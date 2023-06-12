@@ -19,19 +19,29 @@
       <div id="content-wrap">
         <section>
           <div class="row">
+            <div class="div-cadre col-10 offset-1 col-lg-8 offset-lg-2">
+            </div>
             <%console.log (connected_user)%>
               <div class="div-cadre col-10 offset-1 col-lg-8 offset-lg-2">
                 <form method="post" action="upload" id="frmFileUpload" enctype="multipart/form-data">
                   <input type="hidden" name="myUsername" value="<%= connected_user.mail %>" />
-                  <div class="row">
+                  <div class="col-8 offset-2">
                     <div class="col div-titre">
-                      <%= connected_user.prenom %> Candidature
+                      Candidature de :
+                      <div class="row Mt-2">
+                        <div class="card ">
+                          <div class="card-body">
+                            <%= connected_user.prenom %> <%= connected_user.nom %> 
+                          </div>
+                        </div>
+                      </div>
+                      
                     </div>
                     <!-- rajouter le nom + prenom comme si c'etait un formulaire pré rempli-->
                   </div>
 
 
-                  <div class="row" style="margin-bottom:5px;">
+                  <div class="row Mt-2" >
                     <div class="col-8 offset-2">
                       <select class="form-select" id="file_type" name="myFileType" required="true">
                         <option value="">--- Type du document ---</option>
@@ -94,15 +104,21 @@
                   <li><a href="/candidature/getfile/<%= oneFile %>" target="_blank">
                       <%= oneFile %>
                     </a>
-                    <a href="/candidature/modifier_candidature/supp/<%=numero%>/<%= oneFile %>" class ="btn btn-primary" target="_blank">Supprimer</a></li>
+                      <a href="/candidature/modifier_candidature/supp/<%=numero%>/<%= oneFile %>" class ="btn btn-light offset-lg-1" target="_blank">Supprimer</a>
+
+
+                    </li>
                   <% }) %>
               </ul>
             </div>
           </div>
+        <div class ="d-flex justify-content-center" >
           <form method="post" action="modifier_candidature/:numero/envoi">
             <input type="hidden" name="numero" value="<%=numero%>" />
-            <button type="submit" class="btn btn-primary">ENVOI</button>
+            <button type="submit" class="btn btn-success">Modifier la candidature</button>
           </form>
+        </div>
+        
 
         </section>
 

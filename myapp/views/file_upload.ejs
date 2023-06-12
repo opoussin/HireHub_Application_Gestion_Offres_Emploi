@@ -18,20 +18,29 @@
 
       <div id="content-wrap">
         <section>
-          <div class="row">
+          <div class="row-3 " style ="margin-top: 20px">
+            
             <%console.log (connected_user)%>
               <div class="div-cadre col-10 offset-1 col-lg-8 offset-lg-2">
                 <form method="post" action="upload" id="frmFileUpload" enctype="multipart/form-data">
                   <input type="hidden" name="myUsername" value="<%= connected_user.mail %>" />
-                  <div class="row">
+                  <div class="col-8 offset-2">
                     <div class="col div-titre">
-                      <%= connected_user.prenom %> Candidature
+                      Candidature de :
+                      <div class="row Mt-2">
+                        <div class="card ">
+                          <div class="card-body">
+                            <%= connected_user.prenom %> <%= connected_user.nom %> 
+                          </div>
+                        </div>
+                      </div>
+                      
                     </div>
                     <!-- rajouter le nom + prenom comme si c'etait un formulaire pré rempli-->
                   </div>
 
 
-                  <div class="row" style="margin-bottom:5px;">
+                  <div class="row Mt-2" >
                     <div class="col-8 offset-2">
                       <select class="form-select" id="file_type" name="myFileType" required="true">
                         <option value="">--- Type du document ---</option>
@@ -98,10 +107,13 @@
               </ul>
             </div>
           </div>
-          <form method="post" action="envoi">
+          <div class ="d-flex justify-content-center" >
+            <form method="post" action="envoi">
             <input type="hidden" name="numero" value="<%=numero%>" />
-            <button type="submit" class="btn btn-primary">ENVOI</button>
+            <button type="submit" class="btn btn-success">Envoi de la candidature</button>
           </form>
+          </div>
+          
 
         </section>
 
