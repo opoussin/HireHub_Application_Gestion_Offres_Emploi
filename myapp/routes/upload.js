@@ -15,7 +15,7 @@ var my_storage = multer.diskStorage({
   destination: function (req, file, cb) { cb(null, 'mesfichiers')},
   filename: function (req, file, cb) {
     let my_extension = file.originalname.slice(file.originalname.lastIndexOf(".")); // on extrait l'extension du nom d'origine du fichier
-    cb(null, req.body.myUsername + '-' + req.body.myFileType+my_extension); // exemple de format de nommage : login-typedoc.ext
+    cb(null, req.body.myUsername + '-' + req.body.myFileType+'-' + req.body.myAdd+my_extension); // exemple de format de nommage : login-typedoc.ext
   }
 })
 
@@ -112,22 +112,27 @@ router.get('/modifier_candidature/:numero', function (req, res, next) {
   var mail = req.session.userid;  
   candidatModel.readCandidature(mail, numero, function (result) {
     if (result) {
-      var candidat = result;
-      console.log(candidat, "le result de candidat");
+      var candidat = result;      
       if (req.session.uploaded_files == undefined || req.session.uploaded_files.length ===0 || req.session.uploaded_files==[]) {
-        console.log(candidat[0].piecesC, "le result de candidat");
-        console.log(candidat, "le result de candidat");
           req.session.uploaded_files = [];
-          const mots = candidat[0].piecesC.split(","); // Sépare la chaîne en mots en utilisant la virgule comme séparateur
-          candidat[0].piecesC = mots.map((mot) => mot.trim()); // Stocke chaque mot dans le tableau candidat.pieces après avoir supprimé les espaces avant et après
-          candidat[0].piecesC.forEach(piece => {
+          if (candidat[0].piecesC.trim() === '') {
+            console.log("tableau vide");
+            console.log(candidat[0].piecesC, "le result de candidat");
+
+          }else{
+            req.session.uploaded_files = [];
+            const mots = candidat[0].piecesC.split(","); // Sépare la chaîne en mots en utilisant la virgule comme séparateur
+            candidat[0].piecesC = mots.map((mot) => mot.trim()); // Stocke chaque mot dans le tableau candidat.pieces après avoir supprimé les espaces avant et après
+            candidat[0].piecesC.forEach(piece => {
             req.session.uploaded_files.push(piece);
           });
-          
+          }
         }else{
-          console.log (req.session.uploaded_files);
+          console.log (req.session.uploaded_files, "les files upalode");
           console.log("DEJA INITIALIS2");
         }
+        console.log (req.session.uploaded_files, "les files upalode");
+
         readUser(mail, function (user) {
           if(user){
             res.render('modifier_candidature',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero});
@@ -143,12 +148,12 @@ router.get('/modifier_candidature/:numero', function (req, res, next) {
   });
 });
 
-  router.get('/modifier_candidature/supp/:numero/:file', function (req, res, next) {
+router.get('/modifier_candidature/supp/:numero/:file', function (req, res, next) {
     let numero = req.params.numero;
     let file = req.params.file;
+    let mail = req.session.userid;
     let filePath = './mesfichiers/'+file;
     const uploaded_file = req.file;
-    let mail = req.session.userid;
     console.log("CICI");
 
     fs.unlink(filePath, function (err) {
@@ -162,27 +167,38 @@ router.get('/modifier_candidature/:numero', function (req, res, next) {
 
         // Vérification si l'élément existe dans le tableau
         if (index > -1) {
+          
           console.log(index, "oui il est dans le tableau");
           // Suppression de l'élément à l'index spécifié
           req.session.uploaded_files.splice(index, 1);
+          console.log(req.session.uploaded_files);
+          readUser(mail, function (result){
+            if (result) {
+                var user = result;
+                console.log("CIdsCI");
+  
+                res.redirect('/candidature/modifier_candidature/'+ numero);
+                //res.render('modifier_candidature',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero : numero});
+              } else {
+                console.log("nononononon");
+                res.redirect('/users/candidat');
+              }
+          });
+
+          console.log('Le fichier a été supprimé avec succès.');
+
+
+        }else{
+          res.status(500).send('Une erreur s\'est produite lors de la suppression du fichierr.');
+
         }
         
-        readUser(mail, function (result){
-          if (result) {
-              var user = result;
-              res.redirect('/candidature/modifier_candidature/'+ numero);
-              //res.render('modifier_candidature',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero : numero});
-            } else {
-              console.log("nononononon");
-              res.redirect('/users/candidat');
-            }
-        });
+        
         // Suppression réussie
         // Effectuez d'autres actions ou renvoyez une réponse appropriée ici
-        console.log('Le fichier a été supprimé avec succès.');
       }
     });
-  });
+});
   
   router.post('/modifier_candidature/ajout', upload.single('myFileInput') ,function(req, res, next) {
     const uploaded_file = req.file

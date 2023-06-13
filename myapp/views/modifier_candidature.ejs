@@ -52,6 +52,7 @@
                       </select>
                     </div>
                   </div>
+                  <input type="hidden" name="myAdd" value="<%= numero%>" />
 
 
                   <div class="row" style="margin-bottom:5px;">
@@ -99,6 +100,8 @@
           <div class="row">
             <div class="div-cadre col-10 offset-1 col-lg-8 offset-lg-2">
               <ul>
+                <%if (files_array.length >0){%>
+                <%console.log(files_array)%>
                 <% files_array.forEach((oneFile)=> { %>
                   <li><a href="/candidature/getfile/<%= oneFile %>" target="_blank">
                       <%= oneFile %>
@@ -108,6 +111,9 @@
 
                     </li>
                   <% }) %>
+                  <%}else{%>
+                    Vous n'avez uploadé aucune pièce de candidature !
+                  <%}%>
               </ul>
             </div>
           </div>
