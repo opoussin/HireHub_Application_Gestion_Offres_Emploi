@@ -122,9 +122,9 @@ router.get('/listeCandidat/:numero', function (req, res, next) {
     if (result) {
       console.log("oui");
       result.forEach((candidat) => {
-        const mots = candidat.pieces.split(","); // Sépare la chaîne en mots en utilisant la virgule comme séparateur
-        candidat.pieces = mots.map((mot) => mot.trim()); // Stocke chaque mot dans le tableau candidat.pieces après avoir supprimé les espaces avant et après
-        console.log(candidat.pieces);
+        const mots = candidat.piecesC.split(","); // Sépare la chaîne en mots en utilisant la virgule comme séparateur
+        candidat.piecesC = mots.map((mot) => mot.trim()); // Stocke chaque mot dans le tableau candidat.pieces après avoir supprimé les espaces avant et après
+        console.log(candidat.piecesC);
       });
 
       res.render('listeCandidat', { numero, candidats: result, req: req });

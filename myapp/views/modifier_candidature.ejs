@@ -23,7 +23,8 @@
             </div>
             <%console.log (connected_user)%>
               <div class="div-cadre col-10 offset-1 col-lg-8 offset-lg-2">
-                <form method="post" action="upload" id="frmFileUpload" enctype="multipart/form-data">
+                <form method="post" action="ajout" id="frmFileUpload" enctype="multipart/form-data">
+
                   <input type="hidden" name="myUsername" value="<%= connected_user.mail %>" />
                   <div class="col-8 offset-2">
                     <div class="col div-titre">
@@ -51,7 +52,6 @@
                       </select>
                     </div>
                   </div>
-                  <input type="hidden" name="myAdd" value="<%= numero%>" />
 
 
                   <div class="row" style="margin-bottom:5px;">
@@ -60,7 +60,6 @@
                         required="true" />
                     </div>
                   </div>
-                  <input type="hidden" name="myAdd" value="<%=numero%>" >
 
 
                   <div class="row" style="margin-bottom:5px;">
@@ -113,7 +112,7 @@
             </div>
           </div>
         <div class ="d-flex justify-content-center" >
-          <form method="post" action="modifier_candidature/:numero/envoi">
+          <form method="post" action="envoi">
             <input type="hidden" name="numero" value="<%=numero%>" />
             <button type="submit" class="btn btn-success">Modifier la candidature</button>
           </form>

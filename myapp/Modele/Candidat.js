@@ -141,9 +141,12 @@ module.exports = {
     deleteCandidature: function (mail, callback) {
 
     },
-    updateCandidature: function (files, numero, mail, callback) {
-        var sql = mysql.format("UPDATE CANDIDATURE SET pieces =? where offre=? AND candidat=?", [files, numero, mail]);
+    updateCandidature: function (files, mail, numero, callback) {
+        var sql = mysql.format("UPDATE CANDIDATURE SET piecesC =? where offre=? AND candidat=?", [files, numero, mail]);
         console.log("hors query");
+        console.log(files);
+        console.log(numero);
+        console.log(sql);
         db.query(sql, function (err, result) {
             if (result.affectedRows == 0){
                 callback(false);

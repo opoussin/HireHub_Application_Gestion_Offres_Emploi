@@ -90,7 +90,7 @@ Maintenant on peut checker les erreurs en passant un paramètre dans la query (v
 
 SECURITE
 - identifier 3 vulnerabilités
-    Violation de gestion d’authentification
+    x Violation de gestion d’authentification
         Le contournement de l’authentification se fait le plus souvent par :
         ➢ vol des identifiants d’un utilisateur étourdi ou négligeant
         ➢ tromperie d’un utilisateur (mail, fausse hotline,…)
@@ -99,14 +99,37 @@ SECURITE
         ➢ génération aléatoire et massive de couple d’identifiant
         -> jsute voler un mdp
         -> authentification en 3 étape avec une adresse mail ou telephone
-    Cross-Site Scripting (XSS)
+    x Cross-Site Scripting (XSS)
             Les failles XSS se produisent chaque fois qu'une application 
         accepte des données non fiables et les envoie à un browser web 
         sans validation appropriée. XSS permet à des attaquants 
         d'exécuter du script dans le navigateur de la victime afin de 
         détourner des sessions utilisateur, défigurer des sites web, ou 
         rediriger l'utilisateur vers des sites malveillants.
-        -> se renseigner
+        -> SE RENSEIGNER
+        -> réfléchi
+        -> stocké
+    x Violation de controle d'accès 
+        Manque de contrôle d’accès au niveau fonctionnel
+        ▪ Exemple 1 : accéder à une fonctionnalité réservée aux admin
+        ➢URL présentée à un utilisateur sans privilege : 
+        www.monsite.fr/accueil
+        ➢URL modifiée pour accéder à un autre dossier : 
+        www.monsite.fr/admin/accueil
+        -> patcher : controle des routes
+    Mauvaise configuration sécurité
+        ➢ Exemple 1 : console d’administration du serveur 
+        d’application non désactivée avec mot de passe par 
+        défaut
+        ➢ Exemple 2 : listage des répertoires non désactivé
+        -> SE RENSEIGNER
+    Exposition de données sensibles
+        -> pas trop possible
+    Falsification de requête intersites (CSRF)
+        -> pas trop possible
+    Utilisation de composants avec des vulnérabilités connues
+    Redirections et renvois non validés
+
 
 - montrer faisabilité de l'attaque avant patch
 - patcher ou proposer une solution et pas l'implémenter
