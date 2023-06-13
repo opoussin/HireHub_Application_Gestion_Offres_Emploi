@@ -30,7 +30,7 @@ router.get('/:numero', function(req, res, next) {
         if (result) {
             var user = result;
             console.log(req.session.uploaded_files);
-            if (req.session.uploaded_files == undefined || req.session.uploaded_files.length ===0 ) {
+            if (req.session.uploaded_files == undefined ) {
                 let numero = req.params.numero;
                 console.log("1:",numero);
                 console.log('Init uploaded files array');
@@ -84,11 +84,11 @@ router.post('/envoi', function(req, res, next) {
     console.log("envoie" , numero);
     candidatModel.creatCandidature(mail, numero, fichier, function(result){
       if (result){
-        req.session.uploaded_files =[];
+        req.session.uploaded_files =undefined;
         res.redirect('/users/candidat');
         console.log("insertion reussie");
       }else{
-        req.session.uploaded_files =[];
+        req.session.uploaded_files =undefined;
         res.redirect('/users/candidat');
         console.log("insertion fail");
       }
@@ -113,7 +113,7 @@ router.get('/modifier_candidature/:numero', function (req, res, next) {
   candidatModel.readCandidature(mail, numero, function (result) {
     if (result) {
       var candidat = result;      
-      if (req.session.uploaded_files == undefined || req.session.uploaded_files.length ===0 || req.session.uploaded_files==[]) {
+      if (req.session.uploaded_files == undefined ) {
           req.session.uploaded_files = [];
           if (candidat[0].piecesC.trim() === '') {
             console.log("tableau vide");

@@ -10,7 +10,7 @@ var middleware = require('../middleware')
 router.use(middleware.isLoggedMiddleware);
 
 router.get('/profil_candidat', function (req, res, next) {
-    req.session.uploaded_files =[];
+    req.session.uploaded_files =undefined;
     var mail = req.session.userid;
     console.log(req.session.userid);
     communModel.readUser(mail, function (user) {
@@ -113,7 +113,7 @@ router.post('/candidat', function (req, res, next) {
 
 router.get('/candidat', function (req, res, next) {
   req.session.current_profil=1;
-  req.session.uploaded_files =[];
+  req.session.uploaded_files =undefined;
   console.log(req.session.current_profil);
 
   candidatModel.readAllOffreValide(function (results) {
