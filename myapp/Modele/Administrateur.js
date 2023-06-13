@@ -75,7 +75,7 @@ module.exports = {
     acceptAdmin: function (mail, callback) {
         db.query("UPDATE UTILISATEUR SET type=3 WHERE mail=?", mail, function
             (err, results) {
-                if (results.affectedRows == 0) {
+                if (results == undefined || results.affectedRows == 0) {
                     return callback(false); 
                   }
                   callback(true); 
@@ -85,10 +85,10 @@ module.exports = {
     creatOrga: function (nom, siren, type, siegesocial, callback) {
         db.query("INSERT INTO ORGANISATION (nom, siren, type, siegesocial) VALUES (?,?,?,?)", [nom, siren, type, siegesocial], function
             (err, results) {
-                if (results.affectedRows == 0) {
+                if (results==undefined || results.affectedRows == 0) {
                     return callback(false); 
                   }
-                  callback(true); 
+                  return callback(true); 
                 });
     },
 
@@ -105,11 +105,17 @@ module.exports = {
         this.readOrgaSiren(siren, function(result){
             if(result){
                 self.creatOrga(nom,siren,type,siegesocial, function(result){
-                    self.acceptRecruteur(mail,siren, function(result){
-                        self.updateDmdOrga(siren, mail, value, function(result){
-                                callback(true);
+                    if(result){
+                        self.acceptRecruteur(mail,siren, function(result){
+                            if(result){
+                                self.updateDmdOrga(siren, mail, value, function(result){
+                                    if(result){
+                                        callback(true);
+                                    }
+                                });
+                            }
                         });
-                    });
+                    }
                     
                 });
             }
@@ -129,7 +135,7 @@ module.exports = {
             var sql2 = mysql.format("INSERT INTO APPARTENIR_ORGA (mail, organisation) VALUES (?,?)", [mail, siren]);
             db.query(sql2, function (err, result) {
               if (err) throw err;
-              callback(result);
+              callback(true);
             });
           }
         });

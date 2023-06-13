@@ -21,6 +21,9 @@
               <label for="Mdp">Password:</label>
               <input type="password" class="form-control" id="mdp" placeholder="Entrer votre mot de passe" name="mdp">
             </div>
+            <%if (typeof message != "undefined"){%>
+              <p small class="form-group  text-danger text-justify"><%=message%></p>
+            <%}%>
             <div class="mb-3 mt-3">
               <label for="email">Nom:</label>
               <input type="Nom" class="form-control" id="nom" placeholder="Entrer votre Nom" name="nom">

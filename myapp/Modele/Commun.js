@@ -21,7 +21,6 @@ module.exports = {
         db.query(sql, mail, function (err, rows) {
             //if (err) throw err;
             if (rows.length == 1 && rows[0].mdp === mdp) {
-                //var type = rows[0].mdp 
                 callback(rows[0]);
             } else {
                 callback(false);

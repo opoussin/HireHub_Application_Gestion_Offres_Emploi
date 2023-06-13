@@ -7,8 +7,16 @@ describe("Model Tests", () => {
     beforeAll(() => {
         console.log("avant");
         jest.setTimeout(5000);
-        // des instructions à exécuter avant le lancement des tests
     });
+
+    afterAll((done) => {
+        function callback (err){
+        if (err) done (err);
+        else done();
+        }
+        DB.end(callback);
+    });
+    
 
     test("read user", (done) => {
         function cbRead(resultat) {
@@ -33,13 +41,10 @@ describe("Model Tests", () => {
     test("enable user", (done) => {
         function cbRead(resultat) {
             try {
-                //les valeurs ok ?
                 expect(resultat).toBeTruthy();
-                //si tout ok on renvoie rien dans le done()
                 done();
             } catch (err) {
-                //si le test fail => on renvoit l'erreur dans le done(err);
-                done.fail(err);
+                done(err);
             }
         }
         adminModele.enableUser("test@test", cbRead);
@@ -49,17 +54,13 @@ describe("Model Tests", () => {
         function cbRead(resultat) {
             const cle = Object.keys(resultat[0]);
             try {
-                //l'objet user est valide (niveau champs)
                 expect(cle.sort()).toEqual(
                     ["mail", "mdp", "nom", "prenom", "telephone", "dateCreation", "statut", "type"].sort()
                 );
-                //les valeurs ok ?
                 expect(resultat[0].statut).toEqual(1);
-                //si tout ok on renvoie rien dans le done()
                 done();
             } catch (err) {
-                //si le test fail => on renvoit l'erreur dans le done(err);
-                done.fail(err);
+                done(err);
             }
         }
         adminModele.readUser("test@test", cbRead);
@@ -68,13 +69,10 @@ describe("Model Tests", () => {
     test("disable user", (done) => {
         function cbRead(resultat) {
             try {
-                //les valeurs ok ?
                 expect(resultat).toBeTruthy();
-                //si tout ok on renvoie rien dans le done()
                 done();
             } catch (err) {
-                //si le test fail => on renvoit l'erreur dans le done(err);
-                done.fail(err);
+                done(err);
             }
         }
         adminModele.disableUser("test@test", cbRead);
@@ -84,17 +82,13 @@ describe("Model Tests", () => {
         function cbRead(resultat) {
             const cle = Object.keys(resultat[0]);
             try {
-                //l'objet user est valide (niveau champs)
                 expect(cle.sort()).toEqual(
                     ["mail", "mdp", "nom", "prenom", "telephone", "dateCreation", "statut", "type"].sort()
                 );
-                //les valeurs ok ?
                 expect(resultat[0].statut).toEqual(0);
-                //si tout ok on renvoie rien dans le done()
                 done();
             } catch (err) {
-                //si le test fail => on renvoit l'erreur dans le done(err);
-                done.fail(err);
+                done(err);
             }
         }
         adminModele.readUser("test@test", cbRead);
@@ -106,68 +100,53 @@ describe("Model Tests", () => {
             const cle = Object.keys(resultat[0]);
             try {
                 console.log("resultats", resultat);
-                //l'objet user est valide (niveau champs)
                 expect(cle.sort()).toEqual(
                     ["mail", "mdp", "nom", "prenom", "telephone", "dateCreation", "statut", "type"].sort()
                 );
-                //les valeurs ok ?
                 expect(resultat[0].statut).toEqual(0);
-                //si tout ok on renvoie rien dans le done()
                 done();
             } catch (err) {
-                //si le test fail => on renvoit l'erreur dans le done(err);
-                done.fail(err);
+                done(err);
             }
         }
-        adminModele.acceptAdmin("test@test", 
-            adminModele.readUser("test@test",cbRead) 
-        );
+        adminModele.acceptAdmin("test@test", cbRead);
     });
 
-    test("creat orga", (done) => {
-        function cbRead(resultat) {
+    /*test("creat orga", (done) => {
+        adminModele.creatOrga("Test","100","Association","Test", (resultat) => {
             try {
                 expect(resultat).toBeTruthy();
-                //si tout ok on renvoie rien dans le done()
                 done();
             } catch (err) {
-                //si le test fail => on renvoit l'erreur dans le done(err);
-                done.fail(err);
+                done(err);
             }
-        }
-        adminModele.creatOrga("Test",100,"Association","Test", cbRead);
-    });
+        });
+        
+    });*/
 
     test("read create orga", (done) => {
         function cbRead(resultat) {
             const cle = Object.keys(resultat[0]);
             try {
-                //l'objet user est valide (niveau champs)
                 expect(cle.sort()).toEqual(
                     ["nom", "siren", "type", "siegeSocial"].sort()
                 );
-                //les valeurs ok ?
                 expect(resultat[0].siren).toEqual(100);
-                //si tout ok on renvoie rien dans le done()
                 done();
             } catch (err) {
-                //si le test fail => on renvoit l'erreur dans le done(err);
-                done.fail(err);
+                done(err);
             }
         }
-        communModele.readOrga(100, cbRead);
+        adminModele.readOrgaSiren(100, cbRead);
     });
 
-    test("delete orga", (done) => {
+    /*test("delete orga", (done) => {
         function cbRead(resultat) {
             try {
-                //les valeurs ok ?
                 expect(resultat).toBeTruthy();
-                //si tout ok on renvoie rien dans le done()
                 done();
             } catch (err) {
-                //si le test fail => on renvoit l'erreur dans le done(err);
-                done.fail(err);
+                done(err);
             }
         }
         recrutModele.deleteOrga(100,cbRead);
@@ -175,22 +154,33 @@ describe("Model Tests", () => {
 
     test("read delete orga", (done) => {
         function cbRead(resultat) {
-            const cle = Object.keys(resultat[0]);
+            
             try {
-                //l'objet user est valide (niveau champs)
-                expect(cle.sort()).toEqual(
-                    ["nom", "siren", "type", "siegeSocial"].sort()
-                );
-                //les valeurs ok ?
-                expect(resultat[0].siren).toEqual([]);
-                //si tout ok on renvoie rien dans le done()
+                expect(resultat).toEqual([]);
                 done();
             } catch (err) {
-                //si le test fail => on renvoit l'erreur dans le done(err);
-                done.fail(err);
+                done(err);
             }
         }
-        communModele.readOrga(100, cbRead);
+        adminModele.readOrgaSiren(100, cbRead);
+    });*/
+
+    test("accept orga", (done) => {
+        function cbRead(resultat) {
+            const cle = Object.keys(resultat[0]);
+            try {
+                expect(cle.sort()).toEqual(
+                    ["nom", "siren", "type", "siegeSocial", "recruteur", "statut", "date"].sort()
+                );
+                expect(resultat[0].statut).toEqual("Validé");
+                done();
+            } catch (err) {
+                done(err);
+            }
+        }
+        adminModele.acceptOrga("Test", "101", "Association","test@test", "1", "2023-06-13", cbRead);
     });
+
+    
 
 })

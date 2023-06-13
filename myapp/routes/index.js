@@ -56,7 +56,7 @@ router.post('/connexion', function (req, res, next) {
   var session=req.session;
 
   communModel.areUserValid(mail, mdp, function (result) {
-    if (result) {
+    if (result && result.statut==1) {
       session.userid = mail;
       session.nom = result.nom;
       session.prenom= result.prenom;
@@ -70,6 +70,8 @@ router.post('/connexion', function (req, res, next) {
 
             res.redirect('/users/candidat');
           });
+    }else if(result.statut==0){
+      res.render('connexion', {message : "Compte désactivé."});
     } else {
       res.status(403);
       res.render('connexion', {message : "Identifiant ou mot de passe incorect."});
@@ -80,26 +82,36 @@ router.post('/connexion', function (req, res, next) {
 
 
 router.get('/inscription', function (req, res, next) {
-  res.render('inscription');
+  //si la session n'existe pas, on peut s'inscrire
+  if(req.session.userid==undefined){
+    res.render('inscription');
+  }else{
+    //sinon, pas le droit de s'inscrire
+    res.render('index');
+  }
 });
 
 router.post('/inscription', function (req, res, next) {
-  // Récupération des données du formulaire
   var mail = req.body.mail;
   var nom = req.body.nom;
   var prenom = req.body.prenom;
   var mdp = req.body.mdp;
   var telephone = req.body.telephone;
 
-  // Appel à la fonction creat du modèle Utilisateur
-  communModel.creatUser(mail, nom, prenom, mdp, telephone, function (result) {
-    if (result){ //result = vrai donc il y a une erreur
-      res.redirect('/inscription');
-    }
-    else{
-      res.redirect('/users/candidat');
-    }
-  });
+  const cnilPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{12,}$/;
+
+  if (cnilPasswordRegex.test(mdp)) {
+    communModel.creatUser(mail, nom, prenom, mdp, telephone, function (result) {
+      if (result){ //result = vrai donc il y a une erreur
+        res.redirect('/inscription');
+      }
+      else{
+        res.redirect('/users/candidat');
+      }
+    });
+  }else{
+    res.render('inscription',  {message : "Mot de passe incorect, veuillez en choisir un d'au minimum 12 caractères comprenant des majuscules, des minuscules, des chiffres et des caractères spéciaux."})
+  }
 });
 
 router.get('/logout',(req,res) => {

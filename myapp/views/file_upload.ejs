@@ -17,86 +17,60 @@
     <div id="page-container">
 
       <div id="content-wrap">
-        <section>
-          <div class="row-3 " style ="margin-top: 20px">
+        <div class="container-fluid">
+          <div class="row d-flex flex-column justify-content-center  align-items-center">
             
             <%console.log (connected_user)%>
-              <div class="div-cadre col-10 offset-1 col-lg-8 offset-lg-2">
-                <form method="post" action="upload" id="frmFileUpload" enctype="multipart/form-data">
-                  <input type="hidden" name="myUsername" value="<%= connected_user.mail %>" />
-                  <div class="col-8 offset-2">
-                    <div class="col div-titre">
-                      Candidature de :
-                      <div class="row Mt-2">
-                        <div class="card ">
-                          <div class="card-body">
-                            <%= connected_user.prenom %> <%= connected_user.nom %> 
-                          </div>
-                        </div>
-                      </div>
+              
+                <form method="post" action="upload" id="frmFileUpload" enctype="multipart/form-data" class="col-6 bg-white d-flex flex-column justify-content-center gap-3 py-4">
+                  
+                    <input type="hidden" name="myUsername" value="<%= connected_user.mail %>" />
+
+                      <p class="display-6">Candidature de: <%= connected_user.prenom %> <%= connected_user.nom %> </p>
                       
-                    </div>
-                    <!-- rajouter le nom + prenom comme si c'etait un formulaire pré rempli-->
-                  </div>
-
-
-                  <div class="row Mt-2" >
-                    <div class="col-8 offset-2">
                       <select class="form-select" id="file_type" name="myFileType" required="true">
                         <option value="">--- Type du document ---</option>
                         <option value="CV">C.V.</option>
                         <option value="LM">L.M.</option>
                         <option value="CIN">Carte d'identité</option>
                       </select>
-                    </div>
-                  </div>
-                  <input type="hidden" name="myAdd" value="<%= numero%>" />
-
-
-                  <div class="row" style="margin-bottom:5px;">
-                    <div class="col-8 offset-2">
+                      <input type="hidden" name="myAdd" value="<%= numero%>" />
                       <input class="form-control" id="fileInput" name="myFileInput" type="file" accept="image/*,.pdf"
                         required="true" />
-                    </div>
-                  </div>
+                        <input type="hidden" name="myAdd" value="<%= numero%>" >
+                        <a title="Charger le fichier">
+                          <button type="submit" class="btn btn-primary justify-content-center align-items-center">Charger le fichier</button>
+                        </a>
 
 
-                  <div class="row" style="margin-bottom:5px;">
-                    <div class="col text-center">
-                      <a title="Charger le fichier">
-                        <button type="submit" class="btn btn-primary">Charger le fichier</button>
-                      </a>
-                    </div>
-                  </div>
+                        <% if(typeof uploaded_filename !='undefined' && typeof uploaded_original !='undefined' ) { %>
+                          <div class="col text-justify">
+                            <span>Le fichier <strong>
+                                <%= uploaded_original %>
+                              </strong> a bien été chargé sous le nom <strong>
+                                <%= uploaded_filename %>
+                              </strong>.</span>
+                          </div>
+                        
+                        <% } %>
 
-                  <% if(typeof uploaded_filename !='undefined' && typeof uploaded_original !='undefined' ) { %>
-                    <div class="row" style="margin: 10px 0px;">
-                      <div class="col text-center">
-                        <span>Le fichier <strong>
-                            <%= uploaded_original %>
-                          </strong> a bien été chargé sous le nom <strong>
-                            <%= uploaded_filename %>
-                          </strong>.</span>
-                      </div>
-                    </div>
-                    <% } %>
-
-                      <% if(typeof upload_error !='undefined' ) { %>
-                        <div class="row" style="margin: 10px 0px;">
+                        <% if(typeof upload_error !='undefined' ) { %>
+                        
                           <div class="col text-center text-red">
                             <span><strong>
                                 <%= upload_error %>
                               </strong></span>
                           </div>
-                        </div>
+                        
                         <% } %>
                           <input type="hidden" name="numero" value="<%=numero%>" />
+                    
                 </form>
-              </div>
+              
           </div>
 
-          <div class="row">
-            <div class="div-cadre col-10 offset-1 col-lg-8 offset-lg-2">
+          <div class="row d-flex flex-column justify-content-center  align-items-center">
+            <div class="col-6 bg-white d-flex flex-column justify-content-center py-2">
               <ul>
                 <% files_array.forEach((oneFile)=> { %>
                   <li><a href="/candidature/getfile/<%= oneFile %>" target="_blank">
@@ -104,17 +78,15 @@
                     </a></li>
                   <% }) %>
               </ul>
+              <form method="post" action="envoi">
+                <input type="hidden" name="numero" value="<%=numero%>" />
+                <button type="submit" class="btn btn-success">Envoi de la candidature</button>
+              </form>
             </div>
-          </div>
-          <div class ="d-flex justify-content-center" >
-            <form method="post" action="envoi">
-            <input type="hidden" name="numero" value="<%=numero%>" />
-            <button type="submit" class="btn btn-success">Envoi de la candidature</button>
-          </form>
           </div>
           
 
-        </section>
+        </div>
 
         <!-- rajouter un bouton valider la candidature, et appliquer la condition de nb de fichiers requis-->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
