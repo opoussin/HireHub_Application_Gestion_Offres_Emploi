@@ -152,10 +152,10 @@ module.exports = {
     readAllCandidature: function (mail, callback) {
         db.query("select * from (CANDIDATURE c INNER JOIN OFFRE o ON c.offre=o.numero) INNER JOIN FICHE_POSTE f ON f.offre=o.numero INNER JOIN ORGANISATION ON ORGANISATION.siren=o.organisation where candidat=?", mail, function
             (err, results) {
-                if(affectedRows.results == 0){
+                if(err){
                     return callback(false);
                 }
-                callback(true);
+                callback(results);
         });
     },
     readCandidature: function (mail, numero, callback) {

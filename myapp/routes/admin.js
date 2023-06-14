@@ -3,7 +3,6 @@ var router = express.Router();
 var adminModel = require('../Modele/Administrateur.js')
 var communModel = require('../Modele/Commun.js')
 var recrutModel = require('../Modele/Recruteur.js')
-var userModel = require('../Modele/Utilisateur.js');
 const { search } = require('./users.js');
 var middleware = require('../middleware')
 

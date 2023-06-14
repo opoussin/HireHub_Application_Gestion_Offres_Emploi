@@ -2,9 +2,7 @@ var express = require('express');
 var router = express.Router();
 var candidatModel = require('../Modele/Candidat.js')
 var communModel = require('../Modele/Commun.js')
-var Model = require('../Modele/user.js')
 var recruteurModel= require('../Modele/Recruteur.js')
-var orgaModel = require('../Modele/Organisation.js')
 var middleware = require('../middleware')
 
 router.use(middleware.isLoggedMiddleware);
@@ -144,7 +142,7 @@ router.get('/creer_orga', function (req, res, next) {
   var mail=req.session.userid;
 
     candidatModel.readUserDmdOrga(mail, function (results) {
-      resultOrga = orgaModel.readOrga(function (orgaResult) {
+      resultOrga = communModel.readOrga(function (orgaResult) {
         orgaResult ??= [];
         results ??= [];
         console.log("demandeOrga:" + results)
@@ -178,7 +176,7 @@ router.get('/demandes', function (req, res, next) {
   var mail=req.session.userid;
 
     candidatModel.readUserDmdRecruteur(mail, function (result) {
-    orgaModel.readOrga(function (orgaResult) {
+    communModel.readOrga(function (orgaResult) {
       
       candidatModel.readUserDmdAdmin(mail, function (adminResult) {
         
