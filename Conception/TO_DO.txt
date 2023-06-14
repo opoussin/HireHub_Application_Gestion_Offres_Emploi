@@ -40,6 +40,9 @@ C + vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
     + modifier CDI etc en cadre ETAM jsp quoi 
     + vérifier la validité d'une offre ( soit afficher quand la durée est dépassée, soit afficher la durée, dans tout les cas
     laisser le faire manuellement)
+
+    + fonction recherche dmdRecrut pour les en attentes et les autres (historique)
+
 CANDIDAT
     C + mettre des valeurs dans les filtres candidat.ejs + terminer les filtres
     C + faire la route dans users.js des filtres
@@ -59,9 +62,6 @@ CANDIDAT
     - nombre de fichier minimum
     - tri des offres par distance entre le lieu et un adresse??? me rappelle plus ce que le prof avait dit 
     - tri des offres par salaire (marche pas actuellement)
-
-+ fonction recherche dmdRecrut pour les en attentes et les autres (historique)
-- fonction recherche offres expirées
 
 O + supprimer une demande amdin 
 O + modifier les filtres pour prévoir la casse (comme dans amdin)
