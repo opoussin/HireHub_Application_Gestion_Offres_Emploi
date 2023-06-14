@@ -57,8 +57,10 @@ CANDIDAT
     + ça plante des fois
     - ne pas candiater 2 fois à une offre
     - nombre de fichier minimum
+    - tri des offres par distance entre le lieu et un adresse??? me rappelle plus ce que le prof avait dit 
+    - tri des offres par salaire (marche pas actuellement)
 
-- fonction recherche dmdRecrut pour les en attentes et les autres (historique)
++ fonction recherche dmdRecrut pour les en attentes et les autres (historique)
 - fonction recherche offres expirées
 
 O + supprimer une demande amdin 
@@ -71,8 +73,8 @@ ADMIN
 O + vue accueil admin -> cote a cote les dmd orga et dmd admin, 
 O + OPTION si j'ai le temps -> mettre des boutons de recherche dans les demandes
 - profil admin ya rien (mettre des stats?)
-- modifier/supprimer compte utilisateur
-- fonctions recherche dmdOrga pour les en attentes et les autres (historique)
+- modifier compte utilisateur
++ fonctions recherche dmdOrga pour les en attentes et les autres (historique)
 
 VRAC
 + header conditionnels
@@ -93,7 +95,7 @@ stand by plusieurs orga par recruteur ( select orga pour poster une offre, affic
 - fonction de recherche des offres expirées dans accueil recruteur
 - envoyer mail (console.log) quand une demande recrut/orga/admin est acceptée
 - modifier candidature que si l'offre est toujours valable??
-- bouton "devenez recruteur"
++ bouton "devenez recruteur"
 
 
 IMPORTANT

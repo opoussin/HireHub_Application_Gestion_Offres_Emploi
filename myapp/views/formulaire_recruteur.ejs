@@ -28,6 +28,7 @@
                                             <div class="form-group">
                                                 <select class="form-control" title="Choisir une organisation ..."
                                                     name="choix">
+                                                    <%=console.log("orgaResult:", organisation);%>
                                                     <% organisation.forEach((orga)=> { %>
                                                         <option value="<%= orga.siren %>">
                                                             <%= orga.nom %>

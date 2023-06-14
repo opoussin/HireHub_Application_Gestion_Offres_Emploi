@@ -11,6 +11,13 @@
                         <div class="row justify-content-center">
                             <div class="col-8 p-4 flex-column bg-white">
                                 <h1 class="display-4 row">Demandes</h1>
+                                <h1 class="display-6">Recherchez des demandes</h1>
+                                                <form class="form-inline d-flex flex-row align-items-start gap-2" action="/admin/demandes" method="get">
+                                                    <input type="text" class="form-control" id="mail" placeholder="...par mail" name="mail" value="<%= search.email %>">
+                                                    <input type="date" class="form-control" id="date" placeholder="...par date d'inscription" name="date" value="<%= search.date %>">
+
+                                                    <button class="btn btn-primary mt-3" type="submit">Valider</button>
+                                                </form>
                                 <hr>
                                 <div class="row">
                                     <h3 class="display-6 mt-2">Administrateur</h3>

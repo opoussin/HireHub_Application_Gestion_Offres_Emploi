@@ -180,17 +180,28 @@ module.exports = {
             }
         });
     },
-    readAllDmdRecruteur: function (siren, callback) {
+    readAllDmdRecruteur: function (siren, siren_choix, date, mail, callback) {
         var sql = mysql.format("SELECT * FROM UTILISATEUR u INNER JOIN DMD_RECRUTEUR r ON u.mail=r.recruteur INNER JOIN ORGANISATION o ON o.siren=r.organisation");
         if(siren!= undefined && siren.length > 0){
-            sql += ` WHERE`
+            sql += ` WHERE (`
             for(i = 0; i<siren.length; i++){
-                sql += ` r.organisation = ${siren}`
+                sql += ` r.organisation = ${siren[i].siren}`
                 if (i < siren.length - 1){
                     sql += ` OR`
                 };
             };
+            sql+= `)`
+            if ( siren_choix !== undefined && siren_choix !== "") {            
+                sql += ` AND  r.organisation like "%${siren_choix}%"`;
+            }
+            if ( mail !== undefined && mail !== "") {            
+                sql += ` AND  u.mail like "%${mail}%"`;
+            }
+            if ( date !== undefined && date !== "") {
+                sql += ` AND  CAST(date as DATE)="${date}"`;
+            }
         };
+        console.log("sql", sql);
         db.query(sql, function (err, results) {
             if (err) return callback(false);
             callback(results);

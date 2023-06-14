@@ -12,6 +12,15 @@
                         <div class="row justify-content-center">
                             <div class="col-8 bg-white">
                                 <h3 class="display-6 mt-2">Demandes recruteur</h3>
+                                <p class="fs-3 fw-light " >Rechercher</p>
+                                
+                                <form class="form-inline d-flex flex-row align-items-start gap-2" action="/recrut/demandes" method="get">
+                                    <input type="text" class="form-control" id="mail" placeholder="...par mail" name="mail" value="<%= search.email %>">
+                                    <input type="date" class="form-control" id="date" placeholder="...par date d'inscription" name="date" value="<%= search.date %>">
+                                    <input type="text" class="form-control" id="siren" placeholder="...par organisation" name="siren_choix" value="<%= search.siren_choix %>">
+
+                                    <button class="btn btn-primary" type="submit">Valider</button>
+                                </form>
                                 <hr>
                                 
                                 <% if ((demandesRecruteur.length> 0)&&(Array.isArray(demandesRecruteur))) {%>

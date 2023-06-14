@@ -230,11 +230,8 @@ module.exports = {
     readUserDmdRecruteur: function (mail, callback) {
         var sql = "select * from DMD_RECRUTEUR where recruteur=?";
         db.query(sql, mail, function (err, results) {
-            if (results.length != 0) {
-                callback(results)
-            } else {
-                callback(false);
-            }
+            if(err) return callback(false);
+                callback(results);
         });
     },
     readUserDmdAdmin: function (mail, callback) {

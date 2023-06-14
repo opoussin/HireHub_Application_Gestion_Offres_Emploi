@@ -4,6 +4,7 @@ creatUser
 areRecruteur
 areAdmin
 readOrga
+readAllOrga
 deleteUser
 readUser
 readOrgaUser
@@ -85,6 +86,13 @@ module.exports = {
     },
     readOrga: function (siren, callback) {
         db.query("select * from ORGANISATION where siren= ?", siren, function
+            (err, results) {
+            if (err) return callback(false);
+            callback(results);
+        });
+    },
+    readAllOrga: function (callback) {
+        db.query("select * from ORGANISATION", function
             (err, results) {
             if (err) return callback(false);
             callback(results);

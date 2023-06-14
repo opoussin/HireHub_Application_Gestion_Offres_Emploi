@@ -125,32 +125,58 @@ module.exports = {
       },
       
       
-    readDmdOrga: function (status,callback) {
-        db.query("select * from DMD_ORGA WHERE statut=?",status, function
-        (err, results) {
-        if (err) return callback(false);
-        callback(results);
+    readDmdOrga: function (statut,mail, date,callback) {
+        var sql=mysql.format("select * from DMD_ORGA WHERE statut=?");
+        if ( mail !== undefined && mail !== "") {            
+            sql += ` AND  recruteur like "%${mail}%"`;
+        }
+        if ( date !== undefined && date !== "") {
+            sql += ` AND  CAST(dateCreation as DATE)="${date}"`;
+        }
+        db.query(sql, statut, function (err, results) {
+            if(err) {console.log(err); return callback(false);}
+            callback(results);
         });
     },
-    readDmdAdmin: function (status, callback) {
-        db.query("select * from DMD_ADMIN WHERE statut=?", status, function
-        (err, results) {
-        if (err) return callback(false);
-        callback(results);
+    readDmdAdmin: function (statut, mail, date, callback) {
+        var sql = mysql.format("select * from DMD_ADMIN WHERE statut=?");
+        if ( mail !== undefined && mail !== "") {            
+            sql += ` AND  utilisateur like "%${mail}%"`;
+        }
+        if ( date !== undefined && date !== "") {
+            sql += ` AND  CAST(dateCreation as DATE)="${date}"`;
+        }
+        db.query(sql, statut, function (err, results) {
+            if(err) {console.log(err); return callback(false);}
+            callback(results);
         });
     },
-    readAllDmdOrga: function (callback) {
-        db.query("select * from DMD_ORGA ", function
-        (err, results) {
-        if (err) return callback(false);
-        callback(results);
+    readAllDmdOrga: function (mail, date,callback) {
+        var sql = mysql.format("select * from DMD_ORGA WHERE 1");
+        if ( mail !== undefined && mail !== "") {            
+            sql += ` AND  recruteur like "%${mail}%"`;
+        }
+        if ( date !== undefined && date !== "") {
+            sql += ` AND  CAST(dateCreation as DATE)="${date}"`;
+        }
+
+        db.query(sql, function (err, results) {
+            if(err) {console.log(err); return callback(false);}
+            callback(results);
         });
     },
-    readAllDmdAdmin: function (callback) {
-        db.query("select * from DMD_ADMIN ",  function
-        (err, results) {
-        if (err) return callback(false);
-        callback(results);
+    readAllDmdAdmin: function (mail, date, callback) {
+        var sql = mysql.format("select * from DMD_ADMIN WHERE 1");
+        if ( mail !== undefined && mail !== "") {            
+            sql += ` AND  utilisateur like "%${mail}%"`;
+        }
+        if ( date !== undefined && date !== "") {
+            sql += ` AND  CAST(dateCreation as DATE)="${date}"`;
+        }
+
+        db.query(sql, function (err, results) {
+            if(err) {console.log(err); return callback(false);}
+            callback(results);
         });
     },
 

@@ -12,6 +12,9 @@
                 <% if (req.originalUrl.split('/')[1] !=='users'){ %>
                     <a class="link-light text-decoration-none" href="/users/candidat">Mode candidat</a>
                 <%}%>
+                <% if (req.originalUrl.split('/')[1] !=='recrut' && req.session.orga.length==0 ){ %>
+                    <a class="link-light text-decoration-none" href="/users/demandes">Devenir recruteur</a>
+                <%}%>
                 <% if (req.originalUrl.split('/')[1] !=='recrut' && req.session.orga.length!=0 ){ %>
                     <a class="link-light text-decoration-none" href="/recrut/recruteur">Mode recruteur</a>
                 <%}%>

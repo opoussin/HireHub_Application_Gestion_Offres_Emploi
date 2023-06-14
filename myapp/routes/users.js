@@ -111,7 +111,7 @@ router.get('/creer_orga', function (req, res, next) {
   let mail=req.session.userid;
   candidatModel.readUserDmdOrga(mail, function (results) {
     if(results){
-      resultOrga = orgaModel.readOrga(function (orgaResult) {
+      resultOrga = communModel.readOrga(function (orgaResult) {
         if (orgaResults){
           orgaResult ??= [];
           results ??= [];
@@ -147,7 +147,7 @@ router.get('/demandes', function (req, res, next) {
   let mail=req.session.userid;
   candidatModel.readUserDmdRecruteur(mail, function (result) {
     if (result){
-      orgaModel.readOrga(function (orgaResult) {
+      communModel.readAllOrga(function (orgaResult) {
         if (orgaResult){
           candidatModel.readUserDmdAdmin(mail, function (adminResult) {
             if (adminResult){

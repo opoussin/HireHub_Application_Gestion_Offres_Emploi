@@ -15,17 +15,19 @@
 
 
                             <div class="col-3">
-                                <div class="">
-                                    <form class="form-inline d-flex flex-column align-items-start gap-2 px-2" action="" method="post">
+                            <div classe="row pb-4">
+                                <div class="container">
+                                    <h1 class="display-6">Recherchez des offres</h1>
 
+                                    <form class="form-inline d-flex flex-column align-items-start gap-2" action="" method="post">
                                         
                                         <input type="text" class="form-control w-100" id="intitule"
                                                 placeholder="Recherchez des offres" name="intitule" value="">
                                         
-                                        <input type="text" class="form-control mb-2 w-100" id="lieu" placeholder="Lieu"
+                                        <input type="text" class="form-control w-100" id="lieu" placeholder="Lieu"
                                             name="lieu" value="">
 
-                                        <input type="text" class="form-control mb-2 w-100" id="organisation"
+                                        <input type="text" class="form-control w-100" id="organisation"
                                             placeholder="organisation" name="organisation" value="">
 
 
@@ -57,12 +59,13 @@
                                     </form>
                                 </div>
                             </div>
+                            </div>
                             <div class="col-9 d-flex flex-column gap-2">
                                 <%if ((listeOffre.length> 0)&&(Array.isArray(listeOffre))){%>
 
                                     <% listeOffre.forEach((offre)=> { %>
                                         <div class="card ">
-                                            <div class="card-body">
+                                            <div class="card-body g-4">
                                                 <h5 class="card-title text-dark fs-3">
                                                     <%= offre.intitule %>
                                                 </h5>

@@ -23,6 +23,7 @@
                                                     <% if (orgaResult && orgaResult.length > 0) { %>
                                                         
                                                         <select class="form-select" aria-label="Default select example" name="orga">
+                                                            <option value="" selected disabled> ...par organisation</option>
                                                             <% orgaResult.forEach((orga) => { %>    
                                                                 <option value="<%=orga.siren%>"> <%=orga.nom%></option>
                                                             <% }); %>

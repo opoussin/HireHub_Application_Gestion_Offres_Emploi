@@ -26,10 +26,6 @@ if(req.session.userid||communModel.areAdmin(req.session.userid)){
 
 
 router.get('/administrateur', function (req, res, next) {
-
-  
-    if (req.session.userid) {
-
       var mail = req.query.mail;
       var nom = req.query.nom;
       var prenom = req.query.prenom;
@@ -38,13 +34,15 @@ router.get('/administrateur', function (req, res, next) {
       var type = req.query.type;
 
       adminModel.readUserFiltre(mail, nom, prenom, date, type, statut, function (results) {
-        res.render('admin', {userResult: results, req: req, search:{
-          mail:mail, nom:nom, prenom:prenom, date:date, type:type, statut:statut
-        } });
+        if(results){
+          res.render('admin', {userResult: results, req: req, search:{mail:mail, nom:nom, prenom:prenom, date:date, type:type, statut:statut} });
+        }else{
+          //gerer erreur
+          res.redirect('/admin/demandes');
+        }
+        
       });
-    }else{
-    res.redirect('/connexion');
-    }
+    
 });
 
 router.get('/administrateur/activer', function (req, res, next) {
@@ -100,13 +98,14 @@ router.get('/administrateur/supprimer', function (req, res, next) {
 });
 
 router.get('/demandes', function (req, res, next) {
-  var mail=req.session.userid;
-  adminModel.readDmdAdmin("En attente",function (adminResult) {  
-    adminModel.readDmdOrga("En attente",function(orgaResult){
-      adminModel.readAllDmdAdmin(function (adminAllResult) {  
-        adminModel.readAllDmdOrga(function(orgaAllResult){
+  var mail = req.query.mail;
+  var date = req.query.date;
+  adminModel.readDmdAdmin("En attente", mail, date, function (adminResult) {  
+    adminModel.readDmdOrga("En attente",mail, date,function(orgaResult){
+      adminModel.readAllDmdAdmin(mail, date,function (adminAllResult) {  
+        adminModel.readAllDmdOrga(mail, date,function(orgaAllResult){
           orgaResult ??= [];
-          res.render('admin_demandes', {demandeOrga: orgaResult, demandeAdmin: adminResult, demandeAllOrga: orgaAllResult, demandeAllAdmin: adminAllResult, req : req});
+          res.render('admin_demandes', {demandeOrga: orgaResult, demandeAdmin: adminResult, demandeAllOrga: orgaAllResult, demandeAllAdmin: adminAllResult, req : req, search:{mail:mail, date:date}});
         });
       });
     });

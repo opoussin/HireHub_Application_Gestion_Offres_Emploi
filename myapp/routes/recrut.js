@@ -171,10 +171,13 @@ router.get('/profil_recruteur', function (req, res, next) {
 });
 
 router.get('/demandes', async function(req, res, next) {
-    var mail = req.session.userid;
     var orgas = req.session.orga;
-    recruteurModel.readAllDmdRecruteur(orgas, function(result){
-      res.render('recrut_demandes', { demandesRecruteur: result, organisation: orgas, req : req});
+    let siren_choix = req.query.choix_orga;
+    let date = req.query.date;
+    let mail = req.query.mail;
+
+    recruteurModel.readAllDmdRecruteur(orgas, siren_choix, date, mail, function(result){
+      res.render('recrut_demandes', { demandesRecruteur: result, organisation: orgas, req : req, search:{choix_orga: siren_choix, date:date, mail:mail}});
     });
     
 });
