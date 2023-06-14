@@ -58,6 +58,9 @@ CANDIDAT
     - ne pas candiater 2 fois à une offre
     - nombre de fichier minimum
 
+- fonction recherche dmdRecrut pour les en attentes et les autres (historique)
+- fonction recherche offres expirées
+
 O + supprimer une demande amdin 
 O + modifier les filtres pour prévoir la casse (comme dans amdin)
 O + Faire un dropdown pour la navbar
@@ -67,7 +70,9 @@ O - vérifier partout que pour checker si on est recruteur on check si l'utilisa
 ADMIN
 O + vue accueil admin -> cote a cote les dmd orga et dmd admin, 
 O + OPTION si j'ai le temps -> mettre des boutons de recherche dans les demandes
-- profil admin ya rien 
+- profil admin ya rien (mettre des stats?)
+- modifier/supprimer compte utilisateur
+- fonctions recherche dmdOrga pour les en attentes et les autres (historique)
 
 VRAC
 + header conditionnels
@@ -81,15 +86,20 @@ stand by plusieurs orga par recruteur ( select orga pour poster une offre, affic
 + pas possible de se co avec celeste@mail mdp:123
 + filtrage des offres qui marche pas vraiment
 + rajouter des console.log a l'emplacement des envoie de mail
-+ les mdp au format de la CNIL
+- MARCHE PAS les mdp au format de la CNIL
 + check si le compte est actif
 - enlever tout les console.log inutiles
 - normaliser toutes les routes
+- fonction de recherche des offres expirées dans accueil recruteur
+- envoyer mail (console.log) quand une demande recrut/orga/admin est acceptée
+- modifier candidature que si l'offre est toujours valable??
+- bouton "devenez recruteur"
+
 
 IMPORTANT
-- changer toutes la gestion des erreurs des update 
++ changer toutes la gestion des erreurs des update 
 - checker le comportement des INSERT
-- Changer la reception des callbacks dans les routes
+- EN COURS Changer la reception des callbacks dans les routes
 - Maintenant on peut checker les erreurs en passant un paramètre dans la query (voir le modèle de '/demandes_admin/accept') + nouveau components erreur 
 
 SECURITE
