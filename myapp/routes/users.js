@@ -99,7 +99,7 @@ router.get('/candidat', function (req, res, next) {
   req.session.current_profil=1;
   req.session.uploaded_files =undefined;
   candidatModel.readAllOffreValide(function (results) {
-    if(result){
+    if(results){
       res.render('candidat', { title: 'List des Offres', listeOffre: results, req : req});
     }else{
       res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données.');
