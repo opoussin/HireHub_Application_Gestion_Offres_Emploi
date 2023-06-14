@@ -19,44 +19,28 @@ var mysql = require('mysql');
 
 
 module.exports = {
-    //jamais utilisée
     readUser: function (mail, callback) {
         db.query("select * from UTILISATEUR where mail= ?", mail, function
             (err, results) {
-            if (err) return callback(null);
+            if (err) return callback(false);
             callback(results);
         });
     },
     readAllUser: function (callback) {
         db.query("select * from UTILISATEUR", function (err, results) {
-            if (err) {console.log(err.stack); callback(false);}
-            else{callback(results);}
+            if (err) return callback(false);
+            callback(results);
         });
     },
-    /*acceptOrga: function (nom, siren, type, siegesocial, callback) {
-        var sql = "SELECT * FROM ORGANISATION WHERE siren = ?";
-        rows = db.query(sql, siren, function (err, results) {
-            if (err) throw err;
-            if (rows.length == 1 ) {
-                callback(false)
-            } else {
-                var sql2 = mysql.format("INSERT INTO ORGANISATION VALUES (?,?,?,?)", [nom, siren, type, siegesocial]);
-                db.query(sql2, function (err, result) {
-                if (err) throw err;
-                callback(results);
-            });
-            }
-        });
-    },*/
-
+ 
     disableUser: function (mail, callback) {
         db.query("UPDATE UTILISATEUR SET statut=0 WHERE mail=?", mail, function
             (err, results) {
                 if (results.affectedRows == 0) {
                     //console.log("erreur", err);
-                    return callback(false); // Passer l'erreur au callback
+                    return callback(false); 
                   }
-                  callback(true); // Appeler le callback sans résultats
+                  callback(true);
                 });
     },
       
@@ -65,10 +49,9 @@ module.exports = {
         db.query("UPDATE UTILISATEUR SET statut=1 WHERE mail=?", mail, function
             (err, results) {
                 if (results.affectedRows == 0) {
-                    //console.log("erreur", err);
-                    return callback(false); // Passer l'erreur au callback
+                    return callback(false); 
                   }
-                  callback(true); // Appeler le callback sans résultats
+                  callback(true); 
                 });
     },
 
@@ -95,7 +78,7 @@ module.exports = {
     readOrgaSiren : function ( siren, callback){
         db.query("select * from ORGANISATION where siren= ?", siren, function
             (err, results) {
-            if (err) throw err;
+            if (err) return callback(false);
             callback(results);
         });
     },
@@ -128,13 +111,13 @@ module.exports = {
     acceptRecruteur: function (mail, siren, callback) {
         sql = "SELECT * FROM APPARTENIR_ORGA WHERE organisation = ? AND mail = ?";
         db.query(sql, [siren, mail], function (err, rows) {
-          if (err) throw err;
+          if (err) return callback(false);
           if (rows.length !== 0) {
             callback(false);
           } else {
             var sql2 = mysql.format("INSERT INTO APPARTENIR_ORGA (mail, organisation) VALUES (?,?)", [mail, siren]);
             db.query(sql2, function (err, result) {
-              if (err) throw err;
+              if (err) return callback(false);
               callback(true);
             });
           }
@@ -145,28 +128,28 @@ module.exports = {
     readDmdOrga: function (status,callback) {
         db.query("select * from DMD_ORGA WHERE statut=?",status, function
         (err, results) {
-        if (err) throw err;
+        if (err) return callback(false);
         callback(results);
         });
     },
     readDmdAdmin: function (status, callback) {
         db.query("select * from DMD_ADMIN WHERE statut=?", status, function
         (err, results) {
-        if (err) throw err;
+        if (err) return callback(false);
         callback(results);
         });
     },
     readAllDmdOrga: function (callback) {
         db.query("select * from DMD_ORGA ", function
         (err, results) {
-        if (err) throw err;
+        if (err) return callback(false);
         callback(results);
         });
     },
     readAllDmdAdmin: function (callback) {
         db.query("select * from DMD_ADMIN ",  function
         (err, results) {
-        if (err) throw err;
+        if (err) return callback(false);
         callback(results);
         });
     },
@@ -197,9 +180,7 @@ module.exports = {
         }
 
         db.query(sql, function (err, results) {
-            console.log(err);
-            //console.log(sql);
-            //console.log("results", results);
+            if(err) {console.log(err); return callback(false);}
             callback(results);
         });
 
