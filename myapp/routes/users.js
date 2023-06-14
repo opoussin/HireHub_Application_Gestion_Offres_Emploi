@@ -85,7 +85,7 @@ router.post('/candidat', function (req, res, next) {
     let type = req.body.type;
     let intitule = req.body.intitule;
     candidatModel.readOffreFiltre(organisation, lieu, statut, salaire, type, intitule, function (results) {
-      if (result){
+      if (results){
         res.render('candidat', { title: 'List des Offres', listeOffre: results, req : req });
       }else{
         res.status(500).send('Une erreur s\'est produite lors de lecture des offres filtrées.');
