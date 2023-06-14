@@ -24,20 +24,20 @@ module.exports = {
             console.log(rows);
 
             if (rows.length == 1 ){
-                console.log(mdp);
+                /*console.log(mdp);
                 console.log(rows[0].mdp,);
                 if (crypt.comparePassword(mdp,rows[0].mdp, function(err, result){
                     if (err) {console.log("ya err");}//catch l'erreur
                 })
-                ){
+                ){*/
                     console.log("le comapre marche");
                     callback(rows[0]);
-                      
+                      /*
             } else {
                 console.log("C LA FONCTION DE HACHAGE");
 
                 callback(false);
-            }
+            }*/
         }
         });
     },
