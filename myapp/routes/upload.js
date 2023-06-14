@@ -23,27 +23,23 @@ var upload = multer({ storage: my_storage })
 
 
 router.get('/:numero', function(req, res, next) {
-  if (req.session.userid){
-    var mail = req.session.userid;
-    readUser(mail, function (result){
-        if (result) {
-            var user = result;
-            console.log(req.session.uploaded_files);
-            if (req.session.uploaded_files == undefined ) {
-                let numero = req.params.numero;
-                console.log("1:",numero);
-                console.log('Init uploaded files array');
-                req.session.uploaded_files = [];
-                res.render('file_upload',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero});
-            }else{
-              res.redirect('/users/candidat');
-            }
-
-          } else {
-            console.log("nononononon");
+  let mail = req.session.userid;
+  readUser(mail, function (result){
+      if (result) {
+          let user = result;
+          if (req.session.uploaded_files == undefined ) {
+              let numero = req.params.numero;
+              console.log('Init uploaded files array');
+              req.session.uploaded_files = [];
+              res.render('file_upload',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero});
+          }else{
+            res.redirect('/users/candidat');
           }
-    });
-  }
+
+        } else {
+          res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
+        }
+  });
   
 });
 
@@ -274,15 +270,5 @@ router.get('/supp/:numero', function (req, res, next){
       }
     });
 });
-/*
-const path = require('path');
 
-router.get('/getfile', function(req, res, next) {
-  try {
-    const filePath = path.resolve(__dirname, '../mesfichiers', req.query.fichier_cible);
-    res.download(filePath);
-  } catch (error) {
-    res.send('Une erreur est survenue lors du téléchargement de ' + req.query.fichier_cible + ' : ' + error);
-  }
-});*/
 module.exports = router;

@@ -46,16 +46,16 @@ CANDIDAT
     C + réparer le front d'accueil candidat
     O + bouton créer dmd organisation
     optionnel + afficher message disant qu'il n'y a pas de candidatures pour l'instant profil candidat
-C - upload de fichiers 
+    C + upload de fichiers 
     + reprendre le code du prof
     + arranger le front de file_upload
     + arragner le numero qui est egal à upload
     + inserer une candidature
     + inserer plusieurs pieces
-    - modifier sa candidature
+    + modifier sa candidature
     + voir offre profil candidat
     + ça plante des fois
-
+    - ne pas candiater 2 fois à une offre
 
 O + supprimer une demande amdin 
 O + modifier les filtres pour prévoir la casse (comme dans amdin)
@@ -82,11 +82,14 @@ stand by plusieurs orga par recruteur ( select orga pour poster une offre, affic
 + rajouter des console.log a l'emplacement des envoie de mail
 + les mdp au format de la CNIL
 + check si le compte est actif
+- enlever tout les console.log inutiles
+- normaliser toutes les routes
 
 IMPORTANT
-changer toutes la gestion des erreurs des update + checker le comportement des INSERT
-Changer la reception des callbacks dans les routes
-Maintenant on peut checker les erreurs en passant un paramètre dans la query (voir le modèle de '/demandes_admin/accept') + nouveau components erreur 
+- changer toutes la gestion des erreurs des update 
+- checker le comportement des INSERT
+- Changer la reception des callbacks dans les routes
+- Maintenant on peut checker les erreurs en passant un paramètre dans la query (voir le modèle de '/demandes_admin/accept') + nouveau components erreur 
 
 SECURITE
 - identifier 3 vulnerabilités
@@ -132,6 +135,11 @@ SECURITE
 
 - montrer faisabilité de l'attaque avant patch
 - patcher ou proposer une solution et pas l'implémenter
+
+PARTIE CONCEPTION
+    - mettre a jour le diagramme de classe
+    - MLD 
+    - MPD
 
 TEST UNITAIRES fonction
 O - administrateur

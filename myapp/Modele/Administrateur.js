@@ -29,8 +29,8 @@ module.exports = {
     },
     readAllUser: function (callback) {
         db.query("select * from UTILISATEUR", function (err, results) {
-            if (err) throw err;
-            callback(results);
+            if (err) {console.log(err.stack); callback(false);}
+            else{callback(results);}
         });
     },
     /*acceptOrga: function (nom, siren, type, siegesocial, callback) {
