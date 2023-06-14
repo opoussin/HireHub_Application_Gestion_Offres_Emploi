@@ -4,6 +4,7 @@ var candidatModel = require('../Modele/Candidat.js')
 var communModel = require('../Modele/Commun.js')
 var recruteurModel= require('../Modele/Recruteur.js')
 var middleware = require('../middleware')
+var crypt = require('../Modele/pass.js')
 
 router.use(middleware.isLoggedMiddleware);
 
