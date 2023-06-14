@@ -35,7 +35,6 @@ router.get('/:numero', function(req, res, next) {
           }else{
             res.redirect('/users/candidat');
           }
-
         } else {
           res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
         }
@@ -46,54 +45,39 @@ router.get('/:numero', function(req, res, next) {
 router.post('/upload', upload.single('myFileInput') ,function(req, res, next) {
   const uploaded_file = req.file
   let numero = req.body.numero;
-  console.log("2:",numero);
-  console.log("3:",req.params.numero);
-  console.log("4:",req.body);
   if (!uploaded_file) {
     res.render('file_upload',{req:req,connected_user : req.session.connected_user, files_array : req.session.uploaded_files, upload_error : 'Merci de sélectionner le fichier à charger !'});
   } else {
     console.log(uploaded_file.originalname,' => ',uploaded_file.filename);
     req.session.uploaded_files.push(uploaded_file.filename);
-    var mail = req.session.userid;
-    readUser(mail, function (result){
-        if (result) {
-            var user = result;
-            console.log(user);
-            console.log(result);
-            console.log(user.prenom);
-            res.render('file_upload',{req:req, numero, connected_user : user, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
-          } else {
-            console.log("nononononon");
-          }
+    let mail = req.session.userid;
+    readUser(mail, function (user){
+      if (user) {
+          res.render('file_upload',{req:req, numero, connected_user : user, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
+        } else {
+          res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
+        }
     });
   }
-  
-
 });
 
 router.post('/envoi', function(req, res, next) {
-    var fichier = req.session.uploaded_files.join(", ");
-    console.log(fichier);
-    mail = req.session.userid;
-    numero = req.body.numero;
-    console.log("envoie" , numero);
+    let fichier = req.session.uploaded_files.join(", ");
+    let mail = req.session.userid;
+    let numero = req.body.numero;
     candidatModel.creatCandidature(mail, numero, fichier, function(result){
       if (result){
-        req.session.uploaded_files =undefined;
+        req.session.uploaded_files=undefined;
         res.redirect('/users/candidat');
         console.log("insertion reussie");
       }else{
-        req.session.uploaded_files =undefined;
-        res.redirect('/users/candidat');
-        console.log("insertion fail");
+        res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
       }
-        
     });
     
   });
 
 router.get('/getfile/:file', function(req, res, next) {
-  console.log("le download");
   try {
     res.download('./mesfichiers/'+req.params.file);
   } catch (error) {
@@ -102,11 +86,10 @@ router.get('/getfile/:file', function(req, res, next) {
 });
 
 router.get('/modifier_candidature/:numero', function (req, res, next) {
-  var numero = req.params.numero;
-  var mail = req.session.userid;  
-  candidatModel.readCandidature(mail, numero, function (result) {
-    if (result) {
-      var candidat = result;      
+  let numero = req.params.numero;
+  let mail = req.session.userid;  
+  candidatModel.readCandidature(mail, numero, function (candidat) {
+    if (candidat) {
       if (req.session.uploaded_files == undefined ) {
           req.session.uploaded_files = [];
           if (candidat[0].piecesC.trim() === '') {
@@ -119,25 +102,18 @@ router.get('/modifier_candidature/:numero', function (req, res, next) {
             candidat[0].piecesC = mots.map((mot) => mot.trim()); // Stocke chaque mot dans le tableau candidat.pieces après avoir supprimé les espaces avant et après
             candidat[0].piecesC.forEach(piece => {
             req.session.uploaded_files.push(piece);
-          });
+            });
           }
+      }
+      readUser(mail, function (user) {
+        if(user){
+          res.render('modifier_candidature',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero});
         }else{
-          console.log (req.session.uploaded_files, "les files upalode");
-          console.log("DEJA INITIALIS2");
+          res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
         }
-        console.log (req.session.uploaded_files, "les files upalode");
-
-        readUser(mail, function (user) {
-          if(user){
-            res.render('modifier_candidature',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero});
-          }else{
-            res.redirect('/users/candidat');
-            console.log("read user pas fonctionné");
-          }
-        });
-    } else {
-      console.log("non");
-      res.redirect('/users/candidat/');
+      });
+    } else {          
+      res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
     }
   });
 });
@@ -155,82 +131,45 @@ router.get('/modifier_candidature/supp/:numero/:file', function (req, res, next)
       console.error(err);
       res.status(500).send('Une erreur s\'est produite lors de la suppression du fichier.');
     } else {
-      console.log("reqghiZEOIHFVFHOIFDOIHFHIOFEIOHVFHGOIHF");
-      //req.session.uploaded_files.splice(req.session.uploaded_files.indexOf(file), 1);
       const index = req.session.uploaded_files.indexOf(file);
-
       // Vérification si l'élément existe dans le tableau
       if (index > -1) {
-        
         console.log(index, "oui il est dans le tableau");
         // Suppression de l'élément à l'index spécifié
         req.session.uploaded_files.splice(index, 1);
-        console.log(req.session.uploaded_files);
-        readUser(mail, function (result){
-          if (result) {
-              var user = result;
-              console.log("CIdsCI");
-
-              res.redirect('/candidature/modifier_candidature/'+ numero);
-              //res.render('modifier_candidature',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero : numero});
-            } else {
-              console.log("nononononon");
-              res.redirect('/users/candidat');
-            }
-        });
-
+        res.redirect('/candidature/modifier_candidature/'+ numero);
         console.log('Le fichier a été supprimé avec succès.');
-
-
       }else{
-        res.status(500).send('Une erreur s\'est produite lors de la suppression du fichierr.');
-
+        res.status(500).send('Une erreur s\'est produite lors de la suppression du fichier.');
       }
-      
-      
-      // Suppression réussie
-      // Effectuez d'autres actions ou renvoyez une réponse appropriée ici
     }
   });
 });
   
-  router.post('/modifier_candidature/ajout', upload.single('myFileInput') ,function(req, res, next) {
-    const uploaded_file = req.file
-    let numero = req.body.numero;
-    console.log("2:",numero);
-    console.log("3:",req.params.numero);
-    console.log("4:",req.body);
-    if (!uploaded_file) {
-      res.status(500).send('Une erreur s\'est produite lors de ajtou du fichier.');
-      //res.render('modifier_candidature',{req:req,connected_user : req.session.connected_user, files_array : req.session.uploaded_files, upload_error : 'Merci de sélectionner le fichier à charger !'});
-    } else {
-      console.log(uploaded_file.originalname,' => ',uploaded_file.filename);
-      req.session.uploaded_files.push(uploaded_file.filename);
-      //res.render('modifier_candidature',{req:req, numero, connected_user : user, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
-      res.redirect('/candidature/modifier_candidature/' +numero);
-           
-    }
-  
-
+router.post('/modifier_candidature/ajout', upload.single('myFileInput') ,function(req, res, next) {
+  const uploaded_file = req.file
+  let numero = req.body.numero;
+  if (!uploaded_file) {
+    res.status(500).send('Une erreur s\'est produite lors de ajout du fichier.');
+  } else {
+    console.log(uploaded_file.originalname,' => ',uploaded_file.filename);
+    req.session.uploaded_files.push(uploaded_file.filename);
+    res.redirect('/candidature/modifier_candidature/' +numero);
+  }
 });
 
 router.post('/modifier_candidature/envoi', function(req, res, next) {
-  var fichier = req.session.uploaded_files.join(", ");
-  console.log(fichier);
-  mail = req.session.userid;
-  numero = req.body.numero;
-  console.log("envoie" , numero);
+  let fichier = req.session.uploaded_files.join(", ");
+  let mail = req.session.userid;
+  let numero = req.body.numero;
   candidatModel.updateCandidature(fichier, mail, numero, function(result){
     if (result){
       res.redirect('/users/candidat');
-      console.log("update fail reussie");
+      console.log("update reussie");
     }else{
-      res.redirect('/users/candidat');
-      console.log("update fail");
-    }
-      
+      res.status(500).send('Une erreur s\'est produite lors de l\'update des données.');
+    }    
   });
-  
 });
 
 router.get('/supp/:numero', function (req, res, next){
