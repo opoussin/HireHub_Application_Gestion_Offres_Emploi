@@ -140,30 +140,7 @@ describe("Model Tests", () => {
         adminModele.readOrgaSiren(100, cbRead);
     });
 
-    /*test("delete orga", (done) => {
-        function cbRead(resultat) {
-            try {
-                expect(resultat).toBeTruthy();
-                done();
-            } catch (err) {
-                done(err);
-            }
-        }
-        recrutModele.deleteOrga(100,cbRead);
-    });
-
-    test("read delete orga", (done) => {
-        function cbRead(resultat) {
-            
-            try {
-                expect(resultat).toEqual([]);
-                done();
-            } catch (err) {
-                done(err);
-            }
-        }
-        adminModele.readOrgaSiren(100, cbRead);
-    });*/
+    
 
     test("accept orga", (done) => {
         function cbRead(resultat) {
