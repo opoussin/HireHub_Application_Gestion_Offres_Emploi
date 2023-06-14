@@ -12,6 +12,8 @@ readOrgaUser
 
 var db = require('./db.js');
 var mysql = require('mysql');
+var crypt = require('../Modele/pass.js')
+
 
 
 module.exports = {
@@ -19,17 +21,31 @@ module.exports = {
     areUserValid: function (mail, mdp, callback) {
         sql = "SELECT * FROM UTILISATEUR WHERE mail = ?";
         db.query(sql, mail, function (err, rows) {
-            if (rows.length == 1 && rows[0].mdp === mdp) {
-                callback(rows[0]);
+            console.log(rows);
+
+            if (rows.length == 1 ){
+                console.log(mdp);
+                console.log(rows[0].mdp,);
+                if (crypt.comparePassword(mdp,rows[0].mdp, function(err, result){
+                    if (err) {console.log("ya err");}//catch l'erreur
+                })
+                ){
+                    console.log("le comapre marche");
+                    callback(rows[0]);
+                      
             } else {
+                console.log("C LA FONCTION DE HACHAGE");
+
                 callback(false);
             }
+        }
         });
     },
     creatUser: function (mail, nom, prenom, mdp, telephone, callback) {
         var sql = mysql.format("INSERT INTO UTILISATEUR (mail, mdp, nom, prenom, telephone) VALUES (?,?,?,?,?)", [mail, mdp, nom, prenom, telephone]);
+        console.log(sql);
         db.query(sql, function (err, results) {
-                if(affectedRows.results==0){
+                if(err){
                     return callback(false);
                 }
                 callback(true);

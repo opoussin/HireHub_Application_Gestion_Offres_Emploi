@@ -56,6 +56,7 @@ CANDIDAT
     + voir offre profil candidat
     + ça plante des fois
     - ne pas candiater 2 fois à une offre
+    - nombre de fichier minimum
 
 O + supprimer une demande amdin 
 O + modifier les filtres pour prévoir la casse (comme dans amdin)
