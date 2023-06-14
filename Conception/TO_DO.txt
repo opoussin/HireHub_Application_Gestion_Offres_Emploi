@@ -130,7 +130,6 @@ SECURITE
     Utilisation de composants avec des vulnérabilités connues
     Redirections et renvois non validés
 
-
 - montrer faisabilité de l'attaque avant patch
 - patcher ou proposer une solution et pas l'implémenter
 

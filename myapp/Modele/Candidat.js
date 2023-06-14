@@ -138,7 +138,12 @@ module.exports = {
             callback(results);
             });
     },
-    deleteCandidature: function (mail, callback) {
+    deleteCandidature: function (mail, numero, callback) {
+        db.query("DELETE FROM CANDIDATURE where candidat= ? AND offre =?",[mail, numero], function
+            (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
 
     },
     updateCandidature: function (files, mail, numero, callback) {
