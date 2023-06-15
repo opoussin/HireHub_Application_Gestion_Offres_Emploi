@@ -37,7 +37,6 @@ module.exports = {
         db.query("UPDATE UTILISATEUR SET statut=0 WHERE mail=?", mail, function
             (err, results) {
                 if (results.affectedRows == 0) {
-                    //console.log("erreur", err);
                     return callback(false); 
                   }
                   callback(true);
@@ -50,7 +49,7 @@ module.exports = {
             (err, results) {
                 if (results.affectedRows == 0) {
                     return callback(false); 
-                  }
+                }
                   callback(true); 
                 });
     },
@@ -60,7 +59,7 @@ module.exports = {
             (err, results) {
                 if (results == undefined || results.affectedRows == 0) {
                     return callback(false); 
-                  }
+                }
                   callback(true); 
                 });
     },
@@ -70,7 +69,7 @@ module.exports = {
             (err, results) {
                 if (results==undefined || results.affectedRows == 0) {
                     return callback(false); 
-                  }
+                }
                   return callback(true); 
                 });
     },
@@ -102,9 +101,8 @@ module.exports = {
                     
                 });
             }
-            else{
-                callback(false);
-            }
+            callback(false);
+            
         });
     },
 

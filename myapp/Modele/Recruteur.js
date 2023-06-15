@@ -230,20 +230,12 @@ module.exports = {
     },
 
     deleteOrga: function (siren, callback) {
-        var sql = mysql.format("UPDATE UTILISATEUR SET type = 1 WHERE mail IN ( SELECT a.mail FROM UTILISATEUR u INNER JOIN APPARTENIR_ORGA a ON u.mail = a.mail WHERE organisation =? AND u.type=2 GROUP BY a.mail HAVING COUNT(*) = 1 )");
-        var sql2 = mysql.format("DELETE FROM ORGANISATION WHERE siren=?");
-        //this.deleteOffre(siren); plus besoin car DELETE CASCADE
+        var sql = mysql.format("DELETE FROM ORGANISATION WHERE siren=?");
         db.query(sql, siren, function (err, results) {
-            if (affectedRows.results == 0) {
-                return callback(false);
+            if (results.affectedRows > 0){
+                callback(true);
             }else{
-                db.query(sql2, siren, function (err, results) {
-                    if (results.affectedRows > 0){
-                        callback(true);
-                    }else{
-                        callback(false);
-                    }
-                });
+                callback(false);
             }
         });
     },

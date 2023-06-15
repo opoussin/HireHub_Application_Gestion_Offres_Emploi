@@ -38,6 +38,23 @@ describe("Model Tests", () => {
         adminModele.readUser("test@test", cbRead);
     });
 
+    test("read all user", (done) => {
+        function cbRead(resultat) {
+            const cle = Object.keys(resultat[0]);
+            try {
+                //l'objet user est valide (niveau champs)
+                expect(cle.sort()).toEqual(
+                    ["mail", "mdp", "nom", "prenom", "telephone", "dateCreation", "statut", "type"].sort()
+                );
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done.fail(err);
+            }
+        }
+        adminModele.readAllUser(cbRead);
+    });
+
     test("enable user", (done) => {
         function cbRead(resultat) {
             try {
@@ -97,13 +114,8 @@ describe("Model Tests", () => {
 
     test("accept admin", (done) => {
         function cbRead(resultat) {
-            const cle = Object.keys(resultat[0]);
             try {
-                console.log("resultats", resultat);
-                expect(cle.sort()).toEqual(
-                    ["mail", "mdp", "nom", "prenom", "telephone", "dateCreation", "statut", "type"].sort()
-                );
-                expect(resultat[0].statut).toEqual(0);
+                expect(resultat).toBeTruthy();
                 done();
             } catch (err) {
                 done(err);
@@ -112,7 +124,7 @@ describe("Model Tests", () => {
         adminModele.acceptAdmin("test@test", cbRead);
     });
 
-    /*test("creat orga", (done) => {
+    test("creat orga", (done) => {
         adminModele.creatOrga("Test","100","Association","Test", (resultat) => {
             try {
                 expect(resultat).toBeTruthy();
@@ -122,7 +134,7 @@ describe("Model Tests", () => {
             }
         });
         
-    });*/
+    });
 
     test("read create orga", (done) => {
         function cbRead(resultat) {
@@ -140,24 +152,45 @@ describe("Model Tests", () => {
         adminModele.readOrgaSiren(100, cbRead);
     });
 
-    
-
-    test("accept orga", (done) => {
+    test("accept recruteur", (done) => {
         function cbRead(resultat) {
-            const cle = Object.keys(resultat[0]);
             try {
-                expect(cle.sort()).toEqual(
-                    ["nom", "siren", "type", "siegeSocial", "recruteur", "statut", "date"].sort()
-                );
-                expect(resultat[0].statut).toEqual("Validé");
+                expect(resultat).toBeTruthy();
                 done();
             } catch (err) {
                 done(err);
             }
         }
-        adminModele.acceptOrga("Test", "101", "Association","test@test", "1", "2023-06-13", cbRead);
+        adminModele.acceptRecruteur("test@test", "100", cbRead);
     });
 
-    
+    test("read dmd orga", (done) => {
+        function cbRead(resultat) {
+            const cle = Object.keys(resultat[0]);
+            try {
+                //l'objet user est valide (niveau champs)
+                expect(cle.sort()).toEqual(
+                    ["nom", "siren", "type", "siegeSocial", "recruteur", "statut", "date"].sort()
+                );
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done.fail(err);
+            }
+        }
+        adminModele.readDmdOrga("En attente", undefined, undefined, cbRead);
+    });
+
+    test("delete orga", (done) => {
+        recrutModele.deleteOrga("100", (resultat) => {
+            try {
+                expect(resultat).toBeTruthy();
+                done();
+            } catch (err) {
+                done(err);
+            }
+        });
+        
+    });
 
 })
