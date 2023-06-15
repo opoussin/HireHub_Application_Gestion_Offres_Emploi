@@ -94,7 +94,7 @@ stand by plusieurs orga par recruteur ( select orga pour poster une offre, affic
 - normaliser toutes les routes
 - fonction de recherche des offres expirées dans accueil recruteur
 - envoyer mail (console.log) quand une demande recrut/orga/admin est acceptée
-- modifier candidature que si l'offre est toujours valable??
+- modifier candidature que si l'offre est toujours valable?? -> pas la peine imo
 + bouton "devenez recruteur"
 
 

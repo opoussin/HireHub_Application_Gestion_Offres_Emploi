@@ -9,15 +9,14 @@ module.exports = {
 
   comparePassword: function (plaintextPassword, hash, callback) {
     bcrypt.compare(plaintextPassword, hash, function (err, result) {
-      if (err){
-        console.log("pk une erreur frr");
-      }
+
       if (result){
+        console.log("pk oui");
         // password is valid
         callback(true);
       }
         
-      else {callback(false);}
+      else {console.log("benc faux du coup ");callback(false);}
     });
   },
 }; 

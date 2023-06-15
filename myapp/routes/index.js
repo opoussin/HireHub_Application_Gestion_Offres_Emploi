@@ -73,7 +73,7 @@ router.post('/connexion', function (req, res, next) {
     }else if(result.statut==0){
       res.render('connexion', {message : "Compte désactivé."});
     } else {
-      res.status(403).send('Identifiant ou mot de passe incorect.');
+      res.render('connexion', {message : "Identifiant ou mot de passe incorrect"});
     }
   });
 });
