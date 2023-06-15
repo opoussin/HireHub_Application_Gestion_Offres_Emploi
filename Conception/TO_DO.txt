@@ -92,10 +92,16 @@ stand by plusieurs orga par recruteur ( select orga pour poster une offre, affic
 + check si le compte est actif
 - enlever tout les console.log inutiles
 - normaliser toutes les routes
+    + upload
+    + user
+    - recrut
+    - admin
+    - index
 - fonction de recherche des offres expirées dans accueil recruteur
 - envoyer mail (console.log) quand une demande recrut/orga/admin est acceptée
 - modifier candidature que si l'offre est toujours valable?? -> pas la peine imo
 + bouton "devenez recruteur"
++ pass.js
 
 
 IMPORTANT

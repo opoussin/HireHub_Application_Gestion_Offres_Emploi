@@ -3,6 +3,8 @@ var router = express.Router();
 
 var multer = require('multer');  
 const candidatModel = require('../Modele/Candidat.js');
+const recruteurModel = require('../Modele/Recruteur.js');
+
 const { readUser } = require('../Modele/Commun');
 var middleware = require('../middleware')
 const fs = require('fs');
@@ -62,18 +64,29 @@ router.post('/upload', upload.single('myFileInput') ,function(req, res, next) {
 });
 
 router.post('/envoi', function(req, res, next) {
-    let fichier = req.session.uploaded_files.join(", ");
     let mail = req.session.userid;
     let numero = req.body.numero;
-    candidatModel.creatCandidature(mail, numero, fichier, function(result){
-      if (result){
-        req.session.uploaded_files=undefined;
-        res.redirect('/users/candidat');
-        console.log("insertion reussie");
+    recruteurModel.readOffre(numero, function(piece){
+      if (piece>=req.session.uploaded_files.length){
+        let fichier = req.session.uploaded_files.join(", ");
+        candidatModel.creatCandidature(mail, numero, fichier, function(result){
+          if (result){
+            req.session.uploaded_files=undefined;
+            res.redirect('/users/candidat');
+            console.log("insertion reussie");
+          }else{
+            res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
+          }
+        });
       }else{
-        res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
+        readUser(mail, function(user){
+          if (user){
+            res.render('file_upload',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero, message : "Nombres de pièces de candidatures insuffisantes"});
+          }
+        })
       }
     });
+    
     
   });
 
