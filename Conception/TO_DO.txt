@@ -103,7 +103,7 @@ Fait
 - modifier candidature que si l'offre est toujours valable?? -> pas la peine imo
 + bouton "devenez recruteur"
 + pass.js
-
+- la date est bizarre dans editer offre
 
 
 IMPORTANT

@@ -60,27 +60,31 @@
                     <label for="pieces">Pièces</label>
                     <input type="text" class="form-control" id="pieces" name="pieces" value="<%=offre.pieces%>">
                   </div>
+
                   <div class="mb-3 mt-3">
                     <label for="nombrePieces">Nombre de Pièces</label>
                     <input type="number" class="form-control" id="nombrePieces" placeholder="Nombre"
                       name="nombrePieces" value="<%=offre.nombrePieces%>">
                   </div>
                   <label for="dateValidite">Date de validité de l'offre:</label>
-                    <input type="dateValidite" id="dateValidite" name="dateValidite" value="<%=offre.dateValidite.toLocaleDateString("fr")%>" required>
+                    <input type="dateValidite" id="dateValidite" name="dateValidite" value="<%=offre.dateValidite.toLocaleDateString('fr') %>" required>
                    
                   <div class="mb-3 mt-3">
-                    <h5>Etat = <%=offre.etat%> </h5>
+                    <h6>L'offre est actuellement <%=offre.etat%> </h6>
                     <label>
-                      <input type="radio" name="etat" value="publiee">
+                      <input hidden type="radio" id = "default" name="etat" value= "<%=offre.etat%>" default >
+
+                      <input type="radio" id = "publiee" name="etat" value="publiee">
                       Publier l'offre maintenant
                     </label>
                     <br>
                     <label>
-                      <input type="radio" name="etat" value="non publiee">
+                      <input type="radio" id= "non publiee" name="etat" value="non publiee">
                       Remettre en brouillon
                     </label>
+                    <br>
                     <label>
-                      <input type="radio" name="etat" value="expiree">
+                      <input type="radio" id ="expiree" name="etat" value="expiree">
                       Archiver
                     </label>
 
