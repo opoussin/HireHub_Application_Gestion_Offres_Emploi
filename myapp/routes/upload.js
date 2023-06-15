@@ -31,19 +31,24 @@ router.get('/:numero', function(req, res, next) {
   recruteurModel.readOffre(numero, function (offre){
     if (offre){
       readUser(mail, function (result){
-        if (result) {
+        candidatModel.readCandidature(mail, numero, function (candid){
+          if (result) {
+          
             let user = result;
             if (req.session.uploaded_files == undefined ) {
                 console.log('Init uploaded files array');
                 req.session.uploaded_files = [];
-                res.render('file_upload',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero, offre});
+                res.render('file_upload',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero, offre, candid});
             }else{
               res.redirect('/users/candidat');
             }
-          } else {
-            res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
-          }
-    });
+              } else {
+                res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
+              }
+        });
+
+        })
+        
     }
   else{
 /// rajouter

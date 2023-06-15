@@ -58,8 +58,8 @@ CANDIDAT
     + modifier sa candidature
     + voir offre profil candidat
     + ça plante des fois
-    - ne pas candiater 2 fois à une offre
-    - nombre de fichier minimum
+    + ne pas candiater 2 fois à une offre
+    + nombre de fichier minimum
     + tri des offres par distance entre le lieu et un adresse??? PLUS DEMANDE
     + tri des offres par salaire (marche pas actuellement)
 
@@ -77,19 +77,20 @@ O + OPTION si j'ai le temps -> mettre des boutons de recherche dans les demandes
 + fonctions recherche dmdOrga pour les en attentes et les autres (historique)
 
 VRAC
-+ header conditionnels
-+ offres non publiees : gerer affichage et mention brouillon
-+ rajouter bouton déconnexion dans tout les profils
-+ annuler la casse dans les formulaires 
-+ Affiner les filtres
-+ rajouter condition inscription si deja une session cree
-+ dans toutes les fonctions faire de la gestion d'erreurs
-stand by plusieurs orga par recruteur ( select orga pour poster une offre, afficher les offres)
-+ pas possible de se co avec celeste@mail mdp:123
-+ filtrage des offres qui marche pas vraiment
-+ rajouter des console.log a l'emplacement des envoie de mail
-+ les mdp au format de la CNIL
-+ check si le compte est actif
+Fait
+    + header conditionnels
+    + offres non publiees : gerer affichage et mention brouillon
+    + rajouter bouton déconnexion dans tout les profils
+    + annuler la casse dans les formulaires 
+    + Affiner les filtres
+    + rajouter condition inscription si deja une session cree
+    + dans toutes les fonctions faire de la gestion d'erreurs
+    stand by plusieurs orga par recruteur ( select orga pour poster une offre, afficher les offres)
+    + pas possible de se co avec celeste@mail mdp:123
+    + filtrage des offres qui marche pas vraiment
+    + rajouter des console.log a l'emplacement des envoie de mail
+    + les mdp au format de la CNIL
+    + check si le compte est actif
 - enlever tout les console.log inutiles
 - normaliser toutes les routes
     + upload
@@ -102,6 +103,7 @@ stand by plusieurs orga par recruteur ( select orga pour poster une offre, affic
 - modifier candidature que si l'offre est toujours valable?? -> pas la peine imo
 + bouton "devenez recruteur"
 + pass.js
+
 
 
 IMPORTANT

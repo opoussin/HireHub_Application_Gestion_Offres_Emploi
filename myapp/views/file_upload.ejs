@@ -26,9 +26,9 @@
 
                       <p class="display-6">Candidature de: <%= connected_user.prenom %> <%= connected_user.nom %> à <%= offre[0].intitule %></p>
                       <p class="display-12">Nombres de pieces de candidature minimum : <%= offre[0].nombrePieces %></p>
-                      <%console.log(offre)%>
+                      <%console.log("cand",candid)%>
                       <p class="display-12">Pieces requises : <%= offre[0].pieces %></p>
-
+                      <% if (candid.length ==0){%>
                       <select class="form-select" id="file_type" name="myFileType" required="true">
                         <option value="">--- Type du document ---</option>
                         <option value="CV">C.V.</option>
@@ -41,7 +41,10 @@
                         <a title="Charger le fichier">
                           <button type="submit" class="btn btn-primary justify-content-center align-items-center">Charger le fichier</button>
                         </a>
-
+                      <%}else{%>
+                        <p class="display-12"> Vous avez déjà candidaté à cette offre</p>
+                      <%}%>
+                      
 
                         <% if(typeof uploaded_filename !='undefined' && typeof uploaded_original !='undefined' ) { %>
                           <div class="col text-justify">
@@ -68,6 +71,7 @@
                 </form>
               
           </div>
+          <% if (candid.length ==0){%>
 
           <div class="row d-flex flex-column justify-content-center  align-items-center">
             <div class="col-6 bg-white d-flex flex-column justify-content-center py-2">
@@ -84,6 +88,7 @@
               </form>
             </div>
           </div>
+          <%}%>
           
 
         </div>
