@@ -60,8 +60,8 @@ CANDIDAT
     + ça plante des fois
     - ne pas candiater 2 fois à une offre
     - nombre de fichier minimum
-    - tri des offres par distance entre le lieu et un adresse??? me rappelle plus ce que le prof avait dit 
-    - tri des offres par salaire (marche pas actuellement)
+    + tri des offres par distance entre le lieu et un adresse??? PLUS DEMANDE
+    + tri des offres par salaire (marche pas actuellement)
 
 O + supprimer une demande amdin 
 O + modifier les filtres pour prévoir la casse (comme dans amdin)
@@ -73,7 +73,7 @@ ADMIN
 O + vue accueil admin -> cote a cote les dmd orga et dmd admin, 
 O + OPTION si j'ai le temps -> mettre des boutons de recherche dans les demandes
 - profil admin ya rien (mettre des stats?)
-- modifier compte utilisateur
+- modifier compte utilisateur?? genre faire quoi?s
 + fonctions recherche dmdOrga pour les en attentes et les autres (historique)
 
 VRAC
@@ -83,7 +83,7 @@ VRAC
 + annuler la casse dans les formulaires 
 + Affiner les filtres
 + rajouter condition inscription si deja une session cree
-- dans toutes les fonctions faire de la gestion d'erreurs
++ dans toutes les fonctions faire de la gestion d'erreurs
 stand by plusieurs orga par recruteur ( select orga pour poster une offre, afficher les offres)
 + pas possible de se co avec celeste@mail mdp:123
 + filtrage des offres qui marche pas vraiment
@@ -97,7 +97,7 @@ stand by plusieurs orga par recruteur ( select orga pour poster une offre, affic
     - recrut
     - admin
     - index
-- fonction de recherche des offres expirées dans accueil recruteur
++ fonction de recherche des offres expirées dans accueil recruteur
 - envoyer mail (console.log) quand une demande recrut/orga/admin est acceptée
 - modifier candidature que si l'offre est toujours valable?? -> pas la peine imo
 + bouton "devenez recruteur"
@@ -106,8 +106,7 @@ stand by plusieurs orga par recruteur ( select orga pour poster une offre, affic
 
 IMPORTANT
 + changer toutes la gestion des erreurs des update 
-- checker le comportement des INSERT
-- EN COURS Changer la reception des callbacks dans les routes
++ checker le comportement des INSERT
 - Maintenant on peut checker les erreurs en passant un paramètre dans la query (voir le modèle de '/demandes_admin/accept') + nouveau components erreur 
 
 SECURITE

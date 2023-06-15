@@ -66,7 +66,7 @@ module.exports = {
             sql += `AND FICHE_POSTE.statut like "%${statut}%"`;
         }
         if ( salaire !== "") {
-            sql += `AND FICHE_POSTE.type > ${salaire}`;
+            sql += `AND FICHE_POSTE.salaire > ${salaire}`;
         }
         if ( type !== "") {
             sql += `AND FICHE_POSTE.type like "%${type}%"`;

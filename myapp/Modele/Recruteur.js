@@ -113,7 +113,7 @@ module.exports = {
         });
     },
 
-    readAllOffreOrgaRecrut: function (mail, orga, intitule, date, callback) {
+    readAllOffreOrgaRecrut: function (mail, orga, intitule, date, o_exp, callback) {
         var sql = "SELECT * FROM OFFRE o INNER JOIN ORGANISATION org ON o.organisation=org.siren INNER JOIN FICHE_POSTE f ON f.offre = o.numero INNER JOIN APPARTENIR_ORGA a ON a.organisation=o.organisation WHERE mail = ?";
         if ( orga !== undefined && orga !== "") {
             sql += ` AND org.siren=${orga}`;
@@ -123,6 +123,9 @@ module.exports = {
         }
         if ( date !== undefined && date !== "") {
             sql += ` AND  CAST(o.dateValidite as DATE)="${date}"`;
+        }
+        if ( o_exp) {
+            sql += ` AND  o.dateValidite < CURRENT_DATE`;
         }
 
         sql +=' ORDER BY o.numero DESC';

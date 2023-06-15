@@ -33,7 +33,9 @@
 
                                                     <label for="date">Par date de validité:</label>
                                                     <input type="date" class="form-control" id="date" placeholder="...par date d'inscription" name="date" value="<%= search.date %>">
-
+                                                    <div class="d-flex flex-row gap-2">
+                                                        <input type="checkbox" value="search.o_exp" id="o_exp" name="o_exp"> <label for="o_exp">Offres expirées</label>
+                                                    </div>
                                                     <button class="btn btn-primary mt-3" type="submit">Valider</button>
                                                 </form>
                                                 <a href="/recrut/creer_offre" class="btn btn-primary mt-3 ">Créer une offre</a>

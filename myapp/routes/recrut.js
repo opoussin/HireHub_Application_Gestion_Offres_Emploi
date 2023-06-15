@@ -17,15 +17,15 @@ router.get('/recruteur', function (req, res, next) {
     var mail=req.session.userid;
     req.session.current_profil=2; //à quoi ça sert? On peut l'enlever si on utilise le nouveau header??
     var candidat = "";
-
+    var o_exp = req.query.o_exp;
     var orga = req.query.orga;
     var intitule = req.query.intitule;
     var date = req.query.date;
     
-    recruteurModel.readAllOffreOrgaRecrut (mail, orga, intitule, date, function (results) {
+    recruteurModel.readAllOffreOrgaRecrut (mail, orga, intitule, date, o_exp, function (results) {
       recruteurModel.readAllOrgaRecruteur(mail, function(orgaResult){
         res.render('recruteur', {candidat : candidat, listeOffre: results ,orgaResult: orgaResult, req : req, search:{
-          orga:orga, intitule:intitule, date:date}
+          o_exp: o_exp, orga:orga, intitule:intitule, date:date}
         });
       });
   });
