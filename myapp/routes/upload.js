@@ -26,21 +26,30 @@ var upload = multer({ storage: my_storage })
 
 router.get('/:numero', function(req, res, next) {
   let mail = req.session.userid;
-  readUser(mail, function (result){
-      if (result) {
-          let user = result;
-          if (req.session.uploaded_files == undefined ) {
-              let numero = req.params.numero;
-              console.log('Init uploaded files array');
-              req.session.uploaded_files = [];
-              res.render('file_upload',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero});
-          }else{
-            res.redirect('/users/candidat');
+  let numero = req.params.numero;
+
+  recruteurModel.readOffre(numero, function (offre){
+    if (offre){
+      readUser(mail, function (result){
+        if (result) {
+            let user = result;
+            if (req.session.uploaded_files == undefined ) {
+                console.log('Init uploaded files array');
+                req.session.uploaded_files = [];
+                res.render('file_upload',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero, offre});
+            }else{
+              res.redirect('/users/candidat');
+            }
+          } else {
+            res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
           }
-        } else {
-          res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
-        }
-  });
+    });
+    }
+  else{
+/// rajouter
+  }
+});
+ 
   
 });
 
@@ -55,7 +64,13 @@ router.post('/upload', upload.single('myFileInput') ,function(req, res, next) {
     let mail = req.session.userid;
     readUser(mail, function (user){
       if (user) {
-          res.render('file_upload',{req:req, numero, connected_user : user, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
+        recruteurModel.readOffre(numero, function (offre){
+        if (offre){
+          res.render('file_upload',{req:req, numero, offre,  connected_user : user, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
+        }else{
+          //rajouter
+        }
+      });
         } else {
           res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
         }
@@ -67,7 +82,7 @@ router.post('/envoi', function(req, res, next) {
     let mail = req.session.userid;
     let numero = req.body.numero;
     recruteurModel.readOffre(numero, function(piece){
-      if (piece>=req.session.uploaded_files.length){
+      if (piece[0].nombrePieces <= req.session.uploaded_files.length){
         let fichier = req.session.uploaded_files.join(", ");
         candidatModel.creatCandidature(mail, numero, fichier, function(result){
           if (result){
@@ -81,7 +96,12 @@ router.post('/envoi', function(req, res, next) {
       }else{
         readUser(mail, function(user){
           if (user){
-            res.render('file_upload',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero, message : "Nombres de pièces de candidatures insuffisantes"});
+          recruteurModel.readOffre(numero, function (offre){
+            if (offre){
+            res.render('file_upload',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero, offre : offre, message : "Nombres de pièces de candidatures insuffisants"});
+          //utiliser le message
+            }
+          });
           }
         })
       }

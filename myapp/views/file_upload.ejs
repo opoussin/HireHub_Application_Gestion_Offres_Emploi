@@ -24,8 +24,11 @@
                   
                     <input type="hidden" name="myUsername" value="<%= connected_user.mail %>" />
 
-                      <p class="display-6">Candidature de: <%= connected_user.prenom %> <%= connected_user.nom %> </p>
-                      
+                      <p class="display-6">Candidature de: <%= connected_user.prenom %> <%= connected_user.nom %> à <%= offre[0].intitule %></p>
+                      <p class="display-12">Nombres de pieces de candidature minimum : <%= offre[0].nombrePieces %></p>
+                      <%console.log(offre)%>
+                      <p class="display-12">Pieces requises : <%= offre[0].pieces %></p>
+
                       <select class="form-select" id="file_type" name="myFileType" required="true">
                         <option value="">--- Type du document ---</option>
                         <option value="CV">C.V.</option>

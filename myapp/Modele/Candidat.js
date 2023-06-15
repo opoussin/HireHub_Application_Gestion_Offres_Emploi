@@ -111,7 +111,7 @@ module.exports = {
     creatDmdAdmin: function (mail, callback) {
         var sql = mysql.format("INSERT INTO DMD_ADMIN (utilisateur) VALUES (?)", [mail]);
         db.query(sql, function (err, results) {
-            if(affectedRows.results == 0){
+            if(err){
                 return callback(false);
             }
             callback(true);
@@ -119,9 +119,8 @@ module.exports = {
     },
     creatCandidature: function (mail, numero, fichier, callback) {
         var sql = mysql.format("INSERT INTO CANDIDATURE (candidat, offre, piecesC) VALUES (?,?,?)", [mail, numero, fichier]);
-
         db.query(sql, function (err, results) {
-            if(affectedRows.results == 0){
+            if(err){
                 return callback(false);
             }
             callback(true);
