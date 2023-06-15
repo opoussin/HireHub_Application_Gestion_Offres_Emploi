@@ -95,25 +95,31 @@ router.post('/inscription', function (req, res, next) {
   var mdp = req.body.mdp;
   var telephone = req.body.telephone;
 
-  const cnilPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{12,}$/;
-  console.log ("ça teste");
-
-  if (cnilPasswordRegex.test(mdp)|| 1==1) {
+  const cnilPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]{12,}$/;
+  if (cnilPasswordRegex.test(mdp)) {
     console.log (mdp);
 
-    crypt.generateHash(mdp, function(crypto){
+    /*crypt.generateHash(mdp, function(crypto){
       if (crypto){
         console.log (crypto);
-        communModel.creatUser(mail, nom, prenom, crypto, telephone, function (result) {
-          if (result){ //result = vrai donc il y a une erreur
-            res.redirect('/inscription');
-          }
-          else{
-            res.redirect('/users/candidat');
-          }
-        });
-      }
-    });
+        communModel.creatUser(mail, nom, prenom, crypto, telephone, function (result) {*/
+        const telRegex = /^\d{10}$/;
+        if(telRegex.test(telephone)){
+          communModel.creatUser(mail, nom, prenom,mdp, telephone, function (result) {
+            console.log("result", result);
+            if (result){ 
+              res.render('connexion', {message2 : "Inscription réussie, veuillez vous connecter."});
+            }
+            else{
+              res.redirect('/inscription');
+            }
+          });
+        }else{
+          res.render('inscription',  {messagetel : "Numéro de téléphone incorect."})
+        }
+        
+      //}
+    //});
     
   }else{
     res.render('inscription',  {message : "Mot de passe incorect, veuillez en choisir un d'au minimum 12 caractères comprenant des majuscules, des minuscules, des chiffres et des caractères spéciaux."})

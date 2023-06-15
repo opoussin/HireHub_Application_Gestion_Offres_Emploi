@@ -36,6 +36,9 @@
               <label for="Telephone">Telephone:</label>
               <input type="Telephone" class="form-control" id="telephone" placeholder="Entrer votre numéro de téléphone" name="telephone">
             </div>
+            <%if (typeof messagetel != "undefined"){%>
+              <p small class="form-group  text-danger text-justify"><%=messagetel%></p>
+            <%}%>
             <div class="mb-3 mt-3">
               <a href="/connexion" class="btn-link" >J'ai déjà un compte</a>
             </div>
