@@ -113,13 +113,14 @@ router.get('/demandes', function (req, res, next) {
 });
 
 router.get('/demandes_admin/accept', function (req, res, next) {
-  var mail= req.session.userid;
   let user = req.query.user;
   let value=true;
   adminModel.acceptAdmin(user, function (result) {
     if(result){
       adminModel.updateDmdAdmin(user, value, function (result) {
         if(result){
+        // console pour simuler l'envoi d'un mail de notification 
+        console.log ( " La demande de l'utilisateur ", user, "pour devenir administrateur a été acceptée");
           res.redirect('/admin/demandes');
         }else{
           //GERER ERREUR
@@ -142,7 +143,8 @@ router.get('/demandes_admin/deny', function (req, res, next) {
   
     adminModel.updateDmdAdmin(user, value, function (result) {
       if(result){
-        
+        // console pour simuler l'envoi d'un mail de notification 
+        console.log ( " La demande de l'utilisateur ", user, "pour devenir administrateur a été refusée");
         res.redirect('/admin/demandes');
       }else{
       //GERER ERREUR
@@ -165,6 +167,8 @@ router.get('/demandes_orga/accept', function (req, res, next) {
   let value=1;
   adminModel.acceptOrga(nom, siren, type, siege, mail,value, function (result) {
     if(result){
+      // console pour simuler l'envoi d'un mail de notification 
+      console.log ( " La demande de l'utilisateur ", user, "pour créer l'organisation de siren", siren , "a été acceptée");
       res.redirect('/admin/demandes');
     }else{
       //GERER ERREUR
@@ -182,6 +186,8 @@ router.get('/demandes_orga/deny', function (req, res, next) {
   let value=0;
     adminModel.updateDmdOrga(siren, user, value, function (result) {
       if(result){
+      // console pour simuler l'envoi d'un mail de notification 
+      console.log ( " La demande de l'utilisateur ", user, "pour créer l'organisation de siren", siren , "a été refusée");
         res.redirect('/admin/demandes');
 
       }else{

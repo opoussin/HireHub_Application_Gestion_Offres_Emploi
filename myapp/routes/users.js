@@ -112,7 +112,7 @@ router.get('/creer_orga', function (req, res, next) {
   candidatModel.readUserDmdOrga(mail, function (results) {
     if(results){
       resultOrga = communModel.readOrga(function (orgaResult) {
-        if (orgaResults){
+        if (orgaResult){
           orgaResult ??= [];
           results ??= [];
           console.log("demandeOrga:" + results)

@@ -1,23 +1,25 @@
-+ terminer modifier profil qui marche pas ( redirection)
-O + rediriger vue accueil recruteur profil candidat : bouton conditionnel en focntion du type qui redirigent vers les accueil correspondant
-O + rediriger vue accueil admin
-C + enlever bouton modifier profil dans accueil candidat
-O + régler pbm vue dmd recruteur formulaire_recruteur
-C + enlever bouton voir mes candidatures
-C + supprimer bouton active accueil candidat
-O + bouton voir offre accueil candidat
-O + bouton Postuler
-O + pb avec les demandes (ça n'insere pas quand je teste avec celeste par ex)
+FINIT VRAC
+    + terminer modifier profil qui marche pas ( redirection)
+    O + rediriger vue accueil recruteur profil candidat : bouton conditionnel en focntion du type qui redirigent vers les accueil correspondant
+    O + rediriger vue accueil admin
+    C + enlever bouton modifier profil dans accueil candidat
+    O + régler pbm vue dmd recruteur formulaire_recruteur
+    C + enlever bouton voir mes candidatures
+    C + supprimer bouton active accueil candidat
+    O + bouton voir offre accueil candidat
+    O + bouton Postuler
+    O + pb avec les demandes (ça n'insere pas quand je teste avec celeste par ex)
 
 RECRUTEUR
-C + tester AI offre
-C + mettre l'auto increment sur numero de offre
+    C + tester AI offre
+    C + mettre l'auto increment sur numero de offre
 
 C + vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton editer, voir candidat, supprimer,), bouton creer offre, page de formulaire, 
     C + changer de profil et afficher les offres d'une entreprise
     C + créer un offre
-        - améliorer front formulaire ( espaces, champs obligatoires)
-        - bouton radio qui s'affichent pas trop bien
+        - améliorer front formulaire ( espaces, champs obligatoires et verification des format 
+        de données) !!!!! IMPORTANT POUR LA SECURITE
+        + bouton radio qui s'affichent pas trop bien
         - enlever le lieu automatique en fonction de la localisation de l'orga
     o éditer une offre
         + demander comment passer la ref de l'offre pour l'éditer
@@ -40,7 +42,6 @@ C + vue accueil recruteur -> carte avec les offres de l'entreprise ( bouton edit
     + modifier CDI etc en cadre ETAM jsp quoi 
     + vérifier la validité d'une offre ( soit afficher quand la durée est dépassée, soit afficher la durée, dans tout les cas
     laisser le faire manuellement)
-
     + fonction recherche dmdRecrut pour les en attentes et les autres (historique)
 
 CANDIDAT
@@ -68,11 +69,12 @@ O + modifier les filtres pour prévoir la casse (comme dans amdin)
 O + Faire un dropdown pour la navbar
 O + Gérer quand tu appartient à plusieurs organisation (créer offre, afficher offres, candidatures...)
 O - vérifier partout que pour checker si on est recruteur on check si l'utilisateur est bien dans APPARTENIR_ORGA
+ -> FAIT ?? 
 
 ADMIN
 O + vue accueil admin -> cote a cote les dmd orga et dmd admin, 
 O + OPTION si j'ai le temps -> mettre des boutons de recherche dans les demandes
-- profil admin ya rien (mettre des stats?)
++ profil admin ya rien (mettre des stats?)
 - modifier compte utilisateur?? genre faire quoi?s
 + fonctions recherche dmdOrga pour les en attentes et les autres (historique)
 
@@ -99,11 +101,21 @@ Fait
     - admin
     - index
 + fonction de recherche des offres expirées dans accueil recruteur
-- envoyer mail (console.log) quand une demande recrut/orga/admin est acceptée
+o envoyer mail (console.log) quand une demande recrut/orga/admin est acceptée
+    + message envoyé pour creation de compte
+    o console log pour les autres, a voir si cela est accepté par le prof
 - modifier candidature que si l'offre est toujours valable?? -> pas la peine imo
 + bouton "devenez recruteur"
 + pass.js
 - la date est bizarre dans editer offre
+- faire le readme
+
+PROBLEMES D'URL :
+    - router.get('/supp_offre/:numero', function (req, res, next) 
+    - router.get('/editer_offre/:numero', function (req, res, next) {
+    - router.get('/listeCandidat/:numero', function (req, res, next) {
+    - router.get('/listeCandidat/accept/:numero/:candidat', function (req, res, next) {
+    
 
 
 IMPORTANT
@@ -156,7 +168,7 @@ SECURITE
 - montrer faisabilité de l'attaque avant patch
 - patcher ou proposer une solution et pas l'implémenter
 
-PARTIE CONCEPTION
+PARTIE CONCEPTION !!!!!!!!!!!!!!!!
     - mettre a jour le diagramme de classe
     - MLD 
     - MPD

@@ -99,10 +99,10 @@ module.exports = {
     },
     readAllCandidat: function (numero, callback) {
         db.query("SELECT * FROM CANDIDATURE c INNER JOIN UTILISATEUR u ON c.candidat=u.mail WHERE c.offre =?", numero, function (err, results) {
-            if (affectedRows.results == 0) {
+            if (err) {
                 return callback(false);
             }else{
-                callback(true);
+                callback(results);
             }
         });
     },

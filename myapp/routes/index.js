@@ -99,13 +99,13 @@ router.post('/inscription', function (req, res, next) {
   if (cnilPasswordRegex.test(mdp)) {
     console.log (mdp);
 
-    /*crypt.generateHash(mdp, function(crypto){
+    crypt.generateHash(mdp, function(crypto){
       if (crypto){
         console.log (crypto);
-        communModel.creatUser(mail, nom, prenom, crypto, telephone, function (result) {*/
+        //communModel.creatUser(mail, nom, prenom, crypto, telephone, function (result) {*/
         const telRegex = /^\d{10}$/;
         if(telRegex.test(telephone)){
-          communModel.creatUser(mail, nom, prenom,mdp, telephone, function (result) {
+          communModel.creatUser(mail, nom, prenom,crypto, telephone, function (result) {
             console.log("result", result);
             if (result){ 
               res.render('connexion', {message2 : "Inscription réussie, veuillez vous connecter."});
@@ -118,8 +118,8 @@ router.post('/inscription', function (req, res, next) {
           res.render('inscription',  {messagetel : "Numéro de téléphone incorect."})
         }
         
-      //}
-    //});
+      }
+    });
     
   }else{
     res.render('inscription',  {message : "Mot de passe incorect, veuillez en choisir un d'au minimum 12 caractères comprenant des majuscules, des minuscules, des chiffres et des caractères spéciaux."})
