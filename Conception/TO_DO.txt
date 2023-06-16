@@ -110,12 +110,6 @@ o envoyer mail (console.log) quand une demande recrut/orga/admin est acceptée
 - la date est bizarre dans editer offre
 - faire le readme
 
-PROBLEMES D'URL :
-    - router.get('/supp_offre/:numero', function (req, res, next) 
-    - router.get('/editer_offre/:numero', function (req, res, next) {
-    - router.get('/listeCandidat/:numero', function (req, res, next) {
-    - router.get('/listeCandidat/accept/:numero/:candidat', function (req, res, next) {
-    
 
 
 IMPORTANT

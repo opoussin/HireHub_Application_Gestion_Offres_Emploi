@@ -70,11 +70,20 @@
               <ul class="p-0">
                 <%if (files_array.length>0){%>
                   <% files_array.forEach((oneFile)=> { %>
-                    <li><a href="/candidature/getfile/<%= oneFile %>" target="_blank">
+                    <li><form method="post" action="/candidature/getfile" id="getfile<%= oneFile %>" >
+                        <input type="hidden" name="file" value="<%= oneFile %>" >
+                        <button type="submit" class="link"><%= oneFile %></button>
                         <%= oneFile %>
-                      </a>
-                      <a href="/candidature/modifier_candidature/supp/<%=numero%>/<%= oneFile %>" class="btn btn-light"
-                        target="_blank">Supprimer</a>
+                    </form>
+                      
+                      <form method="post" action="supp" id="suppfile<%= oneFile %>" >
+                          <input type="hidden" name="file" value="<%= oneFile %>" >
+                          <input type="hidden" name="numero" value="<%= numero %>" >
+
+                          <button type="submit" class="bg-primary">Supprimer</button>
+                          <%= oneFile %>
+                        
+                      </form>
 
 
                     </li>

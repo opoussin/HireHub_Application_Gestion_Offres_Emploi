@@ -77,9 +77,13 @@
             <div class="col-6 bg-white d-flex flex-column justify-content-center py-2">
               <ul>
                 <% files_array.forEach((oneFile)=> { %>
-                  <li><a href="/candidature/getfile/<%= oneFile %>" target="_blank">
+                  <form method="post" action="getfile" id="getfile<%= oneFile %>" >
+                    <li>
+                      <input type="hidden" name="file" value="<%= oneFile %>" >
+                      <button type="submit" class="link"><%= oneFile %></button>
                       <%= oneFile %>
                     </a></li>
+                  </form>
                   <% }) %>
               </ul>
               <form method="post" action="envoi">

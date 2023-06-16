@@ -29,7 +29,7 @@ router.get('/:numero', function(req, res, next) {
   let numero = req.params.numero;
 
   recruteurModel.readOffre(numero, function (offre){
-    if (offre){
+    if (offre && offre[0].etat == 'publiee'){
       readUser(mail, function (result){
         candidatModel.readCandidature(mail, numero, function (candid){
           if (result) {
@@ -42,16 +42,16 @@ router.get('/:numero', function(req, res, next) {
             }else{
               res.redirect('/users/candidat');
             }
-              } else {
-                res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
-              }
+          } else {
+            res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
+          }
         });
 
         })
         
     }
   else{
-/// rajouter
+    res.redirect('/users/candidat');
   }
 });
  
@@ -71,7 +71,10 @@ router.post('/upload', upload.single('myFileInput') ,function(req, res, next) {
       if (user) {
         recruteurModel.readOffre(numero, function (offre){
         if (offre){
-          res.render('file_upload',{req:req, numero, offre,  connected_user : user, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
+          candidatModel.readCandidature(mail, numero, function (candid){
+
+          res.render('file_upload',{req:req, numero, offre,  candid, connected_user : user, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
+          });
         }else{
           //rajouter
         }
@@ -115,11 +118,12 @@ router.post('/envoi', function(req, res, next) {
     
   });
 
-router.get('/getfile/:file', function(req, res, next) {
+router.post('/getfile', function(req, res, next) {
+
   try {
-    res.download('./mesfichiers/'+req.params.file);
+    res.download('./mesfichiers/'+req.body.file);
   } catch (error) {
-    res.send('Une erreur est survenue lors du téléchargement de '+req.params.file+' : '+error);
+    res.send('Une erreur est survenue lors du téléchargement de '+req.body.file+' : '+error);
   }
 });
 
@@ -156,9 +160,9 @@ router.get('/modifier_candidature/:numero', function (req, res, next) {
   });
 });
 
-router.get('/modifier_candidature/supp/:numero/:file', function (req, res, next) {
-  let numero = req.params.numero;
-  let file = req.params.file;
+router.post('/modifier_candidature/supp', function (req, res, next) {
+  let numero = req.body.numero;
+  let file = req.body.file;
   let mail = req.session.userid;
   let filePath = './mesfichiers/'+file;
   const uploaded_file = req.file;
