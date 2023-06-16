@@ -208,8 +208,18 @@ router.get('/listeCandidat/:numero', function (req, res, next) {
 router.post('/editer_offre/:numero', function (req, res, next) {
   if (req.body){
     var etat = req.body.etat;
-    var dateValidite = new Date(req.body.dateValidite);
-    dateValidite = dateValidite.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }).split('/').reverse().join('-');
+    if (req.body.dateValidite2){
+      var dateValidite = req.body.dateValidite2;
+
+    }else{
+      var dateValidite = req.body.dateValidite1;
+
+    }
+    //var dateValidite = new Date( req.body.dateValidite);
+    //console.log("req.body:",dateValidite);
+    //var dateValidite = req.body.dateValidite;
+    
+    //var dateValidite = dateValidite.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }).split('/').reverse().join('-');
     var pieces = req.body.pieces;
     var nombrePieces = req.body.nombrePieces;
     let numero = req.params.numero;
@@ -222,7 +232,7 @@ router.post('/editer_offre/:numero', function (req, res, next) {
     var salaire = req.body.salaire;
     var description = req.body.description;
     var etat = req.body.etat;
-    console.log("req.body:",req.body);
+    console.log("req.body:",dateValidite);
     recruteurModel.updateOffre(etat, dateValidite, pieces, nombrePieces, numero, function (result) {
       recruteurModel.updateFiche(intitule, statut, responsable, type, lieu, rythme, salaire, description, numero, function (result){
         res.redirect('/recrut/recruteur');

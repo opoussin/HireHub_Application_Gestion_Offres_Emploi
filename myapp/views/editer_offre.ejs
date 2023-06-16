@@ -66,13 +66,15 @@
                     <input type="number" class="form-control" id="nombrePieces" placeholder="Nombre"
                       name="nombrePieces" value="<%=offre.nombrePieces%>">
                   </div>
-                  <label for="dateValidite">Date de validité de l'offre:</label>
-                    <input type="dateValidite" id="dateValidite" name="dateValidite" value="<%=offre.dateValidite.toLocaleDateString('fr') %>" required>
+                  <label for="dateValidite">Date actuelle <%= offre.dateValidite.toLocaleDateString('fr')%>:</label>
+                    <input hidden type="dateValidite" id="dateValidite1" name="dateValidite1" value="<%=offre.dateValidite%>" selected>
+                    <input type="dateValidite" id="dateValidite2" name="dateValidite2" placeholder="AAAA-MM-JJ">
+
                    
                   <div class="mb-3 mt-3">
                     <h6>L'offre est actuellement <%=offre.etat%> </h6>
                     <label>
-                      <input hidden type="radio" id = "default" name="etat" value= "<%=offre.etat%>" default >
+                      <input hidden type="radio" id = "default" name="etat" value= "<%=offre.etat%>" checked>
 
                       <input type="radio" id = "publiee" name="etat" value="publiee">
                       Publier l'offre maintenant
