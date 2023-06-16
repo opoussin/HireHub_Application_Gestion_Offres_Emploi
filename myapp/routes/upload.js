@@ -29,7 +29,8 @@ router.get('/:numero', function(req, res, next) {
   let numero = req.params.numero;
 
   recruteurModel.readOffre(numero, function (offre){
-    if (offre && offre[0].etat == 'publiee'){
+    if (offre) {//ne marche pas
+      if(offre[0].etat == 'publiee'){
       readUser(mail, function (result){
         candidatModel.readCandidature(mail, numero, function (candid){
           if (result) {
@@ -53,6 +54,10 @@ router.get('/:numero', function(req, res, next) {
   else{
     res.redirect('/users/candidat');
   }
+}else{
+  res.redirect('/users/candidat');
+
+}
 });
  
   
