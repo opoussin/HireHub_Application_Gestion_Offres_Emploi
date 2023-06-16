@@ -67,7 +67,7 @@ module.exports = {
     creatOrga: function (nom, siren, type, siegesocial, callback) {
         db.query("INSERT INTO ORGANISATION (nom, siren, type, siegesocial) VALUES (?,?,?,?)", [nom, siren, type, siegesocial], function
             (err, results) {
-                if (results==undefined || results.affectedRows == 0) {
+                if (err) {
                     return callback(false); 
                 }
                   return callback(true); 
@@ -233,7 +233,7 @@ module.exports = {
         
     },
     updateDmdOrga: function (siren, mail, value, callback) {
-        if(value==1){
+        if(value){
             db.query("UPDATE DMD_ORGA SET statut='Validé' WHERE siren=? AND recruteur=?", [siren,mail] , function
             (err, results) {
                 if (results.affectedRows == 0) {
@@ -246,9 +246,10 @@ module.exports = {
             db.query("UPDATE DMD_ORGA SET statut='Refusé' WHERE siren=? AND recruteur=?", [siren,mail] , function
             (err, results) {
                 if (results.affectedRows == 0) {
-                    return callback(false); 
-                  }
-                  callback(true); 
+                     callback(false); 
+                  }else{
+                    callback(true);
+                  } 
             });
         
         }
