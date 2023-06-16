@@ -86,12 +86,17 @@ module.exports = {
         let self = this;
         this.readOrgaSiren(siren, function(result){
             if(result){
+                console.log("1");
                 self.creatOrga(nom,siren,type,siegesocial, function(result){
                     if(result){
+                        console.log("2");
                         self.acceptRecruteur(mail,siren, function(result){
                             if(result){
+                                console.log("3");
                                 self.updateDmdOrga(siren, mail, value, function(result){
                                     if(result){
+                                        console.log("4");
+
                                         callback(true);
                                     }
                                 });
@@ -110,9 +115,10 @@ module.exports = {
         sql = "SELECT * FROM APPARTENIR_ORGA WHERE organisation = ? AND mail = ?";
         db.query(sql, [siren, mail], function (err, rows) {
           if (err) return callback(false);
-          if (rows.length !== 0) {
+          if (rows.length !== 0) { //si l'utilisateur est déjà recruteur pour cette orga
             callback(false);
           } else {
+            console.log("ici");
             var sql2 = mysql.format("INSERT INTO APPARTENIR_ORGA (mail, organisation) VALUES (?,?)", [mail, siren]);
             db.query(sql2, function (err, result) {
               if (err) return callback(false);
@@ -129,7 +135,7 @@ module.exports = {
             sql += ` AND  recruteur like "%${mail}%"`;
         }
         if ( date !== undefined && date !== "") {
-            sql += ` AND  CAST(dateCreation as DATE)="${date}"`;
+            sql += ` AND  CAST(date as DATE)="${date}"`;
         }
         db.query(sql, statut, function (err, results) {
             if(err) {console.log(err); return callback(false);}
@@ -142,7 +148,7 @@ module.exports = {
             sql += ` AND  utilisateur like "%${mail}%"`;
         }
         if ( date !== undefined && date !== "") {
-            sql += ` AND  CAST(dateCreation as DATE)="${date}"`;
+            sql += ` AND  CAST(date as DATE)="${date}"`;
         }
         db.query(sql, statut, function (err, results) {
             if(err) {console.log(err); return callback(false);}
@@ -155,7 +161,7 @@ module.exports = {
             sql += ` AND  recruteur like "%${mail}%"`;
         }
         if ( date !== undefined && date !== "") {
-            sql += ` AND  CAST(dateCreation as DATE)="${date}"`;
+            sql += ` AND  CAST(date as DATE)="${date}"`;
         }
 
         db.query(sql, function (err, results) {
@@ -169,7 +175,7 @@ module.exports = {
             sql += ` AND  utilisateur like "%${mail}%"`;
         }
         if ( date !== undefined && date !== "") {
-            sql += ` AND  CAST(dateCreation as DATE)="${date}"`;
+            sql += ` AND  CAST(date as DATE)="${date}"`;
         }
 
         db.query(sql, function (err, results) {

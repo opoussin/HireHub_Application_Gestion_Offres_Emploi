@@ -220,7 +220,7 @@ describe("Model Tests", () => {
                 done(err);
             }
         }
-        adminModele.acceptRecruteur("test@testz", "100", cbRead);
+        adminModele.acceptRecruteur("test@test", "100", cbRead);
     });
 
     test("read dmd orga", (done) => {
@@ -241,7 +241,7 @@ describe("Model Tests", () => {
                 done(err);
             }
         }
-        adminModele.readDmdOrga("En attente", undefined, undefined, cbRead);
+        adminModele.readDmdOrga("En attente", "test@test", "2023-06-13", cbRead);
     });
 
     test("read dmd admin", (done) => {
@@ -261,7 +261,7 @@ describe("Model Tests", () => {
                 done(err);
             }
         }
-        adminModele.readDmdAdmin("En attente", undefined, undefined, cbRead);
+        adminModele.readDmdAdmin("En attente", "test@test2", "2023-06-16", cbRead);
     });
 
     test("read all dmd admin", (done) => {
@@ -282,7 +282,7 @@ describe("Model Tests", () => {
                 done(err);
             }
         }
-        adminModele.readAllDmdAdmin(undefined, undefined, cbRead);
+        adminModele.readAllDmdAdmin("test@test2", "2023-06-16", cbRead);
     });
 
     test("read all dmd orga", (done) => {
@@ -303,7 +303,7 @@ describe("Model Tests", () => {
                 done(err);
             }
         }
-        adminModele.readAllDmdOrga( undefined, undefined, cbRead);
+        adminModele.readAllDmdOrga( "test@test", "2023-06-13", cbRead);
     });
 
     test("read user filtre", (done) => {
@@ -324,10 +324,10 @@ describe("Model Tests", () => {
                 done(err);
             }
         }
-        adminModele.readUserFiltre( undefined, undefined,undefined,undefined,undefined,undefined, cbRead);
+        adminModele.readUserFiltre( "test@test2", "test","test","2023-06-14 16:09:40","1","3", cbRead);
     });
 
-    test("update dmd admin valider", (done) => {
+    test("update dmd admin valider true", (done) => {
         function cbRead(resultat) {
             try {
                 //l'objet user est valide (niveau champs)
@@ -342,7 +342,22 @@ describe("Model Tests", () => {
         adminModele.updateDmdAdmin("test@test2", true, cbRead);
     });
 
-    test("update dmd admin refuser", (done) => {
+    test("update dmd admin valider false", (done) => {
+        function cbRead(resultat) {
+            try {
+                //l'objet user est valide (niveau champs)
+               
+                expect(resultat).toBeFalsy();
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done(err);
+            }
+        }
+        adminModele.updateDmdAdmin("test@test2z", true, cbRead);
+    });
+
+    test("update dmd admin refuser true", (done) => {
         function cbRead(resultat) {
             try {
                 //l'objet user est valide (niveau champs)
@@ -357,7 +372,22 @@ describe("Model Tests", () => {
         adminModele.updateDmdAdmin("test@test2", false, cbRead);
     });
 
-    test("update dmd orga valider", (done) => {
+    test("update dmd admin refuser false", (done) => {
+        function cbRead(resultat) {
+            try {
+                //l'objet user est valide (niveau champs)
+               
+                expect(resultat).toBeFalsy();
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done(err);
+            }
+        }
+        adminModele.updateDmdAdmin("test@test2z", false, cbRead);
+    });
+
+    test("update dmd orga valider true", (done) => {
         function cbRead(resultat) {
             try {
                 //l'objet user est valide (niveau champs)
@@ -372,7 +402,22 @@ describe("Model Tests", () => {
         adminModele.updateDmdOrga("100","test@test", true, cbRead);
     });
 
-    test("update dmd orga refuser", (done) => {
+    test("update dmd orga valider false", (done) => {
+        function cbRead(resultat) {
+            try {
+                //l'objet user est valide (niveau champs)
+               
+                expect(resultat).toBeFalsy();
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done(err);
+            }
+        }
+        adminModele.updateDmdOrga("10","test@test", true, cbRead);
+    });
+
+    test("update dmd orga refuser true", (done) => {
         function cbRead(resultat) {
             try {
                 //l'objet user est valide (niveau champs)
@@ -387,7 +432,22 @@ describe("Model Tests", () => {
         adminModele.updateDmdOrga("100", "test@test", false, cbRead);
     });
 
-    test("update dmd recruteur valider", (done) => {
+    test("update dmd orga refuser false", (done) => {
+        function cbRead(resultat) {
+            try {
+                //l'objet user est valide (niveau champs)
+               
+                expect(resultat).toBeFalsy();
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done(err);
+            }
+        }
+        adminModele.updateDmdOrga("10", "test@test", false, cbRead);
+    });
+
+    test("update dmd recruteur valider true", (done) => {
         function cbRead(resultat) {
             try {
                 //l'objet user est valide (niveau champs)
@@ -402,7 +462,22 @@ describe("Model Tests", () => {
         adminModele.updateDmdRecruteur("1","test@test2", true, cbRead);
     });
 
-    test("update dmd recruteur refuser", (done) => {
+    test("update dmd recruteur valider false", (done) => {
+        function cbRead(resultat) {
+            try {
+                //l'objet user est valide (niveau champs)
+               
+                expect(resultat).toBeFalsy();
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done(err);
+            }
+        }
+        adminModele.updateDmdRecruteur("1","test@test2z", true, cbRead);
+    });
+
+    test("update dmd recruteur refuser true", (done) => {
         function cbRead(resultat) {
             try {
                 //l'objet user est valide (niveau champs)
@@ -415,6 +490,21 @@ describe("Model Tests", () => {
             }
         }
         adminModele.updateDmdRecruteur("1", "test@test2", false, cbRead);
+    });
+
+    test("update dmd recruteur refuser false", (done) => {
+        function cbRead(resultat) {
+            try {
+                //l'objet user est valide (niveau champs)
+               
+                expect(resultat).toBeFalsy();
+                done();
+            } catch (err) {
+                //si le test fail => on renvoit l'erreur dans le done(err);
+                done(err);
+            }
+        }
+        adminModele.updateDmdRecruteur("1", "test@test2e", false, cbRead);
     });
 
     test("delete orga", (done) => {
