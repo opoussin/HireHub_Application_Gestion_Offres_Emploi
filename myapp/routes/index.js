@@ -70,9 +70,9 @@ router.post('/connexion', function (req, res, next) {
             res.redirect('/users/candidat');
           });
     }else if(result.statut==0){
-      res.render('connexion', {message : "Compte désactivé."});
+      res.status(404).render('connexion', {message : "Compte désactivé."});
     } else {
-      res.render('connexion', {message : "Identifiant ou mot de passe incorrect"});
+      res.status(404).render('connexion', {message : "Identifiant ou mot de passe incorrect"});
     }
   });
 });

@@ -29,7 +29,9 @@ module.exports = {
                 } else {
                 callback(false);
             }});
-        }
+            }else{
+                callback(false);
+            }
         });
     },
     creatUser: function (mail, nom, prenom, mdp, telephone, callback) {
