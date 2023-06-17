@@ -16,12 +16,20 @@ var adminRouter = require('./routes/admin');
 var uploadRouter = require('./routes/upload');
 var apiRouter = require('./routes/api');
 
+
 //AUTHENTIFICATION
+const generateRandomKey = (length) => {
+  return crypto.randomBytes(length).toString('hex');
+};
+
+const keyLength = 32; // Longueur de la clé en octets
+const randomKey = generateRandomKey(keyLength);
+
 app.use(cookieParser());
 const deuxHeures = 1000*60*60*2;
 
 app.use(session({
-  secret: "chutcestunsecret",
+  secret: randomKey,
   resave: false,
   saveUninitialized :true,
   cookie: {secure: false, maxAge: deuxHeures}
@@ -45,12 +53,12 @@ app.use('/users', usersRouter);
 app.use('/recrut', recrutRouter);
 app.use('/admin', adminRouter);
 app.use('/api', apiRouter);
+app.use('/candidature', uploadRouter);
 
 //à enlever
 //____________________________
 
 
-app.use('/candidature', uploadRouter);
 
 //____________________________
 
