@@ -139,8 +139,9 @@ module.exports = {
     readOffre: function (numero, callback) {
         sql = "SELECT * FROM OFFRE o INNER JOIN FICHE_POSTE f ON f.offre = o.numero WHERE numero = ?";
         db.query(sql, numero, function (err, results) {
-            if (err || !results) return callback(false);
-            callback(results);
+            if (err){ return callback(false);}else{
+                callback(results);
+            }
         });
     },
     updateOffreEtat: function (etat, numero, organisation, callback) {

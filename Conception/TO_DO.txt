@@ -97,9 +97,9 @@ Fait
 - normaliser toutes les routes
     + upload
     + user
-    - recrut
+    + recrut
     - admin
-    - index
+    + index
 + fonction de recherche des offres expirées dans accueil recruteur
 o envoyer mail (console.log) quand une demande recrut/orga/admin est acceptée
     + message envoyé pour creation de compte
@@ -107,7 +107,7 @@ o envoyer mail (console.log) quand une demande recrut/orga/admin est acceptée
 - modifier candidature que si l'offre est toujours valable?? -> pas la peine imo
 + bouton "devenez recruteur"
 + pass.js
-- la date est bizarre dans editer offre
++ la date est bizarre dans editer offre
 - faire le readme
 
 

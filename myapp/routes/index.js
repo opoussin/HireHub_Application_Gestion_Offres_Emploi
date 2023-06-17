@@ -4,7 +4,6 @@ var communModel = require('../Modele/Commun.js');
 var recruteurModel = require('../Modele/Recruteur.js');
 var crypt = require('../Modele/pass.js')
 
-//const session = require('express-session'); 
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index');
@@ -102,7 +101,6 @@ router.post('/inscription', function (req, res, next) {
     crypt.generateHash(mdp, function(crypto){
       if (crypto){
         console.log (crypto);
-        //communModel.creatUser(mail, nom, prenom, crypto, telephone, function (result) {*/
         const telRegex = /^\d{10}$/;
         if(telRegex.test(telephone)){
           communModel.creatUser(mail, nom, prenom,crypto, telephone, function (result) {
@@ -118,6 +116,8 @@ router.post('/inscription', function (req, res, next) {
           res.render('inscription',  {messagetel : "Numéro de téléphone incorect."})
         }
         
+      }else{
+        res.redirect('/inscription');
       }
     });
     
@@ -129,7 +129,6 @@ router.post('/inscription', function (req, res, next) {
 router.get('/logout',(req,res) => {
   req.session.destroy();
   res.redirect('/');
-  console.log(req.session.userid);
 });
   
 

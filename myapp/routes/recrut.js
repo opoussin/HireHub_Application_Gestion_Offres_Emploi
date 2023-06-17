@@ -85,30 +85,18 @@ router.post('/creer_offre', function (req, res, next) {
   });
 });
 
-router.get('/logout',(req,res) => {
-  req.session.destroy();
-  res.redirect('/');
-});
-
 router.get('/supp_offre/:numero', function (req, res, next) {
   let numero = req.params.numero;
-  console.log( " numeor a supp ", numero)
   recruteurModel.readOffre(numero, function(offre){
     if (offre){
       //verification de l'appartenance à l'organisation
-      console.log(result);
-      console.log(result.organisation);
       let appartient = false;
       req.session.orga.forEach((org) => {
-        console.log(org);
-        console.log(org.organisation);
 
         if (org.organisation == offre.organisation){
           appartient = true; 
         }
       })
-      console.log (appartient);
-      console.log (req.session);
       if (appartient){
         // verifie que l'offre appartient bien à une des entreprises de l'utilisateur  
         recruteurModel.deleteOffre(numero, function (result) {
@@ -120,16 +108,15 @@ router.get('/supp_offre/:numero', function (req, res, next) {
         }
         });
         }else{
-          //gerer l'erreur
+          res.redirect('/recrut/recruteur');
         }
       }else{
-        //gerer l'erreur
+        res.redirect('/recrut/recruteur');
       }
     });
     
  
 });
-
 
 router.get('/editer_offre/:numero', function (req, res, next) {
   let numero = req.params.numero;
@@ -137,19 +124,12 @@ router.get('/editer_offre/:numero', function (req, res, next) {
     var result = results[0];
     if (result) {
       //verification de l'appartenance à l'organisation
-      console.log(result);
-      console.log(result.organisation);
       let appartient = false;
       req.session.orga.forEach((org) => {
-        console.log(org);
-        console.log(org.organisation);
-
         if (org.organisation == result.organisation){
           appartient = true; 
         }
       })
-      console.log (appartient);
-      console.log (req.session);
       if (appartient){
       communModel.readOrga(result.organisation, function(orgaResult){
         if(orgaResult){
@@ -171,26 +151,18 @@ router.get('/listeCandidat/:numero', function (req, res, next) {
   recruteurModel.readOffre(numero, function(offre){
     if (offre){
       //verification de l'appartenance à l'organisation
-      console.log(offre);
-      console.log(offre[0].organisation);
       let appartient = false;
       req.session.orga.forEach((org) => {
-        console.log(org);
-        console.log(org.organisation);
-
         if (org.organisation == offre[0].organisation){
           appartient = true; 
         }
       })
-      console.log (appartient);
-      console.log (req.session);
       if (appartient){
         recruteurModel.readAllCandidat(numero, function (result) {
           if (result) {
             result.forEach((candidat) => {
               const mots = candidat.piecesC.split(","); // Sépare la chaîne en mots en utilisant la virgule comme séparateur
               candidat.piecesC = mots.map((mot) => mot.trim()); // Stocke chaque mot dans le tableau candidat.pieces après avoir supprimé les espaces avant et après
-              console.log(candidat.piecesC);
             });
 
             res.render('listeCandidat', { numero, candidats: result, req: req });
@@ -201,6 +173,10 @@ router.get('/listeCandidat/:numero', function (req, res, next) {
       }else{
         res.redirect('/recrut/recruteur');
       }
+    }else{
+      res.sendStatus(500);
+
+      res.redirect('/recrut/recruteur');
     }
     });
 });
@@ -232,12 +208,19 @@ router.post('/editer_offre/:numero', function (req, res, next) {
     var salaire = req.body.salaire;
     var description = req.body.description;
     var etat = req.body.etat;
-    console.log("req.body:",dateValidite);
     recruteurModel.updateOffre(etat, dateValidite, pieces, nombrePieces, numero, function (result) {
-      recruteurModel.updateFiche(intitule, statut, responsable, type, lieu, rythme, salaire, description, numero, function (result){
-        res.redirect('/recrut/recruteur');
-        console.log("update success");
+      if (result){
+        recruteurModel.updateFiche(intitule, statut, responsable, type, lieu, rythme, salaire, description, numero, function (results){
+        if(results){
+          res.redirect('/recrut/recruteur');
+          console.log("update success");
+        }else{
+          res.status(500).send('Une erreur s\'est produite lors de la mise à jour des données.');
+        } 
       }); 
+      }else{
+        res.status(500).send('Une erreur s\'est produite lors de la mise à jour des données.');
+      }  
     });
   }
 });
@@ -313,19 +296,12 @@ router.get('/listeCandidat/accept/:numero/:candidat', function (req, res, next) 
   recruteurModel.readOffre(numero, function(offre){
     if (offre){
       //verification de l'appartenance à l'organisation
-      console.log(offre);
-      console.log(offre[0].organisation);
       let appartient = false;
       req.session.orga.forEach((org) => {
-        console.log(org);
-        console.log(org.organisation);
-
         if (org.organisation == offre[0].organisation){
           appartient = true; 
         }
       })
-      console.log (appartient);
-      console.log (req.session);
       if (appartient){
         recruteurModel.acceptCandidat(numero, mail, function (result) {
           if (result){
@@ -337,6 +313,8 @@ router.get('/listeCandidat/accept/:numero/:candidat', function (req, res, next) 
       }else{
         res.redirect('/recrut/recruteur');
       }
+    }else{
+      res.redirect('/recrut/recruteur');
     }
   });
 });
@@ -347,19 +325,12 @@ router.get('/listeCandidat/refuse/:numero/:candidat', function (req, res, next) 
   recruteurModel.readOffre(numero, function(offre){
     if (offre){
       //verification de l'appartenance à l'organisation
-      console.log(offre);
-      console.log(offre[0].organisation);
       let appartient = false;
       req.session.orga.forEach((org) => {
-        console.log(org);
-        console.log(org.organisation);
-
         if (org.organisation == offre[0].organisation){
           appartient = true; 
         }
       })
-      console.log (appartient);
-      console.log (req.session);
       if (appartient){  
         recruteurModel.refuseCandidat(numero, mail, function (result) {
           if (result){
@@ -371,6 +342,8 @@ router.get('/listeCandidat/refuse/:numero/:candidat', function (req, res, next) 
       }else{
         res.redirect('/recrut/recruteur');
       }
+    }else{
+      res.redirect('/recrut/recruteur');
     }
   });
 });

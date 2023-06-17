@@ -45,13 +45,14 @@ router.post('/modifier_profil', function (req, res, next) {
     let nom = req.body.nom;
     let prenom = req.body.prenom;
     let telephone = req.body.telephone;
-    candidatModel.updateUser(mail, nom, prenom, telephone, function (result) {
-      if (result){
-        res.redirect('/users/profil_candidat');
-      }else{
-        res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données utilisateur');
-      }    
-    });
+      candidatModel.updateUser(mail, nom, prenom, telephone, function (result) {
+        if (result){
+          res.redirect('/users/profil_candidat');
+        }else{
+          res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données utilisateur');
+        }    
+      });
+
 });
 
 router.post('/modifier_profil/mdp', function (req, res, next) {
@@ -60,14 +61,30 @@ router.post('/modifier_profil/mdp', function (req, res, next) {
   let mdp2 = req.body.mdp2;
   
   if (mdp1 === mdp2) {
-    candidatModel.updateUserMdp(mdp1, mail, function (result) {
-      if (result) {
-        req.session.message = true;
+    const cnilPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]{12,}$/;
+    if (cnilPasswordRegex.test(mdp1)) {
+      console.log (mdp1);
+
+      crypt.generateHash(mdp1, function(crypto){
+      if (crypto){
+        console.log (mdp1);
+
+        candidatModel.updateUserMdp(crypto, mail, function (result) {
+          if (result) {
+            req.session.message = true;
+            res.redirect('/users/modifier_profil');
+          } else {
+            res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données.');
+          }
+        });
+      }else{
         res.redirect('/users/modifier_profil');
-      } else {
-        res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données.');
       }
     });
+    
+  }else{
+    res.redirect('/users/modifier_profil');
+  }
   } else {
     req.session.message = false;
     res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données.');

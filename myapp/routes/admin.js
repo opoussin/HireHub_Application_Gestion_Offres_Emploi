@@ -10,21 +10,6 @@ router.use(middleware.isLoggedMiddleware);
 router.use(middleware.isAdminMiddleware);
 
 
-  /*
-if(req.session.userid||communModel.areAdmin(req.session.userid)){
-    var mail=req.session.userid;
-    
-
-    }else{
-    if(req.session.userid){
-      req.session.destroy();
-    }
-    res.render('connexion');
-  }
-*/
-
-
-
 router.get('/administrateur', function (req, res, next) {
       var mail = req.query.mail;
       var nom = req.query.nom;
