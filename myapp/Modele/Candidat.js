@@ -205,7 +205,7 @@ module.exports = {
     deleteDmdAdmin: function (mail, callback) {
         db.query("DELETE FROM DMD_ADMIN where utilisateur= ?", mail, function
             (err, results) {
-                if (err, results) return callback(false);
+                if (err) return callback(false);
                 if(results.affectedRows== 0){
                     return callback(false);
                 }

@@ -238,7 +238,7 @@ router.get('/demandes/adminSupp', function (req, res, next) {
     if (result) {
       res.redirect('/users/demandes');
     } else {
-      res.status(404).send('Une erreur s\'est produite lors de la suppression des données.');
+      res.status(500).send('Une erreur s\'est produite lors de la suppression des données.');
     }
   });
  

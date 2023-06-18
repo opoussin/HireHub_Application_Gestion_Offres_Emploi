@@ -67,7 +67,9 @@ router.post('/upload', upload.single('myFileInput') ,function(req, res, next) {
   const uploaded_file = req.file
   let numero = req.body.numero;
   if (!uploaded_file) {
-    res.render('file_upload',{req:req,connected_user : req.session.connected_user, files_array : req.session.uploaded_files, upload_error : 'Merci de sélectionner le fichier à charger !'});
+    candidatModel.readCandidature(mail, numero, function (candid){
+      res.render('file_upload',{req:req,connected_user : req.session.connected_user, files_array : req.session.uploaded_files, upload_error : 'Merci de sélectionner le fichier à charger !'});
+    });
   } else {
     console.log(uploaded_file.originalname,' => ',uploaded_file.filename);
     req.session.uploaded_files.push(uploaded_file.filename);
@@ -77,11 +79,10 @@ router.post('/upload', upload.single('myFileInput') ,function(req, res, next) {
         recruteurModel.readOffre(numero, function (offre){
         if (offre){
           candidatModel.readCandidature(mail, numero, function (candid){
-
           res.render('file_upload',{req:req, numero, offre,  candid, connected_user : user, files_array : req.session.uploaded_files, uploaded_filename : uploaded_file.filename, uploaded_original:uploaded_file.originalname});
           });
         }else{
-          //rajouter
+          res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'offre.');
         }
       });
         } else {
@@ -111,10 +112,18 @@ router.post('/envoi', function(req, res, next) {
           if (user){
           recruteurModel.readOffre(numero, function (offre){
             if (offre){
-            res.render('file_upload',{req: req, connected_user : user, files_array : req.session.uploaded_files, numero, offre : offre, message : "Nombres de pièces de candidatures insuffisants"});
+              candidatModel.readCandidature(mail, numero, function (candid){
+                res.render('file_upload',{req: req, candid, connected_user : user, files_array : req.session.uploaded_files, numero, offre : offre, message : "Nombres de pièces de candidatures insuffisants"});
           //utiliser le message
+              });
+            }else{
+              res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'offre.');
+
             }
           });
+          }else{
+            res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
+
           }
         })
       }
