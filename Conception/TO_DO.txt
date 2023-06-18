@@ -75,7 +75,7 @@ ADMIN
 O + vue accueil admin -> cote a cote les dmd orga et dmd admin, 
 O + OPTION si j'ai le temps -> mettre des boutons de recherche dans les demandes
 + profil admin ya rien (mettre des stats?)
-- modifier compte utilisateur?? genre faire quoi?s
++ modifier compte utilisateur?? genre faire quoi?s
 + fonctions recherche dmdOrga pour les en attentes et les autres (historique)
 
 VRAC
@@ -109,6 +109,7 @@ o envoyer mail (console.log) quand une demande recrut/orga/admin est acceptée
 + pass.js
 + la date est bizarre dans editer offre
 - faire le readme
+- front de file_upload et modifier_candidature
 
 Formulaire : 
     - recherche d'offre
@@ -176,14 +177,14 @@ PARTIE CONCEPTION !!!!!!!!!!!!!!!!
     - MPD
 
 TEST UNITAIRES fonction
-O - administrateur
-O 1/2, C 2/2- candidat
-C - commun
-C - recruteur
+    O - administrateur
+    O 1/2, C 2/2- candidat
+    C - commun
+    C - recruteur
 
 TEST UNITAIRES ROUTE
-O - admin 82
-O - index 100
-O - recrut 143
-C - upload 109
-C - users 243
+    O - admin 82
+    O - index 100
+    O - recrut 143
+    C - upload 109
+    C - users 243

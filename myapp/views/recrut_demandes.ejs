@@ -25,7 +25,6 @@
                                 
                                 <% if ((demandesRecruteur.length> 0)&&(Array.isArray(demandesRecruteur))) {%>
                                     <div class="row row-cols-3">
-                                        <% console.log("dmdR", demandesRecruteur);%>
                                         <% demandesRecruteur.forEach(function(dmdR) { %>
                                            <%if(dmdR.statut == 'En attente'){%>
                                             <div class="col-4">

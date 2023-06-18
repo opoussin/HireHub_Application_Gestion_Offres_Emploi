@@ -4,7 +4,7 @@ module.exports = {
         if(req.session.type>=3){
           return next();
         }else{
-          res.redirect('/users/candidat');
+          res.status(401).redirect('/users/candidat');
         };
       },
 
@@ -12,7 +12,7 @@ module.exports = {
         if(req.session.orga.length != 0){
           return next();
         }else{
-          res.redirect('/users/candidat');
+          res.status(401).redirect('/users/candidat');
         };
       },
 
@@ -20,7 +20,7 @@ module.exports = {
         if(req.session.userid){
           return next();
         }else{
-          res.redirect('/');
+          res.status(401).redirect('/');
         };
       },
 

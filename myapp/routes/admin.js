@@ -22,8 +22,7 @@ router.get('/administrateur', function (req, res, next) {
         if(results){
           res.render('admin', {userResult: results, req: req, search:{mail:mail, nom:nom, prenom:prenom, date:date, type:type, statut:statut} });
         }else{
-          //gerer erreur
-          res.redirect('/admin/demandes');
+          res.status(404).redirect('/admin/demandes');
         }
         
       });
@@ -37,48 +36,36 @@ router.get('/administrateur/activer', function (req, res, next) {
     if(mail!=mail2){    
       adminModel.enableUser(mail2, function (results) {
         if(results){
-          res.redirect('/admin/administrateur')
+          res.statut(204).redirect('/admin/administrateur')
         }else{
-          console.log("erreur catch enable");
-          //GERER L'ERREUR + 
-          //res.status();
-          res.redirect('/admin/administrateur')
+          res.status(404).redirect('/admin/administrateur')
         };
       });
     }else{
-      res.redirect('/admin/administrateur'); //ne peut pas se réactiver lui même
+      res.status(401).redirect('/admin/administrateur'); //ne peut pas se réactiver lui même
     }
 });
 
 router.get('/administrateur/desactiver', function (req, res, next) {
-  var mail = req.session.userid;
-  
-    var mail2 =req.query.user; 
-    if(mail!=mail2){    
+    var mail2 =req.query.user;     
       adminModel.disableUser(mail2, function (results) {
         if(results){
-          res.redirect('/admin/administrateur')
+          res.status(204).redirect('/admin/administrateur')
         }else{
-          console.log("erreur catch disable");
-          //GERER L'ERREUR + 
-          //res.status();
-          res.redirect('/admin/administrateur')
+          res.status(404).redirect('/admin/administrateur')
         };
       });
-    }else{
-      res.redirect('/admin/administrateur'); //ne peut pas se réactiver lui même
-    }
-    
 });
 
 router.get('/administrateur/supprimer', function (req, res, next) {
   var mail = req.session.userid;
-
-  
     var mail2 =req.query.user;
-      
       communModel.deleteUser(mail2, function (results) {
-        res.redirect('/admin/administrateur')
+        if(results){
+          res.status(204).redirect('/admin/administrateur')
+        }else{
+          res.status(404).redirect('/admin/administrateur')
+        }
       });
 });
 
@@ -86,15 +73,22 @@ router.get('/demandes', function (req, res, next) {
   var mail = req.query.mail;
   var date = req.query.date;
   adminModel.readDmdAdmin("En attente", mail, date, function (adminResult) {  
-    adminModel.readDmdOrga("En attente",mail, date,function(orgaResult){
-      adminModel.readAllDmdAdmin(mail, date,function (adminAllResult) {  
-        adminModel.readAllDmdOrga(mail, date,function(orgaAllResult){
-          orgaResult ??= [];
-          res.render('admin_demandes', {demandeOrga: orgaResult, demandeAdmin: adminResult, demandeAllOrga: orgaAllResult, demandeAllAdmin: adminAllResult, req : req, search:{mail:mail, date:date}});
-        });
+    if(adminResult){
+      adminModel.readDmdOrga("En attente",mail, date,function(orgaResult){
+        if(orgaResult){
+          adminModel.readAllDmdAdmin(mail, date,function (adminAllResult) { 
+            if(adminAllResult){ 
+              adminModel.readAllDmdOrga(mail, date,function(orgaAllResult){
+                orgaResult ??= [];
+                res.status(200).render('admin_demandes', {demandeOrga: orgaResult, demandeAdmin: adminResult, demandeAllOrga: orgaAllResult, demandeAllAdmin: adminAllResult, req : req, search:{mail:mail, date:date}});
+              });
+            };
+          });
+        };
       });
-    });
-  });   
+    };
+  });
+  res.status(404).redirect('/administrateur');
 });
 
 router.get('/demandes_admin/accept', function (req, res, next) {
@@ -106,17 +100,14 @@ router.get('/demandes_admin/accept', function (req, res, next) {
         if(result){
         // console pour simuler l'envoi d'un mail de notification 
         console.log ( " La demande de l'utilisateur ", user, "pour devenir administrateur a été acceptée");
-          res.redirect('/admin/demandes');
+          res.status(204).redirect('/admin/demandes');
         }else{
-          //GERER ERREUR
-          //res.status
-          res.redirect('/admin/demandes?error=1');
+
+          res.status(404).redirect('/admin/demandes?error=1');
         }
       });
     }else{
-      //GERER ERREUR
-      //res.status
-      res.redirect('/admin/demandes');
+      res.status(404).redirect('/admin/demandes');
     }
   });
 });
@@ -130,13 +121,10 @@ router.get('/demandes_admin/deny', function (req, res, next) {
       if(result){
         // console pour simuler l'envoi d'un mail de notification 
         console.log ( " La demande de l'utilisateur ", user, "pour devenir administrateur a été refusée");
-        res.redirect('/admin/demandes');
+        res.statut(204).redirect('/admin/demandes');
       }else{
-      //GERER ERREUR
-      //res.status
-        res.redirect('/admin/demandes');
+        res.status(404).redirect('/admin/demandes');
       }
-      
     });
 });
 
@@ -154,11 +142,9 @@ router.get('/demandes_orga/accept', function (req, res, next) {
     if(result){
       // console pour simuler l'envoi d'un mail de notification 
       console.log ( " La demande de l'utilisateur ", user, "pour créer l'organisation de siren", siren , "a été acceptée");
-      res.redirect('/admin/demandes');
-    }else{
-      //GERER ERREUR
-      //res.status
-      res.redirect('/admin/demandes');
+      res.status(204).redirect('/admin/demandes');
+    }else{      
+      res.status(404).redirect('/admin/demandes');
     }
   });
 });
@@ -173,12 +159,10 @@ router.get('/demandes_orga/deny', function (req, res, next) {
       if(result){
       // console pour simuler l'envoi d'un mail de notification 
       console.log ( " La demande de l'utilisateur ", user, "pour créer l'organisation de siren", siren , "a été refusée");
-        res.redirect('/admin/demandes');
+        res.status(204).redirect('/admin/demandes');
 
       }else{
-        //GERER ERREUR
-        //res.status
-        res.redirect('/admin/demandes');
+        res.status(404).redirect('/admin/demandes');
       }
     });
 });
@@ -188,22 +172,22 @@ router.get('/profil_admin', function (req, res, next) {
   
     communModel.readUser(mail, function (result) {
       if(result){
-
-        res.render('profil_administrateur', {user: result,  req : req});
+        res.status(200).render('profil_administrateur', {user: result,  req : req});
       }else{
-        res.redirect('/users/profil_candidat')
+        res.status(404).redirect('/users/profil_candidat')
       }
     });
   
 });
 
 router.get('/profil_admin', function (req, res, next) {
-  
   var mail = req.session.userid;
   communModel.readUser(mail, function (user) {
-    console.log("user:" + user[1]);
-    
+    if(user){
       res.render('profil_administrateur', { user: user[0], req : req});
+    }else{
+      res.status(404).redirect('/connexion');
+    }
   });
 });
 

@@ -28,7 +28,7 @@ module.exports = {
         var sql = mysql.format("UPDATE UTILISATEUR SET nom =?, prenom=?, telephone=? WHERE mail=?", [nom, prenom, telephone, mail]);
         db.query(sql, function (err, results) {
             if(err) callback(false);
-                if (affectedRows.results == 0) return callback(false);
+                if (results.affectedRows == 0) return callback(false);
                 callback(true);
             });
         
@@ -39,7 +39,7 @@ module.exports = {
         var sql = mysql.format("UPDATE UTILISATEUR SET mdp =? WHERE mail=?", [mdp1, mail]);
         db.query(sql, function (err, results) {
             if (err) return callback(false);
-            if(affectedRows.results==0) return callback(false);
+            if(results.affectedRows==0) return callback(false);
             callback(true);
         });
 
@@ -131,7 +131,7 @@ module.exports = {
         db.query("DELETE FROM CANDIDATURE where candidat= ? AND offre =?",[mail, numero], function
             (err, results) {
             if(err) callback(false);
-            if(affectedRows.results == 0){
+            if(results.affectedRows == 0){
                 return callback(false);
             }
             callback(true);
@@ -142,7 +142,7 @@ module.exports = {
         var sql = mysql.format("UPDATE CANDIDATURE SET piecesC =? where offre=? AND candidat=?", [files, numero, mail]);
         db.query(sql, function (err, result) {
             if(err) callback(false);
-            if (result.affectedRows == 0){
+            if (result.affectedRows== 0){
                 callback(false);
             }else{
                 callback(true);
@@ -173,7 +173,7 @@ module.exports = {
         db.query("DELETE FROM DMD_ORGA where siren= ?", siren, function
             (err, results) {
                 if (err) return callback(false);
-                if(affectedRows.results == 0){
+                if(results.affectedRows == 0){
                     return callback(false);
                 }
                 callback(true);
@@ -183,7 +183,7 @@ module.exports = {
         db.query("DELETE FROM DMD_RECRUTEUR where recruteur= ?", mail, function
             (err, results) {
                 if (err) return callback(false);
-                if(affectedRows.results == 0){
+                if(results.affectedRows == 0){
                     return callback(false);
                 }
                 callback(true);
@@ -191,9 +191,9 @@ module.exports = {
     },
     deleteDmdRecruteurOrga: function (mail,siren, callback) {
         db.query("DELETE FROM DMD_RECRUTEUR where recruteur= ? AND organisation= ?", [mail, siren], function
-            (err) {
+            (err,results) {
                 if (err) return callback(false);
-                if(affectedRows.results == 0){
+                if(results.affectedRows == 0){
                     return callback(false);
                 }
                 callback(true);
@@ -202,8 +202,8 @@ module.exports = {
     deleteDmdAdmin: function (mail, callback) {
         db.query("DELETE FROM DMD_ADMIN where utilisateur= ?", mail, function
             (err, results) {
-                if (err) return callback(false);
-                if(affectedRows.results == 0){
+                if (err, results) return callback(false);
+                if(results.affectedRows== 0){
                     return callback(false);
                 }
                 callback(true);

@@ -97,7 +97,7 @@ module.exports = {
     deleteUser: function (mail, callback) {
         db.query("DELETE from UTILISATEUR where mail= ?", mail, function
         (err, results) {
-        if (affectedRows.results == 0) return callback(false);
+        if (results.affectedRows == 0) return callback(false);
         callback(true);
     });
     },

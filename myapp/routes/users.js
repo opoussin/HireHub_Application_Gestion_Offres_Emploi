@@ -17,11 +17,11 @@ router.get('/profil_candidat', function (req, res, next) {
         if (result){
           res.render('profil_candidat', { user: user, candidatures: result , req : req});
         }else{
-          res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
+          res.status(404).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
         }  
       });
     }else{
-      res.status(500).send('Une erreur s\'est produite lors de la lecture de tout les utilisateurs.');
+      res.status(404).send('Une erreur s\'est produite lors de la lecture de tous les utilisateurs.');
     }
   });
 });
@@ -35,7 +35,7 @@ router.get('/modifier_profil', function (req, res, next) {
       delete req.session.message;
       res.render('modifier_profil', { nom: result.nom, prenom: result.prenom, mail: result.mail, mdp: result.mdp, telephone: result.telephone, statut: result.statut, date: result.dateCreation.toLocaleDateString("fr") , req : req, message : message});
     }else{
-      res.status(500).send('Une erreur s\'est produite lors de la lecture de tout les utilisateurs.');
+      res.status(404).send('Une erreur s\'est produite lors de la lecture de tout les utilisateurs.');
     }   
   });
 });
@@ -49,7 +49,7 @@ router.post('/modifier_profil', function (req, res, next) {
         if (result){
           res.redirect('/users/profil_candidat');
         }else{
-          res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données utilisateur');
+          res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données utilisateur');
         }    
       });
 
@@ -63,7 +63,6 @@ router.post('/modifier_profil/mdp', function (req, res, next) {
   if (mdp1 === mdp2) {
     const cnilPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]{12,}$/;
     if (cnilPasswordRegex.test(mdp1)) {
-      console.log (mdp1);
 
       crypt.generateHash(mdp1, function(crypto){
       if (crypto){
@@ -72,22 +71,22 @@ router.post('/modifier_profil/mdp', function (req, res, next) {
         candidatModel.updateUserMdp(crypto, mail, function (result) {
           if (result) {
             req.session.message = true;
-            res.redirect('/users/modifier_profil');
+            res.status(200).redirect('/users/modifier_profil');
           } else {
-            res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données.');
+            res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données.');
           }
         });
       }else{
-        res.redirect('/users/modifier_profil');
+        res.status(404).redirect('/users/modifier_profil');
       }
     });
     
   }else{
-    res.redirect('/users/modifier_profil');
+    res.status(404).redirect('/users/modifier_profil');
   }
   } else {
     req.session.message = false;
-    res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données.');
+    res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données.');
   }
 });
 
@@ -105,7 +104,7 @@ router.post('/candidat', function (req, res, next) {
       if (results){
         res.render('candidat', { title: 'List des Offres', listeOffre: results, req : req });
       }else{
-        res.status(500).send('Une erreur s\'est produite lors de lecture des offres filtrées.');
+        res.status(404).send('Une erreur s\'est produite lors de lecture des offres filtrées.');
       }
     });
   }
@@ -119,7 +118,7 @@ router.get('/candidat', function (req, res, next) {
     if(results){
       res.render('candidat', { title: 'List des Offres', listeOffre: results, req : req});
     }else{
-      res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données.');
+      res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données.');
     }
   });
 });
@@ -128,18 +127,17 @@ router.get('/creer_orga', function (req, res, next) {
   let mail=req.session.userid;
   candidatModel.readUserDmdOrga(mail, function (results) {
     if(results){
-      resultOrga = communModel.readOrga(function (orgaResult) {
+      communModel.readOrga(function (orgaResult) {
         if (orgaResult){
           orgaResult ??= [];
           results ??= [];
-          console.log("demandeOrga:" + results)
           res.render('formulaire_orga', { organisation: orgaResult, demandeOrga: results, req : req });
         }else{
-          res.status(500).send('Une erreur s\'est produite lors de la lecture des données.');
+          res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
         }
     });
     }else{
-      res.status(500).send('Une erreur s\'est produite lors de la lecture des données.');
+      res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
     } 
   });
 });
@@ -155,7 +153,7 @@ router.post('/creer_orga', function (req, res, next) {
     if (result) {
       res.redirect('/users/creer_orga');
     } else {
-      res.status(500).send('Une erreur s\'est produite lors de l\insertion des données.');
+      res.status(404).send('Une erreur s\'est produite lors de l\insertion des données.');
     }
   });
 });
@@ -177,19 +175,19 @@ router.get('/demandes', function (req, res, next) {
               result ??= [];
               orgaResult ??= [];
               adminResult ??= [];
-              res.render('formulaire_recruteur', {autorisation, demandeRecrut: result, organisation: orgaResult, demandeAdmin: adminResult , req : req});
+              res.render('demandes_user', {autorisation, demandeRecrut: result, organisation: orgaResult, demandeAdmin: adminResult , req : req});
             }else{
-              res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données adminResult.');
+              res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données.');
             }
             
           });
         }else{
-          res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données orgaResult.');
+          res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données.');
         }
         
       });
     }else{
-      res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données de demande.');
+      res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données.');
     }
     
   });    
@@ -199,18 +197,13 @@ router.get('/demandes', function (req, res, next) {
 router.post('/demandes/recruteur', function (req, res, next) {
   let mail=req.session.userid;
   let siren = [{siren : req.body.choix}]; //renvoie le siren
-  recruteurModel.readAllDmdRecruteur(siren[siren.length-1].siren, function (resultDmd) {
-    if(resultDmd){
+  //recruteurModel.readAllDmdRecruteur(siren[siren.length-1].siren, function (resultDmd) {
       candidatModel.creatDmdRecruteur(mail, siren[siren.length-1].siren, function (result) {
       if (result) {
         res.redirect('/users/demandes');
       } else {
-        res.status(500).send('Une erreur s\'est produite lors de la création des données.');
+        res.status(404).send('Une erreur s\'est produite lors de la création des données.');
       }
-    });
-    }else{
-      res.status(500).send('Une erreur s\'est produite lors de la lecture données dmd recruteurs.');
-    }
   });
 });
 
@@ -220,7 +213,7 @@ router.post('/demandes/admin', function (req, res, next) {
     if (result) {
       res.redirect('/users/demandes');
     } else {
-      res.status(500).send('Une erreur s\'est produite lors de la lecture des données.');
+      res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
     }
   });
 });
@@ -232,7 +225,7 @@ router.get('/demandes/recruteurSupp/:siren', function (req, res, next) {
     if (result) {
       res.redirect('/users/demandes');
     } else {
-        res.status(500).send('Une erreur s\'est produite lors de la lecture des données.');
+        res.status(404).send('Une erreur s\'est produite lors de la suppression des données.');
     }
   });
  
@@ -245,7 +238,7 @@ router.get('/demandes/adminSupp', function (req, res, next) {
     if (result) {
       res.redirect('/users/demandes');
     } else {
-      res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données.');
+      res.status(404).send('Une erreur s\'est produite lors de la suppression des données.');
     }
   });
  

@@ -36,6 +36,8 @@ module.exports = {
     disableUser: function (mail, callback) {
         db.query("UPDATE UTILISATEUR SET statut=0 WHERE mail=?", mail, function
             (err, results) {
+                if (err) return callback(false);
+
                 if (results.affectedRows == 0) {
                     return callback(false); 
                   }
@@ -47,6 +49,7 @@ module.exports = {
     enableUser: function (mail, callback) {
         db.query("UPDATE UTILISATEUR SET statut=1 WHERE mail=?", mail, function
             (err, results) {
+                if (err) return callback(false);
                 if (results.affectedRows == 0) {
                     return callback(false); 
                 }
@@ -57,6 +60,8 @@ module.exports = {
     acceptAdmin: function (mail, callback) {
         db.query("UPDATE UTILISATEUR SET type=3 WHERE mail=?", mail, function
             (err, results) {
+                if (err) return callback(false);
+
                 if (results == undefined || results.affectedRows == 0) {
                     return callback(false); 
                 }
@@ -137,7 +142,7 @@ module.exports = {
             sql += ` AND  CAST(date as DATE)="${date}"`;
         }
         db.query(sql, statut, function (err, results) {
-            if(err) {console.log(err); return callback(false);}
+            if(err) return callback(false);
             callback(results);
         });
     },
@@ -150,7 +155,7 @@ module.exports = {
             sql += ` AND  CAST(date as DATE)="${date}"`;
         }
         db.query(sql, statut, function (err, results) {
-            if(err) {console.log(err); return callback(false);}
+            if(err) return callback(false);
             callback(results);
         });
     },
@@ -164,7 +169,7 @@ module.exports = {
         }
 
         db.query(sql, function (err, results) {
-            if(err) {console.log(err); return callback(false);}
+            if(err) return callback(false);
             callback(results);
         });
     },
@@ -178,7 +183,7 @@ module.exports = {
         }
 
         db.query(sql, function (err, results) {
-            if(err) {console.log(err); return callback(false);}
+            if(err) return callback(false);
             callback(results);
         });
     },
@@ -209,7 +214,7 @@ module.exports = {
         }
 
         db.query(sql, function (err, results) {
-            if(err) {console.log(err); return callback(false);}
+            if(err) return callback(false);
             callback(results);
         });
 
@@ -220,6 +225,8 @@ module.exports = {
         if(value){
             db.query("UPDATE DMD_ADMIN SET statut='Validé' WHERE utilisateur=?", mail , function
             (err, results) {
+                if (err) return callback(false);
+
                 if (results.affectedRows == 0) {
                     return callback(false); 
                   }
@@ -229,6 +236,8 @@ module.exports = {
         else{
             db.query("UPDATE DMD_ADMIN SET statut='Refusé' WHERE utilisateur=?", mail, function
             (err, results) {
+                if (err) return callback(false);
+
                 if (results.affectedRows == 0) {
                     return callback(false); 
                   }
@@ -241,6 +250,8 @@ module.exports = {
         if(value){
             db.query("UPDATE DMD_ORGA SET statut='Validé' WHERE siren=? AND recruteur=?", [siren,mail] , function
             (err, results) {
+                if (err) return callback(false);
+
                 if (results.affectedRows == 0) {
                     return callback(false); 
                   }
@@ -250,6 +261,8 @@ module.exports = {
         else{
             db.query("UPDATE DMD_ORGA SET statut='Refusé' WHERE siren=? AND recruteur=?", [siren,mail] , function
             (err, results) {
+                if (err) return callback(false);
+
                 if (results.affectedRows == 0) {
                      callback(false); 
                   }else{
@@ -264,6 +277,8 @@ module.exports = {
         if(value==1){
             db.query("UPDATE DMD_RECRUTEUR SET statut='Validé' WHERE organisation=? AND recruteur=?", [siren,mail] , function
             (err, results) {
+                if (err) return callback(false);
+
                 if (results.affectedRows == 0) {
                     return callback(false); 
                   }
@@ -273,6 +288,8 @@ module.exports = {
         else{
             db.query("UPDATE DMD_RECRUTEUR SET statut='Refusé' WHERE organisation=? AND recruteur=?", [siren,mail] , function
             (err, results) {
+                if (err) return callback(false);
+
                 if (results.affectedRows == 0) {
                     return callback(false); 
                   }

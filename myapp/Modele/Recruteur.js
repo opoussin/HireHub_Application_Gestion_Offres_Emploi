@@ -57,7 +57,7 @@ module.exports = {
     deleteOffre: function (numero, callback) {
         db.query("DELETE FROM OFFRE WHERE numero=?", [numero], function (err){
             if (err) return callback(false);
-            if (affectedRows.results == 0) {
+            if (results.affectedRows == 0) {
                 return callback(false);
             }else{
                 callback(true);
@@ -69,7 +69,7 @@ module.exports = {
         var sql = mysql.format("DELETE FROM FICHE_POSTE WHERE offre=?");
         db.query(sql, offre, function (err, results) {
             if (err) return callback(false);
-            if (affectedRows.results == 0) {
+            if (results.affectedRows == 0) {
                 return callback(false);
             }else{
                 callback(true);
@@ -81,7 +81,7 @@ module.exports = {
         var sql = mysql.format("UPDATE UTILISATEUR SET nom =?, type=?, siegeSocial=? WHERE siren=?", [nom, type, siegeSocial, siren]);
         db.query(sql, function (err, results) {
             if (err) return callback(false);
-            if (affectedRows.results == 0) {
+            if (results.affectedRows == 0) {
                 return callback(false);
             }else{
                 callback(true);
@@ -93,7 +93,7 @@ module.exports = {
         var sql = mysql.format("UPDATE OFFRE SET etat=?, dateValidite=?, pieces=?, nombrePieces=? WHERE numero=?", [etat, dateValidite, pieces, nombrePieces, numero]);
         db.query(sql, function (err, results) {
             if (err) return callback(false);
-            if (affectedRows.results == 0) {
+            if (results.affectedRows == 0) {
                 return callback(false);
             }else{
                 callback(true);
@@ -152,7 +152,7 @@ module.exports = {
         var sql = mysql.format("UPDATE OFFRE SET  etat=? WHERE numero=? AND organisation= ?", [etat, numero, organisation]);
         db.query(sql, function (err, results) {
             if (err) return callback(false);
-            if (affectedRows.results == 0) {
+            if (results.affectedRows == 0) {
                 return callback(false);
             }else{
                 callback(true);
@@ -164,7 +164,7 @@ module.exports = {
         var sql = mysql.format("UPDATE FICHE_POSTE SET intitule=?, statut=?, responsable=?, type=?, lieu=?, rythme=?, salaire=?, description=? WHERE offre=?", [intitule, statut, responsable, type, lieu, rythme, salaire, description, offre]);
         db.query(sql, function (err, results) {
             if (err) return callback(false);
-            if (affectedRows.results == 0) {
+            if (results.affectedRows == 0) {
                 return callback(false);
             }else{
                 callback(true);
@@ -175,7 +175,7 @@ module.exports = {
         var sql = mysql.format("UPDATE CANDIDATURE SET etatC=1 WHERE offre =? AND candidat=?", [numero, mail]);
         db.query(sql, function (err, result) {
             if (err) return callback(false);
-            if (affectedRows.results == 0) {
+            if (result.affectedRows == 0) {
                 return callback(false);
             }else{
                 callback(true);
@@ -186,7 +186,7 @@ module.exports = {
         var sql = mysql.format("UPDATE CANDIDATURE SET etatC=2 WHERE offre =? AND candidat=?", [numero, mail]);
         db.query(sql, function (err, result) {
             if (err) return callback(false);
-            if (affectedRows.results == 0) {
+            if (result.affectedRows == 0) {
                 return callback(false);
             }else{
                 callback(true);
@@ -227,12 +227,12 @@ module.exports = {
         var sql2 = mysql.format("DELETE FROM APPARTENIR_ORGA WHERE organisation=? AND utilisateur=mail", siren);
         db.query(sql, function (err, results) {
             if (err) return callback(false);
-            if (affectedRows.results == 0) {
+            if (results.affectedRows == 0) {
                 return callback(false);
             }else{
                 db.query(sql2, function (err, results) {
                     if (err) return callback(false);
-                    if (affectedRows.results == 0) return callback(false);
+                    if (results.affectedRows == 0) return callback(false);
                     callback(results);
                 });
             }

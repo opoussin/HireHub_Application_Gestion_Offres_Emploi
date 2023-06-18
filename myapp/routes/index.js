@@ -62,12 +62,12 @@ router.post('/connexion', function (req, res, next) {
       session.prenom= result.prenom;
       session.type=result.type;
           recruteurModel.readAllOrgaRecruteur(session.userid, function (result) {
-            if(result){
+            if(result.length > 0 && result){
               session.orga = result;
             }else{
               session.orga=[];
             }
-            res.redirect('/users/candidat');
+            res.status(200).redirect('/users/candidat');
           });
     }else if(result.statut==0){
       res.status(404).render('connexion', {message : "Compte désactivé."});
@@ -83,7 +83,7 @@ router.get('/inscription', function (req, res, next) {
     res.render('inscription');
   }else{
     //sinon, pas le droit de s'inscrire
-    res.render('index');
+    res.status(401).render('index');
   }
 });
 
@@ -96,33 +96,29 @@ router.post('/inscription', function (req, res, next) {
 
   const cnilPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]{12,}$/;
   if (cnilPasswordRegex.test(mdp)) {
-    console.log (mdp);
-
     crypt.generateHash(mdp, function(crypto){
       if (crypto){
-        console.log (crypto);
         const telRegex = /^\d{10}$/;
         if(telRegex.test(telephone)){
           communModel.creatUser(mail, nom, prenom,crypto, telephone, function (result) {
-            console.log("result", result);
             if (result){ 
               res.render('connexion', {message2 : "Inscription réussie, veuillez vous connecter."});
             }
             else{
-              res.redirect('/inscription');
+              res.status(500).redirect('/inscription');
             }
           });
         }else{
-          res.render('inscription',  {messagetel : "Numéro de téléphone incorect."})
+          res.status(415).render('inscription',  {messagetel : "Numéro de téléphone incorect."})
         }
         
       }else{
-        res.redirect('/inscription');
+        res.status(415).redirect('/inscription');
       }
     });
     
   }else{
-    res.render('inscription',  {message : "Mot de passe incorect, veuillez en choisir un d'au minimum 12 caractères comprenant des majuscules, des minuscules, des chiffres et des caractères spéciaux."})
+    res.status(415).render('inscription',  {message : "Mot de passe incorect, veuillez en choisir un d'au minimum 12 caractères comprenant des majuscules, des minuscules, des chiffres et des caractères spéciaux."})
   }
 });
 
