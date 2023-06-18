@@ -118,7 +118,6 @@ module.exports = {
           if (rows.length !== 0) { //si l'utilisateur est déjà recruteur pour cette orga
             callback(false);
           } else {
-            console.log("ici");
             var sql2 = mysql.format("INSERT INTO APPARTENIR_ORGA (mail, organisation) VALUES (?,?)", [mail, siren]);
             db.query(sql2, function (err, result) {
               if (err) return callback(false);

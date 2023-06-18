@@ -24,8 +24,8 @@ var mysql = require('mysql');
 module.exports = {
     creatFiche: function (numero, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback) {
         var sql = mysql.format("INSERT INTO FICHE_POSTE (offre, intitule, statut, responsable, type, lieu, rythme, salaire, description) VALUES (?,?,?,?,?,?,?,?,?)", [numero, intitule, statut, responsable, type, lieu, rythme, salaire, description]);
-
         db.query(sql, function (err, results) {
+            if (err) return callback(false);
             if (results.affectedRows == 0) {
                 callback(false);
             }else{
@@ -36,9 +36,9 @@ module.exports = {
     creatOffre: function (organisation, etat, dateValidite, pieces, nombrePieces, intitule, statut, responsable, type, lieu, rythme, salaire, description, callback) {
         var sql = mysql.format("INSERT INTO OFFRE (organisation, etat, dateValidite, pieces, nombrePieces) VALUES (?,?,?,?,?)", [organisation, etat, dateValidite, pieces, nombrePieces]);
         var self = this;
-        var numero = 0;
+        //var numero = 0;
         db.query(sql, function (err, results) {
-            if (affectedRows.results == 0) {
+            if (err) {
                 return callback(false);
             }else{
             
@@ -56,6 +56,7 @@ module.exports = {
     
     deleteOffre: function (numero, callback) {
         db.query("DELETE FROM OFFRE WHERE numero=?", [numero], function (err){
+            if (err) return callback(false);
             if (affectedRows.results == 0) {
                 return callback(false);
             }else{
@@ -67,6 +68,7 @@ module.exports = {
     deleteFiche: function (offre, callback) {
         var sql = mysql.format("DELETE FROM FICHE_POSTE WHERE offre=?");
         db.query(sql, offre, function (err, results) {
+            if (err) return callback(false);
             if (affectedRows.results == 0) {
                 return callback(false);
             }else{
@@ -78,6 +80,7 @@ module.exports = {
     updateOrga: function (nom, type, siegeSocial, siren, callback) {
         var sql = mysql.format("UPDATE UTILISATEUR SET nom =?, type=?, siegeSocial=? WHERE siren=?", [nom, type, siegeSocial, siren]);
         db.query(sql, function (err, results) {
+            if (err) return callback(false);
             if (affectedRows.results == 0) {
                 return callback(false);
             }else{
@@ -88,9 +91,9 @@ module.exports = {
     },
     updateOffre: function (etat, dateValidite, pieces, nombrePieces, numero, callback) {
         var sql = mysql.format("UPDATE OFFRE SET etat=?, dateValidite=?, pieces=?, nombrePieces=? WHERE numero=?", [etat, dateValidite, pieces, nombrePieces, numero]);
-        console.log(sql);
         db.query(sql, function (err, results) {
-            if (err ) {
+            if (err) return callback(false);
+            if (affectedRows.results == 0) {
                 return callback(false);
             }else{
                 callback(true);
@@ -109,7 +112,7 @@ module.exports = {
     readAllOffreOrga: function (siren, callback) {
         sql = "SELECT * FROM OFFRE o INNER JOIN ORGANISATION org ON o.organisation=org.siren INNER JOIN FICHE_POSTE f ON f.offre = o.numero WHERE siren = ?";
         db.query(sql, siren, function (err, results) {
-            if (err) return callback([]);
+            if (err) return callback(false);
             callback(results);
         });
     },
@@ -131,7 +134,7 @@ module.exports = {
 
         sql +=' ORDER BY o.numero DESC';
         db.query(sql, mail, function (err, results) {
-            if (err) return callback([]);
+            if (err) return callback(false);
             callback(results);
         });
     },
@@ -139,7 +142,8 @@ module.exports = {
     readOffre: function (numero, callback) {
         sql = "SELECT * FROM OFFRE o INNER JOIN FICHE_POSTE f ON f.offre = o.numero WHERE numero = ?";
         db.query(sql, numero, function (err, results) {
-            if (err){ return callback(false);}else{
+            if (err){ return callback(false);
+            }else{
                 callback(results);
             }
         });
@@ -147,6 +151,7 @@ module.exports = {
     updateOffreEtat: function (etat, numero, organisation, callback) {
         var sql = mysql.format("UPDATE OFFRE SET  etat=? WHERE numero=? AND organisation= ?", [etat, numero, organisation]);
         db.query(sql, function (err, results) {
+            if (err) return callback(false);
             if (affectedRows.results == 0) {
                 return callback(false);
             }else{
@@ -158,7 +163,8 @@ module.exports = {
     updateFiche: function (intitule, statut, responsable, type, lieu, rythme, salaire, description, offre, callback) {
         var sql = mysql.format("UPDATE FICHE_POSTE SET intitule=?, statut=?, responsable=?, type=?, lieu=?, rythme=?, salaire=?, description=? WHERE offre=?", [intitule, statut, responsable, type, lieu, rythme, salaire, description, offre]);
         db.query(sql, function (err, results) {
-            if (err) {
+            if (err) return callback(false);
+            if (affectedRows.results == 0) {
                 return callback(false);
             }else{
                 callback(true);
@@ -168,6 +174,7 @@ module.exports = {
     acceptCandidat: function (numero, mail, callback) {
         var sql = mysql.format("UPDATE CANDIDATURE SET etatC=1 WHERE offre =? AND candidat=?", [numero, mail]);
         db.query(sql, function (err, result) {
+            if (err) return callback(false);
             if (affectedRows.results == 0) {
                 return callback(false);
             }else{
@@ -178,6 +185,7 @@ module.exports = {
     refuseCandidat: function (numero, mail, callback) {
         var sql = mysql.format("UPDATE CANDIDATURE SET etatC=2 WHERE offre =? AND candidat=?", [numero, mail]);
         db.query(sql, function (err, result) {
+            if (err) return callback(false);
             if (affectedRows.results == 0) {
                 return callback(false);
             }else{
@@ -206,7 +214,6 @@ module.exports = {
                 sql += ` AND  CAST(date as DATE)="${date}"`;
             }
         };
-        console.log("sql", sql);
         db.query(sql, function (err, results) {
             if (err) return callback(false);
             callback(results);
@@ -219,11 +226,13 @@ module.exports = {
         var sql = mysql.format("UPDATE UTILISATEUR SET type = 1 WHERE mail IN ( SELECT u.mail FROM UTILISATEUR u INNER JOIN APPARTENIR_ORGA a ON u.mail = a.utilisateur WHERE a.organisation =? AND u.mail=? GROUP BY utilisateur HAVING COUNT(*) = 1 )",[siren,mail]);
         var sql2 = mysql.format("DELETE FROM APPARTENIR_ORGA WHERE organisation=? AND utilisateur=mail", siren);
         db.query(sql, function (err, results) {
+            if (err) return callback(false);
             if (affectedRows.results == 0) {
                 return callback(false);
             }else{
                 db.query(sql2, function (err, results) {
                     if (err) return callback(false);
+                    if (affectedRows.results == 0) return callback(false);
                     callback(results);
                 });
             }
@@ -234,6 +243,7 @@ module.exports = {
     deleteOrga: function (siren, callback) {
         var sql = mysql.format("DELETE FROM ORGANISATION WHERE siren=?");
         db.query(sql, siren, function (err, results) {
+            if (err) return callback(false);
             if (results.affectedRows > 0){
                 callback(true);
             }else{

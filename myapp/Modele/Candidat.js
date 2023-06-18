@@ -26,8 +26,9 @@ module.exports = {
     updateUser: function (mail, nom, prenom, telephone, callback) {
 
         var sql = mysql.format("UPDATE UTILISATEUR SET nom =?, prenom=?, telephone=? WHERE mail=?", [nom, prenom, telephone, mail]);
-        db.query(sql, function (err) {
-                if (err) return callback(false);
+        db.query(sql, function (err, results) {
+            if(err) callback(false);
+                if (affectedRows.results == 0) return callback(false);
                 callback(true);
             });
         
@@ -36,8 +37,9 @@ module.exports = {
     updateUserMdp: function (mdp1, mail, callback) {
 
         var sql = mysql.format("UPDATE UTILISATEUR SET mdp =? WHERE mail=?", [mdp1, mail]);
-        db.query(sql, function (err) {
+        db.query(sql, function (err, results) {
             if (err) return callback(false);
+            if(affectedRows.results==0) return callback(false);
             callback(true);
         });
 
@@ -90,20 +92,18 @@ module.exports = {
 
                 db.query(sql, function (err, results) {
                     if (err) return callback(false);
-                    callback(results);
+                    callback(true);
                 });
             }
         });
 
     },
 
-
-    //////////////// DELIMITATION \\\\\\\\\\\\\\\\\
     creatDmdRecruteur: function (mail, siren, callback) {
         var sql = mysql.format("INSERT INTO DMD_RECRUTEUR (recruteur, organisation) VALUES (?,?)", [mail, siren]);
 
         db.query(sql, function (err, results) {
-            if(affectedRows.results == 0){
+            if(err){
                 return callback(false);
             }
             callback(true);
@@ -130,6 +130,7 @@ module.exports = {
     deleteCandidature: function (mail, numero, callback) {
         db.query("DELETE FROM CANDIDATURE where candidat= ? AND offre =?",[mail, numero], function
             (err, results) {
+            if(err) callback(false);
             if(affectedRows.results == 0){
                 return callback(false);
             }
@@ -140,6 +141,7 @@ module.exports = {
     updateCandidature: function (files, mail, numero, callback) {
         var sql = mysql.format("UPDATE CANDIDATURE SET piecesC =? where offre=? AND candidat=?", [files, numero, mail]);
         db.query(sql, function (err, result) {
+            if(err) callback(false);
             if (result.affectedRows == 0){
                 callback(false);
             }else{
@@ -170,6 +172,7 @@ module.exports = {
     deleteDmdOrga: function (siren, callback) {
         db.query("DELETE FROM DMD_ORGA where siren= ?", siren, function
             (err, results) {
+                if (err) return callback(false);
                 if(affectedRows.results == 0){
                     return callback(false);
                 }
@@ -179,6 +182,7 @@ module.exports = {
     deleteDmdRecruteur: function (mail, callback) {
         db.query("DELETE FROM DMD_RECRUTEUR where recruteur= ?", mail, function
             (err, results) {
+                if (err) return callback(false);
                 if(affectedRows.results == 0){
                     return callback(false);
                 }
@@ -188,6 +192,7 @@ module.exports = {
     deleteDmdRecruteurOrga: function (mail,siren, callback) {
         db.query("DELETE FROM DMD_RECRUTEUR where recruteur= ? AND organisation= ?", [mail, siren], function
             (err) {
+                if (err) return callback(false);
                 if(affectedRows.results == 0){
                     return callback(false);
                 }
@@ -197,6 +202,7 @@ module.exports = {
     deleteDmdAdmin: function (mail, callback) {
         db.query("DELETE FROM DMD_ADMIN where utilisateur= ?", mail, function
             (err, results) {
+                if (err) return callback(false);
                 if(affectedRows.results == 0){
                     return callback(false);
                 }
@@ -213,6 +219,7 @@ module.exports = {
     readOrga: function ( callback) {
         sql = "SELECT * FROM ORGANISATION ";
         rows = db.query(sql, function (err, results) {
+            if (err) return callback(false);
             if (rows.length != 0) { // si il y a au moins une ligne (donc une orga du type)
                 callback(results)
             } else { // il n'y a pas d'orga de ce type

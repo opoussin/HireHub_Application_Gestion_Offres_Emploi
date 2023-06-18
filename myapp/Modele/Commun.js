@@ -22,6 +22,7 @@ module.exports = {
     areUserValid: function (mail, mdp, callback) {
         sql = "SELECT * FROM UTILISATEUR WHERE mail = ?";
         db.query(sql, mail, function (err, rows) {
+            if(err) callback(false);
             if (rows.length == 1 ){
                 crypt.comparePassword(mdp,rows[0].mdp, function(result){
                 if(result){
@@ -48,6 +49,7 @@ module.exports = {
     areRecruteur: function (mail, callback) {
         sql = "SELECT * FROM UTILISATEUR WHERE mail = ?";
         db.query(sql, mail, function (err, rows) {
+            if(err) callback(false);
             if (rows.length == 1 && rows[0].type === 2) {
                 callback(true);
             } else {
@@ -58,6 +60,7 @@ module.exports = {
     areRecruteurValid: function (mail, callback) {
         sql = "SELECT * FROM APPARTENIR_ORGA WHERE mail = ?";
         db.query(sql, mail, function (err, rows) {
+            if(err) callback(false);
             if (rows.length >=1) {
                 callback(true);
             } else {
@@ -69,6 +72,7 @@ module.exports = {
     areAdmin: function (mail, callback) {
         sql = "SELECT type FROM UTILISATEUR WHERE mail = ?";
         rows = db.query(sql, mail, function (err, rows) {
+            if(err) callback(false);
             if (rows.length == 1 && rows[0].type === 3) {
                 callback(true)
             } else {
@@ -93,21 +97,21 @@ module.exports = {
     deleteUser: function (mail, callback) {
         db.query("DELETE from UTILISATEUR where mail= ?", mail, function
         (err, results) {
-        if (err) return callback(false);
-        callback();
+        if (affectedRows.results == 0) return callback(false);
+        callback(true);
     });
     },
     readUser: function (mail, callback) {
         db.query("SELECT * FROM UTILISATEUR WHERE mail=?", mail, function(err, result) {
         if (err) return callback(false);
         callback(result[0]);
-    });
+        });
     },
     readOrgaUser: function (mail, callback) {
         db.query("SELECT organisation FROM APPARTENIR_ORGA WHERE mail=?", mail, function(err, results) {
         if (err) return callback(false);
-        callback(results[0]);
-    });
+        callback(results);
+        });
     },
 
 }
