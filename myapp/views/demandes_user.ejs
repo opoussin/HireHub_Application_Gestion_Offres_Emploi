@@ -49,12 +49,12 @@
                                         <p>Les demandes d'administration sont soumises à la validation des
                                             administrateurs.</p>
                                         <form method="POST" action="/users/demandes/admin">
-                                            <% if (autorisation) { %>
+                                            <% if (demandeAdmin.length == 0) { %>
 
                                             <button class="btn btn-primary mt-3" type="submit"> Envoyer
                                                 demande</button>
                                             <%} else{ %>
-                                                <small class="text-danger"> Vous avez déjà saisi une demande en cours de traitement ou acceptée.</small> <br>
+                                                <small class="text-danger"> Vous avez déjà saisi une demande en cours de traitement ou acceptée/refusée.</small> <br>
                                                 <button class="btn btn-primary mt-3" type="submit" disabled> Envoyer
                                                     demande</button>
                                             <%} %>

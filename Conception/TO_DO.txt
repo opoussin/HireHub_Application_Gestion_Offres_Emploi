@@ -109,7 +109,7 @@ o envoyer mail (console.log) quand une demande recrut/orga/admin est acceptée
 + pass.js
 + la date est bizarre dans editer offre
 - faire le readme
-- front de file_upload et modifier_candidature
++ front de file_upload et modifier_candidature
 
 Formulaire : 
     - recherche d'offre
@@ -175,16 +175,3 @@ PARTIE CONCEPTION !!!!!!!!!!!!!!!!
     - mettre a jour le diagramme de classe
     - MLD 
     - MPD
-
-TEST UNITAIRES fonction
-    O - administrateur
-    O 1/2, C 2/2- candidat
-    C - commun
-    C - recruteur
-
-TEST UNITAIRES ROUTE
-    O - admin 82
-    O - index 100
-    O - recrut 143
-    C - upload 109
-    C - users 243

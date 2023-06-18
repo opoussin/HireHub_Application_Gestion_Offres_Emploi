@@ -166,16 +166,10 @@ router.get('/demandes', function (req, res, next) {
         if (orgaResult){
           candidatModel.readUserDmdAdmin(mail, function (adminResult) {
             if (adminResult){
-              if (adminResult.length > 0 && (adminResult[0].statut === "En attente" || adminResult[0].statut === "Validé")) {
-                autorisation = false;
-              } else {
-                autorisation = true;
-              }
-              
               result ??= [];
               orgaResult ??= [];
               adminResult ??= [];
-              res.render('demandes_user', {autorisation, demandeRecrut: result, organisation: orgaResult, demandeAdmin: adminResult , req : req});
+              res.render('demandes_user', {demandeRecrut: result, organisation: orgaResult, demandeAdmin: adminResult , req : req});
             }else{
               res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données.');
             }

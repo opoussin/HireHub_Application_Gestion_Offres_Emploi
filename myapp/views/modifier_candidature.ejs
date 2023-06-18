@@ -10,7 +10,7 @@
 
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
-<!--<%- include('./includes/head')%>-->
+<%- include('./includes/head')%>
 
 <body>
   <%- include('./components/navbar')%>
@@ -67,21 +67,24 @@
 
           <div class="row d-flex flex-column justify-content-center  align-items-center">
             <div class="col-6 bg-white d-flex flex-column justify-content-center py-2">
-              <ul class="p-0">
+              <ul class="p-0 list-unstyled">
                 <%if (files_array.length>0){%>
                   <% files_array.forEach((oneFile)=> { %>
-                    <li><form method="post" action="/candidature/getfile" id="getfile<%= oneFile %>" >
+                    <li class="d-flex flex-row justify-content-between">
+                      <form method="post" action="/candidature/getfile" id="getfile<%= oneFile %>" class="py-2 pe-2">
                         <input type="hidden" name="file" value="<%= oneFile %>" >
-                        <button type="submit" class="link"><%= oneFile %></button>
+                        <button type="submit" class="btn btn-link"><%= oneFile %></button>
                         <%= oneFile %>
                     </form>
                       
-                      <form method="post" action="supp" id="suppfile<%= oneFile %>" >
+                      <form method="post" action="supp" id="suppfile<%= oneFile %>" class="py-2">
                           <input type="hidden" name="file" value="<%= oneFile %>" >
                           <input type="hidden" name="numero" value="<%= numero %>" >
 
-                          <button type="submit" class="bg-primary">Supprimer</button>
-                          <%= oneFile %>
+                          <button type="submit" class="btn btn-link text-dark text-decoration-none"><i
+                            class="bi bi-x-lg m-2"></i>Supprimer
+
+                          </button>
                         
                       </form>
 
