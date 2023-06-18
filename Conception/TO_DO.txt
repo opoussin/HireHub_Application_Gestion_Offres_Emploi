@@ -110,7 +110,15 @@ o envoyer mail (console.log) quand une demande recrut/orga/admin est acceptée
 + la date est bizarre dans editer offre
 - faire le readme
 
-
+Formulaire : 
+    - recherche d'offre
+    - recherche d'orga
+    - recherche d'utilisateurs
+    - création dmd orga
+    - création dmd recruteur
+    - modification info user
+    - création et modification d'offre
+     
 
 IMPORTANT
 + changer toutes la gestion des erreurs des update 

@@ -32,7 +32,7 @@ app.use(session({
   secret: randomKey,
   resave: false,
   saveUninitialized :true,
-  cookie: {secure: false, maxAge: deuxHeures}
+  cookie: {httpOnly: true, secure: true, maxAge: deuxHeures}
 }));
 // FIN AUTHENTIFICATION
 
