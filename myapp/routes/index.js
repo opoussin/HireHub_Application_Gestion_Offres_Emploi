@@ -10,6 +10,8 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/connexion', function (req, res, next) {
+  console.log(req.cookies);
+
     res.render('connexion');
 });
 /*
@@ -81,6 +83,8 @@ router.get('/inscription', function (req, res, next) {
   //si la session n'existe pas, on peut s'inscrire
   if(req.session.userid==undefined){
     res.render('inscription');
+    console.log(req.cookies);
+
   }else{
     //sinon, pas le droit de s'inscrire
     res.status(401).render('index');
@@ -125,6 +129,8 @@ router.post('/inscription', function (req, res, next) {
 router.get('/logout',(req,res) => {
   req.session.destroy();
   res.redirect('/');
+  console.log(req.cookies);
+
 });
   
 

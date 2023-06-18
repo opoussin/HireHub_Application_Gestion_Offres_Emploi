@@ -6,8 +6,14 @@ var logger = require('morgan');
 var middleware = require('./middleware');
 const session = require('express-session'); 
 var crypto = require('crypto'); // rajout antoine
+var session2=require('./Modele/session');
+var cors=require('cors');//rajout
+
 
 var app = express();
+app.use(session2.init());//rajout
+
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -16,8 +22,9 @@ var adminRouter = require('./routes/admin');
 var uploadRouter = require('./routes/upload');
 var apiRouter = require('./routes/api');
 
-
+app.use(cookieParser());
 //AUTHENTIFICATION
+/*
 const generateRandomKey = (length) => {
   return crypto.randomBytes(length).toString('hex');
 };
@@ -25,15 +32,15 @@ const generateRandomKey = (length) => {
 const keyLength = 32; // Longueur de la clé en octets
 const randomKey = generateRandomKey(keyLength);
 
-app.use(cookieParser());
+
 const deuxHeures = 1000*60*60*2;
 
 app.use(session({
   secret: randomKey,
   resave: false,
   saveUninitialized :true,
-  cookie: {httpOnly: true, secure: true, maxAge: deuxHeures}
-}));
+  cookie: {httpOnly: true, secure: false, maxAge: deuxHeures}
+}));*/
 // FIN AUTHENTIFICATION
 
 // view engine setup
@@ -46,6 +53,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static('public'));
+app.use(cors());//rajout
 
 
 app.use('/', indexRouter);
@@ -82,7 +90,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-/*var cors=require('cors');
-app.use(cors());
-*/
+
+
 module.exports = app;

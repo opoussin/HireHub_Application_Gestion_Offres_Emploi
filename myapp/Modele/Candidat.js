@@ -128,8 +128,11 @@ module.exports = {
             });
     },
     deleteCandidature: function (mail, numero, callback) {
-        db.query("DELETE FROM CANDIDATURE where candidat= ? AND offre =?",[mail, numero], function
+        var sql = mysql.format("DELETE FROM CANDIDATURE where candidat= ? AND offre =?",[mail, numero]);
+
+        db.query(sql, function
             (err, results) {
+            
             if(err) callback(false);
             if(results.affectedRows == 0){
                 return callback(false);
