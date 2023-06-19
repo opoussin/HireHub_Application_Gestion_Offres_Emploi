@@ -54,20 +54,42 @@ class Candidature {
 Date_cand : Date
 }
 
+class Dmd_Orga {
+siren : integer,
+nom : string, 
+type : string, 
+siegeSocial : string, 
+date : DATE, 
+statut : enum
+}
+
+class Dmd_Admin {
+Date : Date
+statut :enum
+}
+
+class Dmd_Recruteur {
+Date : Date
+statut :enum
+}
 
 
 Utilisateur <|--  Candidat 
 Utilisateur <|-- Administrateur
 Utilisateur <|-- Recruteur
-Administrateur "1" - "*" Administrateur: "désigne" >
-Recruteur "1" -- "*" Recruteur: "désigne" >
 Administrateur "1" -- "*" Recruteur : "admet" >
-Administrateur "1" -- "*" Organisation : "valide" >
 Candidat "1" -- "*"Candidature : "candidate" >
 Recruteur "1..*" -- "1..*" Organisation : "appartient à" >
+Dmd_Recruteur "1..*" - "1" Organisation : "appartient à" >
 
 Candidature "*" -- "1" Offre_Emploi : "correspond à" >
 Organisation "1" - "*" Offre_Emploi : "édite" >
 Offre_Emploi "1" - "1" Fiche_Poste : "appartient à" >
-Recruteur "1" -- "*" Candidature : "valide" >
+Dmd_Orga "1" - "1" Organisation : "définit" >
+Dmd_Admin "*" -- "1" Administrateur : "accepte" <
+Dmd_Recruteur "*" -- "1" Recruteur : "accepte" <
+Dmd_Orga "*" -- "1" Administrateur : "accepte" <
+
+
+
 @enduml
