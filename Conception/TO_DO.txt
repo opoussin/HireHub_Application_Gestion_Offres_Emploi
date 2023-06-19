@@ -172,6 +172,6 @@ SECURITE
 - patcher ou proposer une solution et pas l'implémenter
 
 PARTIE CONCEPTION !!!!!!!!!!!!!!!!
-    - mettre a jour le diagramme de classe
-    - MLD 
-    - MPD
+    + mettre a jour le diagramme de classe
+    + MLD 
+    + MPD
