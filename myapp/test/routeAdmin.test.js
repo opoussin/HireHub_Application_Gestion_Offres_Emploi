@@ -34,30 +34,4 @@ describe("Test the root path", () => {
     });
     
 
-
-    /*it("should respond with status 200 and render the 'admin' view", async () => {
-        const response = await request(app)
-        .get("/admin/administrateur")
-        .query({
-            mail: "test@test2",
-            nom: "test",
-            prenom: "test",
-            date: "2023-06-14",
-            statut: "1",
-            type: "3"
-        });
-
-        expect(response.status).toBe(200);
-        expect(response.text).toContain("admin"); // Assurez-vous que le rendu de la vue contient le mot-clé "admin"
-        // Vous pouvez ajouter d'autres assertions pour vérifier d'autres comportements attendus
-    });
-
-    it("should redirect to '/admin/demandes' when no results are found", async () => {
-        const response = await request(app).get("/admin/administrateur");
-
-        expect(response.status).toBe(302); // Assurez-vous que la réponse a le statut de redirection (302)
-        expect(response.header.location).toBe("/admin/demandes"); // Assurez-vous que la redirection est effectuée vers '/admin/demandes'
-        // Vous pouvez ajouter d'autres assertions pour vérifier d'autres comportements attendus
-    });*/
-
 });
