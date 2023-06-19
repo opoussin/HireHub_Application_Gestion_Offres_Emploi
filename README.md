@@ -1,6 +1,5 @@
-# SR10
 
-## Site d'offres d'emploi SR10
+# Site d'offres d'emploi SR10
 
 ## Description
 Ce projet est un site d'offres d'emplois qui permet aux utilisateurs de rechercher, consulter et postuler à des offres d'emploi. Le site prend en charge trois types de profils : utilisateurs, recruteurs et administrateurs.
@@ -10,11 +9,11 @@ Ce projet est un site d'offres d'emplois qui permet aux utilisateurs de recherch
 - [Installation](#installation)
 - [Utilisation](#utilisation)
 - [Structure du projet](#structure)
-- [Profis](#profils)
+- [Profils](#profils)
 - [Authors](#authors)
 
 ## Installation
-1. Clonez le dépôt : git clone https://github.com/votre-projet.git
+1. Clonez le dépôt : git clone https://github.com/SR10_2023_POUSSIN_GOMMARD.git
 2. Accédez au répertoire : cd ./myapp
 3. Installez les dépendances : npm install 
 4. Installer express, cors, jest, bcrypt, sql
@@ -22,7 +21,7 @@ Ce projet est un site d'offres d'emplois qui permet aux utilisateurs de recherch
 ## Utilisation
 
 1. Se placer dans le répertoire myapp
-2. En console faire npm run start
+2. Lancer avec npm run start
 3. Se connecter au VPN de l'UTC
 4. Accédez à l'URL : http://localhost:3000
 
