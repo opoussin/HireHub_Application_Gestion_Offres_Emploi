@@ -80,6 +80,7 @@ router.get('/demandes', function (req, res, next) {
             if(adminAllResult){ 
               adminModel.readAllDmdOrga(mail, date,function(orgaAllResult){
                 orgaResult ??= [];
+                console.log("avant");
                 res.status(200).render('admin_demandes', {demandeOrga: orgaResult, demandeAdmin: adminResult, demandeAllOrga: orgaAllResult, demandeAllAdmin: adminAllResult, req : req, search:{mail:mail, date:date}});
               });
             }else{
@@ -149,9 +150,9 @@ router.get('/demandes_orga/accept', function (req, res, next) {
     if(result){
       // console pour simuler l'envoi d'un mail de notification 
       console.log ( " La demande de l'utilisateur ", user, "pour créer l'organisation de siren", siren , "a été acceptée");
-      res.status(204).redirect('/admin/demandes');
+      res.redirect('/admin/demandes');
     }else{      
-      res.status(404).redirect('/admin/demandes');
+      res.redirect('/admin/demandes');
     }
   });
 });

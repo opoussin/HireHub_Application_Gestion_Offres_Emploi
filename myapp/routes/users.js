@@ -96,7 +96,6 @@ router.post('/modifier_profil/mdp', function (req, res, next) {
 router.post('/candidat', function (req, res, next) {
 
   if (req.body.form1) {
-    isInteger
     let organisation = escape(req.body.organisation);
     let lieu = escape(req.body.lieu);
     let statut = escape(req.body.statut);
