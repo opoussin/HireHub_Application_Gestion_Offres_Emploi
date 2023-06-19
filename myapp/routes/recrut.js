@@ -6,6 +6,8 @@ var recruteurModel = require('../Modele/Recruteur.js')
 var adminModel = require('../Modele/Administrateur.js')
 const { urlencoded } = require('express');
 var middleware = require('../middleware')
+var escape = require('escape-html');
+
 
 router.use(middleware.isLoggedMiddleware);
 router.use(middleware.isRecruteurMiddleware);
@@ -60,20 +62,20 @@ router.get('/creer_offre', function (req, res, next) {
 
 router.post('/creer_offre', function (req, res, next) {
   // Récupération des données du formulaire
-  var etat = req.body.etat;
-  var dateValidite = req.body.dateValidite;
-  var pieces = req.body.pieces;
-  var nombrePieces = req.body.nombrePieces;
-  var intitule = req.body.intitule;
-  var statut = req.body.statut;
-  var responsable = req.body.responsable;
-  var type = req.body.type;
-  var lieu = req.body.lieu;
-  var rythme = req.body.rythme;
-  var salaire = req.body.salaire;
-  var description = req.body.description;
-  var etat = req.body.etat;
-  var organisation = req.body.siren;
+  var etat = escape (req.body.etat);
+  var dateValidite = escape (req.body.dateValidite);
+  var pieces = escape (req.body.pieces);
+  var nombrePieces = escape (req.body.nombrePieces);
+  var intitule = escape (req.body.intitule);
+  var statut = escape (req.body.statut);
+  var responsable = escape( req.body.responsable);
+  var type = escape (req.body.type);
+  var lieu = escape (req.body.lieu);
+  var rythme = escape (req.body.rythme);
+  var salaire = escape( req.body.salaire);
+  var description = escape (req.body.description);
+  var etat = escape (req.body.etat);
+  var organisation = escape (req.body.siren);
 
   // Appel à la fonction creat du modèle Utilisateur
   recruteurModel.creatOffre(organisation, etat, dateValidite, pieces, nombrePieces, intitule, statut, responsable, type, lieu, rythme, salaire, description, function (result) {
@@ -195,18 +197,18 @@ router.post('/editer_offre/:numero', function (req, res, next) {
     //var dateValidite = req.body.dateValidite;
 
     //var dateValidite = dateValidite.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }).split('/').reverse().join('-');
-    var pieces = req.body.pieces;
-    var nombrePieces = req.body.nombrePieces;
     let numero = req.params.numero;
-    var intitule = req.body.intitule;
-    var statut = req.body.statut;
-    var responsable = req.body.responsable;
-    var type = req.body.type;
-    var lieu = req.body.lieu;
-    var rythme = req.body.rythme;
-    var salaire = req.body.salaire;
-    var description = req.body.description;
-    var etat = req.body.etat;
+    var pieces = escape (req.body.pieces);
+    var nombrePieces = escape (req.body.nombrePieces);
+    var intitule = escape (req.body.intitule);
+    var statut = escape (req.body.statut);
+    var responsable = escape( req.body.responsable);
+    var type = escape (req.body.type);
+    var lieu = escape (req.body.lieu);
+    var rythme = escape (req.body.rythme);
+    var salaire = escape( req.body.salaire);
+    var description = escape (req.body.description);
+    var etat = escape (req.body.etat);
     recruteurModel.updateOffre(etat, dateValidite, pieces, nombrePieces, numero, function (result) {
       if (result) {
         recruteurModel.updateFiche(intitule, statut, responsable, type, lieu, rythme, salaire, description, numero, function (results) {

@@ -9,7 +9,6 @@ var crypto = require('crypto'); // rajout antoine
 var session2=require('./Modele/session');
 var cors=require('cors');//rajout
 var escape = require('escape-html');
-var html = escape('foo & bar');
 
 
 var app = express();

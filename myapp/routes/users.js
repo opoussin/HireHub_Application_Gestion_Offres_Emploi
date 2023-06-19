@@ -5,6 +5,8 @@ var communModel = require('../Modele/Commun.js')
 var recruteurModel= require('../Modele/Recruteur.js')
 var middleware = require('../middleware')
 var crypt = require('../Modele/pass.js')
+var escape = require('escape-html');
+
 
 router.use(middleware.isLoggedMiddleware);
 
@@ -94,12 +96,13 @@ router.post('/modifier_profil/mdp', function (req, res, next) {
 router.post('/candidat', function (req, res, next) {
 
   if (req.body.form1) {
-    let organisation = req.body.organisation;
-    let lieu = req.body.lieu;
-    let statut = req.body.statut;
-    let salaire = req.body.salaire;
-    let type = req.body.type;
-    let intitule = req.body.intitule;
+    isInteger
+    let organisation = escape(req.body.organisation);
+    let lieu = escape(req.body.lieu);
+    let statut = escape(req.body.statut);
+    let salaire = escape(req.body.salaire);
+    let type = escape(req.body.type);
+    let intitule = escape(req.body.intitule);
     candidatModel.readOffreFiltre(organisation, lieu, statut, salaire, type, intitule, function (results) {
       if (results){
         res.render('candidat', { title: 'List des Offres', listeOffre: results, req : req });
@@ -143,11 +146,11 @@ router.get('/creer_orga', function (req, res, next) {
 });
 
 router.post('/creer_orga', function (req, res, next) {
-  let mail=req.session.userid;
-  let siren = req.body.siren;
-  let nom = req.body.nom;
-  let type = req.body.type;
-  let siege = req.body.siege;
+  let mail=escape(req.session.userid);
+  let siren = escape(req.body.siren);
+  let nom = escape(req.body.nom);
+  let type = escape (req.body.type);
+  let siege = escape (req.body.siege);
 
   candidatModel.creatDmdOrga(nom, siren, type, siege, mail, function (result) {
     if (result) {

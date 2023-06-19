@@ -22,17 +22,17 @@
                                         <div class="col-6">
                                             <div class="py-1">
                                                 <label for="nom" class="me-2">Nom</label>
-                                                <input type="text" class="form-control" id="statut" placeholder="Nom de l'organisation" name="nom">
+                                                <input type="text" class="form-control" id="statut" placeholder="Nom de l'organisation" name="nom" required>
                                             </div>
                                             <div class="py-1">
                                                 <label for="siren">Numero de SIREN</label>
-                                                <input type="text" class="form-control" id="intitule" placeholder="Exemple: 362 521 879" name="siren">
+                                                <input type="text" class="form-control" id="intitule" placeholder="Exemple: 362 521 879" name="siren" required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="py-1">
                                                 <label for="type">Type</label>
-                                                <select class="form-select" name="type" >
+                                                <select class="form-select" name="type" required>
                                                     <option value="" disabled selected >Selectionnez</option>
                                                     <option value="Entreprise">Entreprise</option>
                                                     <option value="Association">Association</option>
@@ -42,7 +42,7 @@
                                             <div class="py-1">
                                                 <label for="siege" >Siege social</label>
                                                 <input type="text" class="form-control" id="type"
-                                                    placeholder="Siege social de l'organisation" name="siege">
+                                                    placeholder="Siege social de l'organisation" name="siege" required>
                                             </div>
                                         </div>
                                         <div class="px-3 py-2 d-flex flex-column align-items-start gap-2">

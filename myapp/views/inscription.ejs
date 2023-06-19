@@ -15,26 +15,26 @@
           <form action="/inscription" method="post" class="px-4">
             <div class="mb-3 mt-3">
               <label for="Mail">Email:</label>
-              <input type="email" class="form-control" id="mail" placeholder="Entrer votre email" name="mail">
+              <input type="email" class="form-control" id="mail" placeholder="Entrer votre email" name="mail" required>
             </div>
             <div class="mb-3">
               <label for="Mdp">Password:</label>
-              <input type="password" class="form-control" id="mdp" placeholder="Entrer votre mot de passe" name="mdp">
+              <input type="password" class="form-control" id="mdp" placeholder="Entrer votre mot de passe" name="mdp" required>
             </div>
             <%if (typeof message != "undefined"){%>
               <p small class="form-group  text-danger text-justify"><%=message%></p>
             <%}%>
             <div class="mb-3 mt-3">
               <label for="email">Nom:</label>
-              <input type="Nom" class="form-control" id="nom" placeholder="Entrer votre Nom" name="nom">
+              <input type="Nom" class="form-control" id="nom" placeholder="Entrer votre Nom" name="nom" required>
             </div>
             <div class="mb-3 mt-3">
               <label for="Prenom">Prenom:</label>
-              <input type="Prenom" class="form-control" id="prenom" placeholder="Entrer votre Prenom" name="prenom">
+              <input type="Prenom" class="form-control" id="prenom" placeholder="Entrer votre Prenom" name="prenom" required>
             </div>
             <div class="mb-3 mt-3">
               <label for="Telephone">Telephone:</label>
-              <input type="Telephone" class="form-control" id="telephone" placeholder="Entrer votre numéro de téléphone" name="telephone">
+              <input type="Telephone" class="form-control" id="telephone" placeholder="Entrer votre numéro de téléphone" name="telephone" required>
             </div>
             <%if (typeof messagetel != "undefined"){%>
               <p small class="form-group  text-danger text-justify"><%=messagetel%></p>
