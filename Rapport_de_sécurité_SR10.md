@@ -22,7 +22,7 @@ Les attaques d'injection se produisent lorsque des données non fiables ou non v
     ce qui permettrait à l’attaquant de détériorer la base de données. 
     
 - Injection OS et injection LDAP : Nous ne somme pas concernés par ce type d’injections.
-- formulaire qui manipule des noms de fichier pour supprimer ou afficher le fichier : on a par exemple les pages /candidature/modifier_candidature/supp/numero/file
+
 
 ### Solution :
 
