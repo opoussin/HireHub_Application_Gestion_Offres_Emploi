@@ -77,8 +77,7 @@ La violation de gestion d'authentification concerne le processus d'identificatio
     
     ```jsx
     //requete post '/inscription'
-    const cnilPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)
-    (?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]{12,}$/;
+    const cnilPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]{12,}$/;
       if (cnilPasswordRegex.test(mdp)) {
      //suite du code de création de compte
     ```
