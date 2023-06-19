@@ -82,13 +82,20 @@ router.get('/demandes', function (req, res, next) {
                 orgaResult ??= [];
                 res.status(200).render('admin_demandes', {demandeOrga: orgaResult, demandeAdmin: adminResult, demandeAllOrga: orgaAllResult, demandeAllAdmin: adminAllResult, req : req, search:{mail:mail, date:date}});
               });
-            };
+            }else{
+              res.status(404).redirect('/admin/administrateur');
+            }
           });
-        };
+        }else{
+          res.status(404).redirect('/admin/administrateur');
+
+        }
       });
-    };
+    }else{
+      res.status(404).redirect('/admin/administrateur');
+
+    }
   });
-  res.status(404).redirect('/administrateur');
 });
 
 router.get('/demandes_admin/accept', function (req, res, next) {
