@@ -52,6 +52,9 @@
                                                 celle-ci.</small>
 
                                             <button type="submit" class="btn btn-primary w-">Valider</button>
+                                            <%if (typeof message != "undefined"){%>
+                                                <p small class="form-group col-12 col-lg-10 offset-lg-1 p-1 text-danger"><%=message%></p>
+                                            <%}%>
 
                                         </div>
 

@@ -147,17 +147,52 @@ router.get('/creer_orga', function (req, res, next) {
 router.post('/creer_orga', function (req, res, next) {
   let mail=escape(req.session.userid);
   let siren = escape(req.body.siren);
+  var siren2 = siren.replace(/\s/g, "");
   let nom = escape(req.body.nom);
   let type = escape (req.body.type);
   let siege = escape (req.body.siege);
-
-  candidatModel.creatDmdOrga(nom, siren, type, siege, mail, function (result) {
+  console.log(siren2);
+  console.log(req.body.siren);
+  if ((typeof nom === "string") &&(typeof type === "string") &&(typeof siege === "string")){
+     candidatModel.creatDmdOrga(nom, siren2, type, siege, mail, function (result) {
     if (result) {
       res.redirect('/users/creer_orga');
     } else {
-      res.status(404).send('Une erreur s\'est produite lors de l\insertion des données.');
+      candidatModel.readUserDmdOrga(mail, function (results) {
+        if(results){
+          communModel.readOrga(function (orgaResult) {
+            if (orgaResult){
+              orgaResult ??= [];
+              results ??= [];
+              res.render('formulaire_orga', { organisation: orgaResult, demandeOrga: results, req : req, message : "Les données ne sont pas valables." });
+            }else{
+              res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
+            }
+        });
+        }else{
+          res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
+        } 
+      });
     }
   });
+  }else{
+    candidatModel.readUserDmdOrga(mail, function (results) {
+      if(results){
+        communModel.readOrga(function (orgaResult) {
+          if (orgaResult){
+            orgaResult ??= [];
+            results ??= [];
+            res.render('formulaire_orga', { organisation: orgaResult, demandeOrga: results, req : req, message : "Les données ne sont pas valables." });
+          }else{
+            res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
+          }
+      });
+      }else{
+        res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
+      } 
+    });
+  }
+ 
 });
 
 router.get('/demandes', function (req, res, next) {

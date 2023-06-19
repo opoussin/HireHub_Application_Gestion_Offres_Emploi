@@ -19,7 +19,8 @@
             </div>
             <div class="mb-3">
               <label for="Mdp">Password:</label>
-              <input type="password" class="form-control" id="mdp" placeholder="Entrer votre mot de passe" name="mdp" required>
+              <p class="text-sm-left font-italic">Minimum 12 caractères dont des minuscules, majuscules nombres et caractères spéciaux</p>
+              <input type="password" class="form-control" id="mdp" placeholder="Entrer votre mot de passe " name="mdp" required>
             </div>
             <%if (typeof message != "undefined"){%>
               <p small class="form-group  text-danger text-justify"><%=message%></p>
