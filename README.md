@@ -9,8 +9,9 @@ Ce projet est un site d'offres d'emplois qui permet aux utilisateurs de recherch
 
 - [Installation](#installation)
 - [Utilisation](#utilisation)
-- [Contribuer](#contribuer)
-- [Licence](#licence)
+- [Structure du projet](#structure)
+- [Profis](#profils)
+- [Authors](#authors)
 
 ## Installation
 1. Clonez le dépôt : git clone https://github.com/votre-projet.git
@@ -25,6 +26,25 @@ Ce projet est un site d'offres d'emplois qui permet aux utilisateurs de recherch
 3. Se connecter au VPN de l'UTC
 4. Accédez à l'URL : http://localhost:3000
 
+## Structure du projet
+Depuis la racine il est possible de trouver : 
+- Dossier Conception
+    - Maquette : Lien Figma où les maquettes du site ont été conçues
+    - MLD : Modèle logique de données qui nous a permis de concevoir la BDD en 2 versions : ancienne et actuelle
+    - UML : Code PlantUML permettant de générer l'UML représentant nos projet, en 2 versions
+    - Usecase : Diagrammes des cas d'utilisations
+    - Nommage.txt : Fichier indiquant les noms des attributs de la BDD
+    - TO_DO.txt : Fichier permettant le suivi des tâches
+- Dossier myapp : dossier réel du projet, reprennant une architecture classique d'un projet NodeJS
+    - Modele : Dossier regroupant les fonctions faisant appel à la BDD, divisé en fonction du profil ( Candidat, Commun, Recruteur, Administrateur...) ainsi que d'autres fichiers de fonctions utilisés pour la gestion de la BDD, la connexion etc
+    - routes : Dossier regroupant toutes les déclarations de routes, divisées elles aussi en fonction du type de profil, il existe aussi une route upload pour gérer séparemment le traitement des fichiers
+    - test : Dossier contenant les fichiers de tests unitaires Jest de fonctions et de route de la partie Administrateur
+    - views : Dossier regroupant tous les fichiers ejs utilisés pour générer les vues
+    - app.js 
+    - middleware.js : Middleware utilisé pour gérer les sessions
+
+
+
 ## Profils
 
 Le site prend en charge les trois profils suivants :
@@ -33,36 +53,7 @@ Le site prend en charge les trois profils suivants :
 2. Recruteurs : Les recruteurs peuvent créer et publier des offres d'emploi, gérer les candidatures reçues et communiquer avec les candidats.
 3. Administrateurs : Les administrateurs ont un accès étendu au système. Ils peuvent gérer les utilisateurs, les offres d'emploi, les candidatures et effectuer d'autres tâches administratives.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## Authors
+Developpers : 
+- Océane Poussin
+- Chloé Gommard
