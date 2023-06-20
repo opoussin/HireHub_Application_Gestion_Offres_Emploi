@@ -19,11 +19,11 @@ router.get('/profil_candidat', function (req, res, next) {
         if (result){
           res.render('profil_candidat', { user: user, candidatures: result , req : req});
         }else{
-          res.status(404).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
+          res.status((500)).send('Une erreur s\'est produite lors de la lecture de l\'utilisateur.');
         }  
       });
     }else{
-      res.status(404).send('Une erreur s\'est produite lors de la lecture de tous les utilisateurs.');
+      res.status(500).send('Une erreur s\'est produite lors de la lecture de tous les utilisateurs.');
     }
   });
 });
@@ -37,7 +37,7 @@ router.get('/modifier_profil', function (req, res, next) {
       delete req.session.message;
       res.render('modifier_profil', { nom: result.nom, prenom: result.prenom, mail: result.mail, mdp: result.mdp, telephone: result.telephone, statut: result.statut, date: result.dateCreation.toLocaleDateString("fr") , req : req, message : message});
     }else{
-      res.status(404).send('Une erreur s\'est produite lors de la lecture de tout les utilisateurs.');
+      res.status(500).send('Une erreur s\'est produite lors de la lecture de tout les utilisateurs.');
     }   
   });
 });
@@ -51,7 +51,7 @@ router.post('/modifier_profil', function (req, res, next) {
         if (result){
           res.redirect('/users/profil_candidat');
         }else{
-          res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données utilisateur');
+          res.redirect(500, '/users/modifier_profil');
         }    
       });
 
@@ -73,27 +73,23 @@ router.post('/modifier_profil/mdp', function (req, res, next) {
         candidatModel.updateUserMdp(crypto, mail, function (result) {
           if (result) {
             req.session.message = true;
-            res.status(200).redirect('/users/modifier_profil');
+            res.redirect('/users/modifier_profil');
           } else {
-            res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données.');
+            res.redirect('/users/modifier_profil');
           }
         });
       }else{
-        res.status(500).send('Traitement en cours...');
-  
-        // Redirection vers une autre page après un délai de 2 secondes
-        setTimeout(() => {
-          res.redirect('/users/modifier_profil');
-        }, 2000);
+        res.redirect(500, '/users/modifier_profil');
+
       }
-    });
+      });
     
-  }else{
-    res.redirect(404, '/users/modifier_profil');
-  }
+    }else{
+      res.redirect('/users/modifier_profil');
+    }
   } else {
     req.session.message = false;
-    res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données.');
+    res.redirect('/users/modifier_profil');
   }
 });
 
@@ -111,7 +107,7 @@ router.post('/candidat', function (req, res, next) {
       if (results){
         res.render('candidat', { title: 'List des Offres', listeOffre: results, req : req });
       }else{
-        res.status(404).send('Une erreur s\'est produite lors de lecture des offres filtrées.');
+        res.redirect('users/candidat');
       }
     });
   }
@@ -125,7 +121,7 @@ router.get('/candidat', function (req, res, next) {
     if(results){
       res.render('candidat', { title: 'List des Offres', listeOffre: results, req : req});
     }else{
-      res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données.');
+      res.status(500).send('Une erreur s\'est produite lors de la lecture des données.');
     }
   });
 });
@@ -140,11 +136,11 @@ router.get('/creer_orga', function (req, res, next) {
           results ??= [];
           res.render('formulaire_orga', { organisation: orgaResult, demandeOrga: results, req : req });
         }else{
-          res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
+          res.status(500).send('Une erreur s\'est produite lors de la lecture des données.');
         }
     });
     }else{
-      res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
+      res.status(500).send('Une erreur s\'est produite lors de la lecture des données.');
     } 
   });
 });
@@ -171,11 +167,11 @@ router.post('/creer_orga', function (req, res, next) {
               results ??= [];
               res.render('formulaire_orga', { organisation: orgaResult, demandeOrga: results, req : req, message : "Les données ne sont pas valables." });
             }else{
-              res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
+              res.status(500).send('Une erreur s\'est produite lors de la lecture des données.');
             }
         });
         }else{
-          res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
+          res.status(500).send('Une erreur s\'est produite lors de la lecture des données.');
         } 
       });
     }
@@ -189,11 +185,11 @@ router.post('/creer_orga', function (req, res, next) {
             results ??= [];
             res.render('formulaire_orga', { organisation: orgaResult, demandeOrga: results, req : req, message : "Les données ne sont pas valables." });
           }else{
-            res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
+            res.status(500).send('Une erreur s\'est produite lors de la lecture des données.');
           }
       });
       }else{
-        res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
+        res.status(500).send('Une erreur s\'est produite lors de la lecture des données.');
       } 
     });
   }
@@ -213,17 +209,17 @@ router.get('/demandes', function (req, res, next) {
               adminResult ??= [];
               res.render('demandes_user', {demandeRecrut: result, organisation: orgaResult, demandeAdmin: adminResult , req : req});
             }else{
-              res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données.');
+              res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données.');
             }
             
           });
         }else{
-          res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données.');
+          res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données.');
         }
         
       });
     }else{
-      res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données.');
+      res.status(500).send('Une erreur s\'est produite lors de la mise a jour des données.');
     }
     
   });    
@@ -238,7 +234,7 @@ router.post('/demandes/recruteur', function (req, res, next) {
       if (result) {
         res.redirect('/users/demandes');
       } else {
-        res.status(404).send('Une erreur s\'est produite lors de la création des données.');
+        res.redirect(500, '/users/demandes');
       }
   });
 });
@@ -249,7 +245,7 @@ router.post('/demandes/admin', function (req, res, next) {
     if (result) {
       res.redirect('/users/demandes');
     } else {
-      res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
+      res.redirect(500, '/users/demandes');
     }
   });
 });
@@ -261,7 +257,7 @@ router.get('/demandes/recruteurSupp/:siren', function (req, res, next) {
     if (result) {
       res.redirect('/users/demandes');
     } else {
-        res.status(404).send('Une erreur s\'est produite lors de la suppression des données.');
+      res.redirect(500, '/users/demandes');
     }
   });
  
@@ -274,7 +270,7 @@ router.get('/demandes/adminSupp', function (req, res, next) {
     if (result) {
       res.redirect('/users/demandes');
     } else {
-      res.status(500).send('Une erreur s\'est produite lors de la suppression des données.');
+      res.redirect(500, '/users/demandes');
     }
   });
  

@@ -22,7 +22,8 @@ router.get('/administrateur', function (req, res, next) {
         if(results){
           res.render('admin', {userResult: results, req: req, search:{mail:mail, nom:nom, prenom:prenom, date:date, type:type, statut:statut} });
         }else{
-          res.status(404).redirect('/admin/demandes');
+          res.redirect(500, '/admin/administrateur');
+
         }
         
       });
@@ -36,13 +37,13 @@ router.get('/administrateur/activer', function (req, res, next) {
     if(mail!=mail2){    
       adminModel.enableUser(mail2, function (results) {
         if(results){
-          res.statut(204).redirect('/admin/administrateur')
+          res.redirect('/admin/administrateur');
         }else{
-          res.status(404).redirect('/admin/administrateur')
+          res.redirect(500, '/admin/administrateur');
         };
       });
     }else{
-      res.status(401).redirect('/admin/administrateur'); //ne peut pas se réactiver lui même
+      res.redirect('/admin/administrateur');
     }
 });
 
@@ -50,9 +51,9 @@ router.get('/administrateur/desactiver', function (req, res, next) {
     let mail2 =req.query.user;     
       adminModel.disableUser(mail2, function (results) {
         if(results){
-          res.status(204).redirect('/admin/administrateur')
+          res.redirect('/admin/administrateur');
         }else{
-          res.status(404).redirect('/admin/administrateur')
+          res.redirect(500, '/admin/administrateur');
         };
       });
 });
@@ -62,9 +63,9 @@ router.get('/administrateur/supprimer', function (req, res, next) {
     let mail2 =req.query.user;
       communModel.deleteUser(mail2, function (results) {
         if(results){
-          res.status(204).redirect('/admin/administrateur')
+          res.redirect('/admin/administrateur');
         }else{
-          res.status(404).redirect('/admin/administrateur')
+          res.redirect(500, '/admin/administrateur');
         }
       });
 });
@@ -81,19 +82,19 @@ router.get('/demandes', function (req, res, next) {
               adminModel.readAllDmdOrga(mail, date,function(orgaAllResult){
                 orgaResult ??= [];
                 console.log("avant");
-                res.status(200).render('admin_demandes', {demandeOrga: orgaResult, demandeAdmin: adminResult, demandeAllOrga: orgaAllResult, demandeAllAdmin: adminAllResult, req : req, search:{mail:mail, date:date}});
+                res.render('admin_demandes', {demandeOrga: orgaResult, demandeAdmin: adminResult, demandeAllOrga: orgaAllResult, demandeAllAdmin: adminAllResult, req : req, search:{mail:mail, date:date}});
               });
             }else{
-              res.status(404).redirect('/admin/administrateur');
+              res.status(500).send('Une erreur s\'est produite lors de la lecture des données');
             }
           });
         }else{
-          res.status(404).redirect('/admin/administrateur');
+          res.status(500).send('Une erreur s\'est produite lors de la lecture des données');
 
         }
       });
     }else{
-      res.status(404).redirect('/admin/administrateur');
+      res.status(500).send('Une erreur s\'est produite lors de la lecture des données');
 
     }
   });
@@ -108,20 +109,19 @@ router.get('/demandes_admin/accept', function (req, res, next) {
         if(result){
         // console pour simuler l'envoi d'un mail de notification 
         console.log ( " La demande de l'utilisateur ", user, "pour devenir administrateur a été acceptée");
-          res.status(204).redirect('/admin/demandes');
-        }else{
+        res.redirect('/admin/demandes_admin');
+      }else{
 
-          res.status(404).redirect('/admin/demandes?error=1');
-        }
+        res.redirect(500, '/admin/demandes_admin');
+      }
       });
     }else{
-      res.status(404).redirect('/admin/demandes');
+      res.redirect(500, '/admin/demandes_admin');
     }
   });
 });
 
 router.get('/demandes_admin/deny', function (req, res, next) {
-  let mail= req.session.userid;
   let user = req.query.user;
   let value=false;
   
@@ -129,9 +129,9 @@ router.get('/demandes_admin/deny', function (req, res, next) {
       if(result){
         // console pour simuler l'envoi d'un mail de notification 
         console.log ( " La demande de l'utilisateur ", user, "pour devenir administrateur a été refusée");
-        res.statut(204).redirect('/admin/demandes');
+        res.redirect('/admin/demandes_admin');
       }else{
-        res.status(404).redirect('/admin/demandes');
+        res.redirect(500, '/admin/demandes_admin');
       }
     });
 });
@@ -150,9 +150,9 @@ router.get('/demandes_orga/accept', function (req, res, next) {
     if(result){
       // console pour simuler l'envoi d'un mail de notification 
       console.log ( " La demande de l'utilisateur ", user, "pour créer l'organisation de siren", siren , "a été acceptée");
-      res.redirect('/admin/demandes');
+      res.redirect('/admin/demandes_orga');
     }else{      
-      res.redirect('/admin/demandes');
+      res.redirect(500, '/admin/demandes_orga');
     }
   });
 });
@@ -167,10 +167,10 @@ router.get('/demandes_orga/deny', function (req, res, next) {
       if(result){
       // console pour simuler l'envoi d'un mail de notification 
       console.log ( " La demande de l'utilisateur ", user, "pour créer l'organisation de siren", siren , "a été refusée");
-        res.status(204).redirect('/admin/demandes');
+      res.redirect('/admin/demandes_orga');
 
       }else{
-        res.status(404).redirect('/admin/demandes');
+        res.redirect(500, '/admin/demandes_orga');
       }
     });
 });
@@ -180,14 +180,14 @@ router.get('/profil_admin', function (req, res, next) {
   
     communModel.readUser(mail, function (result) {
       if(result){
-        res.status(200).render('profil_administrateur', {user: result,  req : req});
+        res.render('profil_administrateur', {user: result,  req : req});
       }else{
-        res.status(404).redirect('/users/profil_candidat')
+        res.redirect('/users/profil_candidat')
       }
     });
   
 });
-
+/*
 router.get('/profil_admin', function (req, res, next) {
   let mail = req.session.userid;
   communModel.readUser(mail, function (user) {
@@ -198,6 +198,6 @@ router.get('/profil_admin', function (req, res, next) {
     }
   });
 });
-
+*/
 
   module.exports = router;

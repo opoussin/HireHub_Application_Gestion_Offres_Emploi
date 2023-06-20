@@ -35,12 +35,12 @@ router.get('/recruteur', function (req, res, next) {
             }
           });
         } else {
-          res.status(404).send('Une erreur s\'est produite lors de la lecture des données des organisations du recruteur.');
+          res.status(500).send('Une erreur s\'est produite lors de la lecture des données des organisations du recruteur.');
         }
 
       });
     } else {
-      res.status(404).send('Une erreur s\'est produite lors de la lecture des données des offres des organisations.');
+      res.status(500).send('Une erreur s\'est produite lors de la lecture des données des offres des organisations.');
 
     }
 
@@ -54,7 +54,7 @@ router.get('/creer_offre', function (req, res, next) {
     if (orgaResult && orgaResult.length > 0) {
       res.render('creer_offre', { req: req, orgaResult: orgaResult });
     } else {
-      res.status(404).send('Une erreur s\'est produite lors de la lecture des données des organisations du recruteurs.');
+      res.status(500).send('Une erreur s\'est produite lors de la lecture des données des organisations du recruteurs.');
     }
 
   })
@@ -82,7 +82,7 @@ router.post('/creer_offre', function (req, res, next) {
       res.redirect('./recruteur');
     }
     else {
-      res.status(404).send('Une erreur s\'est produite lors de la création des données.');
+      res.redirect(500, './recruteur');
     }
   });
 });
@@ -106,14 +106,14 @@ router.get('/supp_offre/:numero', function (req, res, next) {
             console.log("suppression réussie");
             res.redirect('/recrut/recruteur');
           } else {
-            res.status(404).send('Une erreur s\'est produite lors de la suppression des données.');
+            res.redirect(500, './recruteur');
           }
         });
       } else {
-        res.status(404).redirect('/recrut/recruteur');
+        res.redirect(404, '/recrut/recruteur');
       }
     } else {
-      res.status(404).redirect('/recrut/recruteur');
+      res.redirect(404, '/recrut/recruteur');
     }
   });
 
@@ -140,10 +140,10 @@ router.get('/editer_offre/:numero', function (req, res, next) {
           }
         });
       } else {
-        res.status(404).redirect('/recrut/recruteur');
+        res.redirect(404, '/recrut/recruteur');
       }
     } else {
-      res.status(404).send('Cette offre n\' existe pas ou vous n\'y avez pas accès.');
+      res.redirect(404, '/recrut/recruteur');
     }
   });
 });
@@ -169,14 +169,14 @@ router.get('/listeCandidat/:numero', function (req, res, next) {
 
             res.render('listeCandidat', { numero, candidats: result, req: req });
           } else {
-            res.status(404).send('Cette offre n\' existe pas ou vous n\'y avez pas accès.');
+            res.status(500).send('Une erreur s\'est produite lors de la lecture des données');
           }
         });
       } else {
-        res.status(401).redirect('/recrut/recruteur');
+        res.redirect(404, '/recrut/recruteur');
       }
     } else {
-      res.status(404).redirect('/recrut/recruteur');
+      res.redirect(404, '/recrut/recruteur');
     }
   });
 });
@@ -214,11 +214,11 @@ router.post('/editer_offre/:numero', function (req, res, next) {
             res.redirect('/recrut/recruteur');
             console.log("update success");
           } else {
-            res.status(404).send('Une erreur s\'est produite lors de la mise à jour des données.');
+            res.redirect(500, '/recrut/recruteur');
           }
         });
       } else {
-        res.status(404).send('Une erreur s\'est produite lors de la mise à jour des données.');
+        res.redirect(500, '/recrut/recruteur');
       }
     });
   }
@@ -230,7 +230,7 @@ router.get('/profil_recruteur', function (req, res, next) {
     if (user) {
       res.render('profil_recruteur', { user: user, organisations: req.session.orga, req: req });
     } else {
-      res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
+      res.status(500).send('Une erreur s\'est produite lors de la lecture des données');
     }
   });
 });
@@ -245,7 +245,7 @@ router.get('/demandes', async function (req, res, next) {
     if (result) {
       res.render('recrut_demandes', { demandesRecruteur: result, organisation: orgas, req: req, search: { choix_orga: siren_choix, date: date, mail: mail } });
     } else {
-      res.status(404).send('Une erreur s\'est produite lors de la lecture des données.');
+      res.status(500).send('Une erreur s\'est produite lors de la lecture des données');
     }
   });
 });
@@ -261,11 +261,11 @@ router.get('/demandes/accept', function (req, res, next) {
           console.log(" La demande de l'utilisateur ", user, "pour rejoindre l'organisation de siren", siren, "a été acceptée");
           res.redirect('/recrut/demandes');
         } else {
-          res.status(404).send('Une erreur s\'est produite lors de l\'update');
+          res.redirect(500, '/recrut/recruteur');
         }
       });
     } else {
-      res.status(404).send('Une erreur s\'est produite lors de l\'acceptation');
+      res.redirect(500, '/recrut/recruteur');
 
     }
   });
@@ -283,7 +283,7 @@ router.get('/demandes/deny', function (req, res, next) {
 
       res.redirect('/recrut/demandes');
     } else {
-      res.status(404).send('Une erreur s\'est produite lors de la mise a jour des données.');
+      res.redirect(500, '/recrut/recruteur');
     }
   });
 });
@@ -305,14 +305,14 @@ router.get('/listeCandidat/accept/:numero/:candidat', function (req, res, next) 
           if (result) {
             res.redirect('/recrut/listeCandidat/' + numero);
           } else {
-            res.status(404).send('Une erreur s\'est produite lors de l\'acceptation');
+            res.redirect(500, '/recrut/recruteur');
           }
         });
       } else {
-        res.status(404).redirect('/recrut/recruteur');
+        res.redirect(404, '/recrut/recruteur');
       }
     } else {
-      res.status(404).redirect('/recrut/recruteur');
+      res.redirect(404, '/recrut/recruteur');
     }
   });
 });
@@ -334,14 +334,14 @@ router.get('/listeCandidat/refuse/:numero/:candidat', function (req, res, next) 
           if (result) {
             res.redirect('/recrut/listeCandidat/' + numero);
           } else {
-            res.status(404).send('Une erreur s\'est produite lors du refus');
+            res.redirect(500, '/recrut/recruteur');
           }
         });
       } else {
-        res.status(404).redirect('/recrut/recruteur');
+        res.redirect(404, '/recrut/recruteur');
       }
     } else {
-      res.status(404).redirect('/recrut/recruteur');
+      res.redirect(404, '/recrut/recruteur');
     }
   });
 });
