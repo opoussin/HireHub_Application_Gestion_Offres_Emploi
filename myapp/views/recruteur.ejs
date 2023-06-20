@@ -52,104 +52,64 @@
                                             <%var dateAuj= aujourdHui.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }).split('/').reverse().join('-')%>
                                             <% listeOffre.forEach((offre)=> { %>
                                                 <%var dateOffre= offre.dateValidite.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }).split('/').reverse().join('-')%>
-                                                <%if (dateOffre < dateAuj ) { %>
-                                                    <div class="card">
-                                                        <div class="card-body g-4">
-                                                            <div class="d-flex flex-row justify-content-between card-title">
+                                                
+                                                <div class="card">
+                                                    <div class="card-body g-4">
+                                                        <div class="d-flex flex-row justify-content-between card-title">
+                                                            <%if (dateOffre < dateAuj ) { %>
                                                                 <h5 class="text-danger fs-3">
                                                                     <%= offre.intitule %> - Offre expirée
                                                                 </h5>
-                                                                
-                                                                <a href="/recrut/supp_offre/<%= offre.numero%>" class=" text_decoration-none text-dark"> <i class="bi bi-trash px-2"></i> Supprimer</a>
-    
-                                                            </div>
-                                                            <p class="fs-6 text-muted">
-                                                                Allez dans "Editer l'offre et cochez le bouton expirée" ou étendez sa date de validité
-                                                            </p>
-                                                            <p class="fs-6 text-muted">Disponible jusqu'au: <%=offre.dateValidite.toLocaleDateString("fr")%></p>
-            
-                                                            <h6 class="card-subtitle mb-2 text-muted">
-                                                                <%= offre.nom %>
-                                                            </h6>
-                                                            <!--<p class="card-text text-dark">
-                                                                <%= offre.description %>
-                                                            </p>-->
-                                                            <div class="d-flex flex-row gap-3 py-2 text-muted">
-                                                                <div>
-                                                                    <i class="bi bi-building"></i>
-                                                                    <%=offre.type%>
-                                                                </div>
-                                                                <div>
-                                                                    <i class="bi bi-geo-alt-fill"></i>
-                                                                    <%=offre.siegeSocial%>
-                                                                </div>
-                                                                <div>
-                                                                    <i class="bi bi-clock-history"></i>
-                                                                    <%=offre.rythme%> h/semaine
-                                                                </div>
-                                                                <div>
-                                                                    <i class="bi bi-currency-euro"></i>
-                                                                    <%=offre.salaire%>/mois
-                                                                </div>
-                                                            </div>
-                                                            
-                                                            <div class="d-flex flex-row gap-2">
-                                                                <a href="/recrut/listeCandidat/<%= offre.numero%>" class="btn btn-primary">Voir candidats</a>
-                                                                <a type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal<%=offre.numero%>">
-                                                                    Voir l'offre
-                                                                </a>
-                                                                <a href="/recrut/editer_offre/<%= offre.numero%>" class="btn btn-outline-secondary">Editer l'offre</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <%} else { %>
-                                                    <div class="card">
-                                                        <div class="card-body g-4">
-                                                            <div class="d-flex flex-row justify-content-between card-title">
+                                                            <%}else if (offre.etat == 'non publiee'){%>
                                                                 <h5 class="text-dark fs-3">
-                                                                    <%= offre.intitule %>
+                                                                    <%= offre.intitule%> - Offre brouillon
                                                                 </h5>
-                                                                <a href="/recrut/supp_offre/<%= offre.numero%>" class=" text_decoration-none text-dark"> <i class="bi bi-trash px-2"></i> Supprimer</a>
-    
+                                                            <%}else { %>
+                                                                    <h5 class="text-dark fs-3">
+                                                                        <%= offre.intitule %>
+                                                                    </h5>
+                                                                <%} %>
+                                                            <a href="/recrut/supp_offre/<%= offre.numero%>" class=" text_decoration-none text-dark"> <i class="bi bi-trash px-2"></i> Supprimer</a>
+
+                                                        </div>
+                                                        
+                                                        <p class="fs-6 text-muted">Disponible jusqu'au: <%=offre.dateValidite.toLocaleDateString("fr")%></p>
+        
+                                                        <h6 class="card-subtitle mb-2 text-muted">
+                                                            <%= offre.nom %>
+                                                        </h6>
+                                                        <!--<p class="card-text text-dark">
+                                                            <%= offre.description %>
+                                                        </p>-->
+                                                        <div class="d-flex flex-row gap-3 py-2 text-muted">
+                                                            <div>
+                                                                <i class="bi bi-building"></i>
+                                                                <%=offre.type%>
                                                             </div>
-                                                            
-                                                            <p class="fs-6 text-muted">Disponible jusqu'au: <%=offre.dateValidite.toLocaleDateString("fr")%></p>
-            
-                                                            <h6 class="card-subtitle mb-2 text-muted">
-                                                                <%= offre.nom %>
-                                                            </h6>
-                                                            <!--<p class="card-text text-dark">
-                                                                <%= offre.description %>
-                                                            </p>-->
-                                                            <div class="d-flex flex-row gap-3 py-2 text-muted">
-                                                                <div>
-                                                                    <i class="bi bi-building"></i>
-                                                                    <%=offre.type%>
-                                                                </div>
-                                                                <div>
-                                                                    <i class="bi bi-geo-alt-fill"></i>
-                                                                    <%=offre.siegeSocial%>
-                                                                </div>
-                                                                <div>
-                                                                    <i class="bi bi-clock-history"></i>
-                                                                    <%=offre.rythme%> h/semaine
-                                                                </div>
-                                                                <div>
-                                                                    <i class="bi bi-currency-euro"></i>
-                                                                    <%=offre.salaire%>/mois
-                                                                </div>
+                                                            <div>
+                                                                <i class="bi bi-geo-alt-fill"></i>
+                                                                <%=offre.siegeSocial%>
                                                             </div>
-                                                            
-                                                            <div class="d-flex flex-row gap-2">
-                                                                <a href="/recrut/listeCandidat/<%= offre.numero%>" class="btn btn-primary">Voir candidats</a>
-                                                                <a type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal<%=offre.numero%>">
-                                                                    Voir l'offre
-                                                                </a>
-                                                                <a href="/recrut/editer_offre/<%= offre.numero%>" class="btn btn-outline-secondary">Editer l'offre</a>
+                                                            <div>
+                                                                <i class="bi bi-clock-history"></i>
+                                                                <%=offre.rythme%> h/semaine
+                                                            </div>
+                                                            <div>
+                                                                <i class="bi bi-currency-euro"></i>
+                                                                <%=offre.salaire%>/mois
                                                             </div>
                                                         </div>
+                                                        
+                                                        <div class="d-flex flex-row gap-2">
+                                                            <a href="/recrut/listeCandidat/<%= offre.numero%>" class="btn btn-primary">Voir candidats</a>
+                                                            <a type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal<%=offre.numero%>">
+                                                                Voir l'offre
+                                                            </a>
+                                                            <a href="/recrut/editer_offre/<%= offre.numero%>" class="btn btn-outline-secondary">Editer l'offre</a>
+                                                        </div>
                                                     </div>
-                                                    <%} %>
+                                                </div>
+                                               
                                                 
                                                 <!-- Modal à la fin mais toujours avant le footer-->
                                                 <div class="modal fade" id="exampleModal<%=offre.numero%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -198,7 +158,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <% })%> 
+                                            <% })%> 
                                         <%}else{%>
                                             <div class="card mb-4 pt-0 " style="width: autorem;">
                                                 <div class="card-body g-4">

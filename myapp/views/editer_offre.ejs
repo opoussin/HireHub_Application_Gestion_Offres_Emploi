@@ -67,7 +67,7 @@
                       name="nombrePieces" value="<%=offre.nombrePieces%>">
                   </div>
                   <label for="dateValidite">Date actuelle <%= offre.dateValidite.toLocaleDateString('fr')%>:</label>
-                    <input hidden type="dateValidite" id="dateValidite1" name="dateValidite1" value="<%=offre.dateValidite%>" selected>
+                    <input hidden type="dateValidite" id="dateValidite1" name="dateValidite1" value="<%=offre.dateValidite.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }).split('/').reverse().join('-')%>" selected>
                     <input type="dateValidite" id="dateValidite2" name="dateValidite2" placeholder="AAAA-MM-JJ">
 
                    

@@ -184,10 +184,10 @@ router.get('/listeCandidat/:numero', function (req, res, next) {
 router.post('/editer_offre/:numero', function (req, res, next) {
   if (req.body) {
     if (req.body.dateValidite2) {
-      let dateValidite = req.body.dateValidite2;
+      var dateValidite = req.body.dateValidite2;
 
     } else {
-      let dateValidite = req.body.dateValidite1;
+      var dateValidite = req.body.dateValidite1;
 
     }
     //let dateValidite = new Date( req.body.dateValidite);

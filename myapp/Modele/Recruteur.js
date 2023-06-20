@@ -91,7 +91,9 @@ module.exports = {
     },
     updateOffre: function (etat, dateValidite, pieces, nombrePieces, numero, callback) {
         let sql = mysql.format("UPDATE OFFRE SET etat=?, dateValidite=?, pieces=?, nombrePieces=? WHERE numero=?", [etat, dateValidite, pieces, nombrePieces, numero]);
+        
         db.query(sql, function (err, results) {
+            console.log(sql);
             if (err) return callback(false);
             if (results.affectedRows == 0) {
                 return callback(false);
@@ -163,6 +165,8 @@ module.exports = {
     updateFiche: function (intitule, statut, responsable, type, lieu, rythme, salaire, description, offre, callback) {
         let sql = mysql.format("UPDATE FICHE_POSTE SET intitule=?, statut=?, responsable=?, type=?, lieu=?, rythme=?, salaire=?, description=? WHERE offre=?", [intitule, statut, responsable, type, lieu, rythme, salaire, description, offre]);
         db.query(sql, function (err, results) {
+            console.log(sql);
+
             if (err) return callback(false);
             if (results.affectedRows == 0) {
                 return callback(false);
