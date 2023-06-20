@@ -79,7 +79,12 @@ router.post('/modifier_profil/mdp', function (req, res, next) {
           }
         });
       }else{
-        res.status(404).redirect('/users/modifier_profil');
+        res.status(500).send('Traitement en cours...');
+  
+        // Redirection vers une autre page après un délai de 2 secondes
+        setTimeout(() => {
+          res.redirect('/users/modifier_profil');
+        }, 2000);
       }
     });
     
