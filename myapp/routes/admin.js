@@ -1,22 +1,22 @@
-var express = require('express');
-var router = express.Router();
-var adminModel = require('../Modele/Administrateur.js')
-var communModel = require('../Modele/Commun.js')
-var recrutModel = require('../Modele/Recruteur.js')
+const express = require('express');
+const router = express.Router();
+const adminModel = require('../Modele/Administrateur.js')
+const communModel = require('../Modele/Commun.js')
+const recrutModel = require('../Modele/Recruteur.js')
 const { search } = require('./users.js');
-var middleware = require('../middleware')
+const middleware = require('../middleware')
 
 router.use(middleware.isLoggedMiddleware);
 router.use(middleware.isAdminMiddleware);
 
 
 router.get('/administrateur', function (req, res, next) {
-      var mail = req.query.mail;
-      var nom = req.query.nom;
-      var prenom = req.query.prenom;
-      var date = req.query.date;
-      var statut = req.query.statut;
-      var type = req.query.type;
+      let mail = req.query.mail;
+      let nom = req.query.nom;
+      let prenom = req.query.prenom;
+      let date = req.query.date;
+      let statut = req.query.statut;
+      let type = req.query.type;
 
       adminModel.readUserFiltre(mail, nom, prenom, date, type, statut, function (results) {
         if(results){
@@ -30,9 +30,9 @@ router.get('/administrateur', function (req, res, next) {
 });
 
 router.get('/administrateur/activer', function (req, res, next) {
-  var mail = req.session.userid;
+  let mail = req.session.userid;
   
-    var mail2 =req.query.user; 
+    let mail2 =req.query.user; 
     if(mail!=mail2){    
       adminModel.enableUser(mail2, function (results) {
         if(results){
@@ -47,7 +47,7 @@ router.get('/administrateur/activer', function (req, res, next) {
 });
 
 router.get('/administrateur/desactiver', function (req, res, next) {
-    var mail2 =req.query.user;     
+    let mail2 =req.query.user;     
       adminModel.disableUser(mail2, function (results) {
         if(results){
           res.status(204).redirect('/admin/administrateur')
@@ -58,8 +58,8 @@ router.get('/administrateur/desactiver', function (req, res, next) {
 });
 
 router.get('/administrateur/supprimer', function (req, res, next) {
-  var mail = req.session.userid;
-    var mail2 =req.query.user;
+  let mail = req.session.userid;
+    let mail2 =req.query.user;
       communModel.deleteUser(mail2, function (results) {
         if(results){
           res.status(204).redirect('/admin/administrateur')
@@ -70,8 +70,8 @@ router.get('/administrateur/supprimer', function (req, res, next) {
 });
 
 router.get('/demandes', function (req, res, next) {
-  var mail = req.query.mail;
-  var date = req.query.date;
+  let mail = req.query.mail;
+  let date = req.query.date;
   adminModel.readDmdAdmin("En attente", mail, date, function (adminResult) {  
     if(adminResult){
       adminModel.readDmdOrga("En attente",mail, date,function(orgaResult){
@@ -121,7 +121,7 @@ router.get('/demandes_admin/accept', function (req, res, next) {
 });
 
 router.get('/demandes_admin/deny', function (req, res, next) {
-  var mail= req.session.userid;
+  let mail= req.session.userid;
   let user = req.query.user;
   let value=false;
   
@@ -138,7 +138,7 @@ router.get('/demandes_admin/deny', function (req, res, next) {
 
 
 router.get('/demandes_orga/accept', function (req, res, next) {
-  var mail= req.session.userid;
+  let mail= req.session.userid;
   let siren = req.query.siren;
   let nom = req.query.nom;
   let type = req.query.type;
@@ -189,7 +189,7 @@ router.get('/profil_admin', function (req, res, next) {
 });
 
 router.get('/profil_admin', function (req, res, next) {
-  var mail = req.session.userid;
+  let mail = req.session.userid;
   communModel.readUser(mail, function (user) {
     if(user){
       res.render('profil_administrateur', { user: user[0], req : req});

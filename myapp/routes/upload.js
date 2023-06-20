@@ -1,19 +1,19 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var multer = require('multer');  
+const multer = require('multer');  
 const candidatModel = require('../Modele/Candidat.js');
 const recruteurModel = require('../Modele/Recruteur.js');
 
 const { readUser } = require('../Modele/Commun');
-var middleware = require('../middleware')
+const middleware = require('../middleware')
 const fs = require('fs');
 
 router.use(middleware.isLoggedMiddleware);
 
 // définition du répertoire de stockage des fichiers chargés (dans le répertoire du projet pour la démo, mais sur un espace dédié en prod !)
 // et du nom sous lequel entregistrer le fichier
-var my_storage = multer.diskStorage({
+const my_storage = multer.diskStorage({
   destination: function (req, file, cb) { cb(null, 'mesfichiers')},
   filename: function (req, file, cb) {
     let my_extension = file.originalname.slice(file.originalname.lastIndexOf(".")); // on extrait l'extension du nom d'origine du fichier
@@ -21,7 +21,7 @@ var my_storage = multer.diskStorage({
   }
 })
 
-var upload = multer({ storage: my_storage }) 
+const upload = multer({ storage: my_storage }) 
 
 
 router.get('/:numero', function(req, res, next) {
@@ -234,7 +234,7 @@ router.get('/supp/:numero', function (req, res, next){
   let filePath = './mesfichiers/';
   candidatModel.readCandidature(mail, numero, function (result) {
     if (result) {
-        var candidat = result;      
+        let candidat = result;      
         let files=[];
         const mots = candidat[0].piecesC.split(","); // Sépare la chaîne en mots en utilisant la virgule comme séparateur
         candidat[0].piecesC = mots.map((mot) => mot.trim()); // Stocke chaque mot dans le tableau candidat.pieces après avoir supprimé les espaces avant et après

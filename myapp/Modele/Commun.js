@@ -11,9 +11,9 @@ readOrgaUser
 */
 
 
-var db = require('./db.js');
-var mysql = require('mysql');
-var crypt = require('../Modele/pass.js')
+const db = require('./db.js');
+const mysql = require('mysql');
+const crypt = require('../Modele/pass.js')
 
 
 
@@ -36,7 +36,7 @@ module.exports = {
         });
     },
     creatUser: function (mail, nom, prenom, mdp, telephone, callback) {
-        var sql = mysql.format("INSERT INTO UTILISATEUR (mail, mdp, nom, prenom, telephone) VALUES (?,?,?,?,?)", [mail, mdp, nom, prenom, telephone]);
+        let sql = mysql.format("INSERT INTO UTILISATEUR (mail, mdp, nom, prenom, telephone) VALUES (?,?,?,?,?)", [mail, mdp, nom, prenom, telephone]);
         console.log(sql);
         db.query(sql, function (err, results) {
                 if(err){

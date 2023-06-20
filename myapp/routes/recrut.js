@@ -1,12 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var candidatModel = require('../Modele/Candidat.js')
-var communModel = require('../Modele/Commun.js')
-var recruteurModel = require('../Modele/Recruteur.js')
-var adminModel = require('../Modele/Administrateur.js')
+const express = require('express');
+const router = express.Router();
+const candidatModel = require('../Modele/Candidat.js')
+const communModel = require('../Modele/Commun.js')
+const recruteurModel = require('../Modele/Recruteur.js')
+const adminModel = require('../Modele/Administrateur.js')
 const { urlencoded } = require('express');
-var middleware = require('../middleware')
-var escape = require('escape-html');
+const middleware = require('../middleware')
+const escape = require('escape-html');
 
 
 router.use(middleware.isLoggedMiddleware);
@@ -17,13 +17,13 @@ router.use(middleware.isRecruteurMiddleware);
 
 router.get('/recruteur', function (req, res, next) {
 
-  var mail = req.session.userid;
+  let mail = req.session.userid;
   req.session.current_profil = 2; //à quoi ça sert? On peut l'enlever si on utilise le nouveau header??
-  var candidat = "";
-  var o_exp = req.query.o_exp;
-  var orga = req.query.orga;
-  var intitule = req.query.intitule;
-  var date = req.query.date;
+  let candidat = "";
+  let o_exp = req.query.o_exp;
+  let orga = req.query.orga;
+  let intitule = req.query.intitule;
+  let date = req.query.date;
 
   recruteurModel.readAllOffreOrgaRecrut(mail, orga, intitule, date, o_exp, function (results) {
     if (results) {
@@ -49,7 +49,7 @@ router.get('/recruteur', function (req, res, next) {
 });
 
 router.get('/creer_offre', function (req, res, next) {
-  var mail = req.session.userid;
+  let mail = req.session.userid;
   recruteurModel.readAllOrgaRecruteur(mail, function (orgaResult) {
     if (orgaResult && orgaResult.length > 0) {
       res.render('creer_offre', { req: req, orgaResult: orgaResult });
@@ -62,20 +62,19 @@ router.get('/creer_offre', function (req, res, next) {
 
 router.post('/creer_offre', function (req, res, next) {
   // Récupération des données du formulaire
-  var etat = escape (req.body.etat);
-  var dateValidite = escape (req.body.dateValidite);
-  var pieces = escape (req.body.pieces);
-  var nombrePieces = escape (req.body.nombrePieces);
-  var intitule = escape (req.body.intitule);
-  var statut = escape (req.body.statut);
-  var responsable = escape( req.body.responsable);
-  var type = escape (req.body.type);
-  var lieu = escape (req.body.lieu);
-  var rythme = escape (req.body.rythme);
-  var salaire = escape( req.body.salaire);
-  var description = escape (req.body.description);
-  var etat = escape (req.body.etat);
-  var organisation = escape (req.body.siren);
+  let dateValidite = escape (req.body.dateValidite);
+  let pieces = escape (req.body.pieces);
+  let nombrePieces = escape (req.body.nombrePieces);
+  let intitule = escape (req.body.intitule);
+  let statut = escape (req.body.statut);
+  let responsable = escape( req.body.responsable);
+  let type = escape (req.body.type);
+  let lieu = escape (req.body.lieu);
+  let rythme = escape (req.body.rythme);
+  let salaire = escape( req.body.salaire);
+  let description = escape (req.body.description);
+  let etat = escape (req.body.etat);
+  let organisation = escape (req.body.siren);
 
   // Appel à la fonction creat du modèle Utilisateur
   recruteurModel.creatOffre(organisation, etat, dateValidite, pieces, nombrePieces, intitule, statut, responsable, type, lieu, rythme, salaire, description, function (result) {
@@ -125,7 +124,7 @@ router.get('/editer_offre/:numero', function (req, res, next) {
   let numero = req.params.numero;
   recruteurModel.readOffre(numero, function (results) {
     if (results && results.length > 0) {
-      var result = results[0];
+      let result = results[0];
       //verification de l'appartenance à l'organisation
       let appartient = false;
       req.session.orga.forEach((org) => {
@@ -136,7 +135,7 @@ router.get('/editer_offre/:numero', function (req, res, next) {
       if (appartient) {
         communModel.readOrga(result.organisation, function (orgaResult) {
           if (orgaResult) {
-            var orga = orgaResult[0];
+            let orga = orgaResult[0];
             res.render('editer_offre', { offre: result, orga: orga, req: req, numero });
           }
         });
@@ -184,31 +183,30 @@ router.get('/listeCandidat/:numero', function (req, res, next) {
 
 router.post('/editer_offre/:numero', function (req, res, next) {
   if (req.body) {
-    var etat = req.body.etat;
     if (req.body.dateValidite2) {
-      var dateValidite = req.body.dateValidite2;
+      let dateValidite = req.body.dateValidite2;
 
     } else {
-      var dateValidite = req.body.dateValidite1;
+      let dateValidite = req.body.dateValidite1;
 
     }
-    //var dateValidite = new Date( req.body.dateValidite);
+    //let dateValidite = new Date( req.body.dateValidite);
     //console.log("req.body:",dateValidite);
-    //var dateValidite = req.body.dateValidite;
+    //let dateValidite = req.body.dateValidite;
 
-    //var dateValidite = dateValidite.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }).split('/').reverse().join('-');
+    //let dateValidite = dateValidite.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }).split('/').reverse().join('-');
     let numero = req.params.numero;
-    var pieces = escape (req.body.pieces);
-    var nombrePieces = escape (req.body.nombrePieces);
-    var intitule = escape (req.body.intitule);
-    var statut = escape (req.body.statut);
-    var responsable = escape( req.body.responsable);
-    var type = escape (req.body.type);
-    var lieu = escape (req.body.lieu);
-    var rythme = escape (req.body.rythme);
-    var salaire = escape( req.body.salaire);
-    var description = escape (req.body.description);
-    var etat = escape (req.body.etat);
+    let pieces = escape (req.body.pieces);
+    let nombrePieces = escape (req.body.nombrePieces);
+    let intitule = escape (req.body.intitule);
+    let statut = escape (req.body.statut);
+    let responsable = escape( req.body.responsable);
+    let type = escape (req.body.type);
+    let lieu = escape (req.body.lieu);
+    let rythme = escape (req.body.rythme);
+    let salaire = escape( req.body.salaire);
+    let description = escape (req.body.description);
+    let etat = escape (req.body.etat);
     recruteurModel.updateOffre(etat, dateValidite, pieces, nombrePieces, numero, function (result) {
       if (result) {
         recruteurModel.updateFiche(intitule, statut, responsable, type, lieu, rythme, salaire, description, numero, function (results) {
@@ -227,7 +225,7 @@ router.post('/editer_offre/:numero', function (req, res, next) {
 });
 
 router.get('/profil_recruteur', function (req, res, next) {
-  var mail = req.session.userid;
+  let mail = req.session.userid;
   communModel.readUser(mail, function (user) {
     if (user) {
       res.render('profil_recruteur', { user: user, organisations: req.session.orga, req: req });
@@ -238,7 +236,7 @@ router.get('/profil_recruteur', function (req, res, next) {
 });
 
 router.get('/demandes', async function (req, res, next) {
-  var orgas = req.session.orga;
+  let orgas = req.session.orga;
   let siren_choix = req.query.choix_orga;
   let date = req.query.date;
   let mail = req.query.mail;

@@ -14,8 +14,8 @@ readUserFiltre
 updateDmdAdmin
 updateDmdRecruteur
 */
-var db = require('./db.js');
-var mysql = require('mysql');
+const db = require('./db.js');
+const mysql = require('mysql');
 
 
 module.exports = {
@@ -123,7 +123,7 @@ module.exports = {
           if (rows.length !== 0) { //si l'utilisateur est déjà recruteur pour cette orga
             callback(false);
           } else {
-            var sql2 = mysql.format("INSERT INTO APPARTENIR_ORGA (mail, organisation) VALUES (?,?)", [mail, siren]);
+            let sql2 = mysql.format("INSERT INTO APPARTENIR_ORGA (mail, organisation) VALUES (?,?)", [mail, siren]);
             db.query(sql2, function (err, result) {
               if (err) return callback(false);
               callback(true);
@@ -134,7 +134,7 @@ module.exports = {
       
       
     readDmdOrga: function (statut,mail, date,callback) {
-        var sql=mysql.format("select * from DMD_ORGA WHERE statut=?");
+        let sql=mysql.format("select * from DMD_ORGA WHERE statut=?");
         if ( mail !== undefined && mail !== "") {            
             sql += ` AND  recruteur like "%${mail}%"`;
         }
@@ -147,7 +147,7 @@ module.exports = {
         });
     },
     readDmdAdmin: function (statut, mail, date, callback) {
-        var sql = mysql.format("select * from DMD_ADMIN WHERE statut=?");
+        let sql = mysql.format("select * from DMD_ADMIN WHERE statut=?");
         if ( mail !== undefined && mail !== "") {            
             sql += ` AND  utilisateur like "%${mail}%"`;
         }
@@ -160,7 +160,7 @@ module.exports = {
         });
     },
     readAllDmdOrga: function (mail, date,callback) {
-        var sql = mysql.format("select * from DMD_ORGA WHERE 1");
+        let sql = mysql.format("select * from DMD_ORGA WHERE 1");
         if ( mail !== undefined && mail !== "") {            
             sql += ` AND  recruteur like "%${mail}%"`;
         }
@@ -174,7 +174,7 @@ module.exports = {
         });
     },
     readAllDmdAdmin: function (mail, date, callback) {
-        var sql = mysql.format("select * from DMD_ADMIN WHERE 1");
+        let sql = mysql.format("select * from DMD_ADMIN WHERE 1");
         if ( mail !== undefined && mail !== "") {            
             sql += ` AND  utilisateur like "%${mail}%"`;
         }
@@ -190,7 +190,7 @@ module.exports = {
 
     readUserFiltre: function (mail, nom, prenom, date, type, statut, callback) {
         //console.log("mail" + mail + "nom" + nom + "prenom" + prenom + "date" + date);
-        var sql = mysql.format("SELECT * FROM UTILISATEUR WHERE 1");
+        let sql = mysql.format("SELECT * FROM UTILISATEUR WHERE 1");
         
         if ( mail !== undefined && mail !== "") {            
             sql += ` AND  mail like "%${mail}%"`;
