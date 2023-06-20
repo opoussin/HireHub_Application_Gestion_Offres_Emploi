@@ -204,7 +204,9 @@ router.post('/editer_offre/:numero', function (req, res, next) {
     let type = escape (req.body.type);
     let lieu = escape (req.body.lieu);
     let rythme = escape (req.body.rythme);
+    rythme = rythme.replace(/\s/g, "");
     let salaire = escape( req.body.salaire);
+    salaire = salaire.replace(/\s/g, "");
     let description = escape (req.body.description);
     let etat = escape (req.body.etat);
     recruteurModel.updateOffre(etat, dateValidite, pieces, nombrePieces, numero, function (result) {

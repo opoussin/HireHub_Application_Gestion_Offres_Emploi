@@ -60,6 +60,7 @@ router.post('/inscription', function (req, res, next) {
   let prenom = req.body.prenom;
   let mdp = req.body.mdp;
   let telephone = req.body.telephone;
+  telephone = telephone.replace(/\s/g, "");
 
   const cnilPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]{12,}$/;
   if (cnilPasswordRegex.test(mdp)) {
