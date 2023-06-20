@@ -73,7 +73,6 @@ module.exports = {
         if ( type !== "") {
             sql += `AND FICHE_POSTE.type like "%${type}%"`;
         }
-        console.log (sql);
         db.query(sql, function (err, results) {
             if(err) return callback(false);
             callback(results);

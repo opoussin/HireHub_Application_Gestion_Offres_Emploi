@@ -10,7 +10,7 @@
 
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
-<!--<%- include('./includes/head')%>-->
+<%- include('./includes/head')%>
 
 <body>
   <%- include('./components/navbar')%>
@@ -42,7 +42,7 @@
                           <button type="submit" class="btn btn-primary justify-content-center align-items-center">Charger le fichier</button>
                         </a>
                       <%}else{%>
-                        <p class="display-12"> Vous avez déjà candidaté à cette offre</p>
+                        <p class="display-12 text-danger"> Vous avez déjà candidaté à cette offre</p>
                       <%}%>
                       
 
@@ -107,7 +107,7 @@
       </div>
 
       <%- include('./components/footer')%>
-
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </div>
 </body>
 

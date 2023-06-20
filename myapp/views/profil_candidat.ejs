@@ -69,13 +69,13 @@
                                                         Voir l'offre
                                                     </button>
                                                     <% if(candidature.etatC==1){%>
-                                                    <a href="#" class="btn btn-secondary ">Acceptée</a>
+                                                    <a href="#" class="text-success px-3" >Acceptée</a>
                                                     <%}else if(candidature.etatC==2){%>
-                                                        <a href="#" class="btn btn-secondary red">Refusée</a>
+                                                        <a href="#" class="text-danger px-3">Refusée</a>
                                                     <%}else{%>
                                                         <a href="/candidature/modifier_candidature/<%=candidature.numero%>" class="btn btn-secondary ">Modifier candidature</a>
                                                     <%}%>
-                                                    <a href="/candidature/supp/<%=candidature.numero%>" class="btn btn-secondary ">Supprimer candidature</a>
+                                                    <a href="/candidature/supp/<%=candidature.numero%>" class="btn btn-link text-dark"><i class="bi bi-x-lg px-2"></i>Supprimer candidature</a>
 
                                                 </div>
                                             </div>
