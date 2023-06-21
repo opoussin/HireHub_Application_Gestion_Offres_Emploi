@@ -183,7 +183,6 @@ module.exports = {
     },
 
     readUserFiltre: function (mail, nom, prenom, date, type, statut, callback) {
-        //console.log("mail" + mail + "nom" + nom + "prenom" + prenom + "date" + date);
         let sql = mysql.format("SELECT * FROM UTILISATEUR WHERE 1");
         
         if ( mail !== undefined && mail !== "") {            

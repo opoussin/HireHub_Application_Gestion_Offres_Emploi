@@ -37,7 +37,6 @@ module.exports = {
     },
     creatUser: function (mail, nom, prenom, mdp, telephone, callback) {
         let sql = mysql.format("INSERT INTO UTILISATEUR (mail, mdp, nom, prenom, telephone) VALUES (?,?,?,?,?)", [mail, mdp, nom, prenom, telephone]);
-        console.log(sql);
         db.query(sql, function (err, results) {
                 if(err){
                     return callback(false);

@@ -11,12 +11,11 @@ module.exports = {
     bcrypt.compare(plaintextPassword, hash, function (err, result) {
 
       if (result){
-        console.log("pk oui");
         // password is valid
         callback(true);
       }
         
-      else {console.log("benc faux du coup ");callback(false);}
+      else {callback(false);}
     });
   },
 }; 

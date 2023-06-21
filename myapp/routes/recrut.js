@@ -75,7 +75,6 @@ router.post('/creer_offre', function (req, res, next) {
   let description = escape (req.body.description);
   let etat = escape (req.body.etat);
   let organisation = escape (req.body.siren);
-  console.log(req.body);
 
   // Appel à la fonction creat du modèle Utilisateur
   recruteurModel.creatOffre(organisation, etat, dateValidite, pieces, nombrePieces, intitule, statut, responsable, type, lieu, rythme, salaire, description, function (result) {
@@ -111,7 +110,6 @@ router.get('/supp_offre/:numero', function (req, res, next) {
           }
         });
       } else {
-        console.log("dfgd");
         res.redirect(404, '/recrut/recruteur');
       }
     } else {
@@ -216,7 +214,6 @@ router.post('/editer_offre/:numero', function (req, res, next) {
         recruteurModel.updateFiche(intitule, statut, responsable, type, lieu, rythme, salaire, description, numero, function (results) {
           if (results) {
             res.redirect('/recrut/recruteur');
-            console.log("update success");
           } else {
             res.redirect(500, '/recrut/recruteur');
           }

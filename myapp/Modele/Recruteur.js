@@ -38,14 +38,12 @@ module.exports = {
         let self = this;
         //let numero = 0;
         db.query(sql, function (err, results) {
-            console.log(sql);
             if (err) {
                 return callback(false);
             }else{
             
                 let sql2 = "SELECT numero FROM OFFRE ORDER BY numero DESC LIMIT 1";
                 db.query(sql2, function (err, results) {
-                    console.log(sql2);
 
                     if (err) {
                         return callback(false);
@@ -94,7 +92,6 @@ module.exports = {
         let sql = mysql.format("UPDATE OFFRE SET etat=?, dateValidite=?, pieces=?, nombrePieces=? WHERE numero=?", [etat, dateValidite, pieces, nombrePieces, numero]);
         
         db.query(sql, function (err, results) {
-            console.log(sql);
             if (err) return callback(false);
             if (results.affectedRows == 0) {
                 return callback(false);
@@ -145,7 +142,6 @@ module.exports = {
     readOffre: function (numero, callback) {
         sql = "SELECT * FROM OFFRE o INNER JOIN FICHE_POSTE f ON f.offre = o.numero WHERE numero = ?";
         db.query(sql, numero, function (err, results) {
-            console.log(sql)
             if (err){ return callback(false);
             }else{
                 callback(results);
@@ -167,7 +163,6 @@ module.exports = {
     updateFiche: function (intitule, statut, responsable, type, lieu, rythme, salaire, description, offre, callback) {
         let sql = mysql.format("UPDATE FICHE_POSTE SET intitule=?, statut=?, responsable=?, type=?, lieu=?, rythme=?, salaire=?, description=? WHERE offre=?", [intitule, statut, responsable, type, lieu, rythme, salaire, description, offre]);
         db.query(sql, function (err, results) {
-            console.log(sql);
 
             if (err) return callback(false);
             if (results.affectedRows == 0) {

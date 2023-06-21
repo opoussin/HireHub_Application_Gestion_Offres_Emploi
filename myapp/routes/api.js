@@ -7,7 +7,6 @@ var candidatModel = require('../Modele/Candidat.js')
      
 router.get('/offres', function(req,res,next){
     candidatModel.readAllOffreValide( function (results) {
-       console.log(results);
         if(results){
 
             return res.status(200).json(results); 

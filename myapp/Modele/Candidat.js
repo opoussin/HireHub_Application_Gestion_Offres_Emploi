@@ -90,7 +90,6 @@ module.exports = {
                 let sql = mysql.format("INSERT INTO DMD_ORGA (nom, siren, type, siegeSocial, recruteur) VALUES (?,?,?,?,?)", [nom, siren, type, siegeSocial, mail]);
 
                 db.query(sql, function (err, results) {
-                    console.log(sql);
                     if (err) return callback(false);
                     callback(true);
                 });

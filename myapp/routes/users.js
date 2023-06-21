@@ -68,7 +68,6 @@ router.post('/modifier_profil/mdp', function (req, res, next) {
 
       crypt.generateHash(mdp1, function(crypto){
       if (crypto){
-        console.log (mdp1);
 
         candidatModel.updateUserMdp(crypto, mail, function (result) {
           if (result) {
@@ -152,8 +151,6 @@ router.post('/creer_orga', function (req, res, next) {
   let nom = escape(req.body.nom);
   let type = escape (req.body.type);
   let siege = escape (req.body.siege);
-  console.log(siren2);
-  console.log(req.body.siren);
   if ((typeof nom === "string") &&(typeof type === "string") &&(typeof siege === "string")){
      candidatModel.creatDmdOrga(nom, siren2, type, siege, mail, function (result) {
     if (result) {

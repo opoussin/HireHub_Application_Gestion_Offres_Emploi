@@ -152,7 +152,6 @@ router.get('/demandes_orga/accept', function (req, res, next) {
       console.log ( " La demande de l'utilisateur ", user, "pour créer l'organisation de siren", siren , "a été acceptée");
       res.redirect('/admin/administrateur');
     }else{      
-      console.log("ss");
       res.redirect(500, '/admin/administrateur');
     }
   });
