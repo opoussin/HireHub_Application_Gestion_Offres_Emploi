@@ -24,25 +24,7 @@ var uploadRouter = require('./routes/upload');
 var apiRouter = require('./routes/api');
 
 app.use(cookieParser());
-//AUTHENTIFICATION
-/*
-const generateRandomKey = (length) => {
-  return crypto.randomBytes(length).toString('hex');
-};
 
-const keyLength = 32; // Longueur de la clé en octets
-const randomKey = generateRandomKey(keyLength);
-
-
-const deuxHeures = 1000*60*60*2;
-
-app.use(session({
-  secret: randomKey,
-  resave: false,
-  saveUninitialized :true,
-  cookie: {httpOnly: true, secure: false, maxAge: deuxHeures}
-}));*/
-// FIN AUTHENTIFICATION
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
