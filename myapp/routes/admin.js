@@ -146,12 +146,15 @@ router.get('/demandes_orga/accept', function (req, res, next) {
 
   let value=1;
   adminModel.acceptOrga(nom, siren, type, siege, user, value, function (result) {
-    
+    if(result){
 
       // console pour simuler l'envoi d'un mail de notification 
       console.log ( " La demande de l'utilisateur ", user, "pour créer l'organisation de siren", siren , "a été acceptée");
       res.redirect('/admin/administrateur');
-    
+    }else{      
+      console.log("ss");
+      res.redirect(500, '/admin/demandes');
+    }
   });
 });
 

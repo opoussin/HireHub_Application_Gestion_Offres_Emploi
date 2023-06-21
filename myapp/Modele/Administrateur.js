@@ -91,12 +91,12 @@ module.exports = {
         let self = this;
         this.readOrgaSiren(siren, function(result){
             if(result){
-                self.creatOrga(nom,siren,type,siegesocial, function(result){
-                    if(result){
-                        self.acceptRecruteur(mail,siren, function(result){
-                            if(result){
-                                self.updateDmdOrga(siren, mail, value, function(result){
-                                    if(result){
+                self.creatOrga(nom,siren,type,siegesocial, function(result2){
+                    if(result2){
+                        self.acceptRecruteur(mail,siren, function(result3){
+                            if(result3){
+                                self.updateDmdOrga(siren, mail, value, function(result4){
+                                    if(result4){
                                         return callback(true);
                                     }
                                 });
