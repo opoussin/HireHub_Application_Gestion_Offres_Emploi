@@ -75,6 +75,7 @@ router.post('/creer_offre', function (req, res, next) {
   let description = escape (req.body.description);
   let etat = escape (req.body.etat);
   let organisation = escape (req.body.siren);
+  console.log(req.body);
 
   // Appel à la fonction creat du modèle Utilisateur
   recruteurModel.creatOffre(organisation, etat, dateValidite, pieces, nombrePieces, intitule, statut, responsable, type, lieu, rythme, salaire, description, function (result) {
@@ -90,12 +91,17 @@ router.post('/creer_offre', function (req, res, next) {
 router.get('/supp_offre/:numero', function (req, res, next) {
   let numero = req.params.numero;
   recruteurModel.readOffre(numero, function (offre) {
-    if (offre && offre.legnth > 0) {
+    if (offre && offre.length > 0) {
       //verification de l'appartenance à l'organisation
       let appartient = false;
       req.session.orga.forEach((org) => {
+        console.log(org.organisation);
+        console.log(offre[0].organisation);
 
-        if (org.organisation == offre.organisation) {
+        console.log(offre);
+
+        if (org.organisation == offre[0].organisation) {
+
           appartient = true;
         }
       })
@@ -110,6 +116,7 @@ router.get('/supp_offre/:numero', function (req, res, next) {
           }
         });
       } else {
+        console.log("dfgd");
         res.redirect(404, '/recrut/recruteur');
       }
     } else {

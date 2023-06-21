@@ -38,12 +38,15 @@ module.exports = {
         let self = this;
         //let numero = 0;
         db.query(sql, function (err, results) {
+            console.log(sql);
             if (err) {
                 return callback(false);
             }else{
             
                 let sql2 = "SELECT numero FROM OFFRE ORDER BY numero DESC LIMIT 1";
                 db.query(sql2, function (err, results) {
+                    console.log(sql2);
+
                     if (err) {
                         return callback(false);
                     }
@@ -55,10 +58,8 @@ module.exports = {
     },
     
     deleteOffre: function (numero, callback) {
-        db.query("DELETE FROM OFFRE WHERE numero=?", [numero], function (err){
-            if (err) return callback(false);
-            if (results.affectedRows == 0) {
-                return callback(false);
+        db.query("DELETE FROM OFFRE WHERE numero=?", [numero], function (results, err){
+            if (err) {return callback(false);
             }else{
                 callback(true);
             }
@@ -144,6 +145,7 @@ module.exports = {
     readOffre: function (numero, callback) {
         sql = "SELECT * FROM OFFRE o INNER JOIN FICHE_POSTE f ON f.offre = o.numero WHERE numero = ?";
         db.query(sql, numero, function (err, results) {
+            console.log(sql)
             if (err){ return callback(false);
             }else{
                 callback(results);
