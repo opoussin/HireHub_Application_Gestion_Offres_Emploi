@@ -81,7 +81,6 @@ router.get('/demandes', function (req, res, next) {
             if(adminAllResult){ 
               adminModel.readAllDmdOrga(mail, date,function(orgaAllResult){
                 orgaResult ??= [];
-                console.log("avant");
                 res.render('admin_demandes', {demandeOrga: orgaResult, demandeAdmin: adminResult, demandeAllOrga: orgaAllResult, demandeAllAdmin: adminAllResult, req : req, search:{mail:mail, date:date}});
               });
             }else{
@@ -112,11 +111,11 @@ router.get('/demandes_admin/accept', function (req, res, next) {
         res.redirect('/admin/demandes_admin');
       }else{
 
-        res.redirect(500, '/admin/demandes_admin');
+        res.redirect(500, '/admin/demandes');
       }
       });
     }else{
-      res.redirect(500, '/admin/demandes_admin');
+      res.redirect(500, '/admin/demandes');
     }
   });
 });
@@ -129,9 +128,9 @@ router.get('/demandes_admin/deny', function (req, res, next) {
       if(result){
         // console pour simuler l'envoi d'un mail de notification 
         console.log ( " La demande de l'utilisateur ", user, "pour devenir administrateur a été refusée");
-        res.redirect('/admin/demandes_admin');
+        res.redirect('/admin/demandes');
       }else{
-        res.redirect(500, '/admin/demandes_admin');
+        res.redirect(500, '/admin/demandes');
       }
     });
 });
@@ -146,13 +145,14 @@ router.get('/demandes_orga/accept', function (req, res, next) {
   let user = req.query.user;
 
   let value=1;
-  adminModel.acceptOrga(nom, siren, type, siege, mail,value, function (result) {
+  adminModel.acceptOrga(nom, siren, type, siege, user, value, function (result) {
     if(result){
+
       // console pour simuler l'envoi d'un mail de notification 
       console.log ( " La demande de l'utilisateur ", user, "pour créer l'organisation de siren", siren , "a été acceptée");
-      res.redirect('/admin/demandes_orga');
+      res.redirect('/admin/demandes');
     }else{      
-      res.redirect(500, '/admin/demandes_orga');
+      res.redirect(500, '/admin/demandes');
     }
   });
 });
@@ -167,10 +167,10 @@ router.get('/demandes_orga/deny', function (req, res, next) {
       if(result){
       // console pour simuler l'envoi d'un mail de notification 
       console.log ( " La demande de l'utilisateur ", user, "pour créer l'organisation de siren", siren , "a été refusée");
-      res.redirect('/admin/demandes_orga');
+      res.redirect('/admin/administrateur');
 
       }else{
-        res.redirect(500, '/admin/demandes_orga');
+        res.redirect(500, '/admin/demandes');
       }
     });
 });

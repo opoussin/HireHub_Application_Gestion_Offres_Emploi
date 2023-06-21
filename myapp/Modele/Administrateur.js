@@ -91,18 +91,13 @@ module.exports = {
         let self = this;
         this.readOrgaSiren(siren, function(result){
             if(result){
-                console.log("1");
                 self.creatOrga(nom,siren,type,siegesocial, function(result){
                     if(result){
-                        console.log("2");
                         self.acceptRecruteur(mail,siren, function(result){
                             if(result){
-                                console.log("3");
                                 self.updateDmdOrga(siren, mail, value, function(result){
                                     if(result){
-                                        console.log("4");
-
-                                        callback(true);
+                                        return callback(true);
                                     }
                                 });
                             }
@@ -248,6 +243,7 @@ module.exports = {
     },
     updateDmdOrga: function (siren, mail, value, callback) {
         if(value){
+
             db.query("UPDATE DMD_ORGA SET statut='Validé' WHERE siren=? AND recruteur=?", [siren,mail] , function
             (err, results) {
                 if (err) return callback(false);
