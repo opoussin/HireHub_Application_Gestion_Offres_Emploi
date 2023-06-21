@@ -97,8 +97,8 @@ module.exports = {
                             if(result3){
                                 self.updateDmdOrga(siren, mail, value, function(result4){
                                     if(result4){
-                                        return callback(true);
-                                    }
+                                        return callback(true);}
+                                    
                                 });
                             }
                         });
@@ -106,7 +106,6 @@ module.exports = {
                     
                 });
             }
-            callback(false);
             
         });
     },

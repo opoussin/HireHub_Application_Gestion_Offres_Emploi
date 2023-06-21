@@ -153,7 +153,7 @@ router.get('/demandes_orga/accept', function (req, res, next) {
       res.redirect('/admin/administrateur');
     }else{      
       console.log("ss");
-      res.redirect(500, '/admin/demandes');
+      res.redirect(500, '/admin/administrateur');
     }
   });
 });
