@@ -29,7 +29,7 @@ router.get('/:numero', function(req, res, next) {
   let numero = req.params.numero;
 
   recruteurModel.readOffre(numero, function (offre){
-    if (offre) {//ne marche pas
+    if (offre) {
       if(offre[0].etat == 'publiee'){
       readUser(mail, function (result){
         candidatModel.readCandidature(mail, numero, function (candid){
@@ -113,8 +113,7 @@ router.post('/envoi', function(req, res, next) {
           recruteurModel.readOffre(numero, function (offre){
             if (offre){
               candidatModel.readCandidature(mail, numero, function (candid){
-                res.render('file_upload',{req: req, candid, connected_user : user, files_array : req.session.uploaded_files, numero, offre : offre, message : "Nombres de pièces de candidatures insuffisants"});
-          //utiliser le message
+                res.render('file_upload',{req: req, candid, connected_user : user, files_array : req.session.uploaded_files, numero, offre : offre});
               });
             }else{
               res.status(500).send('Une erreur s\'est produite lors de la lecture de l\'offre.');
