@@ -58,7 +58,7 @@ module.exports = {
     },
     
     deleteOffre: function (numero, callback) {
-        db.query("DELETE FROM OFFRE WHERE numero=?", [numero], function (results, err){
+        db.query("DELETE FROM OFFRE WHERE numero=?", numero, function (err, results){
             if (err) {return callback(false);
             }else{
                 callback(true);

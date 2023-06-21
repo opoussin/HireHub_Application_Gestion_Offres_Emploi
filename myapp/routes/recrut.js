@@ -95,10 +95,6 @@ router.get('/supp_offre/:numero', function (req, res, next) {
       //verification de l'appartenance à l'organisation
       let appartient = false;
       req.session.orga.forEach((org) => {
-        console.log(org.organisation);
-        console.log(offre[0].organisation);
-
-        console.log(offre);
 
         if (org.organisation == offre[0].organisation) {
 
@@ -109,7 +105,6 @@ router.get('/supp_offre/:numero', function (req, res, next) {
         // verifie que l'offre appartient bien à une des entreprises de l'utilisateur  
         recruteurModel.deleteOffre(numero, function (result) {
           if (result) {
-            console.log("suppression réussie");
             res.redirect('/recrut/recruteur');
           } else {
             res.redirect(500, './recruteur');
