@@ -108,7 +108,7 @@ router.get('/demandes_admin/accept', function (req, res, next) {
         if(result){
         // console pour simuler l'envoi d'un mail de notification 
         console.log ( " La demande de l'utilisateur ", user, "pour devenir administrateur a été acceptée");
-        res.redirect('/admin/demandes_admin');
+        res.redirect('/admin/demandes');
       }else{
 
         res.redirect(500, '/admin/demandes');
