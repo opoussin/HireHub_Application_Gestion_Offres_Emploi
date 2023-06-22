@@ -51,7 +51,7 @@ router.post('/modifier_profil', function (req, res, next) {
         if (result){
           res.redirect('/users/profil_candidat');
         }else{
-          res.redirect(500, '/users/modifier_profil');
+          res.redirect('/users/modifier_profil');
         }    
       });
 
@@ -78,7 +78,7 @@ router.post('/modifier_profil/mdp', function (req, res, next) {
           }
         });
       }else{
-        res.redirect(500, '/users/modifier_profil');
+        res.redirect('/users/modifier_profil');
 
       }
       });
@@ -231,7 +231,7 @@ router.post('/demandes/recruteur', function (req, res, next) {
       if (result) {
         res.redirect('/users/demandes');
       } else {
-        res.redirect(500, '/users/demandes');
+        res.redirect('/users/demandes');
       }
   });
 });
@@ -242,7 +242,7 @@ router.post('/demandes/admin', function (req, res, next) {
     if (result) {
       res.redirect('/users/demandes');
     } else {
-      res.redirect(500, '/users/demandes');
+      res.redirect('/users/demandes');
     }
   });
 });
@@ -254,7 +254,7 @@ router.get('/demandes/recruteurSupp/:siren', function (req, res, next) {
     if (result) {
       res.redirect('/users/demandes');
     } else {
-      res.redirect(500, '/users/demandes');
+      res.redirect('/users/demandes');
     }
   });
  
@@ -267,7 +267,7 @@ router.get('/demandes/adminSupp', function (req, res, next) {
     if (result) {
       res.redirect('/users/demandes');
     } else {
-      res.redirect(500, '/users/demandes');
+      res.redirect('/users/demandes');
     }
   });
  

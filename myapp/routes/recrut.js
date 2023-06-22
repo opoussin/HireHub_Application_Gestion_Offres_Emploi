@@ -82,7 +82,7 @@ router.post('/creer_offre', function (req, res, next) {
       res.redirect('./recruteur');
     }
     else {
-      res.redirect(500, './recruteur');
+      res.redirect('./recruteur');
     }
   });
 });
@@ -106,14 +106,14 @@ router.get('/supp_offre/:numero', function (req, res, next) {
           if (result) {
             res.redirect('/recrut/recruteur');
           } else {
-            res.redirect(500, './recruteur');
+            res.redirect('./recruteur');
           }
         });
       } else {
-        res.redirect(404, '/recrut/recruteur');
+        res.redirect('/recrut/recruteur');
       }
     } else {
-      res.redirect(404, '/recrut/recruteur');
+      res.redirect('/recrut/recruteur');
     }
   });
 
@@ -140,10 +140,10 @@ router.get('/editer_offre/:numero', function (req, res, next) {
           }
         });
       } else {
-        res.redirect(404, '/recrut/recruteur');
+        res.redirect('/recrut/recruteur');
       }
     } else {
-      res.redirect(404, '/recrut/recruteur');
+      res.redirect('/recrut/recruteur');
     }
   });
 });
@@ -173,10 +173,10 @@ router.get('/listeCandidat/:numero', function (req, res, next) {
           }
         });
       } else {
-        res.redirect(404, '/recrut/recruteur');
+        res.redirect('/recrut/recruteur');
       }
     } else {
-      res.redirect(404, '/recrut/recruteur');
+      res.redirect('/recrut/recruteur');
     }
   });
 });
@@ -215,11 +215,11 @@ router.post('/editer_offre/:numero', function (req, res, next) {
           if (results) {
             res.redirect('/recrut/recruteur');
           } else {
-            res.redirect(500, '/recrut/recruteur');
+            res.redirect( '/recrut/recruteur');
           }
         });
       } else {
-        res.redirect(500, '/recrut/recruteur');
+        res.redirect('/recrut/recruteur');
       }
     });
   }
@@ -262,11 +262,11 @@ router.get('/demandes/accept', function (req, res, next) {
           console.log(" La demande de l'utilisateur ", user, "pour rejoindre l'organisation de siren", siren, "a été acceptée");
           res.redirect('/recrut/demandes');
         } else {
-          res.redirect(500, '/recrut/recruteur');
+          res.redirect('/recrut/recruteur');
         }
       });
     } else {
-      res.redirect(500, '/recrut/recruteur');
+      res.redirect('/recrut/recruteur');
 
     }
   });
@@ -284,7 +284,7 @@ router.get('/demandes/deny', function (req, res, next) {
 
       res.redirect('/recrut/demandes');
     } else {
-      res.redirect(500, '/recrut/recruteur');
+      res.redirect('/recrut/recruteur');
     }
   });
 });
@@ -306,14 +306,14 @@ router.get('/listeCandidat/accept/:numero/:candidat', function (req, res, next) 
           if (result) {
             res.redirect('/recrut/listeCandidat/' + numero);
           } else {
-            res.redirect(500, '/recrut/recruteur');
+            res.redirect('/recrut/recruteur');
           }
         });
       } else {
-        res.redirect(404, '/recrut/recruteur');
+        res.redirect('/recrut/recruteur');
       }
     } else {
-      res.redirect(404, '/recrut/recruteur');
+      res.redirect('/recrut/recruteur');
     }
   });
 });
@@ -335,14 +335,14 @@ router.get('/listeCandidat/refuse/:numero/:candidat', function (req, res, next) 
           if (result) {
             res.redirect('/recrut/listeCandidat/' + numero);
           } else {
-            res.redirect(500, '/recrut/recruteur');
+            res.redirect('/recrut/recruteur');
           }
         });
       } else {
-        res.redirect(404, '/recrut/recruteur');
+        res.redirect('/recrut/recruteur');
       }
     } else {
-      res.redirect(404, '/recrut/recruteur');
+      res.redirect('/recrut/recruteur');
     }
   });
 });

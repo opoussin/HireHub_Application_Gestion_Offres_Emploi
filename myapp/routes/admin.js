@@ -22,7 +22,7 @@ router.get('/administrateur', function (req, res, next) {
         if(results){
           res.render('admin', {userResult: results, req: req, search:{mail:mail, nom:nom, prenom:prenom, date:date, type:type, statut:statut} });
         }else{
-          res.redirect(500, '/admin/administrateur');
+          res.redirect('/admin/administrateur');
 
         }
         
@@ -39,7 +39,7 @@ router.get('/administrateur/activer', function (req, res, next) {
         if(results){
           res.redirect('/admin/administrateur');
         }else{
-          res.redirect(500, '/admin/administrateur');
+          res.redirect('/admin/administrateur');
         };
       });
     }else{
@@ -53,7 +53,7 @@ router.get('/administrateur/desactiver', function (req, res, next) {
         if(results){
           res.redirect('/admin/administrateur');
         }else{
-          res.redirect(500, '/admin/administrateur');
+          res.redirect('/admin/administrateur');
         };
       });
 });
@@ -65,7 +65,7 @@ router.get('/administrateur/supprimer', function (req, res, next) {
         if(results){
           res.redirect('/admin/administrateur');
         }else{
-          res.redirect(500, '/admin/administrateur');
+          res.redirect('/admin/administrateur');
         }
       });
 });
@@ -111,11 +111,11 @@ router.get('/demandes_admin/accept', function (req, res, next) {
         res.redirect('/admin/demandes');
       }else{
 
-        res.redirect(500, '/admin/demandes');
+        res.redirect('/admin/demandes');
       }
       });
     }else{
-      res.redirect(500, '/admin/demandes');
+      res.redirect('/admin/demandes');
     }
   });
 });
@@ -130,7 +130,7 @@ router.get('/demandes_admin/deny', function (req, res, next) {
         console.log ( " La demande de l'utilisateur ", user, "pour devenir administrateur a été refusée");
         res.redirect('/admin/demandes');
       }else{
-        res.redirect(500, '/admin/demandes');
+        res.redirect('/admin/demandes');
       }
     });
 });
@@ -152,7 +152,7 @@ router.get('/demandes_orga/accept', function (req, res, next) {
       console.log ( " La demande de l'utilisateur ", user, "pour créer l'organisation de siren", siren , "a été acceptée");
       res.redirect('/admin/administrateur');
     }else{      
-      res.redirect(500, '/admin/administrateur');
+      res.redirect('/admin/administrateur');
     }
   });
 });
@@ -170,7 +170,7 @@ router.get('/demandes_orga/deny', function (req, res, next) {
       res.redirect('/admin/administrateur');
 
       }else{
-        res.redirect(500, '/admin/demandes');
+        res.redirect('/admin/demandes');
       }
     });
 });
@@ -187,17 +187,6 @@ router.get('/profil_admin', function (req, res, next) {
     });
   
 });
-/*
-router.get('/profil_admin', function (req, res, next) {
-  let mail = req.session.userid;
-  communModel.readUser(mail, function (user) {
-    if(user){
-      res.render('profil_administrateur', { user: user[0], req : req});
-    }else{
-      res.status(404).redirect('/connexion');
-    }
-  });
-});
-*/
+
 
   module.exports = router;

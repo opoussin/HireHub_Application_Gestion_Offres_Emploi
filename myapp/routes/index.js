@@ -30,12 +30,12 @@ router.post('/connexion', function (req, res, next) {
             }else{
               session.orga=[];
             }
-            res.status(200).redirect('/users/candidat');
+            res.redirect('/users/candidat');
           });
     }else if(result.statut==0){
-      res.status(404).render('connexion', {message : "Compte désactivé."});
+      res.render('connexion', {message : "Compte désactivé."});
     } else {
-      res.status(404).render('connexion', {message : "Identifiant ou mot de passe incorrect"});
+      res.render('connexion', {message : "Identifiant ou mot de passe incorrect"});
     }
   });
 });
@@ -47,7 +47,7 @@ router.get('/inscription', function (req, res, next) {
 
   }else{
     //sinon, pas le droit de s'inscrire
-    res.status(401).render('index');
+    res.render('index');
   }
 });
 
@@ -70,20 +70,20 @@ router.post('/inscription', function (req, res, next) {
               res.render('connexion', {message2 : "Inscription réussie, veuillez vous connecter."});
             }
             else{
-              res.status(500).redirect('/inscription');
+              res.redirect('/inscription');
             }
           });
         }else{
-          res.status(415).render('inscription',  {messagetel : "Numéro de téléphone incorect."})
+          res.render('inscription',  {messagetel : "Numéro de téléphone incorect."})
         }
         
       }else{
-        res.status(415).redirect('/inscription');
+        res.redirect('/inscription');
       }
     });
     
   }else{
-    res.status(415).render('inscription',  {message : "Mot de passe incorect, veuillez en choisir un d'au minimum 12 caractères comprenant des majuscules, des minuscules, des chiffres et des caractères spéciaux."})
+    res.render('inscription',  {message : "Mot de passe incorect, veuillez en choisir un d'au minimum 12 caractères comprenant des majuscules, des minuscules, des chiffres et des caractères spéciaux."})
   }
 });
 
