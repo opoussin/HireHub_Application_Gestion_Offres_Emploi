@@ -18,8 +18,10 @@ module.exports = {
 
       isLoggedMiddleware : (req,res, next) =>{
         if(req.session.userid){
+          console.log("session ",req.session);
           return next();
         }else{
+          console.log("pas de session")
           res.status(401).redirect('/');
         };
       },

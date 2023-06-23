@@ -9,7 +9,6 @@ const middleware = require('../middleware')
 router.use(middleware.isLoggedMiddleware);
 router.use(middleware.isAdminMiddleware);
 
-
 router.get('/administrateur', function (req, res, next) {
       let mail = req.query.mail;
       let nom = req.query.nom;
